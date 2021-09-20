@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>favorite on Echosec @QIN2DIM</title>
+    <link>https://qin2dim.github.io/tags/favorite/</link>
+    <description>Recent content in favorite on Echosec @QIN2DIM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Sep 2021 05:00:48 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/favorite/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome-Resources</title>
+      <link>https://qin2dim.github.io/p/awesome-resources/</link>
+      <pubDate>Mon, 20 Sep 2021 05:00:48 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/p/awesome-resources/</guid>
+      <description>Aggregator  聚合引擎。
+ Network Security   黑客导航 | 安全网址导航
+  听风者情报源
+  ToolBox   优聚集
+  全国图书馆参考咨询联盟 (superlib.net) | 读秀网
+  Curiosity  一些猎奇网站。
+   小霸王，其乐无穷
+  Zoom Earth | 实时气象卫星图像
+  Excellent ERs  汇总各个主题下优秀的博主以及细分领域极具代表性的开源工程项目。（TODO 需细化分类）
+ Bloger/Youtuber   Youtuber|电玩科技AK
+  Youtuber|波仔
+  Bloger|阮一峰
+  Bloger|DuyaoSS-机场测速和简介
+  Bloger|Barry-10BeastsVPN测评
+  Bloger|梯子大神
+  &amp;hellip;</description>
+    </item>
+    
+  </channel>
+</rss>
