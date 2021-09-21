@@ -1,9 +1,28 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hello World on Echosec @QIN2DIM</title><link>https://qin2dim.github.io/tags/hello-world/</link><description>Recent content in Hello World on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 19 Sep 2021 23:40:03 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/hello-world/index.xml" rel="self" type="application/rss+xml"/><item><title>『 Hugo 』Hello Hugo</title><link>https://qin2dim.github.io/p/hello-hugo/</link><pubDate>Sun, 19 Sep 2021 23:40:03 +0800</pubDate><guid>https://qin2dim.github.io/p/hello-hugo/</guid><description>使用Hugo/theme:Stack + Github Pages 快速搭建个人博客网站，足够轻量，包含最新特性，快速上手，记录一些容易踩的坑。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hello World on Echosec @QIN2DIM</title>
+    <link>https://qin2dim.github.io/tags/hello-world/</link>
+    <description>Recent content in Hello World on Echosec @QIN2DIM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 Sep 2021 23:40:03 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/hello-world/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『 Hugo 』Hello Hugo</title>
+      <link>https://qin2dim.github.io/p/hello-hugo/</link>
+      <pubDate>Sun, 19 Sep 2021 23:40:03 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/p/hello-hugo/</guid>
+      <description>使用Hugo/theme:Stack + Github Pages 快速搭建个人博客网站，足够轻量，包含最新特性，快速上手，记录一些容易踩的坑。
 注意：若您将本博客作为您的部署参考指南，默认您拥有一枚可用的Github账号，了解git，bash/shell常用指令，且您的本机运行环境中已预先安装hugo脚手架。本篇博客的行内指令若无特殊说明，均在站点根目录下执行，请注意区别。
-ID Content OS Windows hugo version hugo v0.88.1-5BC54738+extended hugo theme hugo-theme-Stack v3.2.0 Quick Start Preview 我们需要知道当前版本中的 Github Pages 能创建在你的任意一个 Github Project 之上，而非一定要在yourname.github.io上创建。但无论是哪种创建方式，都要遵守相应的部署规则，才能不报错，不出现路径定位异常等问题。
+   ID Content     OS Windows   hugo version hugo v0.88.1-5BC54738+extended   hugo theme hugo-theme-Stack v3.2.0    Quick Start Preview 我们需要知道当前版本中的 Github Pages 能创建在你的任意一个 Github Project 之上，而非一定要在yourname.github.io上创建。但无论是哪种创建方式，都要遵守相应的部署规则，才能不报错，不出现路径定位异常等问题。
 其次，Github Pages 默认以你的 Project Repository 为项目根，意味着你部署 Github Pages 的仓库首页应该存在如index.html，404.html等站点文件，参考组织结构如下图所示。
-参考组织结构
+参考组织结构
 显然，此处的“仓库首页”是你的 Pages 指向的 folder ，如下图所示。
-Github Pages 运行根
+Github Pages 运行根
 举个例子，你的用户名叫 xiaoming，你创建了一个仓库叫 APIs-docs，那么你的仓库链接是https://github.com/xiaoming/apis-docs（大小写不敏感）。
-此时如果你的 Select folder = /(root)，那么你直接访问上文所述仓库链接后，能直接在当前页面中看到index.</description></item></channel></rss>
+  此时如果你的 Select folder = /(root)，那么你直接访问上文所述仓库链接后，能直接在当前页面中看到index.</description>
+    </item>
+    
+  </channel>
+</rss>
