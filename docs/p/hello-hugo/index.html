@@ -1,102 +1,218 @@
-<!doctype html><html lang=en-us>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="个人站点快速搭建 by Stack@Hugo + Github Pages"><title>『 Hugo 』Hello Hugo</title>
-<link rel=canonical href=qin2dim.github.io/p/hello-hugo/>
-<link rel=stylesheet href=/qin2dim.github.io/scss/style.min.css><meta property="og:title" content="『 Hugo 』Hello Hugo">
-<meta property="og:description" content="个人站点快速搭建 by Stack@Hugo + Github Pages">
-<meta property="og:url" content="qin2dim.github.io/p/hello-hugo/">
-<meta property="og:site_name" content="Echosec @QIN2DIM">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Hugo"><meta property="article:tag" content="Hello World"><meta property="article:tag" content="Blog"><meta property="article:tag" content="Github Pages"><meta property="article:published_time" content="2021-09-19T23:40:03+08:00"><meta property="article:modified_time" content="2021-09-19T23:40:03+08:00"><meta property="og:image" content="/qin2dim.github.io/p/hello-hugo/coffee-2511065_1920.jpg">
-<meta name=twitter:site content="@Alkaid20860233">
-<meta name=twitter:creator content="@Alkaid20860233"><meta name=twitter:title content="『 Hugo 』Hello Hugo">
-<meta name=twitter:description content="个人站点快速搭建 by Stack@Hugo + Github Pages"><meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="/qin2dim.github.io/p/hello-hugo/coffee-2511065_1920.jpg">
-<link rel="shortcut icon" href=https://image.shutterstock.com/image-vector/hand-drawn-blue-pink-vector-600w-426392518.jpg>
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='个人站点快速搭建 by Stack@Hugo &#43; Github Pages'><title>『 Hugo 』Hello Hugo</title>
+
+<link rel='canonical' href='https://qin2dim.github.io/p/hello-hugo/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='『 Hugo 』Hello Hugo'>
+<meta property='og:description' content='个人站点快速搭建 by Stack@Hugo &#43; Github Pages'>
+<meta property='og:url' content='https://qin2dim.github.io/p/hello-hugo/'>
+<meta property='og:site_name' content='Echosec @QIN2DIM'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Hugo' /><meta property='article:tag' content='Hello World' /><meta property='article:tag' content='Blog' /><meta property='article:tag' content='Github Pages' /><meta property='article:published_time' content='2021-09-19T23:40:03&#43;08:00'/><meta property='article:modified_time' content='2021-09-19T23:40:03&#43;08:00'/><meta property='og:image' content='https://qin2dim.github.io/p/hello-hugo/coffee-2511065_1920.jpg' />
+<meta name="twitter:site" content="@Alkaid20860233">
+    <meta name="twitter:creator" content="@Alkaid20860233"><meta name="twitter:title" content="『 Hugo 』Hello Hugo">
+<meta name="twitter:description" content="个人站点快速搭建 by Stack@Hugo &#43; Github Pages"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://qin2dim.github.io/p/hello-hugo/coffee-2511065_1920.jpg' />
+    <link rel="shortcut icon" href="https://image.shutterstock.com/image-vector/hand-drawn-blue-pink-vector-600w-426392518.jpg" />
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNCVR6X8RT"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-ZNCVR6X8RT',{anonymize_ip:!1})}</script>
-</head>
-<body class="article-page has-toc">
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex
-extended">
-<div id=article-toolbar>
-<a href=qin2dim.github.io class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
-<span>返回</span>
-</a>
-</div>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-ZNCVR6X8RT', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://qin2dim.github.io" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
 <main class="main full-width">
-<article class="has-image main-article">
-<header class=article-header>
-<div class=article-image>
-<a href=qin2dim.github.io/p/hello-hugo/>
-<img src=/qin2dim.github.io/p/hello-hugo/coffee-2511065_1920_hu542c575640116087aad91130e63312e2_586804_800x0_resize_q75_box.jpg srcset="/qin2dim.github.io/p/hello-hugo/coffee-2511065_1920_hu542c575640116087aad91130e63312e2_586804_800x0_resize_q75_box.jpg 800w, /qin2dim.github.io/p/hello-hugo/coffee-2511065_1920_hu542c575640116087aad91130e63312e2_586804_1600x0_resize_q75_box.jpg 1600w" width=800 height=600 loading=lazy alt="Featured image of post 『 Hugo 』Hello Hugo">
-</a>
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/hello-hugo/">
+                <img src="/p/hello-hugo/coffee-2511065_1920_hu542c575640116087aad91130e63312e2_586804_800x0_resize_q75_box.jpg"
+                        srcset="/p/hello-hugo/coffee-2511065_1920_hu542c575640116087aad91130e63312e2_586804_800x0_resize_q75_box.jpg 800w, /p/hello-hugo/coffee-2511065_1920_hu542c575640116087aad91130e63312e2_586804_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="600" 
+                        loading="lazy"
+                        alt="Featured image of post 『 Hugo 』Hello Hugo" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hugo/" style="background-color: #7e7a6f; color: #fff;">
+                Hugo
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/hello-hugo/">『 Hugo 』Hello Hugo</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        个人站点快速搭建 by Stack@Hugo &#43; Github Pages
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 19, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 6 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
 </div>
-<div class=article-details>
-<header class=article-category>
-<a href=qin2dim.github.io/categories/hugo/ style=background-color:#7e7a6f;color:#fff>
-Hugo
-</a>
 </header>
-<h2 class=article-title>
-<a href=qin2dim.github.io/p/hello-hugo/>『 Hugo 』Hello Hugo</a>
-</h2>
-<h3 class=article-subtitle>
-个人站点快速搭建 by Stack@Hugo + Github Pages
-</h3>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>Sep 19, 2021</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-阅读时长: 6 分钟
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<p>使用<code>Hugo/theme:Stack + Github Pages</code> 快速搭建个人博客网站，足够轻量，包含最新特性，快速上手，记录一些容易踩的坑。</p>
+
+    <section class="article-content">
+    <p>使用<code>Hugo/theme:Stack + Github Pages</code> 快速搭建个人博客网站，足够轻量，包含最新特性，快速上手，记录一些容易踩的坑。</p>
 <p><strong>注意</strong>：若您将本博客作为您的部署参考指南，默认您拥有一枚可用的<code>Github</code>账号，了解<code>git</code>，<code>bash/shell</code>常用指令，且您的本机运行环境中已预先安装<code>hugo</code>脚手架。本篇博客的行内指令若无特殊说明，均在站点根目录下执行，请注意区别。</p>
 <table>
 <thead>
 <tr>
-<th style=text-align:center>ID</th>
-<th style=text-align:center>Content</th>
+<th style="text-align:center">ID</th>
+<th style="text-align:center">Content</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style=text-align:center>OS</td>
-<td style=text-align:center>Windows</td>
+<td style="text-align:center">OS</td>
+<td style="text-align:center">Windows</td>
 </tr>
 <tr>
-<td style=text-align:center>hugo version</td>
-<td style=text-align:center>hugo v0.88.1-5BC54738+extended</td>
+<td style="text-align:center">hugo version</td>
+<td style="text-align:center">hugo v0.88.1-5BC54738+extended</td>
 </tr>
 <tr>
-<td style=text-align:center>hugo theme</td>
-<td style=text-align:center>hugo-theme-Stack v3.2.0</td>
+<td style="text-align:center">hugo theme</td>
+<td style="text-align:center">hugo-theme-Stack v3.2.0</td>
 </tr>
 </tbody>
 </table>
-<h2 id=quick-start>Quick Start</h2>
-<h3 id=preview>Preview</h3>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="preview">Preview</h3>
 <p>我们需要知道当前版本中的 Github Pages 能创建在你的任意一个 Github Project 之上，而非一定要在<code>yourname.github.io</code>上创建。但无论是哪种创建方式，都要遵守相应的部署规则，才能不报错，不出现路径定位异常等问题。</p>
 <p>其次，Github Pages 默认以你的 Project Repository 为项目根，意味着你<strong>部署 Github Pages 的仓库首页</strong>应该存在如<code>index.html</code>，<code>404.html</code>等站点文件，参考组织结构如下图所示。</p>
-<p><figure class=gallery-image style=flex-grow:281;flex-basis:675px>
-<a href=/qin2dim.github.io/p/hello-hugo/Snipaste_2021-09-20_00-42-35.png data-size=2055x730>
-<img src=/qin2dim.github.io/p/hello-hugo/Snipaste_2021-09-20_00-42-35.png width=2055 height=730 srcset="/qin2dim.github.io/p/hello-hugo/Snipaste_2021-09-20_00-42-35_hufbbd0cd106106cda9e414f3ca7ff70f3_79807_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/Snipaste_2021-09-20_00-42-35_hufbbd0cd106106cda9e414f3ca7ff70f3_79807_1024x0_resize_box_3.png 1024w" loading=lazy alt=参考组织结构>
-</a>
-<figcaption>参考组织结构</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 281; 
+			flex-basis: 675px"
+	>
+	<a href="/p/hello-hugo/Snipaste_2021-09-20_00-42-35.png" data-size="2055x730">
+		<img src="/p/hello-hugo/Snipaste_2021-09-20_00-42-35.png"
+			width="2055"
+			height="730"
+			srcset="/p/hello-hugo/Snipaste_2021-09-20_00-42-35_hufbbd0cd106106cda9e414f3ca7ff70f3_79807_480x0_resize_box_3.png 480w, /p/hello-hugo/Snipaste_2021-09-20_00-42-35_hufbbd0cd106106cda9e414f3ca7ff70f3_79807_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="参考组织结构">
+	</a>
+	
+	<figcaption>参考组织结构</figcaption>
+	
 </figure></p>
 <p>显然，此处的“仓库首页”是你的 Pages 指向的 folder ，如下图所示。<span id="select folder"></span></p>
-<p><figure class=gallery-image style=flex-grow:314;flex-basis:754px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920005037531.png data-size=1264x402>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920005037531.png width=1264 height=402 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920005037531_hu6a14e650ccf543636d4c92a1e14b7c7b_57653_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920005037531_hu6a14e650ccf543636d4c92a1e14b7c7b_57653_1024x0_resize_box_3.png 1024w" loading=lazy alt="Github Pages 运行根">
-</a>
-<figcaption>Github Pages 运行根</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 314; 
+			flex-basis: 754px"
+	>
+	<a href="/p/hello-hugo/image-20210920005037531.png" data-size="1264x402">
+		<img src="/p/hello-hugo/image-20210920005037531.png"
+			width="1264"
+			height="402"
+			srcset="/p/hello-hugo/image-20210920005037531_hu6a14e650ccf543636d4c92a1e14b7c7b_57653_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920005037531_hu6a14e650ccf543636d4c92a1e14b7c7b_57653_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Github Pages 运行根">
+	</a>
+	
+	<figcaption>Github Pages 运行根</figcaption>
+	
 </figure></p>
 <p>举个例子，你的用户名叫 <code>xiaoming</code>，你创建了一个仓库叫 <code>APIs-docs</code>，那么你的仓库链接是<code>https://github.com/xiaoming/apis-docs</code>（大小写不敏感）。</p>
 <ul>
@@ -108,7 +224,7 @@ Hugo
 </li>
 </ul>
 <p>这个 <strong>folder</strong> 非常关键，其为 <strong>hugo</strong> 的编译输出文件夹，也即配置文件中 <strong>publishDir</strong> 变量指明的相对路径，后文详细说明。</p>
-<h3 id=new-repository>New Repository</h3>
+<h3 id="new-repository">New Repository</h3>
 <ul>
 <li>
 <p>用你喜欢的方式创建一个仓库(Public)。</p>
@@ -117,14 +233,27 @@ Hugo
 <p>不建议初始化任何文件，这可能会造成不可预估的版本冲突问题，如果你想添加<code>README.md</code>什么的，完全可以在你的站点部署成功后手动创建。本篇博客创建的demo不勾选初始化，若您实际操作与本步骤不符，请于后续步骤中选择对应的解决方案。</p>
 </li>
 </ul>
-<p><figure class=gallery-image style=flex-grow:93;flex-basis:223px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920010752399.png data-size=1460x1568>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920010752399.png width=1460 height=1568 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920010752399_hu71d7ba8a1a19543475da1add4920f60a_192494_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920010752399_hu71d7ba8a1a19543475da1add4920f60a_192494_1024x0_resize_box_3.png 1024w" loading=lazy alt="Create a new repository for demo">
-</a>
-<figcaption>Create a new repository for demo</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 93; 
+			flex-basis: 223px"
+	>
+	<a href="/p/hello-hugo/image-20210920010752399.png" data-size="1460x1568">
+		<img src="/p/hello-hugo/image-20210920010752399.png"
+			width="1460"
+			height="1568"
+			srcset="/p/hello-hugo/image-20210920010752399_hu71d7ba8a1a19543475da1add4920f60a_192494_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920010752399_hu71d7ba8a1a19543475da1add4920f60a_192494_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Create a new repository for demo">
+	</a>
+	
+	<figcaption>Create a new repository for demo</figcaption>
+	
 </figure></p>
-<h3 id=hugo-scaffold>Hugo Scaffold</h3>
-<h4 id=new-site>New Site</h4>
+<h3 id="hugo-scaffold">Hugo Scaffold</h3>
+<h4 id="new-site">New Site</h4>
 <blockquote>
 <p>此阶段使用脚手架迅速构建 hugo 项目并创建默认的目录结构。</p>
 </blockquote>
@@ -132,50 +261,50 @@ Hugo
 <ol>
 <li>
 <p><strong>创建名为<code>hello-hugo</code>的站点</strong></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile</span>
 $ hugo new site hello-hugo
 
-Congratulations! Your new Hugo site is created in E:<span class=se>\_</span>GithubProjects<span class=se>\m</span>yProfile<span class=se>\h</span>ello-hugo.
+Congratulations! Your new Hugo site is created in E:<span class="se">\_</span>GithubProjects<span class="se">\m</span>yProfile<span class="se">\h</span>ello-hugo.
 
-Just a few more steps and you<span class=err>&#39;</span>re ready to go:
+Just a few more steps and you<span class="err">&#39;</span>re ready to go:
 
 1. Download a theme into the same-named folder.
    Choose a theme from https://themes.gohugo.io/ or
-   create your own with the <span class=s2>&#34;hugo new theme &lt;THEMENAME&gt;&#34;</span> command.
+   create your own with the <span class="s2">&#34;hugo new theme &lt;THEMENAME&gt;&#34;</span> command.
 2. Perhaps you want to add some content. You can add single files
-   with <span class=s2>&#34;hugo new &lt;SECTIONNAME&gt;\&lt;FILENAME&gt;.&lt;FORMAT&gt;&#34;</span>.
-3. Start the built-in live server via <span class=s2>&#34;hugo server&#34;</span>.
+   with <span class="s2">&#34;hugo new &lt;SECTIONNAME&gt;\&lt;FILENAME&gt;.&lt;FORMAT&gt;&#34;</span>.
+3. Start the built-in live server via <span class="s2">&#34;hugo server&#34;</span>.
 
-Visit https://gohugo.io/ <span class=k>for</span> quickstart guide and full documentation.
+Visit https://gohugo.io/ <span class="k">for</span> quickstart guide and full documentation.
 </code></pre></div></li>
 <li>
 <p><strong>进入站点根目录</strong></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile</span>
-$ <span class=nb>cd</span> hello-hugo/
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile</span>
+$ <span class="nb">cd</span> hello-hugo/
 </code></pre></div></li>
 <li>
 <p><strong>打印站点根目录下的文件</strong></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo</span>
 $ ls
 
 archetypes/  config.toml  content/  data/  layouts/  static/  themes/
 </code></pre></div><p>此时一个完整的 hugo 项目已经创建完毕，现在需要修改配置文件，使其兼容 Github Pages 部署规则。</p>
 </li>
 </ol>
-<h4 id=update-configuration>Update Configuration</h4>
+<h4 id="update-configuration">Update Configuration</h4>
 <blockquote>
 <p>此阶段以demo的形式说明 <code>Hugo + Github Pages</code>技术栈的核心配置。</p>
 </blockquote>
 <p>以你喜欢的方式打开<code>~/hello-hugo/config.toml</code>（也可能是其他后缀的配置文件，遵循对应的语法规则既可）并将其中的内容作如下更新：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=nx>baseurl</span> <span class=p>=</span> <span class=s2>&#34;https://yourname.github.io/hello-hugo&#34;</span>
-<span class=nx>publishDir</span> <span class=p>=</span> <span class=s2>&#34;docs&#34;</span>
-</code></pre></div><p>全局变量 <code>publishDir</code> 指明 hugo 的编译输出目录，其路径默认在站点根目录下(<code>~/hello-hugo/</code>)，hugo 以此为根生成的静态站点。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="nx">baseurl</span> <span class="p">=</span> <span class="s2">&#34;https://yourname.github.io/hello-hugo&#34;</span>
+<span class="nx">publishDir</span> <span class="p">=</span> <span class="s2">&#34;docs&#34;</span>
+</code></pre></div><p>全局变量 <code>publishDir</code>  指明 hugo 的编译输出目录，其路径默认在站点根目录下(<code>~/hello-hugo/</code>)，hugo 以此为根生成的静态站点。</p>
 <p>我们需要将 publishDir 与 Github Pages 的 folder 对应， folder 是 Github Pages 的渲染根目录。</p>
 <ul>
 <li><strong>注意</strong>：请替换这里的<code>yourname</code>为你的 <code>Github UserName</code>，此处我们还没有拉取任何的主题，不需要跟着其他教程设置变量<code>theme</code>。</li>
-<li><strong>注意</strong>：本博客选用 <code>folder = “/docs”</code> 策略，需要添加 <code>publishDir = "docs"</code> ，反之则不需要添加此行代码。值得一提的是，Github Pages 的执行根只有<code>/(root)</code> 和<code>/docs</code>两个选项，也即此处的 publishDir 要么不写(以<code>./public</code>为项目根)，要么只能写 docs。</li>
+<li><strong>注意</strong>：本博客选用 <code>folder = “/docs”</code> 策略，需要添加 <code>publishDir = &quot;docs&quot;</code> ，反之则不需要添加此行代码。值得一提的是，Github Pages 的执行根只有<code>/(root)</code> 和<code>/docs</code>两个选项，也即此处的 publishDir 要么不写(以<code>./public</code>为项目根)，要么只能写 docs。</li>
 </ul>
-<h4 id=remote-origin>Remote Origin</h4>
+<h4 id="remote-origin">Remote Origin</h4>
 <blockquote>
 <p>此阶段通过Git命令将 Hugo（本地文件） 与 Github Pages （远程仓库）组织结构对接。</p>
 </blockquote>
@@ -184,7 +313,7 @@ archetypes/  config.toml  content/  data/  layouts/  static/  themes/
 <ol>
 <li>
 <p><strong>初始化 Git 环境</strong></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo</span>
 $ git init
 
 Initialized empty Git repository in E:/_GithubProjects/myProfile/hello-hugo/.git/
@@ -192,245 +321,341 @@ Initialized empty Git repository in E:/_GithubProjects/myProfile/hello-hugo/.git
 <li>
 <p><strong>链接远程仓库</strong></p>
 <p>若您初次使用bash-git，需要进行身份验证。此处没有返回值说明操作成功。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
 $ git remote add origin https://github.com/qin2dim/hello-hugo.git
 </code></pre></div></li>
 <li>
 <p><strong>创建主分支</strong></p>
 <p>因为此demo创建时不勾选初始化，默认情况下是没有分支的，需要手动创建。通过如下指令创建分支<code>main</code>，并将其设为默认分支。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
 $ git branch -M main
 </code></pre></div></li>
 <li>
 <p><strong>标注更改内容并创建 commit 缓存</strong></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
 $ git add .
 
-<span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
-$ git commit -m <span class=s2>&#34;committing hugo template&#34;</span>
+<span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (master)</span>
+$ git commit -m <span class="s2">&#34;committing hugo template&#34;</span>
 
-<span class=o>[</span>master <span class=o>(</span>root-commit<span class=o>)</span> 4e0cab8<span class=o>]</span> committing hugo template
- <span class=m>2</span> files changed, <span class=m>9</span> insertions<span class=o>(</span>+<span class=o>)</span>
- create mode <span class=m>100644</span> archetypes/default.md
- create mode <span class=m>100644</span> config.toml
+<span class="o">[</span>master <span class="o">(</span>root-commit<span class="o">)</span> 4e0cab8<span class="o">]</span> committing hugo template
+ <span class="m">2</span> files changed, <span class="m">9</span> insertions<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> archetypes/default.md
+ create mode <span class="m">100644</span> config.toml
 </code></pre></div></li>
 <li>
 <p><strong>将标注信息推送至远程仓库</strong></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ git push -u origin main
 
-Enumerating objects: 5, <span class=k>done</span>.
-Counting objects: 100% <span class=o>(</span>5/5<span class=o>)</span>, <span class=k>done</span>.
-Delta compression using up to <span class=m>16</span> threads
-Compressing objects: 100% <span class=o>(</span>4/4<span class=o>)</span>, <span class=k>done</span>.
-Writing objects: 100% <span class=o>(</span>5/5<span class=o>)</span>, <span class=m>483</span> bytes <span class=p>|</span> 241.00 KiB/s, <span class=k>done</span>.
-Total <span class=m>5</span> <span class=o>(</span>delta 0<span class=o>)</span>, reused <span class=m>0</span> <span class=o>(</span>delta 0<span class=o>)</span>, pack-reused <span class=m>0</span>
+Enumerating objects: 5, <span class="k">done</span>.
+Counting objects: 100% <span class="o">(</span>5/5<span class="o">)</span>, <span class="k">done</span>.
+Delta compression using up to <span class="m">16</span> threads
+Compressing objects: 100% <span class="o">(</span>4/4<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: 100% <span class="o">(</span>5/5<span class="o">)</span>, <span class="m">483</span> bytes <span class="p">|</span> 241.00 KiB/s, <span class="k">done</span>.
+Total <span class="m">5</span> <span class="o">(</span>delta 0<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">0</span>
 remote: This repository moved. Please use the new location:
 remote:   https://github.com/QIN2DIM/hello-hugo.git
 To https://github.com/qin2dim/hello-hugo.git
- * <span class=o>[</span>new branch<span class=o>]</span>      main -&gt; main
-Branch <span class=s1>&#39;main&#39;</span> <span class=nb>set</span> up to track remote branch <span class=s1>&#39;main&#39;</span> from <span class=s1>&#39;origin&#39;</span>.
+ * <span class="o">[</span>new branch<span class="o">]</span>      main -&gt; main
+Branch <span class="s1">&#39;main&#39;</span> <span class="nb">set</span> up to track remote branch <span class="s1">&#39;main&#39;</span> from <span class="s1">&#39;origin&#39;</span>.
 </code></pre></div></li>
 <li>
 <p><strong>查看远程仓库</strong></p>
 <p>若您按照如上所述步骤操作，此时打开你的远程仓库，能看到如下目录结构。</p>
-<p><figure class=gallery-image style=flex-grow:267;flex-basis:641px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920015937151.png data-size=2043x764>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920015937151.png width=2043 height=764 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920015937151_huf2c00499ff8ca77d289c654553d6f18b_145226_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920015937151_huf2c00499ff8ca77d289c654553d6f18b_145226_1024x0_resize_box_3.png 1024w" loading=lazy alt="Bingo Operation">
-</a>
-<figcaption>Bingo Operation</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 267; 
+			flex-basis: 641px"
+	>
+	<a href="/p/hello-hugo/image-20210920015937151.png" data-size="2043x764">
+		<img src="/p/hello-hugo/image-20210920015937151.png"
+			width="2043"
+			height="764"
+			srcset="/p/hello-hugo/image-20210920015937151_huf2c00499ff8ca77d289c654553d6f18b_145226_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920015937151_huf2c00499ff8ca77d289c654553d6f18b_145226_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Bingo Operation">
+	</a>
+	
+	<figcaption>Bingo Operation</figcaption>
+	
 </figure></p>
 </li>
 </ol>
-<h3 id=select-folder>Select Folder</h3>
+<h3 id="select-folder">Select Folder</h3>
 <p>访问<code>https://github.com/yourname/hello-hugo/settings/pages</code>指定你的运行根，记得保存设置。本博客指定<code>/docs</code>。</p>
-<p><figure class=gallery-image style=flex-grow:174;flex-basis:418px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920021554554.png data-size=2043x1171>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920021554554.png width=2043 height=1171 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920021554554_hu716309a10cbb47c175328d4551dd22a2_189094_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920021554554_hu716309a10cbb47c175328d4551dd22a2_189094_1024x0_resize_box_3.png 1024w" loading=lazy alt="Select Folder">
-</a>
-<figcaption>Select Folder</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 174; 
+			flex-basis: 418px"
+	>
+	<a href="/p/hello-hugo/image-20210920021554554.png" data-size="2043x1171">
+		<img src="/p/hello-hugo/image-20210920021554554.png"
+			width="2043"
+			height="1171"
+			srcset="/p/hello-hugo/image-20210920021554554_hu716309a10cbb47c175328d4551dd22a2_189094_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920021554554_hu716309a10cbb47c175328d4551dd22a2_189094_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Select Folder">
+	</a>
+	
+	<figcaption>Select Folder</figcaption>
+	
 </figure></p>
 <p>不要着急，到此为止您的站点还无法访问，若您兴致勃勃地启动<code>https://yourname.github.io/hello-hugo</code>，你会看到如下经典一幕。</p>
-<p><figure class=gallery-image style=flex-grow:180;flex-basis:432px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920021940601.png data-size=960x533>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920021940601.png width=960 height=533 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920021940601_hu5d1d34b06f2d4ae39826ed72a8e4c2a5_42484_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920021940601_hu5d1d34b06f2d4ae39826ed72a8e4c2a5_42484_1024x0_resize_box_3.png 1024w" loading=lazy alt="Github Pages 404">
-</a>
-<figcaption>Github Pages 404</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 180; 
+			flex-basis: 432px"
+	>
+	<a href="/p/hello-hugo/image-20210920021940601.png" data-size="960x533">
+		<img src="/p/hello-hugo/image-20210920021940601.png"
+			width="960"
+			height="533"
+			srcset="/p/hello-hugo/image-20210920021940601_hu5d1d34b06f2d4ae39826ed72a8e4c2a5_42484_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920021940601_hu5d1d34b06f2d4ae39826ed72a8e4c2a5_42484_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Github Pages 404">
+	</a>
+	
+	<figcaption>Github Pages 404</figcaption>
+	
 </figure></p>
-<h3 id=hugo-publishdir>Hugo PublishDir</h3>
+<h3 id="hugo-publishdir">Hugo PublishDir</h3>
 <p>回到我们的本地操作环境，是不是感觉少了点什么？是的，还记得我们一开始提到 Github Pages 的渲染首页么？<code>index.html</code>去哪里了？既然不在首页，那也应该在<code>./docs</code> 里呀（若不指定<code>config.toml</code>中的变量<code>publishDir</code>,则默认为<code>./public</code>）</p>
 <p>是的，到此为止我们仅仅是创建了hugo的项目目录，但仍未进行hugo项目的初始化（首次构建）。</p>
 <p>执行如下命令编译你的Hugo：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ hugo
 
 Start building sites …
-hugo v0.88.1-5BC54738+extended windows/amd64 <span class=nv>BuildDate</span><span class=o>=</span>2021-09-04T09:39:19Z <span class=nv>VendorInfo</span><span class=o>=</span>gohugoio
-WARN 2021/09/20 02:29:00 found no layout file <span class=k>for</span> <span class=s2>&#34;HTML&#34;</span> <span class=k>for</span> kind <span class=s2>&#34;home&#34;</span>: You should create a template file which matches Hugo Layouts Lookup Rules <span class=k>for</span> this combination.
-WARN 2021/09/20 02:29:00 found no layout file <span class=k>for</span> <span class=s2>&#34;HTML&#34;</span> <span class=k>for</span> kind <span class=s2>&#34;taxonomy&#34;</span>: You should create a template file which matches Hugo Layouts Lookup Rules <span class=k>for</span> this combination.
-WARN 2021/09/20 02:29:00 found no layout file <span class=k>for</span> <span class=s2>&#34;HTML&#34;</span> <span class=k>for</span> kind <span class=s2>&#34;taxonomy&#34;</span>: You should create a template file which matches Hugo Layouts Lookup Rules <span class=k>for</span> this combination.
+hugo v0.88.1-5BC54738+extended windows/amd64 <span class="nv">BuildDate</span><span class="o">=</span>2021-09-04T09:39:19Z <span class="nv">VendorInfo</span><span class="o">=</span>gohugoio
+WARN 2021/09/20 02:29:00 found no layout file <span class="k">for</span> <span class="s2">&#34;HTML&#34;</span> <span class="k">for</span> kind <span class="s2">&#34;home&#34;</span>: You should create a template file which matches Hugo Layouts Lookup Rules <span class="k">for</span> this combination.
+WARN 2021/09/20 02:29:00 found no layout file <span class="k">for</span> <span class="s2">&#34;HTML&#34;</span> <span class="k">for</span> kind <span class="s2">&#34;taxonomy&#34;</span>: You should create a template file which matches Hugo Layouts Lookup Rules <span class="k">for</span> this combination.
+WARN 2021/09/20 02:29:00 found no layout file <span class="k">for</span> <span class="s2">&#34;HTML&#34;</span> <span class="k">for</span> kind <span class="s2">&#34;taxonomy&#34;</span>: You should create a template file which matches Hugo Layouts Lookup Rules <span class="k">for</span> this combination.
 
-                   <span class=p>|</span> EN
+                   <span class="p">|</span> EN
 -------------------+-----
-  Pages            <span class=p>|</span>  <span class=m>3</span>
-  Paginator pages  <span class=p>|</span>  <span class=m>0</span>
-  Non-page files   <span class=p>|</span>  <span class=m>0</span>
-  Static files     <span class=p>|</span>  <span class=m>0</span>
-  Processed images <span class=p>|</span>  <span class=m>0</span>
-  Aliases          <span class=p>|</span>  <span class=m>0</span>
-  Sitemaps         <span class=p>|</span>  <span class=m>1</span>
-  Cleaned          <span class=p>|</span>  <span class=m>0</span>
+  Pages            <span class="p">|</span>  <span class="m">3</span>
+  Paginator pages  <span class="p">|</span>  <span class="m">0</span>
+  Non-page files   <span class="p">|</span>  <span class="m">0</span>
+  Static files     <span class="p">|</span>  <span class="m">0</span>
+  Processed images <span class="p">|</span>  <span class="m">0</span>
+  Aliases          <span class="p">|</span>  <span class="m">0</span>
+  Sitemaps         <span class="p">|</span>  <span class="m">1</span>
+  Cleaned          <span class="p">|</span>  <span class="m">0</span>
 
-Total in <span class=m>57</span> ms
+Total in <span class="m">57</span> ms
 </code></pre></div><p>打印目录：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ ls
 archetypes/  content/  docs/     resources/  themes/
 config.toml  data/     layouts/  static/
 
 </code></pre></div><p>这不来了嘛，<code>./docs</code>目录出现了，我们打印一下这个此目录的内容看看。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ ls ./docs
 
 categories/  index.xml  sitemap.xml  tags/
 </code></pre></div><p>咦，怎么只有<code>index.xml</code>，后缀不太对，不要着急，我们还没有配置任何Hugo主题。</p>
 <p>我们尝试将更改推送至远程仓库，看看情况对不对。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ git add .
 
-<span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
-$ git commit -m <span class=s2>&#34;hugo init&#34;</span>
+<span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+$ git commit -m <span class="s2">&#34;hugo init&#34;</span>
 
-<span class=o>[</span>main 7301327<span class=o>]</span> hugo init
- <span class=m>4</span> files changed, <span class=m>41</span> insertions<span class=o>(</span>+<span class=o>)</span>
- create mode <span class=m>100644</span> docs/categories/index.xml
- create mode <span class=m>100644</span> docs/index.xml
- create mode <span class=m>100644</span> docs/sitemap.xml
- create mode <span class=m>100644</span> docs/tags/index.xml
+<span class="o">[</span>main 7301327<span class="o">]</span> hugo init
+ <span class="m">4</span> files changed, <span class="m">41</span> insertions<span class="o">(</span>+<span class="o">)</span>
+ create mode <span class="m">100644</span> docs/categories/index.xml
+ create mode <span class="m">100644</span> docs/index.xml
+ create mode <span class="m">100644</span> docs/sitemap.xml
+ create mode <span class="m">100644</span> docs/tags/index.xml
 
-<span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ git push -u origin main
 
-Enumerating objects: 10, <span class=k>done</span>.
-Counting objects: 100% <span class=o>(</span>10/10<span class=o>)</span>, <span class=k>done</span>.
-Delta compression using up to <span class=m>16</span> threads
-Compressing objects: 100% <span class=o>(</span>7/7<span class=o>)</span>, <span class=k>done</span>.
-Writing objects: 100% <span class=o>(</span>9/9<span class=o>)</span>, 1.12 KiB <span class=p>|</span> 381.00 KiB/s, <span class=k>done</span>.
-Total <span class=m>9</span> <span class=o>(</span>delta 2<span class=o>)</span>, reused <span class=m>0</span> <span class=o>(</span>delta 0<span class=o>)</span>, pack-reused <span class=m>0</span>
-remote: Resolving deltas: 100% <span class=o>(</span>2/2<span class=o>)</span>, <span class=k>done</span>.
+Enumerating objects: 10, <span class="k">done</span>.
+Counting objects: 100% <span class="o">(</span>10/10<span class="o">)</span>, <span class="k">done</span>.
+Delta compression using up to <span class="m">16</span> threads
+Compressing objects: 100% <span class="o">(</span>7/7<span class="o">)</span>, <span class="k">done</span>.
+Writing objects: 100% <span class="o">(</span>9/9<span class="o">)</span>, 1.12 KiB <span class="p">|</span> 381.00 KiB/s, <span class="k">done</span>.
+Total <span class="m">9</span> <span class="o">(</span>delta 2<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">0</span>
+remote: Resolving deltas: 100% <span class="o">(</span>2/2<span class="o">)</span>, <span class="k">done</span>.
 remote: This repository moved. Please use the new location:
 remote:   https://github.com/QIN2DIM/hello-hugo.git
 To https://github.com/qin2dim/hello-hugo.git
    b233f02..7301327  main -&gt; main
-Branch <span class=s1>&#39;main&#39;</span> <span class=nb>set</span> up to track remote branch <span class=s1>&#39;main&#39;</span> from <span class=s1>&#39;origin&#39;</span>.
+Branch <span class="s1">&#39;main&#39;</span> <span class="nb">set</span> up to track remote branch <span class="s1">&#39;main&#39;</span> from <span class="s1">&#39;origin&#39;</span>.
 </code></pre></div><p>访问你的项目仓库，发现高贵的<code>./docs</code>文件出现了！</p>
-<p><figure class=gallery-image style=flex-grow:350;flex-basis:842px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920023448448.png data-size=2063x588>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920023448448.png width=2063 height=588 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920023448448_huc92538f6d9744f936093acf9d109a515_111998_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920023448448_huc92538f6d9744f936093acf9d109a515_111998_1024x0_resize_box_3.png 1024w" loading=lazy alt=image-20210920023448448>
-</a>
-<figcaption>image-20210920023448448</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 350; 
+			flex-basis: 842px"
+	>
+	<a href="/p/hello-hugo/image-20210920023448448.png" data-size="2063x588">
+		<img src="/p/hello-hugo/image-20210920023448448.png"
+			width="2063"
+			height="588"
+			srcset="/p/hello-hugo/image-20210920023448448_huc92538f6d9744f936093acf9d109a515_111998_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920023448448_huc92538f6d9744f936093acf9d109a515_111998_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="image-20210920023448448">
+	</a>
+	
+	<figcaption>image-20210920023448448</figcaption>
+	
 </figure></p>
 <p>访问你的站点网址<code>https://yourname.github.io/hello-hugo</code>，你会发现这里不再404，渲染出来的是XML文档信息。</p>
-<p><figure class=gallery-image style=flex-grow:374;flex-basis:899px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920023604807.png data-size=1353x361>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920023604807.png width=1353 height=361 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920023604807_huf40ff1284a76b277aba37277a86ba617_73690_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920023604807_huf40ff1284a76b277aba37277a86ba617_73690_1024x0_resize_box_3.png 1024w" loading=lazy alt=image-20210920023604807>
-</a>
-<figcaption>image-20210920023604807</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 374; 
+			flex-basis: 899px"
+	>
+	<a href="/p/hello-hugo/image-20210920023604807.png" data-size="1353x361">
+		<img src="/p/hello-hugo/image-20210920023604807.png"
+			width="1353"
+			height="361"
+			srcset="/p/hello-hugo/image-20210920023604807_huf40ff1284a76b277aba37277a86ba617_73690_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920023604807_huf40ff1284a76b277aba37277a86ba617_73690_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="image-20210920023604807">
+	</a>
+	
+	<figcaption>image-20210920023604807</figcaption>
+	
 </figure></p>
-<p>至此，你的 <code>Hugo + Github Pages</code> 技术栈已经构建完毕，接下来我们要为站点配置主题，也是注入灵魂的部分。本篇博客选用的演示主题为<a class=link href=https://docs.stack.jimmycai.com/zh/getting-started.html target=_blank rel=noopener>Hugo/theme:Stack</a>。</p>
-<h2 id=match-theme>Match theme</h2>
-<p>此阶段以 <a class=link href=https://docs.stack.jimmycai.com/zh/getting-started.html target=_blank rel=noopener>Hugo/theme:Stack</a> 为demo说明如何将站点可视模块渲染出来，也是整个构建过程最关键的步骤之一。</p>
+<p>至此，你的 <code>Hugo + Github Pages</code> 技术栈已经构建完毕，接下来我们要为站点配置主题，也是注入灵魂的部分。本篇博客选用的演示主题为<a class="link" href="https://docs.stack.jimmycai.com/zh/getting-started.html"  target="_blank" rel="noopener"
+    >Hugo/theme:Stack</a>。</p>
+<h2 id="match-theme">Match theme</h2>
+<p>此阶段以 <a class="link" href="https://docs.stack.jimmycai.com/zh/getting-started.html"  target="_blank" rel="noopener"
+    >Hugo/theme:Stack</a> 为demo说明如何将站点可视模块渲染出来，也是整个构建过程最关键的步骤之一。</p>
 <ol>
 <li>
 <p><strong>拉取主题文件</strong></p>
 <p>为了方便使用Git来管理Hugo站点的源文件，我们需要将主题添加为 Submodule：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
 </code></pre></div><p>执行日志如下：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
 
-Cloning into <span class=s1>&#39;E:/_GithubProjects/myProfile/hello-hugo/themes/hugo-theme-stack&#39;</span>...
-remote: Enumerating objects: 3085, <span class=k>done</span>.
-remote: Counting objects: 100% <span class=o>(</span>1000/1000<span class=o>)</span>, <span class=k>done</span>.
-remote: Compressing objects: 100% <span class=o>(</span>405/405<span class=o>)</span>, <span class=k>done</span>.
-remote: Total <span class=m>3085</span> <span class=o>(</span>delta 782<span class=o>)</span>, reused <span class=m>667</span> <span class=o>(</span>delta 587<span class=o>)</span>, pack-reused <span class=m>2085</span>
-Receiving objects: 100% <span class=o>(</span>3085/3085<span class=o>)</span>, 836.78 KiB <span class=p>|</span> 3.17 MiB/s, <span class=k>done</span>.
-Resolving deltas: 100% <span class=o>(</span>1944/1944<span class=o>)</span>, <span class=k>done</span>.
+Cloning into <span class="s1">&#39;E:/_GithubProjects/myProfile/hello-hugo/themes/hugo-theme-stack&#39;</span>...
+remote: Enumerating objects: 3085, <span class="k">done</span>.
+remote: Counting objects: 100% <span class="o">(</span>1000/1000<span class="o">)</span>, <span class="k">done</span>.
+remote: Compressing objects: 100% <span class="o">(</span>405/405<span class="o">)</span>, <span class="k">done</span>.
+remote: Total <span class="m">3085</span> <span class="o">(</span>delta 782<span class="o">)</span>, reused <span class="m">667</span> <span class="o">(</span>delta 587<span class="o">)</span>, pack-reused <span class="m">2085</span>
+Receiving objects: 100% <span class="o">(</span>3085/3085<span class="o">)</span>, 836.78 KiB <span class="p">|</span> 3.17 MiB/s, <span class="k">done</span>.
+Resolving deltas: 100% <span class="o">(</span>1944/1944<span class="o">)</span>, <span class="k">done</span>.
 </code></pre></div><p>如果是第一次使用本主题，建议把 <code>exampleSite</code> 文件夹中的 <code>config.yaml</code> 和主题目录下的 <code>assets</code> 复制到站点目录下。前者是 Hugo 站点的配置文件，已经写入了主题的可配置字段。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>cp ./themes/hugo-theme-stack/exampleSite/config.yaml ./config.yaml
-</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>cp -a ./themes/hugo-theme-stack/assets ./assets
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp ./themes/hugo-theme-stack/exampleSite/config.yaml ./config.yaml
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cp -a ./themes/hugo-theme-stack/assets ./assets
 </code></pre></div><p><strong>注意</strong>：当前版本中，Stack使用<code>.yaml</code>配置文件，为了预防不必要的冲突，我们选择将构建 Hugo 时初始化的<code>config.toml</code>移除。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>rm ./config.toml
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">rm ./config.toml
 </code></pre></div></li>
 <li>
 <p><strong>配置主题</strong></p>
-<p>以你喜欢的方式打开位于站点根目录下的<code>config.yaml</code>文件，该文件用于配置Stack主题站点的各项参数。详细参数的解释请参考 <a class=link href=https://docs.stack.jimmycai.com/zh/getting-started.html target=_blank rel=noopener>Hugo/theme:Stack</a> ，此处仅介绍关键配置。</p>
+<p>以你喜欢的方式打开位于站点根目录下的<code>config.yaml</code>文件，该文件用于配置Stack主题站点的各项参数。详细参数的解释请参考 <a class="link" href="https://docs.stack.jimmycai.com/zh/getting-started.html"  target="_blank" rel="noopener"
+    >Hugo/theme:Stack</a> ，此处仅介绍关键配置。</p>
 <p>如上文介绍的那样，这里至少要配置两个参数，既<code>baseURL</code>以及<code>publishDir</code>。安如下提示所示，修改变量<code>baseURL</code>并添加变量<code>publishDir</code>声明。修改完毕记得保存。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>baseurl</span><span class=p>:</span><span class=w> </span><span class=l>https://yourname.github.io/hello-hugo</span><span class=w>
-</span><span class=w></span><span class=nt>publishDir</span><span class=p>:</span><span class=w> </span><span class=l>docs</span><span class=w>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">baseurl</span><span class="p">:</span><span class="w"> </span><span class="l">https://yourname.github.io/hello-hugo</span><span class="w">
+</span><span class="w"></span><span class="nt">publishDir</span><span class="p">:</span><span class="w"> </span><span class="l">docs</span><span class="w">
 </span></code></pre></div><p>此处同样需要注意替换<code>yourname</code>。</p>
 </li>
 <li>
 <p><strong>注入魔法</strong></p>
 <p>执行<code>hugo</code>更新编译状态，然后将更新信息推送至远程仓库，然后访问你的项目仓库，查看推送结果。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ hugo
 
-<span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ git add .
 
-<span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
-$ git commit -m <span class=s2>&#34;introduce hugo-theme-stack&#34;</span>
+<span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+$ git commit -m <span class="s2">&#34;introduce hugo-theme-stack&#34;</span>
 
-<span class=c1># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
+<span class="c1"># yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo (main)</span>
 $ git push -u origin main
-</code></pre></div><p><figure class=gallery-image style=flex-grow:229;flex-basis:550px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920032205977.png data-size=2048x893>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920032205977.png width=2048 height=893 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920032205977_hu4935d34d8b4e15fd2d5ddcd18dcfde57_177528_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920032205977_hu4935d34d8b4e15fd2d5ddcd18dcfde57_177528_1024x0_resize_box_3.png 1024w" loading=lazy alt="Bingo Ace-Agent">
-</a>
-<figcaption>Bingo Ace-Agent</figcaption>
+</code></pre></div><p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 229; 
+			flex-basis: 550px"
+	>
+	<a href="/p/hello-hugo/image-20210920032205977.png" data-size="2048x893">
+		<img src="/p/hello-hugo/image-20210920032205977.png"
+			width="2048"
+			height="893"
+			srcset="/p/hello-hugo/image-20210920032205977_hu4935d34d8b4e15fd2d5ddcd18dcfde57_177528_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920032205977_hu4935d34d8b4e15fd2d5ddcd18dcfde57_177528_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Bingo Ace-Agent">
+	</a>
+	
+	<figcaption>Bingo Ace-Agent</figcaption>
+	
 </figure></p>
 </li>
 </ol>
-<h2 id=hello-world>Hello World</h2>
-<p>访问<code>https://yourname.github.io/hello-hugo</code>，查看您部署的站点。您也可以预览作者按照如上步骤快速搭建的<a class=link href=https://qin2dim.github.io/hello-hugo target=_blank rel=noopener>Demo Site</a>。</p>
+<h2 id="hello-world">Hello World</h2>
+<p>访问<code>https://yourname.github.io/hello-hugo</code>，查看您部署的站点。您也可以预览作者按照如上步骤快速搭建的<a class="link" href="https://qin2dim.github.io/hello-hugo"  target="_blank" rel="noopener"
+    >Demo Site</a>。</p>
 <p>可能会有的小伙伴觉得本篇博客的搭建过程比较啰嗦，目前此技术栈的构建已有成熟的解决方案几乎能在任何操作系统上实现<code>hugo + github pages</code>自动化部署。其实嘛- -作者认为“教程”是分享给其他人看的，需要拆分工作流，这样能让读者明确自己所在的位置，出了问题容易定位；若使用“一键脚本”，新手读者很难明晰其中的原理，很可能于后续的站点维护更新中举步维艰。</p>
-<h2 id=conclusion>Conclusion</h2>
+<h2 id="conclusion">Conclusion</h2>
 <p>本篇博客详细阐述了如何在 Windows 平台上通过简单指令凭借<code>Hugo + Github Pages</code>技术栈快速搭建个人站点，并提供了Demo Site。作者后续会更新更多关于此技术栈的其他内容，帮助您美化，管理、升级个人站点。</p>
 <hr>
 <p>如下为示例站点的目录结构，作者将以Blog写作为例总结此技术栈的实现流程，请注意，如下所有指令操作若无特殊说明，均默认在 hello-hugo 目录下执行。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=s2>&#34;&#34;&#34;
-</span><span class=s2>hello-hugo
-</span><span class=s2> ├── archetypes
-</span><span class=s2> ├── assets
-</span><span class=s2> ├── config.yaml
-</span><span class=s2> ├── content
-</span><span class=s2> ├── data
-</span><span class=s2> ├── docs
-</span><span class=s2> ├── layouts
-</span><span class=s2> ├── resources
-</span><span class=s2> ├── static
-</span><span class=s2> └── themes
-</span><span class=s2> &#34;&#34;&#34;</span>
-</code></pre></div><p>关于站点根目录下各个文件夹(work field)的详细介绍请阅读官方文档<a class=link href=https://gohugo.io/getting-started/directory-structure/ target=_blank rel=noopener>Directory Structure | Hugo (gohugo.io)</a>，此处仅在介绍工作流时涉及几个关键的文件夹。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="s2">&#34;&#34;&#34;
+</span><span class="s2">hello-hugo
+</span><span class="s2"> ├── archetypes
+</span><span class="s2"> ├── assets
+</span><span class="s2"> ├── config.yaml
+</span><span class="s2"> ├── content
+</span><span class="s2"> ├── data
+</span><span class="s2"> ├── docs
+</span><span class="s2"> ├── layouts
+</span><span class="s2"> ├── resources
+</span><span class="s2"> ├── static
+</span><span class="s2"> └── themes
+</span><span class="s2"> &#34;&#34;&#34;</span>
+</code></pre></div><p>关于站点根目录下各个文件夹(work field)的详细介绍请阅读官方文档<a class="link" href="https://gohugo.io/getting-started/directory-structure/"  target="_blank" rel="noopener"
+    >Directory Structure | Hugo (gohugo.io)</a>，此处仅在介绍工作流时涉及几个关键的文件夹。</p>
 <p>关于此技术栈的工作流总结如下：</p>
 <ol>
 <li>
 <p><strong>创建Blog</strong></p>
-<p>在站点根目录<code>hello-hugo</code>下新建"blog"，如<code>hugo new post/blog.md</code>，默认创建在<code>~/content/post/blog.md</code>。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>hugo new post/blog.md
+<p>在站点根目录<code>hello-hugo</code>下新建&quot;blog&quot;，如<code>hugo new post/blog.md</code>，默认创建在<code>~/content/post/blog.md</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo new post/blog.md
 </code></pre></div><p>打开这个 Markdown文件，可以看见头部声名中<code>draft: true</code>默认为草稿模式（不同主题规则不同），需要置<code>draft: false</code>，该篇内容才会被渲染出来，否则会被过滤。</p>
-<p><figure class=gallery-image style=flex-grow:358;flex-basis:860px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920041943845.png data-size=473x132>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920041943845.png width=473 height=132 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920041943845_huf76ddedfe236afcd9bb66aa0b6357368_9675_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920041943845_huf76ddedfe236afcd9bb66aa0b6357368_9675_1024x0_resize_box_3.png 1024w" loading=lazy alt=草稿模式>
-</a>
-<figcaption>草稿模式</figcaption>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 358; 
+			flex-basis: 860px"
+	>
+	<a href="/p/hello-hugo/image-20210920041943845.png" data-size="473x132">
+		<img src="/p/hello-hugo/image-20210920041943845.png"
+			width="473"
+			height="132"
+			srcset="/p/hello-hugo/image-20210920041943845_huf76ddedfe236afcd9bb66aa0b6357368_9675_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920041943845_huf76ddedfe236afcd9bb66aa0b6357368_9675_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="草稿模式">
+	</a>
+	
+	<figcaption>草稿模式</figcaption>
+	
 </figure></p>
 </li>
 <li>
 <p><strong>启动本地<code>hugo</code>服务器</strong></p>
 <p>在站点根目录<code>hello-hugo</code>下创建本地服务器</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>hugo server
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">hugo server
 </code></pre></div><p>启动后根据打印日志查看入口，如<code>http://localhost:8745/hello-hugo/ </code>，端口号不一定与此相同，默认是1313，若有冲突则会随机更换。</p>
 <p>这里的文档都是热加载编译，我们对项目文件的更改将直接同步到本地服务上，如<strong>Blog的书写</strong>，<strong>配置文件的改动</strong>以及<strong>目录文件的调整</strong>等等。于是，我们编写的内容可以实时提现在站点上，方便修改调试。</p>
 </li>
@@ -438,172 +663,321 @@ $ git push -u origin main
 <p><strong>缓存更新</strong></p>
 <p>当你的工作结束后，停止<code>local hugo-server</code>进程。你的工作进度会被自动编译到<code>publishDir</code>变量指向的文件夹中（如本例的<code>./docs</code>）。当然你也可以在工作结束后手动更新缓存。也即你的每一个对 hugo 的更改，如果你想体现在Github Pages 中,一定不要忘了在 Push 之前更新一下缓存。</p>
 <p>后续文章中，作者将介绍如何使用<code>Github Actions</code>在你 Push 后自动化更新<code>publishDir</code>下的文件，无需繁再 Push 前手动更新缓存，进一步偷懒。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo <span class=o>(</span>main<span class=o>)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">yaoqinse@LAPTOP-29FRT6FJ MINGW64 /e/_GithubProjects/myProfile/hello-hugo <span class="o">(</span>main<span class="o">)</span>
 $ hugo
 
 Start building sites …
-hugo v0.88.1-5BC54738+extended windows/amd64 <span class=nv>BuildDate</span><span class=o>=</span>2021-09-04T09:39:19Z <span class=nv>VendorInfo</span><span class=o>=</span>gohugoio
+hugo v0.88.1-5BC54738+extended windows/amd64 <span class="nv">BuildDate</span><span class="o">=</span>2021-09-04T09:39:19Z <span class="nv">VendorInfo</span><span class="o">=</span>gohugoio
 WARN 2021/09/20 04:04:53 Search page not found. Create a page with layout: search.
 WARN 2021/09/20 04:04:53 Archives page not found. Create a page with layout: archives.
 
-                   <span class=p>|</span> EN
+                   <span class="p">|</span> EN
 -------------------+-----
-  Pages            <span class=p>|</span>  <span class=m>7</span>
-  Paginator pages  <span class=p>|</span>  <span class=m>0</span>
-  Non-page files   <span class=p>|</span>  <span class=m>0</span>
-  Static files     <span class=p>|</span>  <span class=m>0</span>
-  Processed images <span class=p>|</span>  <span class=m>3</span>
-  Aliases          <span class=p>|</span>  <span class=m>3</span>
-  Sitemaps         <span class=p>|</span>  <span class=m>1</span>
-  Cleaned          <span class=p>|</span>  <span class=m>0</span>
+  Pages            <span class="p">|</span>  <span class="m">7</span>
+  Paginator pages  <span class="p">|</span>  <span class="m">0</span>
+  Non-page files   <span class="p">|</span>  <span class="m">0</span>
+  Static files     <span class="p">|</span>  <span class="m">0</span>
+  Processed images <span class="p">|</span>  <span class="m">3</span>
+  Aliases          <span class="p">|</span>  <span class="m">3</span>
+  Sitemaps         <span class="p">|</span>  <span class="m">1</span>
+  Cleaned          <span class="p">|</span>  <span class="m">0</span>
 
-Total in <span class=m>183</span> ms
+Total in <span class="m">183</span> ms
 </code></pre></div></li>
 <li>
 <p><strong>资源推送</strong></p>
-<p>这里推荐使用 <a class=link href=https://desktop.github.com/ target=_blank rel=noopener>Github Desktop</a> 推送仓库更新。自动扫描变更，一件推送，相比于每次更新都要手敲git代码方便很多。</p>
-<p><figure class=gallery-image style=flex-grow:208;flex-basis:499px>
-<a href=/qin2dim.github.io/p/hello-hugo/image-20210920040811507.png data-size=2101x1009>
-<img src=/qin2dim.github.io/p/hello-hugo/image-20210920040811507.png width=2101 height=1009 srcset="/qin2dim.github.io/p/hello-hugo/image-20210920040811507_hu0511d169e31c7bfedfa24dd053c8f944_138470_480x0_resize_box_3.png 480w, /qin2dim.github.io/p/hello-hugo/image-20210920040811507_hu0511d169e31c7bfedfa24dd053c8f944_138470_1024x0_resize_box_3.png 1024w" loading=lazy alt="Github Desktop 推送资源">
-</a>
-<figcaption>Github Desktop 推送资源</figcaption>
+<p>这里推荐使用 <a class="link" href="https://desktop.github.com/"  target="_blank" rel="noopener"
+    >Github Desktop</a> 推送仓库更新。自动扫描变更，一件推送，相比于每次更新都要手敲git代码方便很多。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 208; 
+			flex-basis: 499px"
+	>
+	<a href="/p/hello-hugo/image-20210920040811507.png" data-size="2101x1009">
+		<img src="/p/hello-hugo/image-20210920040811507.png"
+			width="2101"
+			height="1009"
+			srcset="/p/hello-hugo/image-20210920040811507_hu0511d169e31c7bfedfa24dd053c8f944_138470_480x0_resize_box_3.png 480w, /p/hello-hugo/image-20210920040811507_hu0511d169e31c7bfedfa24dd053c8f944_138470_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Github Desktop 推送资源">
+	</a>
+	
+	<figcaption>Github Desktop 推送资源</figcaption>
+	
 </figure></p>
 <p>若您缺少可靠的解决方案,那只能老实敲代码了:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>git add .
-git commit -m <span class=s2>&#34;description of this change&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">git add .
+git commit -m <span class="s2">&#34;description of this change&#34;</span>
 git push -u origin main
 </code></pre></div></li>
 <li>
 <p><strong>查看更新</strong></p>
 <p>访问站点，查看推送结果。Github Pages 集成需要一点时间，如果你没能在推送后立即看到“改变”也不要慌，稍微等一会刷新一下既可。</p>
 <p>同样，若你在本地调改动资源并 auto-rebuild 后，体现在站点上的内容并没有立即改变，可以先<kbd>Ctrl</kbd> + <kbd>C</kbd>停止进程，r然后执行下面的命令回收垃圾，并重新部署既可。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell>hugo --gc	<span class=c1># 垃圾回收</span>
-hugo server	<span class=c1># 重新启动本地服务</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">hugo --gc	<span class="c1"># 垃圾回收</span>
+hugo server	<span class="c1"># 重新启动本地服务</span>
 </code></pre></div></li>
 </ol>
-<h2 id=reference>Reference</h2>
+<h2 id="reference">Reference</h2>
 <ul>
 <li>
-<p><a class=link href=https://gohugo.io/ target=_blank rel=noopener>The world’s fastest framework for building websites | Hugo (gohugo.io)</a></p>
+<p><a class="link" href="https://gohugo.io/"  target="_blank" rel="noopener"
+    >The world’s fastest framework for building websites | Hugo (gohugo.io)</a></p>
 </li>
 <li>
-<p><a class=link href=https://docs.stack.jimmycai.com/zh/ target=_blank rel=noopener>介绍 | Hugo 主题 Stack (jimmycai.com)</a></p>
+<p><a class="link" href="https://docs.stack.jimmycai.com/zh/"  target="_blank" rel="noopener"
+    >介绍 | Hugo 主题 Stack (jimmycai.com)</a></p>
 </li>
 </ul>
+
 </section>
-<footer class=article-footer>
-<section class=article-tags>
-<a href=qin2dim.github.io/tags/hugo/>Hugo</a>
-<a href=qin2dim.github.io/tags/hello-world/>Hello World</a>
-<a href=qin2dim.github.io/tags/blog/>Blog</a>
-<a href=qin2dim.github.io/tags/github-pages/>Github Pages</a>
-</section>
-</footer>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/hugo/">Hugo</a>
+        
+            <a href="/tags/hello-world/">Hello World</a>
+        
+            <a href="/tags/blog/">Blog</a>
+        
+            <a href="/tags/github-pages/">Github Pages</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
 </article>
-<aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
-<div class=related-contents>
-<div class="flex article-list--tile">
-<article class=has-image>
-<a href=qin2dim.github.io/p/typlog-atlas/>
-<div class=article-image>
-<img src=/qin2dim.github.io/p/typlog-atlas/topic.ba3827d8b9ae2d9f769ba6f3a9410edb_hu0b47b138f493b3f6e0d84b750117d30b_2670061_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy data-key=typlog-atlas data-hash="md5-ujgn2LmuLZ92m6bzqUEO2w==">
-</div>
-<div class=article-details>
-<h2 class=article-title>『 Hugo 』Typlog Atlas</h2>
-</div>
-</a>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/typlog-atlas/">
+        
+        
+            <div class="article-image">
+                <img src="/p/typlog-atlas/topic.ba3827d8b9ae2d9f769ba6f3a9410edb_hu0b47b138f493b3f6e0d84b750117d30b_2670061_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="typlog-atlas" 
+                        data-hash="md5-ujgn2LmuLZ92m6bzqUEO2w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">『 Hugo 』Typlog Atlas</h2>
+        </div>
+    </a>
 </article>
-</div>
-</div>
+                
+            </div>
+        </div>
+    
 </aside>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
-2020 -
-2021 Echosec @QIN2DIM
-</section>
-<section class=powerby>
-You will to enjoy grander sight / By climing to a greater height. <br>
-Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
-</section>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Echosec @QIN2DIM
+    </section>
+    
+    <section class="powerby">
+        
+            You will to enjoy grander sight / By climing to a greater height. <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">目录</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ol>
-<li><a href=#quick-start>Quick Start</a>
-<ol>
-<li><a href=#preview>Preview</a></li>
-<li><a href=#new-repository>New Repository</a></li>
-<li><a href=#hugo-scaffold>Hugo Scaffold</a>
-<ol>
-<li><a href=#new-site>New Site</a></li>
-<li><a href=#update-configuration>Update Configuration</a></li>
-<li><a href=#remote-origin>Remote Origin</a></li>
-</ol>
-</li>
-<li><a href=#select-folder>Select Folder</a></li>
-<li><a href=#hugo-publishdir>Hugo PublishDir</a></li>
-</ol>
-</li>
-<li><a href=#match-theme>Match theme</a></li>
-<li><a href=#hello-world>Hello World</a></li>
-<li><a href=#conclusion>Conclusion</a></li>
-<li><a href=#reference>Reference</a></li>
-</ol>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#quick-start">Quick Start</a>
+      <ol>
+        <li><a href="#preview">Preview</a></li>
+        <li><a href="#new-repository">New Repository</a></li>
+        <li><a href="#hugo-scaffold">Hugo Scaffold</a>
+          <ol>
+            <li><a href="#new-site">New Site</a></li>
+            <li><a href="#update-configuration">Update Configuration</a></li>
+            <li><a href="#remote-origin">Remote Origin</a></li>
+          </ol>
+        </li>
+        <li><a href="#select-folder">Select Folder</a></li>
+        <li><a href="#hugo-publishdir">Hugo PublishDir</a></li>
+      </ol>
+    </li>
+    <li><a href="#match-theme">Match theme</a></li>
+    <li><a href="#hello-world">Hello World</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ol>
 </nav>
-</div>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/qin2dim.github.io/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZNCVR6X8RT"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-ZNCVR6X8RT',{anonymize_ip:!1})}</script>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','G-ZNCVR6X8RT','auto'),ga('send','pageview'))</script>
-<script async src=https://www.google-analytics.com/analytics.js></script>
-</body>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-ZNCVR6X8RT', { 'anonymize_ip': false });
+}
+</script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-ZNCVR6X8RT', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
 </html>
