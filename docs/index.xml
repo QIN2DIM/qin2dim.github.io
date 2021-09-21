@@ -363,15 +363,25 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;但如果你修改了文章的&lt;code&gt;slug&lt;/code&gt;也即修改了文章对应的检索路径（重启本地服务器后生效），这篇文章挂载的评论信息会“丢失”。同样，你在更新了 slug 的文章发送的评论，会被机器人以新的 issue 提交到你的 comments-repo，显然，首层占楼的反射信息指向了你变更后的博客网址。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;image-20210921234030946.png&#34; alt=&#34;image-20210921234030946&#34; style=&#34;zoom:50%;&#34; /&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;utterances 跟踪你的网址而非你的标题&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;是的，猜想是对的。当你将文章的&lt;code&gt;slug&lt;/code&gt;改回去后，这篇文章所挂载的评论区又回来了。意味着只要不删除 issue，评论信息并不会真正 &amp;ldquo;丢失&amp;rdquo;。&lt;/p&gt;
-&lt;p&gt;换句话说，你可以随意修改文章标题以及副标题，但不要随意修改文章的网页路径&lt;code&gt;slug&lt;/code&gt;，这是一项危险的操作，除非你做好了数据迁移的准备。&lt;/p&gt;
 &lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 261; 
+			flex-basis: 627px&#34;
+	&gt;
+	&lt;a href=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210921234029895.png&#34; data-size=&#34;777x297&#34;&gt;
+		&lt;img src=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210921234029895.png&#34;
+			width=&#34;777&#34;
+			height=&#34;297&#34;
+			srcset=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210921234029895_hu1bd586458df5d8d6ae2be592aa6608b3_36524_480x0_resize_box_3.png 480w, https://qin2dim.github.io/p/blog-comments-system/image-20210921234029895_hu1bd586458df5d8d6ae2be592aa6608b3_36524_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;Issues of the comments-repo&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;Issues of the comments-repo&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;figure 
 	
 		class=&#34;gallery-image&#34; 
 		style=&#34;
@@ -388,6 +398,50 @@
 	&lt;/a&gt;
 	
 	&lt;figcaption&gt;YAML Font Matter of Markdown&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;utterances 跟踪你的网址而非你的标题&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;是的，猜想是对的。当你将文章的&lt;code&gt;slug&lt;/code&gt;改回去后，这篇文章所挂载的评论区又回来了。意味着只要不删除 issue，评论信息并不会真正 &amp;ldquo;丢失&amp;rdquo;。&lt;/p&gt;
+&lt;p&gt;换句话说，你可以随意修改文章标题以及副标题，但不要随意修改文章的网页路径&lt;code&gt;slug&lt;/code&gt;，这是一项危险的操作，除非你做好了数据迁移的准备。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 comments-repo 中人为提交的 issue 会作为评论被同步到对应的文章中吗？&lt;/p&gt;
+&lt;p&gt;答：不可以！&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 224; 
+			flex-basis: 538px&#34;
+	&gt;
+	&lt;a href=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210922003310596.png&#34; data-size=&#34;1014x452&#34;&gt;
+		&lt;img src=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210922003310596.png&#34;
+			width=&#34;1014&#34;
+			height=&#34;452&#34;
+			srcset=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210922003310596_hu981c248986aad23bed7f866441828a2e_53573_480x0_resize_box_3.png 480w, https://qin2dim.github.io/p/blog-comments-system/image-20210922003310596_hu981c248986aad23bed7f866441828a2e_53573_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			&gt;
+	&lt;/a&gt;
+	
+&lt;/figure&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 228; 
+			flex-basis: 548px&#34;
+	&gt;
+	&lt;a href=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210922003342805.png&#34; data-size=&#34;925x405&#34;&gt;
+		&lt;img src=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210922003342805.png&#34;
+			width=&#34;925&#34;
+			height=&#34;405&#34;
+			srcset=&#34;https://qin2dim.github.io/p/blog-comments-system/image-20210922003342805_huc15c305d86fce6746c1b59d0c14683d5_33040_480x0_resize_box_3.png 480w, https://qin2dim.github.io/p/blog-comments-system/image-20210922003342805_huc15c305d86fce6746c1b59d0c14683d5_33040_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			&gt;
+	&lt;/a&gt;
 	
 &lt;/figure&gt;&lt;/p&gt;
 &lt;/li&gt;

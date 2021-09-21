@@ -498,15 +498,25 @@ if (!doNotTrack) {
 </li>
 <li>
 <p>但如果你修改了文章的<code>slug</code>也即修改了文章对应的检索路径（重启本地服务器后生效），这篇文章挂载的评论信息会“丢失”。同样，你在更新了 slug 的文章发送的评论，会被机器人以新的 issue 提交到你的 comments-repo，显然，首层占楼的反射信息指向了你变更后的博客网址。</p>
-<p><img src="image-20210921234030946.png" alt="image-20210921234030946" style="zoom:50%;" /></p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>utterances 跟踪你的网址而非你的标题</strong></p>
-<p>是的，猜想是对的。当你将文章的<code>slug</code>改回去后，这篇文章所挂载的评论区又回来了。意味着只要不删除 issue，评论信息并不会真正 &ldquo;丢失&rdquo;。</p>
-<p>换句话说，你可以随意修改文章标题以及副标题，但不要随意修改文章的网页路径<code>slug</code>，这是一项危险的操作，除非你做好了数据迁移的准备。</p>
 <p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 261; 
+			flex-basis: 627px"
+	>
+	<a href="/p/blog-comments-system/image-20210921234029895.png" data-size="777x297">
+		<img src="/p/blog-comments-system/image-20210921234029895.png"
+			width="777"
+			height="297"
+			srcset="/p/blog-comments-system/image-20210921234029895_hu1bd586458df5d8d6ae2be592aa6608b3_36524_480x0_resize_box_3.png 480w, /p/blog-comments-system/image-20210921234029895_hu1bd586458df5d8d6ae2be592aa6608b3_36524_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Issues of the comments-repo">
+	</a>
+	
+	<figcaption>Issues of the comments-repo</figcaption>
+	
+</figure><figure 
 	
 		class="gallery-image" 
 		style="
@@ -523,6 +533,50 @@ if (!doNotTrack) {
 	</a>
 	
 	<figcaption>YAML Font Matter of Markdown</figcaption>
+	
+</figure></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>utterances 跟踪你的网址而非你的标题</strong></p>
+<p>是的，猜想是对的。当你将文章的<code>slug</code>改回去后，这篇文章所挂载的评论区又回来了。意味着只要不删除 issue，评论信息并不会真正 &ldquo;丢失&rdquo;。</p>
+<p>换句话说，你可以随意修改文章标题以及副标题，但不要随意修改文章的网页路径<code>slug</code>，这是一项危险的操作，除非你做好了数据迁移的准备。</p>
+</li>
+<li>
+<p>在 comments-repo 中人为提交的 issue 会作为评论被同步到对应的文章中吗？</p>
+<p>答：不可以！</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 224; 
+			flex-basis: 538px"
+	>
+	<a href="/p/blog-comments-system/image-20210922003310596.png" data-size="1014x452">
+		<img src="/p/blog-comments-system/image-20210922003310596.png"
+			width="1014"
+			height="452"
+			srcset="/p/blog-comments-system/image-20210922003310596_hu981c248986aad23bed7f866441828a2e_53573_480x0_resize_box_3.png 480w, /p/blog-comments-system/image-20210922003310596_hu981c248986aad23bed7f866441828a2e_53573_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 228; 
+			flex-basis: 548px"
+	>
+	<a href="/p/blog-comments-system/image-20210922003342805.png" data-size="925x405">
+		<img src="/p/blog-comments-system/image-20210922003342805.png"
+			width="925"
+			height="405"
+			srcset="/p/blog-comments-system/image-20210922003342805_huc15c305d86fce6746c1b59d0c14683d5_33040_480x0_resize_box_3.png 480w, /p/blog-comments-system/image-20210922003342805_huc15c305d86fce6746c1b59d0c14683d5_33040_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			>
+	</a>
 	
 </figure></p>
 </li>
