@@ -306,7 +306,12 @@ if (!doNotTrack) {
 <li>
 <p>Change the configuration of your Hugo site-code.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># ~/config.yaml </span><span class="w">
-</span><span class="w"></span><span class="c"># 再次声明本博客使用 Stack 主题作为参考，此主题使用.yaml 格式配置文件，且默认支持 utterances，意味着仅需改动配置文件就能使用。如果你的主题用其他格式文件，注意语法的修改。如果你的主题没有携带 utterances 脚本代码，请在~/layouts/partials/comments/provider/ 目录下新建一个 utterances.html 文件，并在里面输入下一个代码块中的内容。</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># 再次声明，本博客使用 Stack 主题作为分享参考，此主题使用.yaml 格式配置文件，且预先写好了 utterances 接口网页，意味着仅需改动配置文件就能使用。</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="c"># 如果你至此的所有环境与操作都与作者相同，那恭喜你马上就要通关了！</span><span class="w">
+</span><span class="w"></span><span class="c"># 如果你的主题用其他格式文件，注意语法的调整。</span><span class="w">
+</span><span class="w"></span><span class="c"># 如果你的主题没有携带 utterances 脚本代码，请在~/layouts/partials/comments/provider/ 目录下新建一个 utterances.html 文件，并在里面输入下一个代码块中的内容。如何判断你的主题是否支持 utterances 呢？ 查看 ~/themes/&lt;your-theme&gt;/layouts/partials/comments/provider/ 目录下是否存在 utterances.html 既可。</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="c"># 全局配置</span><span class="w">
 </span><span class="w"></span><span class="nt">params</span><span class="p">:</span><span class="w">
@@ -331,7 +336,7 @@ if (!doNotTrack) {
 </span><span class="w">
 </span><span class="w">          </span><span class="c"># label 可选项，提交的issue的默认标签，不填则不打标签。</span><span class="w">
 </span><span class="w">          </span><span class="nt">label</span><span class="p">:</span><span class="w"> 
-</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">//utterances.html
+</span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">// utterances.html template of theme, Stack
 
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://utteranc.es/client.js&#34;</span> 
         <span class="na">repo</span><span class="o">=</span><span class="s">&#34;{{ .Site.Params.comments.utterances.repo }}&#34;</span>
@@ -390,6 +395,25 @@ if (!doNotTrack) {
 <p><img src="image-20210921221634558.png" style="zoom: 50%;" /></p>
 </li>
 </ul>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 191; 
+			flex-basis: 458px"
+	>
+	<a href="/p/blog-comments-system/image-20210921222542719.png" data-size="2015x1054">
+		<img src="/p/blog-comments-system/image-20210921222542719.png"
+			width="2015"
+			height="1054"
+			srcset="/p/blog-comments-system/image-20210921222542719_hud5dc7da48c84aefbe260857398577f80_237619_480x0_resize_box_3.png 480w, /p/blog-comments-system/image-20210921222542719_hud5dc7da48c84aefbe260857398577f80_237619_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Comments-repo">
+	</a>
+	
+	<figcaption>Comments-repo</figcaption>
+	
+</figure></p>
 <h2 id="conclusion">Conclusion</h2>
 <h2 id="reference">Reference</h2>
 <ul>
