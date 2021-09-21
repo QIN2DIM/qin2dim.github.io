@@ -14,6 +14,7 @@
       
       <guid>https://qin2dim.github.io/p/blog-comments-system/</guid>
       <description>Overview 本篇博客分享如何在 Hugo 中快速部署 utteranc 博客评论系统。
+此外，作者在压测环境下做了一系列针对该系统的实验。任何你对这个系统可能遇到的极端情况，以及想知道结果但不敢操作的相关行为的代价都详细记录在了文章末尾的 Conclusion中，望有助。
 作者所使用的测试环境是 Hugo/theme:Stack + Github Pages，使用的环境信息如下：
    ID Content     OS Windows   hugo version hugo v0.88.1-5BC54738+extended   hugo theme hugo-theme-Stack v3.2.0    注意： 若您将本篇博客作为您部署 utterances 的参考思路，默认您已具备一个可以正常运作的 Hugo 个人站点。
 WHAT utterances utterances 是一种基于 GitHub issues 构建，可以将 GitHub issues 作为博客评论载体的轻量级评论小部件。截止至2020/09/21，此项目扔拥有以下特性：

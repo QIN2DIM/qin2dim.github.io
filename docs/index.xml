@@ -16,6 +16,7 @@
 &lt;p&gt;本篇博客分享如何在 &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio/hugo&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Hugo&lt;/a&gt; 中快速部署 &lt;a class=&#34;link&#34; href=&#34;https://github.com/utterance&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;utteranc&lt;/a&gt; 博客评论系统。&lt;/p&gt;
+&lt;p&gt;此外，作者在压测环境下做了一系列针对该系统的实验。任何你对这个系统可能遇到的极端情况，以及想知道结果但不敢操作的相关行为的代价都详细记录在了文章末尾的 Conclusion中，望有助。&lt;/p&gt;
 &lt;p&gt;作者所使用的测试环境是 &lt;strong&gt;Hugo/&lt;a class=&#34;link&#34; href=&#34;https://docs.stack.jimmycai.com/zh/configuration/#comments&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;theme:Stack&lt;/a&gt; + Github Pages&lt;/strong&gt;，使用的环境信息如下：&lt;/p&gt;
 &lt;table&gt;
