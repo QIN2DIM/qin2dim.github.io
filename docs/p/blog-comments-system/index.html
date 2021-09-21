@@ -137,7 +137,7 @@ if (!doNotTrack) {
 
 
                 <time class="article-time--reading">
-                    阅读时长: 2 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -265,9 +265,9 @@ if (!doNotTrack) {
 <ul>
 <li>
 <p><code>utterances</code> 工作流大致如下：</p>
-<p>当你的站点首次部署 <code>utterances</code> 时，它会扫描你的站点，并依照对应的规则（title/url/pathname）在你的 <code>comments-repo</code> 里提交 issue 。比如，你选择的规则是 <code>title</code>, 那么你的文章标题会被作为 <code>Issue Title</code> 提交到 <code>comments-repo</code> ；如果你选的规则是 <code>pathname</code>，那么文章对应的访问路径就会成为你的 <code>Issue Title</code>; <code>url</code>同理，只是在<code>pathname</code>前加上了域名标签。</p>
-<p>此后，你每创建一篇新的博客（并非实时，按提交代码来算）机器人会自动为你自动创建 issue， 而访客的评论会自动发送到对应文章的 issue 下面。</p>
+<p>当你的站点首次部署 <code>utterances</code> 时，它会定期（频率很快）扫描你的站点，如果发现有新的留言，会依照对应的规则（title/url/pathname）在你的 <code>comments-repo</code> 里提交 issue 。比如，你选择的规则是 <code>title</code>, 那么你的文章标题会被作为 <code>Issue Title</code> 提交到 <code>comments-repo</code> ；如果你选的规则是 <code>pathname</code>，那么文章对应的访问路径就会成为你的 <code>Issue Title</code>; <code>url</code>同理，只是在<code>pathname</code>前加上了域名标签。</p>
 <p>当访客（首次使用 <code>utterances</code> 系统）评论时，需要先进行 Github OAth API 授权，涉及的权限是允许 <code>utterances</code> 控制访客账号向你的 <code>comments-repo</code> 提交留言。</p>
+<p>值得一提的是，当你首次成功部署<code>utterances</code>后，它并不会自动扫描你的站点并为你所有的文章都创建一个对应的初始化 issue 发送到你的仓库，它只会监听自它被部署后新出现的评论，如果这个被评论的文章没有提过 issue，才会携带相关信息提交 issue，如果已存在 issue（该篇文章被 <strong>utterances-user</strong> 评论过），则会携带相关信息盖楼（在同 issue 下留言，而非继续创建）。</p>
 </li>
 <li>
 <p>当有访客来到这发表评论时，会经过如下过程：</p>
@@ -395,6 +395,10 @@ if (!doNotTrack) {
 <p><img src="image-20210921221634558.png" style="zoom: 50%;" /></p>
 </li>
 </ul>
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li>
+<p><strong>本地 hugo server 提交的评论也会被 utterances-bot 收录到 issues 中</strong></p>
 <p><figure 
 	
 		class="gallery-image" 
@@ -414,7 +418,114 @@ if (!doNotTrack) {
 	<figcaption>Comments-repo</figcaption>
 	
 </figure></p>
-<h2 id="conclusion">Conclusion</h2>
+</li>
+<li>
+<p><strong>直接在 issues 中发送的留言，也被会 utterances-bot 转发到 issues 对应的博客评论区中</strong></p>
+<p>值得一提的是，如果你此时正在本地运行 hugo server，有人在 issue 中发送新的留言，你能直接在 local server 中接收到这个信息，意味着你的文章评论区会直接渲染出更新的内容（如果你是 fast render 模式，需要刷新一下页面）。 同理，已经部署发布的站点也能收到这些讯息（实时更新）。</p>
+<p><img src="image-20210921223843970.png" alt="image-20210921223843970" style="zoom:67%;" /></p>
+</li>
+<li>
+<p><strong>从 utterances-bot 被成功部署的时刻算起，被评论过的文章才会被映射成 issue 收录进 comments-repository 中</strong></p>
+</li>
+<li>
+<p><strong>作为仓库的创建者，你有权删除任何 issue</strong></p>
+<p>一个已创建的评论 issue 后被删除，其盖楼评论会一起消失，意味着 issue 对应博客下的所有评论都会被瞬间清空。</p>
+</li>
+<li>
+<p><strong>作为仓库的创建者，你有权 close/reopen 任何 issue，但这并不影响评论系统的正常运转</strong></p>
+<p>如下图所示，作者先手动关闭了一个评论 issue，观察到稍后在博客中的留言依然可以被转发进来。此时 issue 仍保持<code>close</code>状态，并不会因为有新的动态而<code>reopen</code>。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 135; 
+			flex-basis: 325px"
+	>
+	<a href="/p/blog-comments-system/image-20210921230424682.png" data-size="1484x1093">
+		<img src="/p/blog-comments-system/image-20210921230424682.png"
+			width="1484"
+			height="1093"
+			srcset="/p/blog-comments-system/image-20210921230424682_hu1e9cf67bbeff687ab88bdea8c44593ef_132420_480x0_resize_box_3.png 480w, /p/blog-comments-system/image-20210921230424682_hu1e9cf67bbeff687ab88bdea8c44593ef_132420_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="B signal from hugo server">
+	</a>
+	
+	<figcaption>B signal from hugo server</figcaption>
+	
+</figure></p>
+<p>同样，从<code>closed issue</code>中发的言论，仍会被同步到 issue 对应的博客评论区中，如下图所示。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 332; 
+			flex-basis: 798px"
+	>
+	<a href="/p/blog-comments-system/image-20210921230722030.png" data-size="2708x814">
+		<img src="/p/blog-comments-system/image-20210921230722030.png"
+			width="2708"
+			height="814"
+			srcset="/p/blog-comments-system/image-20210921230722030_hu5cb2465af768e815f71b2160a2c767b6_220402_480x0_resize_box_3.png 480w, /p/blog-comments-system/image-20210921230722030_hu5cb2465af768e815f71b2160a2c767b6_220402_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="A signal from closed issue">
+	</a>
+	
+	<figcaption>A signal from closed issue</figcaption>
+	
+</figure></p>
+</li>
+<li>
+<p><strong>从 issue 中被删去的留言，在 issue 对应文章的评论区中的留言也会被同步删除</strong></p>
+<p>但是在博客中确无法找到删除留言的元素，意味着博客留言者想要移除/修改自己已发表的评论，需要到 comments-repo 仓库这里修改。</p>
+</li>
+<li>
+<p><strong>映射网址无法自动调整</strong></p>
+<ul>
+<li>
+<p>还记得Conclusion 的第一条总结吗，机器人会提供一条反射信息，是一个直接指向该篇博客的访问链接。通常情况下这时正常运作的，但如果这篇文章的第一条评论是你在本地测试时直接在 hugo server 上发送的，那反射信息就会如图中显示的那样指向http:localhost:1313/xxx，这是一个非常糟糕的情况，后续作者在部署站点上更新的评论，依然无法让机器人自动调整反射网址。如果你这么做了，你可能手动修改issue中的反射信息，否则他无法指向正确的博客链接。</p>
+</li>
+<li>
+<p>机器人提供的反射域名并不会因为你设置了CNAME而有所改变，依然会是<code>https://Yourname.github.io/xxxx</code>。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>utterances 具备一定的“跟踪”能力</strong></p>
+<ul>
+<li>
+<p>如第一条 Conclusion 所示，当你的文章被标记收录后，机器人会提供你的文章标题以及副标题信息。即使你未来改变了这些信息（title，description），issue中的已被提供的这些信息不会自行变更，但这并不影响评论系统正常运行。</p>
+</li>
+<li>
+<p>但如果你修改了文章的<code>slug</code>也即修改了文章对应的检索路径（重启本地服务器后生效），这篇文章挂载的评论信息会“丢失”。同样，你在更新了 slug 的文章发送的评论，会被机器人以新的 issue 提交到你的 comments-repo，显然，首层占楼的反射信息指向了你变更后的博客网址。</p>
+<p><img src="image-20210921234030946.png" alt="image-20210921234030946" style="zoom:50%;" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>utterances 跟踪你的网址而非你的标题</strong></p>
+<p>是的，猜想是对的。当你将文章的<code>slug</code>改回去后，这篇文章所挂载的评论区又回来了。意味着只要不删除 issue，评论信息并不会真正 &ldquo;丢失&rdquo;。</p>
+<p>换句话说，你可以随意修改文章标题以及副标题，但不要随意修改文章的网页路径<code>slug</code>，这是一项危险的操作，除非你做好了数据迁移的准备。</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 190; 
+			flex-basis: 457px"
+	>
+	<a href="/p/blog-comments-system/image-20210921234644893.png" data-size="774x406">
+		<img src="/p/blog-comments-system/image-20210921234644893.png"
+			width="774"
+			height="406"
+			srcset="/p/blog-comments-system/image-20210921234644893_hudbd65d4969dde2f3d85137308f6c050d_41588_480x0_resize_box_3.png 480w, /p/blog-comments-system/image-20210921234644893_hudbd65d4969dde2f3d85137308f6c050d_41588_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="YAML Font Matter of Markdown">
+	</a>
+	
+	<figcaption>YAML Font Matter of Markdown</figcaption>
+	
+</figure></p>
+</li>
+</ul>
 <h2 id="reference">Reference</h2>
 <ul>
 <li>
