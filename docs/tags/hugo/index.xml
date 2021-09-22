@@ -1,21 +1,38 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hugo on Echosec @QIN2DIM</title><link>https://qin2dim.github.io/tags/hugo/</link><description>Recent content in Hugo on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 20 Sep 2021 19:38:45 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml"/><item><title>『 Hugo 』Blog Comments System</title><link>https://qin2dim.github.io/p/blog-comments-system/</link><pubDate>Mon, 20 Sep 2021 19:38:45 +0800</pubDate><guid>https://qin2dim.github.io/p/blog-comments-system/</guid><description>Overview 本篇博客分享如何在 Hugo 中快速部署 utteranc 博客评论系统。
-此外，作者在压测环境下做了一系列针对该系统的实验。任何你对这个系统可能遇到的极端情况，以及想知道结果但不敢操作的相关行为的代价都详细记录在了文章末尾的 Conclusion中，望有助。
-作者所使用的测试环境是 Hugo/theme:Stack + Github Pages，使用的环境信息如下：
-ID Content OS Windows hugo version hugo v0.88.1-5BC54738+extended hugo theme hugo-theme-Stack v3.2.0 注意： 若您将本篇博客作为您部署 utterances 的参考思路，默认您已具备一个可以正常运作的 Hugo 个人站点。
-WHAT utterances utterances 是一种基于 GitHub issues 构建，可以将 GitHub issues 作为博客评论载体的轻量级评论小部件。截止至2020/09/21，此项目扔拥有以下特性：
-完全开源 不追踪流量，没有广告，完全免费 不阻断流量，所有的评论数据都会存储在你指定的Repository中 基于Primer设计，这是一种Github官方提供的CSS工具包（相较之下有更好的兼容性和性能提升） 支持暗黑模式（Dark theme） 足够轻量，完美兼容 Markdown 语法，没有字体缓存或 JavaScript frameworks 依赖 WHY utterances 为什么选择utterances？主要原因如上文所示，utterances 是一种基于 Github 生态孵化的足够轻量的部件，在使用同为 Github 产品 Github Pages 的前提下，使用”同源产品“能够方便我们管理资源的储备及分布。此外，”同源“意味着它比其他”第三方“产品具备更好的兼容性及运行效率，从技术选型上符合”足够使用，不需要过度折腾“的普世需求。</description></item><item><title>『 Hugo 』Typlog Atlas</title><link>https://qin2dim.github.io/p/typlog-atlas/</link><pubDate>Mon, 20 Sep 2021 19:38:28 +0800</pubDate><guid>https://qin2dim.github.io/p/typlog-atlas/</guid><description>DEMO
-What Typlog Typlog 相册语法 是一种基于 Markdown 图像插入语法的，能将你插入到 Markdown 文本中的图片渲染呈现“瀑布流”排版效果的一种嵌入式插件。
-Stack@Hugo主题 借鉴支持 Typlog 相册语法，该主题已获原作者 Lepture 授权。
-Why Typlog Typlog 相册语法 能够丰富你的 Markdown 正文内容，也能在需要的地方增加信息浓度。
-How Typlog How to insert a picture by Markdown syntax Markdown 插入图片的语法规则如下所示。
-![alt text for the image](src of the image) 此处的 src 可以是本地资源路径，也可以是网络图片的链接（如果目标资源设置了防盗链，可能无法直接在webview中使用）。
-Markdown 插入图片的用法如下代码块所示。
-![local source](hello-hugo.jpg) ![remote source](https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png) How to insert a picture by Typlog syntax Typlog 语法格式基于上述代码实现。“瀑布流”排版效果实现起来非常简单，仅需将Syntax Block按照你的意愿进行“堆叠”，插入的图片就会被“等比例调整”实现自动排版效果。</description></item><item><title>『 Hugo 』Hello Hugo</title><link>https://qin2dim.github.io/p/hello-hugo/</link><pubDate>Sun, 19 Sep 2021 23:40:03 +0800</pubDate><guid>https://qin2dim.github.io/p/hello-hugo/</guid><description>使用Hugo/theme:Stack + Github Pages 快速搭建个人博客网站，足够轻量，包含最新特性，快速上手，记录一些容易踩的坑。
-注意：若您将本博客作为您的部署参考指南，默认您拥有一枚可用的Github账号，了解git，bash/shell常用指令，且您的本机运行环境中已预先安装hugo脚手架。本篇博客的行内指令若无特殊说明，均在站点根目录下执行，请注意区别。
-ID Content OS Windows hugo version hugo v0.88.1-5BC54738+extended hugo theme hugo-theme-Stack v3.2.0 Quick Start Preview 我们需要知道当前版本中的 Github Pages 能创建在你的任意一个 Github Project 之上，而非一定要在yourname.github.io上创建。但无论是哪种创建方式，都要遵守相应的部署规则，才能不报错，不出现路径定位异常等问题。
-其次，Github Pages 默认以你的 Project Repository 为项目根，意味着你部署 Github Pages 的仓库首页应该存在如index.html，404.html等站点文件，参考组织结构如下图所示。
-参考组织结构
-显然，此处的“仓库首页”是你的 Pages 指向的 folder ，如下图所示。
-Github Pages 运行根
-举个例子，你的用户名叫 xiaoming，你创建了一个仓库叫 APIs-docs，那么你的仓库链接是https://github.com/xiaoming/apis-docs（大小写不敏感）。
-此时如果你的 Select folder = /(root)，那么你直接访问上文所述仓库链接后，能直接在当前页面中看到index.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on Echosec @QIN2DIM</title>
+    <link>https://qin2dim.github.io/tags/hugo/</link>
+    <description>Recent content in Hugo on Echosec @QIN2DIM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Sep 2021 19:38:45 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『 Hugo 』Blog Comments System</title>
+      <link>https://qin2dim.github.io/p/blog-comments-system/</link>
+      <pubDate>Mon, 20 Sep 2021 19:38:45 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/p/blog-comments-system/</guid>
+      <description>Overview 本篇博客分享如何在 Hugo 中快速部署 utteranc 博客评论系统。 此外，作者在压测环境下做了一系列针对该系统的实验。任何你对这个系统可能遇到的极端情况，以及想</description>
+    </item>
+    
+    <item>
+      <title>『 Hugo 』Typlog Atlas</title>
+      <link>https://qin2dim.github.io/p/typlog-atlas/</link>
+      <pubDate>Mon, 20 Sep 2021 19:38:28 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/p/typlog-atlas/</guid>
+      <description>DEMO What Typlog Typlog 相册语法 是一种基于 Markdown 图像插入语法的，能将你插入到 Markdown 文本中的图片渲染呈现“瀑布流”排版效果的一种嵌入式插件。 Stack@Hugo主题 借</description>
+    </item>
+    
+    <item>
+      <title>『 Hugo 』Hello Hugo</title>
+      <link>https://qin2dim.github.io/p/hello-hugo/</link>
+      <pubDate>Sun, 19 Sep 2021 23:40:03 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/p/hello-hugo/</guid>
+      <description>使用Hugo/theme:Stack + Github Pages 快速搭建个人博客网站，足够轻量，包含最新特性，快速上手，记录一些容易踩的坑。 注意：若您将本博客作为</description>
+    </item>
+    
+  </channel>
+</rss>
