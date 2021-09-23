@@ -1,1 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Echosec @QIN2DIM</title><link>https://qin2dim.github.io/categories/python/</link><description>Recent content in Python on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://qin2dim.github.io/categories/python/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Echosec @QIN2DIM</title>
+    <link>https://qin2dim.github.io/categories/python/</link>
+    <description>Recent content in Python on Echosec @QIN2DIM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://qin2dim.github.io/categories/python/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
