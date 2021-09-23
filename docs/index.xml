@@ -17,9 +17,7 @@
 &lt;p&gt;插入视频：&lt;code&gt;https://www.youtube.com/watch?v=vmkRMvhCW5c&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;youtube&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;vmkRMvhCW5c&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;https://www.youtube.com/embed/vmkRMvhCW5c&lt;/p&gt;
-
-&lt;div class=&#34;video-wrapper&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
     &lt;iframe loading=&#34;lazy&#34; 
             src=&#34;https://www.youtube.com/embed/vmkRMvhCW5c&#34; 
             allowfullscreen 
@@ -61,14 +59,9 @@
     
 
 
-
-&lt;p&gt;当前视频av或BV号：BV1Yv41147QK，视频分P：1&lt;/p&gt;
-&lt;p&gt;&#34;https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1Yv41147QK&#34;&lt;/p&gt;
-
 &lt;div class=&#34;video-wrapper&#34;&gt;
-    &lt;iframe src=&#34;https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1Yv41147QK&#34;
+    &lt;iframe src=&#34;//player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1Yv41147QK&#34;
             scrolling=&#34;no&#34;
-            border=&#34;0&#34;
             frameborder=&#34;no&#34;
             framespacing=&#34;0&#34;
             allowfullscreen=&#34;true&#34;
@@ -82,9 +75,8 @@
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;tencent&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;b31563j0jqw&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;http://v.qq.com/txp/iframe/player.html?vid=b31563j0jqw&amp;auto=0&lt;/p&gt;
 &lt;div class=&#34;video-wrapper&#34;&gt;
-    &lt;iframe src=&#34;https://v.qq.com/txp/iframe/player.html?vid=b31563j0jqw&amp;auto=0&#34; 
+    &lt;iframe src=&#34;http://v.qq.com/txp/iframe/player.html?vid=mzc00200zs3u3hu&amp;auto=0&#34; 
             scrolling=&#34;no&#34; 
             frameborder=&#34;no&#34;
             framespacing=&#34;0&#34; 
