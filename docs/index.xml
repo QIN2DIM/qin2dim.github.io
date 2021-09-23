@@ -49,7 +49,7 @@ allowfullscreen="true"
 &lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">\{\{&lt;span class="p">&amp;lt;&lt;/span> &lt;span class="nt">tencent&lt;/span> &lt;span class="na">y00408t8246&lt;/span> &lt;span class="p">&amp;gt;&lt;/span>}}
 &lt;/code>&lt;/pre>&lt;/div>
 &lt;div class="video-wrapper">
-&lt;iframe src="https://v.qq.com/txp/iframe/player.html?vid=y00408t8246&amp;auto=0"
+&lt;iframe src="http://v.qq.com/txp/iframe/player.html?vid=y00408t8246&amp;auto=0"
 scrolling="no"
 frameborder="no"
 framespacing="0"
