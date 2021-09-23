@@ -1,222 +1,525 @@
-<!doctype html><html lang=en-us>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="在 Hugo 中添加内嵌视频"><title>『 Hugo 』Shortcode</title>
-<link rel=canonical href=https://qin2dim.github.io/p/hugo-shortcode/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="『 Hugo 』Shortcode">
-<meta property="og:description" content="在 Hugo 中添加内嵌视频">
-<meta property="og:url" content="https://qin2dim.github.io/p/hugo-shortcode/">
-<meta property="og:site_name" content="Echosec @QIN2DIM">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:published_time" content="2021-09-22T20:23:13+08:00"><meta property="article:modified_time" content="2021-09-22T20:23:13+08:00"><meta property="og:image" content="https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg">
-<meta name=twitter:site content="@Alkaid20860233">
-<meta name=twitter:creator content="@Alkaid20860233"><meta name=twitter:title content="『 Hugo 』Shortcode">
-<meta name=twitter:description content="在 Hugo 中添加内嵌视频"><meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg">
-<link rel="shortcut icon" href=https://image.shutterstock.com/image-vector/hand-drawn-blue-pink-vector-600w-426392518.jpg>
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='在 Hugo 中添加内嵌视频'><title>『 Hugo 』Shortcode</title>
+
+<link rel='canonical' href='https://qin2dim.github.io/p/hugo-shortcode/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='『 Hugo 』Shortcode'>
+<meta property='og:description' content='在 Hugo 中添加内嵌视频'>
+<meta property='og:url' content='https://qin2dim.github.io/p/hugo-shortcode/'>
+<meta property='og:site_name' content='Echosec @QIN2DIM'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-09-22T20:23:13&#43;08:00'/><meta property='article:modified_time' content='2021-09-22T20:23:13&#43;08:00'/><meta property='og:image' content='https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg' />
+<meta name="twitter:site" content="@Alkaid20860233">
+    <meta name="twitter:creator" content="@Alkaid20860233"><meta name="twitter:title" content="『 Hugo 』Shortcode">
+<meta name="twitter:description" content="在 Hugo 中添加内嵌视频"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg' />
+    <link rel="shortcut icon" href="https://image.shutterstock.com/image-vector/hand-drawn-blue-pink-vector-600w-426392518.jpg" />
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XVBFK3RRV"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-9XVBFK3RRV',{anonymize_ip:!1})}</script>
-</head>
-<body class="article-page has-toc">
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex
-extended">
-<div id=article-toolbar>
-<a href=https://qin2dim.github.io class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
-<span>返回</span>
-</a>
-</div>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9XVBFK3RRV', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://qin2dim.github.io" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
 <main class="main full-width">
-<article class="has-image main-article">
-<header class=article-header>
-<div class=article-image>
-<a href=/p/hugo-shortcode/>
-<img src=/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg srcset="/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg 800w, /p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_1600x0_resize_q75_box.jpg 1600w" width=800 height=531 loading=lazy alt="Featured image of post 『 Hugo 』Shortcode">
-</a>
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/hugo-shortcode/">
+                <img src="/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg"
+                        srcset="/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg 800w, /p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="531" 
+                        loading="lazy"
+                        alt="Featured image of post 『 Hugo 』Shortcode" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hugo/" style="background-color: #7e7a6f; color: #fff;">
+                Hugo
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/hugo-shortcode/">『 Hugo 』Shortcode</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        在 Hugo 中添加内嵌视频
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 22, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+
+    </footer>
+    
 </div>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/hugo/ style=background-color:#7e7a6f;color:#fff>
-Hugo
-</a>
 </header>
-<h2 class=article-title>
-<a href=/p/hugo-shortcode/>『 Hugo 』Shortcode</a>
-</h2>
-<h3 class=article-subtitle>
-在 Hugo 中添加内嵌视频
-</h3>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>Sep 22, 2021</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-阅读时长: 1 分钟
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<h2 id=youtube>YouTube</h2>
+
+    <section class="article-content">
+    <h2 id="youtube">YouTube</h2>
 <blockquote>
 <p>插入视频：<code>https://www.youtube.com/watch?v=vmkRMvhCW5c</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>youtube</span> <span class=na>vmkRMvhCW5c</span> <span class=p>&gt;</span>}}
-</code></pre></div><div class=video-wrapper>
-<iframe loading=lazy src=https://www.youtube.com/embed/vmkRMvhCW5c allowfullscreen title="YouTube Video"></iframe>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">youtube</span> <span class="na">vmkRMvhCW5c</span> <span class="p">&gt;</span>}}
+</code></pre></div><div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/vmkRMvhCW5c" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
 </div>
-<h2 id=本地视频>本地视频</h2>
+
+<h2 id="本地视频">本地视频</h2>
 <blockquote>
 <p>插入视频：<code>./尊严！只在剑锋之上.mp4</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>video</span> <span class=err>&#34;./</span><span class=na>尊严</span><span class=err>！</span><span class=na>只在剑锋之上</span><span class=err>.</span><span class=na>mp4</span><span class=err>&#34;</span> <span class=p>&gt;</span>}}
-</code></pre></div><div class=video-wrapper>
-<video controls src=./%e5%b0%8a%e4%b8%a5%ef%bc%81%e5%8f%aa%e5%9c%a8%e5%89%91%e9%94%8b%e4%b9%8b%e4%b8%8a.mp4>
-<p>
-Your browser doesn't support HTML5 video. Here is a
-<a href=./%e5%b0%8a%e4%b8%a5%ef%bc%81%e5%8f%aa%e5%9c%a8%e5%89%91%e9%94%8b%e4%b9%8b%e4%b8%8a.mp4>link to the video</a> instead.
-</p>
-</video>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">video</span> <span class="err">&#34;./</span><span class="na">尊严</span><span class="err">！</span><span class="na">只在剑锋之上</span><span class="err">.</span><span class="na">mp4</span><span class="err">&#34;</span> <span class="p">&gt;</span>}}
+</code></pre></div><div class="video-wrapper">
+    <video
+    controls
+    src="./%e5%b0%8a%e4%b8%a5%ef%bc%81%e5%8f%aa%e5%9c%a8%e5%89%91%e9%94%8b%e4%b9%8b%e4%b8%8a.mp4"
+    
+    
+    >
+        <p>
+            Your browser doesn't support HTML5 video. Here is a
+            <a href="./%e5%b0%8a%e4%b8%a5%ef%bc%81%e5%8f%aa%e5%9c%a8%e5%89%91%e9%94%8b%e4%b9%8b%e4%b8%8a.mp4">link to the video</a> instead.
+        </p>
+    </video>
 </div>
-<h2 id=哔哩哔哩>哔哩哔哩</h2>
+
+<h2 id="哔哩哔哩">哔哩哔哩</h2>
 <blockquote>
 <p>插入视频：<code>https://www.bilibili.com/video/BV1Yv41147QK</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>bilibili</span> <span class=na>BV1Yv41147QK</span> <span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1Yv41147QK</span> <span class="p">&gt;</span>}}
 </code></pre></div>
-<div class=video-wrapper>
-<iframe src="https://player.bilibili.com/player.html?as_wide=1&high_quality=1&page=1&bvid=BV1Yv41147QK" scrolling=no frameborder=no framespacing=0 allowfullscreen></iframe>
+
+
+
+
+
+    
+
+
+<div class="video-wrapper">
+    <iframe src="https://player.bilibili.com/player.html?as_wide=1&amp;high_quality=1&amp;page=1&bvid=BV1Yv41147QK"
+            scrolling="no"
+            frameborder="no"
+            framespacing="0"
+            allowfullscreen="true"
+    >
+    </iframe>
 </div>
-<h2 id=腾讯视频>腾讯视频</h2>
+
+<h2 id="腾讯视频">腾讯视频</h2>
 <blockquote>
 <p>插入视频：<code>https://v.qq.com/x/page/y00408t8246.html</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>tencent</span> <span class=na>y00408t8246</span> <span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">tencent</span> <span class="na">y00408t8246</span> <span class="p">&gt;</span>}}
 </code></pre></div>
-<div class=video-wrapper>
-<iframe src="https://v.qq.com/txp/iframe/player.html?vid=y00408t8246&auto=0" scrolling=no frameborder=no framespacing=0 allowfullscreen></iframe>
+<div class="video-wrapper">
+    <iframe src="https://v.qq.com/txp/iframe/player.html?vid=y00408t8246&auto=0" 
+            scrolling="no" 
+            frameborder="no"
+            framespacing="0" 
+            allowfullscreen="true"
+    >
+    </iframe>
 </div>
-<h2 id=西瓜视频>西瓜视频</h2>
-<h2 id=搜狐视频>搜狐视频</h2>
-<h2 id=优酷视频>优酷视频</h2>
+<h2 id="西瓜视频">西瓜视频</h2>
+<h2 id="搜狐视频">搜狐视频</h2>
+<h2 id="优酷视频">优酷视频</h2>
+
 </section>
-<footer class=article-footer>
-<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
-</section>
-</footer>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
 </article>
-<aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
-<div class=related-contents>
-<div class="flex article-list--tile">
-<article class=has-image>
-<a href=/p/blog-comments-system/>
-<div class=article-image>
-<img src=/p/blog-comments-system/keyboard-648440_1920.6d57d0005f3a4da5585891bfedd3e703_hu955718f9ea4266afcc67e5e6a764f88f_201168_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy data-key=blog-comments-system data-hash="md5-bVfQAF86TaVYWJG/7dPnAw==">
-</div>
-<div class=article-details>
-<h2 class=article-title>『 Hugo 』Blog Comments System</h2>
-</div>
-</a>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/blog-comments-system/">
+        
+        
+            <div class="article-image">
+                <img src="/p/blog-comments-system/keyboard-648440_1920.6d57d0005f3a4da5585891bfedd3e703_hu955718f9ea4266afcc67e5e6a764f88f_201168_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="blog-comments-system" 
+                        data-hash="md5-bVfQAF86TaVYWJG/7dPnAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">『 Hugo 』Blog Comments System</h2>
+        </div>
+    </a>
 </article>
-<article class=has-image>
-<a href=/p/typlog-atlas/>
-<div class=article-image>
-<img src=/p/typlog-atlas/topic.ba3827d8b9ae2d9f769ba6f3a9410edb_hu0b47b138f493b3f6e0d84b750117d30b_2670061_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy data-key=typlog-atlas data-hash="md5-ujgn2LmuLZ92m6bzqUEO2w==">
-</div>
-<div class=article-details>
-<h2 class=article-title>『 Hugo 』Typlog Atlas</h2>
-</div>
-</a>
+                
+                    
+<article class="has-image">
+    <a href="/p/typlog-atlas/">
+        
+        
+            <div class="article-image">
+                <img src="/p/typlog-atlas/topic.ba3827d8b9ae2d9f769ba6f3a9410edb_hu0b47b138f493b3f6e0d84b750117d30b_2670061_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="typlog-atlas" 
+                        data-hash="md5-ujgn2LmuLZ92m6bzqUEO2w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">『 Hugo 』Typlog Atlas</h2>
+        </div>
+    </a>
 </article>
-<article class=has-image>
-<a href=/p/hello-hugo/>
-<div class=article-image>
-<img src=/p/hello-hugo/coffee-2511065_1920.c7bff0845cf145339ca52f0dc679c995_hu542c575640116087aad91130e63312e2_586804_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy data-key=hello-hugo data-hash="md5-x7/whFzxRTOcpS8NxnnJlQ==">
-</div>
-<div class=article-details>
-<h2 class=article-title>『 Hugo 』Hello Hugo</h2>
-</div>
-</a>
+                
+                    
+<article class="has-image">
+    <a href="/p/hello-hugo/">
+        
+        
+            <div class="article-image">
+                <img src="/p/hello-hugo/coffee-2511065_1920.c7bff0845cf145339ca52f0dc679c995_hu542c575640116087aad91130e63312e2_586804_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="hello-hugo" 
+                        data-hash="md5-x7/whFzxRTOcpS8NxnnJlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">『 Hugo 』Hello Hugo</h2>
+        </div>
+    </a>
 </article>
-</div>
-</div>
+                
+            </div>
+        </div>
+    
 </aside>
-<script src=https://utteranc.es/client.js repo=qin2dim/blog-comments issue-term=pathname crossorigin=anonymous async></script>
-<style>.utterances{max-width:unset}</style>
-<script>function setUtterancesTheme(b){let a=document.querySelector('.utterances iframe');a&&a.contentWindow.postMessage({type:'set-theme',theme:`github-${b}`},'https://utteranc.es')}addEventListener('message',a=>{if(a.origin!=='https://utteranc.es')return;setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener('onColorSchemeChange',a=>{setUtterancesTheme(a.detail)})</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
-2020 -
-2021 Echosec @QIN2DIM
-</section>
-<section class=powerby>
-You will to enjoy grander sight / By climing to a greater height. <br>
-Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
-</section>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="qin2dim/blog-comments"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Echosec @QIN2DIM
+    </section>
+    
+    <section class="powerby">
+        
+            You will to enjoy grander sight / By climing to a greater height. <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">目录</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ol>
-<li><a href=#youtube>YouTube</a></li>
-<li><a href=#本地视频>本地视频</a></li>
-<li><a href=#哔哩哔哩>哔哩哔哩</a></li>
-<li><a href=#腾讯视频>腾讯视频</a></li>
-<li><a href=#西瓜视频>西瓜视频</a></li>
-<li><a href=#搜狐视频>搜狐视频</a></li>
-<li><a href=#优酷视频>优酷视频</a></li>
-</ol>
+
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#youtube">YouTube</a></li>
+    <li><a href="#本地视频">本地视频</a></li>
+    <li><a href="#哔哩哔哩">哔哩哔哩</a></li>
+    <li><a href="#腾讯视频">腾讯视频</a></li>
+    <li><a href="#西瓜视频">西瓜视频</a></li>
+    <li><a href="#搜狐视频">搜狐视频</a></li>
+    <li><a href="#优酷视频">优酷视频</a></li>
+  </ol>
 </nav>
-</div>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>
