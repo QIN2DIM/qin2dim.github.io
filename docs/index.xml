@@ -60,7 +60,7 @@
 
 
 &lt;div class=&#34;video-wrapper&#34;&gt;
-    &lt;iframe src=&#34;//player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1Yv41147QK&#34;
+    &lt;iframe src=&#34;https://player.bilibili.com/player.html?as_wide=1&amp;amp;high_quality=1&amp;amp;page=1&amp;bvid=BV1Yv41147QK&#34;
             scrolling=&#34;no&#34;
             frameborder=&#34;no&#34;
             framespacing=&#34;0&#34;
@@ -71,12 +71,12 @@
 
 &lt;h2 id=&#34;腾讯视频&#34;&gt;腾讯视频&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt;插入视频：&lt;code&gt;https://v.qq.com/x/page/b31563j0jqw.html&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;插入视频：&lt;code&gt;https://v.qq.com/x/page/y00408t8246.html&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;tencent&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;b31563j0jqw&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;tencent&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;y00408t8246&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;div class=&#34;video-wrapper&#34;&gt;
-    &lt;iframe src=&#34;http://v.qq.com/txp/iframe/player.html?vid=mzc00200zs3u3hu&amp;auto=0&#34; 
+    &lt;iframe src=&#34;https://v.qq.com/txp/iframe/player.html?vid=y00408t8246&amp;auto=0&#34; 
             scrolling=&#34;no&#34; 
             frameborder=&#34;no&#34;
             framespacing=&#34;0&#34; 
