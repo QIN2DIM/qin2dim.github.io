@@ -6,7 +6,16 @@
     <description>Recent content in blog on Echosec @QIN2DIM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Sep 2021 19:38:45 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 24 Sep 2021 08:23:16 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>『 Bot Revolution 』 Hello Chatbot</title>
+      <link>https://qin2dim.github.io/p/hello-world-bot-revolution/</link>
+      <pubDate>Fri, 24 Sep 2021 08:23:16 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/p/hello-world-bot-revolution/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>『 Hugo 』Blog Comments System</title>
       <link>https://qin2dim.github.io/p/blog-comments-system/</link>
