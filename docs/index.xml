@@ -12,7 +12,8 @@
         <pubDate>Wed, 22 Sep 2021 20:23:13 +0800</pubDate>
         
         <guid>https://qin2dim.github.io/p/hugo-shortcode/</guid>
-        <description>&lt;img src="https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg" alt="Featured image of post 『 Hugo 』Shortcode" /&gt;&lt;h2 id=&#34;youtube&#34;&gt;YouTube&lt;/h2&gt;
+        <description>&lt;img src="https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg" alt="Featured image of post 『 Hugo 』Shortcode" /&gt;&lt;h2 id=&#34;demo&#34;&gt;DEMO&lt;/h2&gt;
+&lt;h3 id=&#34;youtube&#34;&gt;YouTube&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;插入视频：&lt;code&gt;https://www.youtube.com/watch?v=vmkRMvhCW5c&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -26,16 +27,16 @@
     &lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;本地视频&#34;&gt;本地视频&lt;/h2&gt;
+&lt;h3 id=&#34;本地视频&#34;&gt;本地视频&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;插入视频：&lt;code&gt;./尊严！只在剑锋之上.mp4&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;video&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;&amp;#34;./&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;尊严&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;！&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;只在剑锋之上&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;mp4&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;video&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;./尊严！只在剑锋之上.mp4&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;poster&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;./9fafa751ddb95e62533855f868bd49e83d9670e8.jpg&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;video-wrapper&#34;&gt;
     &lt;video
     controls
     src=&#34;./%e5%b0%8a%e4%b8%a5%ef%bc%81%e5%8f%aa%e5%9c%a8%e5%89%91%e9%94%8b%e4%b9%8b%e4%b8%8a.mp4&#34;
-    
+    poster=&#34;./9fafa751ddb95e62533855f868bd49e83d9670e8.jpg&#34;
     
     &gt;
         &lt;p&gt;
@@ -45,7 +46,7 @@
     &lt;/video&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;哔哩哔哩&#34;&gt;哔哩哔哩&lt;/h2&gt;
+&lt;h3 id=&#34;哔哩哔哩&#34;&gt;哔哩哔哩&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;插入视频：&lt;code&gt;https://www.bilibili.com/video/BV1Yv41147QK&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -69,7 +70,7 @@
     &lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&#34;腾讯视频&#34;&gt;腾讯视频&lt;/h2&gt;
+&lt;h3 id=&#34;腾讯视频&#34;&gt;腾讯视频&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;插入视频：&lt;code&gt;https://v.qq.com/x/page/y00408t8246.html&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -84,9 +85,219 @@
     &gt;
     &lt;/iframe&gt;
 &lt;/div&gt;
-&lt;h2 id=&#34;西瓜视频&#34;&gt;西瓜视频&lt;/h2&gt;
-&lt;h2 id=&#34;搜狐视频&#34;&gt;搜狐视频&lt;/h2&gt;
-&lt;h2 id=&#34;优酷视频&#34;&gt;优酷视频&lt;/h2&gt;
+&lt;h3 id=&#34;西瓜视频&#34;&gt;西瓜视频&lt;/h3&gt;
+&lt;h3 id=&#34;搜狐视频&#34;&gt;搜狐视频&lt;/h3&gt;
+&lt;h3 id=&#34;优酷视频&#34;&gt;优酷视频&lt;/h3&gt;
+&lt;h2 id=&#34;shortcodes&#34;&gt;Shortcodes&lt;/h2&gt;
+&lt;h3 id=&#34;what-shortcode&#34;&gt;WHAT Shortcode&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#what-a-shortcode-is&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;What a Shortcode is&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;shortcode&lt;/code&gt; 短码调用，您的博客文章中被“特殊标注”的内容将被 Hugo 识别转义。&lt;/p&gt;
+&lt;p&gt;通常，我们将 &lt;code&gt;shortcode&lt;/code&gt; 技术用于“内联搜索”的应用场景，换句话说， &lt;code&gt;shortcode&lt;/code&gt; 允许您在博客正文的任意位置嵌入可直接播放的媒体资源。&lt;/p&gt;
+&lt;p&gt;也许您曾留意到，Hugo文档中经常出现&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/getting-started/installing/#install-hugo-with-brew&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;类似的应用案例&lt;/a&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;why-shortcode&#34;&gt;WHY Shortcode&lt;/h3&gt;
+&lt;p&gt;您可以通过 &lt;code&gt;shortcode&lt;/code&gt; 在文章的合适位置插入媒体资源用以增加信息浓度，提高内容的可读性。&lt;/p&gt;
+&lt;h3 id=&#34;how-shortcode&#34;&gt;HOW Shortcode&lt;/h3&gt;
+&lt;h4 id=&#34;how-it-works&#34;&gt;How it works?&lt;/h4&gt;
+&lt;h4 id=&#34;how-to-use-the-build-in--shortcode-of-hugo&#34;&gt;How to use the build-in  &lt;code&gt;shortcode&lt;/code&gt; of Hugo？&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Use Shortcode&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;在您的 Markdown 文章中使用如下格式的短码调用, 其内容将被 Hugo 识别为&lt;code&gt;shortcode&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;yourShortcodeName&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;在您的站点根目录下新建&lt;code&gt;./layouts/shortcodes/yourShortcodeName.html&lt;/code&gt;，编写这个文件&lt;/p&gt;
+&lt;p&gt;此时，您在此&lt;code&gt;.html&lt;/code&gt;中编辑的语法内容将被 Markdown 容器接受并被 Hugo kernel 渲染输出体现在您的调试网页上。&lt;/p&gt;
+&lt;p&gt;若您暂时不知道该写点什么，不必担心，&lt;a class=&#34;link&#34; href=&#34;#overview&#34; &gt;Stack 默认提供了几种可靠的短码调用策略&lt;/a&gt;。它们&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/templates/shortcode-templates/#file-location&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;默认存储&lt;/a&gt;在&lt;code&gt;./themes/hugo-theme-stack/layouts/shortcodes&lt;/code&gt;中，根据 Hugo 模板调用的优先顺序，当您的根目录下的 &lt;code&gt;./layourts/shortcodes/&lt;/code&gt;并不存在有效同名项目时，Stack 提供的默认策略将生效。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：一般情况下，&lt;code&gt;\{\{&amp;lt; &amp;gt;}}&lt;/code&gt; 标识符（此处加了反斜杠防止转义）中的 &lt;code&gt;yourShortcodeName&lt;/code&gt; 需要与您所指定的位于&lt;code&gt;./layouts/shortcodes/&lt;/code&gt;或&lt;code&gt;./themes/hugo-theme-stack/layouts/shortcodes&lt;/code&gt;下的&lt;code&gt;.html&lt;/code&gt;文件名一致。&lt;/p&gt;
+&lt;p&gt;例如指定 &lt;code&gt;./layouts/shortcodes/youtube.html&lt;/code&gt;，那么合适的调用格式是 &lt;code&gt;\{\{&amp;lt; youtube &amp;gt;}}&lt;/code&gt;，后面的&lt;code&gt;[params]&lt;/code&gt;则根据具体的&lt;code&gt;shortcode&lt;/code&gt;接口内容而定。&lt;/p&gt;
+&lt;h4 id=&#34;how-to-use-the-custom-shortcode-of-stack&#34;&gt;How to use the custom &lt;code&gt;shortcode&lt;/code&gt; of Stack&lt;/h4&gt;
+&lt;p&gt;例如实现业内插入 Youtube 来源视频，假设如下 Markdown 内容为您的一篇&lt;strong&gt;博客正文&lt;/strong&gt;，若您正处于 &lt;code&gt;hugo server&lt;/code&gt; 本地调试模式，可直接复制挪用。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span class=&#34;k&#34;&gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;ge&#34;&gt;这是写在你的 Markdown 正文中的内容哟~
+&lt;/span&gt;&lt;span class=&#34;ge&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;gu&#34;&gt;## Example 1
+&lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;-&lt;/span&gt; 插入视频：`https://www.youtube.com/watch?v=MpYy6wwqxoo`
+&lt;span class=&#34;k&#34;&gt;-&lt;/span&gt; 接受参数视频 ID,可能网址很长,但只需要复制**键值对** &lt;span class=&#34;sb&#34;&gt;`v=`&lt;/span&gt; 后面的内容，如：
+
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;youtube&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;MpYy6wwqxoo&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+
+&lt;span class=&#34;gu&#34;&gt;## Example 2
+&lt;/span&gt;&lt;span class=&#34;gu&#34;&gt;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;-&lt;/span&gt; 插入视频：`https://www.youtube.com/watch?v=XRGquU0ZJok&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;list=PLvOO0btloRnsiqM72G4Uid0UWljikENlU&lt;span class=&#34;err&#34;&gt;&amp;amp;&lt;/span&gt;index=6`
+&lt;span class=&#34;k&#34;&gt;-&lt;/span&gt; 这是一个分 p 的视频列表，链接中写明了这个`List ID` ,以及这个&amp;#34;视频&amp;#34;在列表中的位置序号 &lt;span class=&#34;sb&#34;&gt;`index`&lt;/span&gt; 
+但此处我们一次性只能插入一个视频，所以依然是只需要复制**键值对** &lt;span class=&#34;sb&#34;&gt;`v=`&lt;/span&gt; 后面的内容，如：
+
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;youtube&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;XRGquU0ZJok&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;shortcode-api&#34;&gt;Shortcode API&lt;/h3&gt;
+&lt;p&gt;上文简要介绍了如何在 Markdown 正文中利用 &lt;code&gt;shortcode&lt;/code&gt; 内嵌 Youtube 视频资源，除此之外，&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hugo 内置&lt;/a&gt;了许多的&lt;code&gt;shortcode&lt;/code&gt; 模板文件。&lt;/p&gt;
+&lt;p&gt;以下是本主题提供的其他短码调用模板，其标准引用方法如下文所示。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;: 所有 Examples 标注的内容都是写在你要提交（post）的 blog-Markdown 中的。&lt;/p&gt;
+&lt;p&gt;目前，本主题支持如下类型的媒体资源内嵌方案：&lt;span id=&#34;overview&#34;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#shortcode-bilibili&#34; &gt;哔哩哔哩&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#shortcode-tencent&#34; &gt;腾讯视频&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#shortcode-local-video&#34; &gt;本地视频&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;#shortcode-youtube&#34; &gt;YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;span id=&#39;shortcode-bilibili&#39;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&#34;bilibili&#34;&gt;Bilibili&lt;/h4&gt;
+&lt;p&gt;在博文中插入&lt;strong&gt;哔哩哔哩&lt;/strong&gt;媒体资源。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shortcode Format&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Value&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;vid&lt;/td&gt;
+&lt;td&gt;AV号 / BV号 [分P号]&lt;/td&gt;
+&lt;td&gt;必填参数。(Type: String) 视频资源ID。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;AV号或BV号&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;AV号或BV号&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;分P号&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;插入资源： &lt;code&gt;https://www.bilibili.com/video/BV1Sf4y1n75U?p=1&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在 bilibili 的规则中，同一 List 下的分 P 视频的 BV 号都是一样的，通过 &lt;code&gt;params: p&lt;/code&gt; 来区分不同的视频&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;BV1Sf4y1n75U&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;BV1Sf4y1n75U&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;插入资源：&lt;code&gt;https://www.bilibili.com/video/BV1Yv41147QK&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- just video src --&amp;gt;&lt;/span&gt;
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;bilibili&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;BV1Yv41147QK&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;span id=&#39;shortcode-tencent&#39;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&#34;tencent&#34;&gt;Tencent&lt;/h4&gt;
+&lt;p&gt;在博文中插入&lt;strong&gt;腾讯视频&lt;/strong&gt;媒体资源。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shortcode Format&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Value&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;vid&lt;/td&gt;
+&lt;td&gt;视频id&lt;/td&gt;
+&lt;td&gt;必填参数。(Type: String) 视频资源ID。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;插入资源：&lt;code&gt;https://v.qq.com/x/page/b31563j0jqw.html&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- just video src --&amp;gt;&lt;/span&gt;
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;tencent&lt;/span&gt;  &lt;span class=&#34;na&#34;&gt;b31563j0jqw&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;span id=&#39;shortcode-local-video&#39;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&#34;video&#34;&gt;Video&lt;/h4&gt;
+&lt;p&gt;在博文中插入&lt;strong&gt;本地(.mp4)视频文件&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shortcode Format&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Name&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Value&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;src&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;relative paths&lt;/td&gt;
+&lt;td&gt;必填参数。(Type: String) 视频文件（相对）路径。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;autoplay&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;true / false&lt;/td&gt;
+&lt;td&gt;可选参数。(Type: String) 自动播放。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;poster&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;relative paths&lt;/td&gt;
+&lt;td&gt;可选参数。(Type: String) 视频封面（相对）路径。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;插入资源：与本篇博文放置在同一目录下的视频文件&lt;code&gt;./video.mp4&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- just video src --&amp;gt;&lt;/span&gt;
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;video&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;&amp;#34;./&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;video&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;mp4&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- Other option --&amp;gt;&lt;/span&gt;
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;video&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;./video.mp4&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;autoplay&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;poster&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;./video-poster.png&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;span id=&#39;shortcode-youtube&#39;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;h4 id=&#34;youtube-1&#34;&gt;Youtube&lt;/h4&gt;
+&lt;p&gt;在博文中插入 &lt;strong&gt;YouTube&lt;/strong&gt; 媒体资源。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shortcode Format&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Name&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Value&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;id&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;video id&lt;/td&gt;
+&lt;td&gt;必填参数。(Type: String) 视频ID。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;autoplay&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;true / false&lt;/td&gt;
+&lt;td&gt;可选参数。(Type: String) 进入页面后自动播放。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Examples&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;插入资源：&lt;code&gt;https://www.youtube.com/watch?v=jflq6vNcZyA&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- just video src --&amp;gt;&lt;/span&gt;
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;youtube&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;jflq6vNcZyA&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+
+&lt;span class=&#34;c&#34;&gt;&amp;lt;!-- Other option --&amp;gt;&lt;/span&gt;
+\{\{&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;youtube&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;jflq6vNcZyA&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;autoplay&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;}}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h3&gt;
+&lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/content-management/shortcodes/#what-a-shortcode-is&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Shortcodes | Hugo (gohugo.io)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://docs.stack.jimmycai.com/zh/writing/shortcodes.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Shortcodes | Hugo 主题 Stack (jimmycai.com)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>

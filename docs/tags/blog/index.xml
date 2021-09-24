@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on Echosec @QIN2DIM</title>
+    <title>blog on Echosec @QIN2DIM</title>
     <link>https://qin2dim.github.io/tags/blog/</link>
-    <description>Recent content in Blog on Echosec @QIN2DIM</description>
+    <description>Recent content in blog on Echosec @QIN2DIM</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 20 Sep 2021 19:38:45 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml" />
