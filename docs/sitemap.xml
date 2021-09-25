@@ -2,22 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://qin2dim.github.io/tags/blog/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
+    <loc>https://qin2dim.github.io/categories/blog/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
+    <loc>https://qin2dim.github.io/categories/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
+    <loc>https://qin2dim.github.io/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
+    <loc>https://qin2dim.github.io/tags/legal/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
+    <loc>https://qin2dim.github.io/post/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
+    <loc>https://qin2dim.github.io/tags/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
+    <loc>https://qin2dim.github.io/p/blogs-live-legal-issues/</loc>
+    <lastmod>2021-09-24T10:28:41+08:00</lastmod>
+  </url><url>
     <loc>https://qin2dim.github.io/tags/bot-revolution/</loc>
     <lastmod>2021-09-24T10:05:57+08:00</lastmod>
   </url><url>
-    <loc>https://qin2dim.github.io/categories/</loc>
-    <lastmod>2021-09-24T10:05:57+08:00</lastmod>
-  </url><url>
     <loc>https://qin2dim.github.io/tags/chatbot/</loc>
-    <lastmod>2021-09-24T10:05:57+08:00</lastmod>
-  </url><url>
-    <loc>https://qin2dim.github.io/</loc>
-    <lastmod>2021-09-24T10:05:57+08:00</lastmod>
-  </url><url>
-    <loc>https://qin2dim.github.io/post/</loc>
-    <lastmod>2021-09-24T10:05:57+08:00</lastmod>
-  </url><url>
-    <loc>https://qin2dim.github.io/tags/</loc>
     <lastmod>2021-09-24T10:05:57+08:00</lastmod>
   </url><url>
     <loc>https://qin2dim.github.io/tags/telegram-bot/</loc>
@@ -28,9 +40,6 @@
   </url><url>
     <loc>https://qin2dim.github.io/p/telegram-bot-the-botfather/</loc>
     <lastmod>2021-09-24T10:05:57+08:00</lastmod>
-  </url><url>
-    <loc>https://qin2dim.github.io/tags/blog/</loc>
-    <lastmod>2021-09-24T08:23:16+08:00</lastmod>
   </url><url>
     <loc>https://qin2dim.github.io/categories/bot-revolution/</loc>
     <lastmod>2021-09-24T08:23:16+08:00</lastmod>
