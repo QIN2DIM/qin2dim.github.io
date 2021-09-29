@@ -1,166 +1,295 @@
-<!doctype html><html lang=en-us>
-<head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="在 Hugo 中添加内嵌视频"><title>『 Hugo 』Shortcode</title>
-<link rel=canonical href=https://qin2dim.github.io/p/hugo-shortcode/>
-<link rel=stylesheet href=/scss/style.min.css><meta property="og:title" content="『 Hugo 』Shortcode">
-<meta property="og:description" content="在 Hugo 中添加内嵌视频">
-<meta property="og:url" content="https://qin2dim.github.io/p/hugo-shortcode/">
-<meta property="og:site_name" content="Echosec @QIN2DIM">
-<meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Shortcode"><meta property="article:tag" content="Hugo"><meta property="article:published_time" content="2021-09-22T20:23:13+08:00"><meta property="article:modified_time" content="2021-09-22T20:23:13+08:00"><meta property="og:image" content="https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg">
-<meta name=twitter:site content="@Alkaid20860233">
-<meta name=twitter:creator content="@Alkaid20860233"><meta name=twitter:title content="『 Hugo 』Shortcode">
-<meta name=twitter:description content="在 Hugo 中添加内嵌视频"><meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg">
-<link rel="shortcut icon" href=https://image.shutterstock.com/image-vector/hand-drawn-blue-pink-vector-600w-426392518.jpg>
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='在 Hugo 中添加内嵌视频'><title>『 Hugo 』Shortcode</title>
+
+<link rel='canonical' href='https://qin2dim.github.io/p/hugo-shortcode/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='『 Hugo 』Shortcode'>
+<meta property='og:description' content='在 Hugo 中添加内嵌视频'>
+<meta property='og:url' content='https://qin2dim.github.io/p/hugo-shortcode/'>
+<meta property='og:site_name' content='Echosec @QIN2DIM'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Shortcode' /><meta property='article:tag' content='Hugo' /><meta property='article:published_time' content='2021-09-22T20:23:13&#43;08:00'/><meta property='article:modified_time' content='2021-09-22T20:23:13&#43;08:00'/><meta property='og:image' content='https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg' />
+<meta name="twitter:site" content="@Alkaid20860233">
+    <meta name="twitter:creator" content="@Alkaid20860233"><meta name="twitter:title" content="『 Hugo 』Shortcode">
+<meta name="twitter:description" content="在 Hugo 中添加内嵌视频"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://qin2dim.github.io/p/hugo-shortcode/technology-3189176_1920.jpg' />
+    <link rel="shortcut icon" href="https://image.shutterstock.com/image-vector/hand-drawn-blue-pink-vector-600w-426392518.jpg" />
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XVBFK3RRV"></script>
-<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-9XVBFK3RRV',{anonymize_ip:!1})}</script>
-</head>
-<body class="article-page has-toc">
-<script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
-<div class="container main-container flex
-extended">
-<div id=article-toolbar>
-<a href=https://qin2dim.github.io class=back-home><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="15 6 9 12 15 18"/></svg>
-<span>返回</span>
-</a>
-</div>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-9XVBFK3RRV', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="https://qin2dim.github.io" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>返回</span>
+            </a>
+        </div>
+    
 <main class="main full-width">
-<article class="has-image main-article">
-<header class=article-header>
-<div class=article-image>
-<a href=/p/hugo-shortcode/>
-<img src=/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg srcset="/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg 800w, /p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_1600x0_resize_q75_box.jpg 1600w" width=800 height=531 loading=lazy alt="Featured image of post 『 Hugo 』Shortcode">
-</a>
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/hugo-shortcode/">
+                <img src="/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg"
+                        srcset="/p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_800x0_resize_q75_box.jpg 800w, /p/hugo-shortcode/technology-3189176_1920_hu7ec305cdcf86252b086b494c826c41f9_291916_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="531" 
+                        loading="lazy"
+                        alt="Featured image of post 『 Hugo 』Shortcode" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/hugo/" style="background-color: #7e7a6f; color: #fff;">
+                Hugo
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/hugo-shortcode/">『 Hugo 』Shortcode</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        在 Hugo 中添加内嵌视频
+    </h3>
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 22, 2021</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+
+    </footer>
+    
 </div>
-<div class=article-details>
-<header class=article-category>
-<a href=/categories/hugo/ style=background-color:#7e7a6f;color:#fff>
-Hugo
-</a>
 </header>
-<h2 class=article-title>
-<a href=/p/hugo-shortcode/>『 Hugo 』Shortcode</a>
-</h2>
-<h3 class=article-subtitle>
-在 Hugo 中添加内嵌视频
-</h3>
-<footer class=article-time>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
-<time class=article-time--published>Sep 22, 2021</time>
-</div>
-<div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
-<time class=article-time--reading>
-阅读时长: 5 分钟
-</time>
-</div>
-</footer>
-</div>
-</header>
-<section class=article-content>
-<h2 id=demo>DEMO</h2>
-<h3 id=youtube>YouTube</h3>
+
+    <section class="article-content">
+    <h2 id="demo">DEMO</h2>
+<h3 id="youtube">YouTube</h3>
 <blockquote>
 <p>插入视频：<code>https://www.youtube.com/watch?v=vmkRMvhCW5c</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>youtube</span> <span class=na>vmkRMvhCW5c</span> <span class=p>&gt;</span>}}
-</code></pre></div><div class=video-wrapper>
-<iframe loading=lazy src=https://www.youtube.com/embed/vmkRMvhCW5c allowfullscreen title="YouTube Video"></iframe>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">youtube</span> <span class="na">vmkRMvhCW5c</span> <span class="p">&gt;</span>}}
+</code></pre></div><div class="video-wrapper">
+    <iframe loading="lazy" 
+            src="https://www.youtube.com/embed/vmkRMvhCW5c" 
+            allowfullscreen 
+            title="YouTube Video"
+    >
+    </iframe>
 </div>
-<h3 id=本地视频>本地视频</h3>
+
+<h3 id="本地视频">本地视频</h3>
 <blockquote>
 <p>插入视频：<code>./尊严！只在剑锋之上.mp4</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>video</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;./minor-Shiru-Chen.mp4&#34;</span> <span class=p>&gt;</span>}}
-</code></pre></div><div class=video-wrapper>
-<video controls src=./minor-Shiru-Chen.mp4>
-<p>
-Your browser doesn't support HTML5 video. Here is a
-<a href=./minor-Shiru-Chen.mp4>link to the video</a> instead.
-</p>
-</video>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">video</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;./minor-Shiru-Chen.mp4&#34;</span> <span class="p">&gt;</span>}}
+</code></pre></div><div class="video-wrapper">
+    <video
+    controls
+    src="./minor-Shiru-Chen.mp4"
+    
+    
+    >
+        <p>
+            Your browser doesn't support HTML5 video. Here is a
+            <a href="./minor-Shiru-Chen.mp4">link to the video</a> instead.
+        </p>
+    </video>
 </div>
-<h3 id=哔哩哔哩>哔哩哔哩</h3>
+
+<h3 id="哔哩哔哩">哔哩哔哩</h3>
 <blockquote>
 <p>插入视频：<code>https://www.bilibili.com/video/BV1Kx411P7AP</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>bilibili</span> <span class=na>BV1Kx411P7AP</span> <span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1Kx411P7AP</span> <span class="p">&gt;</span>}}
 </code></pre></div>
-<div class=video-wrapper>
-<iframe src="https://player.bilibili.com/player.html?as_wide=1&high_quality=1&page=1&bvid=BV1Kx411P7AP" scrolling=no frameborder=no framespacing=0 allowfullscreen></iframe>
+
+
+
+
+
+    
+
+
+<div class="video-wrapper">
+    <iframe src="https://player.bilibili.com/player.html?as_wide=1&amp;high_quality=1&amp;page=1&bvid=BV1Kx411P7AP"
+            scrolling="no"
+            frameborder="no"
+            framespacing="0"
+            allowfullscreen="true"
+    >
+    </iframe>
 </div>
-<h3 id=腾讯视频>腾讯视频</h3>
+
+<h3 id="腾讯视频">腾讯视频</h3>
 <blockquote>
 <p>插入视频：<code>https://v.qq.com/x/page/y00408t8246.html</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>tencent</span> <span class=na>y00408t8246</span> <span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">tencent</span> <span class="na">y00408t8246</span> <span class="p">&gt;</span>}}
 </code></pre></div>
-<div class=video-wrapper>
-<iframe src="https://v.qq.com/txp/iframe/player.html?vid=y00408t8246&auto=0" scrolling=no frameborder=no framespacing=0 allowfullscreen></iframe>
+<div class="video-wrapper">
+    <iframe src="https://v.qq.com/txp/iframe/player.html?vid=y00408t8246&auto=0" 
+            scrolling="no" 
+            frameborder="no"
+            framespacing="0" 
+            allowfullscreen="true"
+    >
+    </iframe>
 </div>
-<h3 id=西瓜视频>西瓜视频</h3>
-<h3 id=搜狐视频>搜狐视频</h3>
-<h3 id=优酷视频>优酷视频</h3>
-<h2 id=shortcodes>Shortcodes</h2>
-<h3 id=what-shortcode>WHAT Shortcode</h3>
+<h3 id="西瓜视频">西瓜视频</h3>
+<h3 id="搜狐视频">搜狐视频</h3>
+<h3 id="优酷视频">优酷视频</h3>
+<h2 id="shortcodes">Shortcodes</h2>
+<h3 id="what-shortcode">WHAT Shortcode</h3>
 <blockquote>
-<p><a class=link href=https://gohugo.io/content-management/shortcodes/#what-a-shortcode-is target=_blank rel=noopener>What a Shortcode is</a></p>
+<p><a class="link" href="https://gohugo.io/content-management/shortcodes/#what-a-shortcode-is"  target="_blank" rel="noopener"
+    >What a Shortcode is</a></p>
 </blockquote>
 <p><code>shortcode</code> 短码调用，您的博客文章中被“特殊标注”的内容将被 Hugo 识别转义。</p>
 <p>通常，我们将 <code>shortcode</code> 技术用于“内联搜索”的应用场景，换句话说， <code>shortcode</code> 允许您在博客正文的任意位置嵌入可直接播放的媒体资源。</p>
-<p>也许您曾留意到，Hugo文档中经常出现<a class=link href=https://gohugo.io/getting-started/installing/#install-hugo-with-brew target=_blank rel=noopener>类似的应用案例</a>。</p>
-<h3 id=why-shortcode>WHY Shortcode</h3>
+<p>也许您曾留意到，Hugo文档中经常出现<a class="link" href="https://gohugo.io/getting-started/installing/#install-hugo-with-brew"  target="_blank" rel="noopener"
+    >类似的应用案例</a>。</p>
+<h3 id="why-shortcode">WHY Shortcode</h3>
 <p>您可以通过 <code>shortcode</code> 在文章的合适位置插入媒体资源用以增加信息浓度，提高内容的可读性。</p>
-<h3 id=how-shortcode>HOW Shortcode</h3>
-<h4 id=how-it-works>How it works?</h4>
-<h4 id=how-to-use-the-build-in--shortcode-of-hugo>How to use the build-in <code>shortcode</code> of Hugo？</h4>
+<h3 id="how-shortcode">HOW Shortcode</h3>
+<h4 id="how-it-works">How it works?</h4>
+<h4 id="how-to-use-the-build-in--shortcode-of-hugo">How to use the build-in  <code>shortcode</code> of Hugo？</h4>
 <blockquote>
-<p><a class=link href=https://gohugo.io/content-management/shortcodes/#use-shortcodes target=_blank rel=noopener>Use Shortcode</a></p>
+<p><a class="link" href="https://gohugo.io/content-management/shortcodes/#use-shortcodes"  target="_blank" rel="noopener"
+    >Use Shortcode</a></p>
 </blockquote>
 <ol>
 <li>在您的 Markdown 文章中使用如下格式的短码调用, 其内容将被 Hugo 识别为<code>shortcode</code></li>
 </ol>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown>\{\{<span class=p>&lt;</span> <span class=nt>yourShortcodeName</span> <span class=err>[</span><span class=na>params</span><span class=err>]</span> <span class=p>&gt;</span>}}
-</code></pre></div><ol start=2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">\{\{<span class="p">&lt;</span> <span class="nt">yourShortcodeName</span> <span class="err">[</span><span class="na">params</span><span class="err">]</span> <span class="p">&gt;</span>}}
+</code></pre></div><ol start="2">
 <li>
 <p>在您的站点根目录下新建<code>./layouts/shortcodes/yourShortcodeName.html</code>，编写这个文件</p>
 <p>此时，您在此<code>.html</code>中编辑的语法内容将被 Markdown 容器接受并被 Hugo kernel 渲染输出体现在您的调试网页上。</p>
-<p>若您暂时不知道该写点什么，不必担心，<a class=link href=#overview>Stack 默认提供了几种可靠的短码调用策略</a>。它们<a class=link href=https://gohugo.io/templates/shortcode-templates/#file-location target=_blank rel=noopener>默认存储</a>在<code>./themes/hugo-theme-stack/layouts/shortcodes</code>中，根据 Hugo 模板调用的优先顺序，当您的根目录下的 <code>./layourts/shortcodes/</code>并不存在有效同名项目时，Stack 提供的默认策略将生效。</p>
+<p>若您暂时不知道该写点什么，不必担心，<a class="link" href="#overview" >Stack 默认提供了几种可靠的短码调用策略</a>。它们<a class="link" href="https://gohugo.io/templates/shortcode-templates/#file-location"  target="_blank" rel="noopener"
+    >默认存储</a>在<code>./themes/hugo-theme-stack/layouts/shortcodes</code>中，根据 Hugo 模板调用的优先顺序，当您的根目录下的 <code>./layourts/shortcodes/</code>并不存在有效同名项目时，Stack 提供的默认策略将生效。</p>
 </li>
 </ol>
-<p><strong>注意</strong>：一般情况下，<code>\{\{&lt; >}}</code> 标识符（此处加了反斜杠防止转义）中的 <code>yourShortcodeName</code> 需要与您所指定的位于<code>./layouts/shortcodes/</code>或<code>./themes/hugo-theme-stack/layouts/shortcodes</code>下的<code>.html</code>文件名一致。</p>
-<p>例如指定 <code>./layouts/shortcodes/youtube.html</code>，那么合适的调用格式是 <code>\{\{&lt; youtube >}}</code>，后面的<code>[params]</code>则根据具体的<code>shortcode</code>接口内容而定。</p>
-<h4 id=how-to-use-the-custom-shortcode-of-stack>How to use the custom <code>shortcode</code> of Stack</h4>
+<p><strong>注意</strong>：一般情况下，<code>\{\{&lt; &gt;}}</code> 标识符（此处加了反斜杠防止转义）中的 <code>yourShortcodeName</code> 需要与您所指定的位于<code>./layouts/shortcodes/</code>或<code>./themes/hugo-theme-stack/layouts/shortcodes</code>下的<code>.html</code>文件名一致。</p>
+<p>例如指定 <code>./layouts/shortcodes/youtube.html</code>，那么合适的调用格式是 <code>\{\{&lt; youtube &gt;}}</code>，后面的<code>[params]</code>则根据具体的<code>shortcode</code>接口内容而定。</p>
+<h4 id="how-to-use-the-custom-shortcode-of-stack">How to use the custom <code>shortcode</code> of Stack</h4>
 <p>例如实现业内插入 Youtube 来源视频，假设如下 Markdown 内容为您的一篇<strong>博客正文</strong>，若您正处于 <code>hugo server</code> 本地调试模式，可直接复制挪用。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=k>&gt; </span><span class=ge>这是写在你的 Markdown 正文中的内容哟~
-</span><span class=ge></span>
-<span class=gu>## Example 1
-</span><span class=gu></span>
-<span class=k>-</span> 插入视频：`https://www.youtube.com/watch?v=MpYy6wwqxoo`
-<span class=k>-</span> 接受参数视频 ID,可能网址很长,但只需要复制**键值对** <span class=sb>`v=`</span> 后面的内容，如：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="k">&gt; </span><span class="ge">这是写在你的 Markdown 正文中的内容哟~
+</span><span class="ge"></span>
+<span class="gu">## Example 1
+</span><span class="gu"></span>
+<span class="k">-</span> 插入视频：`https://www.youtube.com/watch?v=MpYy6wwqxoo`
+<span class="k">-</span> 接受参数视频 ID,可能网址很长,但只需要复制**键值对** <span class="sb">`v=`</span> 后面的内容，如：
 
-\{\{<span class=p>&lt;</span> <span class=nt>youtube</span> <span class=na>MpYy6wwqxoo</span> <span class=p>&gt;</span>}}
+\{\{<span class="p">&lt;</span> <span class="nt">youtube</span> <span class="na">MpYy6wwqxoo</span> <span class="p">&gt;</span>}}
 
-<span class=gu>## Example 2
-</span><span class=gu></span>
-<span class=k>-</span> 插入视频：`https://www.youtube.com/watch?v=XRGquU0ZJok<span class=err>&amp;</span>list=PLvOO0btloRnsiqM72G4Uid0UWljikENlU<span class=err>&amp;</span>index=6`
-<span class=k>-</span> 这是一个分 p 的视频列表，链接中写明了这个`List ID` ,以及这个&#34;视频&#34;在列表中的位置序号 <span class=sb>`index`</span> 
-但此处我们一次性只能插入一个视频，所以依然是只需要复制**键值对** <span class=sb>`v=`</span> 后面的内容，如：
+<span class="gu">## Example 2
+</span><span class="gu"></span>
+<span class="k">-</span> 插入视频：`https://www.youtube.com/watch?v=XRGquU0ZJok<span class="err">&amp;</span>list=PLvOO0btloRnsiqM72G4Uid0UWljikENlU<span class="err">&amp;</span>index=6`
+<span class="k">-</span> 这是一个分 p 的视频列表，链接中写明了这个`List ID` ,以及这个&#34;视频&#34;在列表中的位置序号 <span class="sb">`index`</span> 
+但此处我们一次性只能插入一个视频，所以依然是只需要复制**键值对** <span class="sb">`v=`</span> 后面的内容，如：
 
-\{\{<span class=p>&lt;</span> <span class=nt>youtube</span> <span class=na>XRGquU0ZJok</span> <span class=p>&gt;</span>}}
-</code></pre></div><h3 id=shortcode-api>Shortcode API</h3>
-<p>上文简要介绍了如何在 Markdown 正文中利用 <code>shortcode</code> 内嵌 Youtube 视频资源，除此之外，<a class=link href=https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes target=_blank rel=noopener>Hugo 内置</a>了许多的<code>shortcode</code> 模板文件。</p>
+\{\{<span class="p">&lt;</span> <span class="nt">youtube</span> <span class="na">XRGquU0ZJok</span> <span class="p">&gt;</span>}}
+</code></pre></div><h3 id="shortcode-api">Shortcode API</h3>
+<p>上文简要介绍了如何在 Markdown 正文中利用 <code>shortcode</code> 内嵌 Youtube 视频资源，除此之外，<a class="link" href="https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes"  target="_blank" rel="noopener"
+    >Hugo 内置</a>了许多的<code>shortcode</code> 模板文件。</p>
 <p>以下是本主题提供的其他短码调用模板，其标准引用方法如下文所示。</p>
 <p><strong>注意</strong>: 所有 Examples 标注的内容都是写在你要提交（post）的 blog-Markdown 中的。</p>
-<p>目前，本主题支持如下类型的媒体资源内嵌方案：<span id=overview></span></p>
+<p>目前，本主题支持如下类型的媒体资源内嵌方案：<span id="overview"></span></p>
 <ul>
-<li><a class=link href=#shortcode-bilibili>哔哩哔哩</a></li>
-<li><a class=link href=#shortcode-tencent>腾讯视频</a></li>
-<li><a class=link href=#shortcode-local-video>本地视频</a></li>
-<li><a class=link href=#shortcode-youtube>YouTube</a></li>
+<li><a class="link" href="#shortcode-bilibili" >哔哩哔哩</a></li>
+<li><a class="link" href="#shortcode-tencent" >腾讯视频</a></li>
+<li><a class="link" href="#shortcode-local-video" >本地视频</a></li>
+<li><a class="link" href="#shortcode-youtube" >YouTube</a></li>
 </ul>
 <hr>
-<p><span id=shortcode-bilibili></span></p>
-<h4 id=bilibili>Bilibili</h4>
+<p><span id='shortcode-bilibili'></span></p>
+<h4 id="bilibili">Bilibili</h4>
 <p>在博文中插入<strong>哔哩哔哩</strong>媒体资源。</p>
 <p><strong>Shortcode Format</strong></p>
 <table>
@@ -179,23 +308,23 @@ Your browser doesn't support HTML5 video. Here is a
 </tr>
 </tbody>
 </table>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>bilibili</span> <span class=na>AV号或BV号</span> <span class=p>&gt;</span>}}
-\{\{<span class=p>&lt;</span> <span class=nt>bilibili</span> <span class=na>AV号或BV号</span> <span class=na>分P号</span> <span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">AV号或BV号</span> <span class="p">&gt;</span>}}
+\{\{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">AV号或BV号</span> <span class="na">分P号</span> <span class="p">&gt;</span>}}
 </code></pre></div><p><strong>Examples</strong></p>
 <blockquote>
 <p>插入资源： <code>https://www.bilibili.com/video/BV1Sf4y1n75U?p=1</code></p>
 </blockquote>
 <p>在 bilibili 的规则中，同一 List 下的分 P 视频的 BV 号都是一样的，通过 <code>params: p</code> 来区分不同的视频</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html>\{\{<span class=p>&lt;</span> <span class=nt>bilibili</span> <span class=na>BV1Sf4y1n75U</span> <span class=na>1</span> <span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html">\{\{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1Sf4y1n75U</span> <span class="na">1</span> <span class="p">&gt;</span>}}
 
-\{\{<span class=p>&lt;</span> <span class=nt>bilibili</span> <span class=na>BV1Sf4y1n75U</span> <span class=na>2</span> <span class=p>&gt;</span>}}
+\{\{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1Sf4y1n75U</span> <span class="na">2</span> <span class="p">&gt;</span>}}
 </code></pre></div><blockquote>
 <p>插入资源：<code>https://www.bilibili.com/video/BV1Yv41147QK</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=c>&lt;!-- just video src --&gt;</span>
-\{\{<span class=p>&lt;</span> <span class=nt>bilibili</span> <span class=na>BV1Yv41147QK</span> <span class=p>&gt;</span>}}
-</code></pre></div><p><span id=shortcode-tencent></span></p>
-<h4 id=tencent>Tencent</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- just video src --&gt;</span>
+\{\{<span class="p">&lt;</span> <span class="nt">bilibili</span> <span class="na">BV1Yv41147QK</span> <span class="p">&gt;</span>}}
+</code></pre></div><p><span id='shortcode-tencent'></span></p>
+<h4 id="tencent">Tencent</h4>
 <p>在博文中插入<strong>腾讯视频</strong>媒体资源。</p>
 <p><strong>Shortcode Format</strong></p>
 <table>
@@ -218,34 +347,34 @@ Your browser doesn't support HTML5 video. Here is a
 <blockquote>
 <p>插入资源：<code>https://v.qq.com/x/page/b31563j0jqw.html</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=c>&lt;!-- just video src --&gt;</span>
-\{\{<span class=p>&lt;</span> <span class=nt>tencent</span>  <span class=na>b31563j0jqw</span> <span class=p>&gt;</span>}}
-</code></pre></div><p><span id=shortcode-local-video></span></p>
-<h4 id=video>Video</h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- just video src --&gt;</span>
+\{\{<span class="p">&lt;</span> <span class="nt">tencent</span>  <span class="na">b31563j0jqw</span> <span class="p">&gt;</span>}}
+</code></pre></div><p><span id='shortcode-local-video'></span></p>
+<h4 id="video">Video</h4>
 <p>在博文中插入<strong>本地(.mp4)视频文件</strong>。</p>
 <p><strong>Shortcode Format</strong></p>
 <table>
 <thead>
 <tr>
-<th style=text-align:left>Name</th>
-<th style=text-align:left>Value</th>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style=text-align:left>src</td>
-<td style=text-align:left>relative paths</td>
+<td style="text-align:left">src</td>
+<td style="text-align:left">relative paths</td>
 <td>必填参数。(Type: String) 视频文件（相对）路径。</td>
 </tr>
 <tr>
-<td style=text-align:left>autoplay</td>
-<td style=text-align:left>true / false</td>
+<td style="text-align:left">autoplay</td>
+<td style="text-align:left">true / false</td>
 <td>可选参数。(Type: String) 自动播放。</td>
 </tr>
 <tr>
-<td style=text-align:left>poster</td>
-<td style=text-align:left>relative paths</td>
+<td style="text-align:left">poster</td>
+<td style="text-align:left">relative paths</td>
 <td>可选参数。(Type: String) 视频封面（相对）路径。</td>
 </tr>
 </tbody>
@@ -254,32 +383,32 @@ Your browser doesn't support HTML5 video. Here is a
 <blockquote>
 <p>插入资源：与本篇博文放置在同一目录下的视频文件<code>./video.mp4</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=c>&lt;!-- just video src --&gt;</span>
-\{\{<span class=p>&lt;</span> <span class=nt>video</span> <span class=err>&#34;./</span><span class=na>video</span><span class=err>.</span><span class=na>mp4</span><span class=err>&#34;</span><span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- just video src --&gt;</span>
+\{\{<span class="p">&lt;</span> <span class="nt">video</span> <span class="err">&#34;./</span><span class="na">video</span><span class="err">.</span><span class="na">mp4</span><span class="err">&#34;</span><span class="p">&gt;</span>}}
 
-<span class=c>&lt;!-- Other option --&gt;</span>
-\{\{<span class=p>&lt;</span> <span class=nt>video</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;./video.mp4&#34;</span> <span class=na>autoplay</span><span class=o>=</span><span class=s>&#34;true&#34;</span> <span class=na>poster</span><span class=o>=</span><span class=s>&#34;./video-poster.png&#34;</span> <span class=p>&gt;</span>}}
-</code></pre></div><p><span id=shortcode-youtube></span></p>
-<h4 id=youtube-1>Youtube</h4>
+<span class="c">&lt;!-- Other option --&gt;</span>
+\{\{<span class="p">&lt;</span> <span class="nt">video</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;./video.mp4&#34;</span> <span class="na">autoplay</span><span class="o">=</span><span class="s">&#34;true&#34;</span> <span class="na">poster</span><span class="o">=</span><span class="s">&#34;./video-poster.png&#34;</span> <span class="p">&gt;</span>}}
+</code></pre></div><p><span id='shortcode-youtube'></span></p>
+<h4 id="youtube-1">Youtube</h4>
 <p>在博文中插入 <strong>YouTube</strong> 媒体资源。</p>
 <p><strong>Shortcode Format</strong></p>
 <table>
 <thead>
 <tr>
-<th style=text-align:left>Name</th>
-<th style=text-align:left>Value</th>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Value</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style=text-align:left>id</td>
-<td style=text-align:left>video id</td>
+<td style="text-align:left">id</td>
+<td style="text-align:left">video id</td>
 <td>必填参数。(Type: String) 视频ID。</td>
 </tr>
 <tr>
-<td style=text-align:left>autoplay</td>
-<td style=text-align:left>true / false</td>
+<td style="text-align:left">autoplay</td>
+<td style="text-align:left">true / false</td>
 <td>可选参数。(Type: String) 进入页面后自动播放。</td>
 </tr>
 </tbody>
@@ -288,170 +417,355 @@ Your browser doesn't support HTML5 video. Here is a
 <blockquote>
 <p>插入资源：<code>https://www.youtube.com/watch?v=jflq6vNcZyA</code></p>
 </blockquote>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=c>&lt;!-- just video src --&gt;</span>
-\{\{<span class=p>&lt;</span> <span class=nt>youtube</span> <span class=na>jflq6vNcZyA</span> <span class=p>&gt;</span>}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- just video src --&gt;</span>
+\{\{<span class="p">&lt;</span> <span class="nt">youtube</span> <span class="na">jflq6vNcZyA</span> <span class="p">&gt;</span>}}
 
-<span class=c>&lt;!-- Other option --&gt;</span>
-\{\{<span class=p>&lt;</span> <span class=nt>youtube</span> <span class=na>id</span><span class=o>=</span><span class=s>&#34;jflq6vNcZyA&#34;</span> <span class=na>autoplay</span><span class=o>=</span><span class=s>&#34;false&#34;</span> <span class=p>&gt;</span>}}
-</code></pre></div><h3 id=conclusion>Conclusion</h3>
-<h3 id=reference>Reference</h3>
+<span class="c">&lt;!-- Other option --&gt;</span>
+\{\{<span class="p">&lt;</span> <span class="nt">youtube</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;jflq6vNcZyA&#34;</span> <span class="na">autoplay</span><span class="o">=</span><span class="s">&#34;false&#34;</span> <span class="p">&gt;</span>}}
+</code></pre></div><h3 id="conclusion">Conclusion</h3>
+<h3 id="reference">Reference</h3>
 <ul>
 <li>
-<p><a class=link href=https://gohugo.io/content-management/shortcodes/#what-a-shortcode-is target=_blank rel=noopener>Shortcodes | Hugo (gohugo.io)</a></p>
+<p><a class="link" href="https://gohugo.io/content-management/shortcodes/#what-a-shortcode-is"  target="_blank" rel="noopener"
+    >Shortcodes | Hugo (gohugo.io)</a></p>
 </li>
 <li>
-<p><a class=link href=https://docs.stack.jimmycai.com/zh/writing/shortcodes.html target=_blank rel=noopener>Shortcodes | Hugo 主题 Stack (jimmycai.com)</a></p>
+<p><a class="link" href="https://docs.stack.jimmycai.com/zh/writing/shortcodes.html"  target="_blank" rel="noopener"
+    >Shortcodes | Hugo 主题 Stack (jimmycai.com)</a></p>
 </li>
 </ul>
+
 </section>
-<footer class=article-footer>
-<section class=article-tags>
-<a href=/tags/shortcode/>Shortcode</a>
-<a href=/tags/hugo/>Hugo</a>
-</section>
-<section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
-<span>Licensed under CC BY-NC-SA 4.0</span>
-</section>
-</footer>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/shortcode/">Shortcode</a>
+        
+            <a href="/tags/hugo/">Hugo</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
 </article>
-<aside class=related-contents--wrapper>
-<h2 class=section-title>相关文章</h2>
-<div class=related-contents>
-<div class="flex article-list--tile">
-<article class=has-image>
-<a href=/p/blog-comments-system/>
-<div class=article-image>
-<img src=/p/blog-comments-system/keyboard-648440_1920.6d57d0005f3a4da5585891bfedd3e703_hu955718f9ea4266afcc67e5e6a764f88f_201168_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy data-key=blog-comments-system data-hash="md5-bVfQAF86TaVYWJG/7dPnAw==">
-</div>
-<div class=article-details>
-<h2 class=article-title>『 Hugo 』Blog Comments System</h2>
-</div>
-</a>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/blog-comments-system/">
+        
+        
+            <div class="article-image">
+                <img src="/p/blog-comments-system/keyboard-648440_1920.6d57d0005f3a4da5585891bfedd3e703_hu955718f9ea4266afcc67e5e6a764f88f_201168_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="blog-comments-system" 
+                        data-hash="md5-bVfQAF86TaVYWJG/7dPnAw==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">『 Hugo 』Blog Comments System</h2>
+        </div>
+    </a>
 </article>
-<article class=has-image>
-<a href=/p/typlog-atlas/>
-<div class=article-image>
-<img src=/p/typlog-atlas/topic.ba3827d8b9ae2d9f769ba6f3a9410edb_hu0b47b138f493b3f6e0d84b750117d30b_2670061_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy data-key=typlog-atlas data-hash="md5-ujgn2LmuLZ92m6bzqUEO2w==">
-</div>
-<div class=article-details>
-<h2 class=article-title>『 Hugo 』Typlog Atlas</h2>
-</div>
-</a>
+                
+                    
+<article class="has-image">
+    <a href="/p/typlog-atlas/">
+        
+        
+            <div class="article-image">
+                <img src="/p/typlog-atlas/topic.ba3827d8b9ae2d9f769ba6f3a9410edb_hu0b47b138f493b3f6e0d84b750117d30b_2670061_250x150_fill_box_smart1_3.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="typlog-atlas" 
+                        data-hash="md5-ujgn2LmuLZ92m6bzqUEO2w==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">『 Hugo 』Typlog Atlas</h2>
+        </div>
+    </a>
 </article>
-<article class=has-image>
-<a href=/p/hello-hugo/>
-<div class=article-image>
-<img src=/p/hello-hugo/coffee-2511065_1920.c7bff0845cf145339ca52f0dc679c995_hu542c575640116087aad91130e63312e2_586804_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy data-key=hello-hugo data-hash="md5-x7/whFzxRTOcpS8NxnnJlQ==">
-</div>
-<div class=article-details>
-<h2 class=article-title>『 Hugo 』Hello Hugo</h2>
-</div>
-</a>
+                
+                    
+<article class="has-image">
+    <a href="/p/hello-hugo/">
+        
+        
+            <div class="article-image">
+                <img src="/p/hello-hugo/coffee-2511065_1920.c7bff0845cf145339ca52f0dc679c995_hu542c575640116087aad91130e63312e2_586804_250x150_fill_q75_box_smart1.jpg" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="hello-hugo" 
+                        data-hash="md5-x7/whFzxRTOcpS8NxnnJlQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">『 Hugo 』Hello Hugo</h2>
+        </div>
+    </a>
 </article>
-</div>
-</div>
+                
+            </div>
+        </div>
+    
 </aside>
-<script src=https://utteranc.es/client.js repo=qin2dim/blog-comments issue-term=pathname crossorigin=anonymous async></script>
-<style>.utterances{max-width:unset}</style>
-<script>function setUtterancesTheme(b){let a=document.querySelector('.utterances iframe');a&&a.contentWindow.postMessage({type:'set-theme',theme:`github-${b}`},'https://utteranc.es')}addEventListener('message',a=>{if(a.origin!=='https://utteranc.es')return;setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener('onColorSchemeChange',a=>{setUtterancesTheme(a.detail)})</script>
-<footer class=site-footer>
-<section class=copyright>
-&copy;
-2020 -
-2021 Echosec @QIN2DIM
-</section>
-<section class=powerby>
-You will to enjoy grander sight / By climing to a greater height. <br>
-Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> <br>
-Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.2.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a>
-</section>
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="qin2dim/blog-comments"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Echosec @QIN2DIM
+    </section>
+    
+    <section class="powerby">
+        
+            You will to enjoy grander sight / By climing to a greater height. <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.2.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
 </footer>
-<div class=pswp tabindex=-1 role=dialog aria-hidden=true>
-<div class=pswp__bg></div>
-<div class=pswp__scroll-wrap>
-<div class=pswp__container>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-<div class=pswp__item></div>
-</div>
-<div class="pswp__ui pswp__ui--hidden">
-<div class=pswp__top-bar>
-<div class=pswp__counter></div>
-<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-<button class="pswp__button pswp__button--share" title=Share></button>
-<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-<div class=pswp__preloader>
-<div class=pswp__preloader__icn>
-<div class=pswp__preloader__cut>
-<div class=pswp__preloader__donut></div>
-</div>
-</div>
-</div>
-</div>
-<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-<div class=pswp__share-tooltip></div>
-</div>
-<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-</button>
-<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-</button>
-<div class=pswp__caption>
-<div class=pswp__caption__center></div>
-</div>
-</div>
-</div>
-</div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous>
-</main>
-<aside class="sidebar right-sidebar sticky">
-<section class="widget archives">
-<div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
-</div>
-<h2 class="widget-title section-title">目录</h2>
-<div class=widget--toc>
-<nav id=TableOfContents>
-<ol>
-<li><a href=#demo>DEMO</a>
-<ol>
-<li><a href=#youtube>YouTube</a></li>
-<li><a href=#本地视频>本地视频</a></li>
-<li><a href=#哔哩哔哩>哔哩哔哩</a></li>
-<li><a href=#腾讯视频>腾讯视频</a></li>
-<li><a href=#西瓜视频>西瓜视频</a></li>
-<li><a href=#搜狐视频>搜狐视频</a></li>
-<li><a href=#优酷视频>优酷视频</a></li>
-</ol>
-</li>
-<li><a href=#shortcodes>Shortcodes</a>
-<ol>
-<li><a href=#what-shortcode>WHAT Shortcode</a></li>
-<li><a href=#why-shortcode>WHY Shortcode</a></li>
-<li><a href=#how-shortcode>HOW Shortcode</a>
-<ol>
-<li><a href=#how-it-works>How it works?</a></li>
-<li><a href=#how-to-use-the-build-in--shortcode-of-hugo>How to use the build-in <code>shortcode</code> of Hugo？</a></li>
-<li><a href=#how-to-use-the-custom-shortcode-of-stack>How to use the custom <code>shortcode</code> of Stack</a></li>
-</ol>
-</li>
-<li><a href=#shortcode-api>Shortcode API</a>
-<ol>
-<li><a href=#bilibili>Bilibili</a></li>
-<li><a href=#tencent>Tencent</a></li>
-<li><a href=#video>Video</a></li>
-<li><a href=#youtube-1>Youtube</a></li>
-</ol>
-</li>
-<li><a href=#conclusion>Conclusion</a></li>
-<li><a href=#reference>Reference</a></li>
-</ol>
-</li>
-</ol>
+
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">目录</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#demo">DEMO</a>
+      <ol>
+        <li><a href="#youtube">YouTube</a></li>
+        <li><a href="#本地视频">本地视频</a></li>
+        <li><a href="#哔哩哔哩">哔哩哔哩</a></li>
+        <li><a href="#腾讯视频">腾讯视频</a></li>
+        <li><a href="#西瓜视频">西瓜视频</a></li>
+        <li><a href="#搜狐视频">搜狐视频</a></li>
+        <li><a href="#优酷视频">优酷视频</a></li>
+      </ol>
+    </li>
+    <li><a href="#shortcodes">Shortcodes</a>
+      <ol>
+        <li><a href="#what-shortcode">WHAT Shortcode</a></li>
+        <li><a href="#why-shortcode">WHY Shortcode</a></li>
+        <li><a href="#how-shortcode">HOW Shortcode</a>
+          <ol>
+            <li><a href="#how-it-works">How it works?</a></li>
+            <li><a href="#how-to-use-the-build-in--shortcode-of-hugo">How to use the build-in  <code>shortcode</code> of Hugo？</a></li>
+            <li><a href="#how-to-use-the-custom-shortcode-of-stack">How to use the custom <code>shortcode</code> of Stack</a></li>
+          </ol>
+        </li>
+        <li><a href="#shortcode-api">Shortcode API</a>
+          <ol>
+            <li><a href="#bilibili">Bilibili</a></li>
+            <li><a href="#tencent">Tencent</a></li>
+            <li><a href="#video">Video</a></li>
+            <li><a href="#youtube-1">Youtube</a></li>
+          </ol>
+        </li>
+        <li><a href="#conclusion">Conclusion</a></li>
+        <li><a href="#reference">Reference</a></li>
+      </ol>
+    </li>
+  </ol>
 </nav>
-</div>
-</section>
-</aside>
-</div>
-<script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous defer></script><script type=text/javascript src=/ts/main.js defer></script>
-<script>(function(){const a=document.createElement('link');a.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",a.type="text/css",a.rel="stylesheet",document.head.appendChild(a)})()</script>
-</body>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>
