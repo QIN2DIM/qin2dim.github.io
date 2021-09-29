@@ -1,1 +1,92 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Categories on Echosec @QIN2DIM</title><link>https://qin2dim.github.io/categories/</link><description>Recent content in Categories on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 24 Sep 2021 10:28:41 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/categories/index.xml" rel="self" type="application/rss+xml"/><item><title>blog</title><link>https://qin2dim.github.io/categories/blog/</link><pubDate>Fri, 24 Sep 2021 10:28:41 +0800</pubDate><guid>https://qin2dim.github.io/categories/blog/</guid><description/></item><item><title>Telegram Bot</title><link>https://qin2dim.github.io/categories/telegram-bot/</link><pubDate>Fri, 24 Sep 2021 10:05:57 +0800</pubDate><guid>https://qin2dim.github.io/categories/telegram-bot/</guid><description/></item><item><title>Bot Revolution</title><link>https://qin2dim.github.io/categories/bot-revolution/</link><pubDate>Fri, 24 Sep 2021 08:23:16 +0800</pubDate><guid>https://qin2dim.github.io/categories/bot-revolution/</guid><description/></item><item><title>Hugo</title><link>https://qin2dim.github.io/categories/hugo/</link><pubDate>Wed, 22 Sep 2021 20:23:13 +0800</pubDate><guid>https://qin2dim.github.io/categories/hugo/</guid><description/></item><item><title>Awesome</title><link>https://qin2dim.github.io/categories/awesome/</link><pubDate>Mon, 20 Sep 2021 05:00:48 +0800</pubDate><guid>https://qin2dim.github.io/categories/awesome/</guid><description/></item><item><title>Dingtalk Bot</title><link>https://qin2dim.github.io/categories/dingtalk-bot/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://qin2dim.github.io/categories/dingtalk-bot/</guid><description/></item><item><title>Go</title><link>https://qin2dim.github.io/categories/go/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://qin2dim.github.io/categories/go/</guid><description/></item><item><title>NoneBot</title><link>https://qin2dim.github.io/categories/none-bot/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://qin2dim.github.io/categories/none-bot/</guid><description/></item><item><title>Python</title><link>https://qin2dim.github.io/categories/python/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://qin2dim.github.io/categories/python/</guid><description/></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Echosec @QIN2DIM</title>
+    <link>https://qin2dim.github.io/categories/</link>
+    <description>Recent content in Categories on Echosec @QIN2DIM</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 24 Sep 2021 10:28:41 +0800</lastBuildDate><atom:link href="https://qin2dim.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>blog</title>
+      <link>https://qin2dim.github.io/categories/blog/</link>
+      <pubDate>Fri, 24 Sep 2021 10:28:41 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/blog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Telegram Bot</title>
+      <link>https://qin2dim.github.io/categories/telegram-bot/</link>
+      <pubDate>Fri, 24 Sep 2021 10:05:57 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/telegram-bot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bot Revolution</title>
+      <link>https://qin2dim.github.io/categories/bot-revolution/</link>
+      <pubDate>Fri, 24 Sep 2021 08:23:16 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/bot-revolution/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://qin2dim.github.io/categories/hugo/</link>
+      <pubDate>Wed, 22 Sep 2021 20:23:13 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Awesome</title>
+      <link>https://qin2dim.github.io/categories/awesome/</link>
+      <pubDate>Mon, 20 Sep 2021 05:00:48 +0800</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/awesome/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dingtalk Bot</title>
+      <link>https://qin2dim.github.io/categories/dingtalk-bot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/dingtalk-bot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go</title>
+      <link>https://qin2dim.github.io/categories/go/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NoneBot</title>
+      <link>https://qin2dim.github.io/categories/none-bot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/none-bot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://qin2dim.github.io/categories/python/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://qin2dim.github.io/categories/python/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
