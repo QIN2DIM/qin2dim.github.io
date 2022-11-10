@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>awesome on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/awesome/</link><description>Recent content in awesome on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 20 Sep 2021 05:00:48 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/awesome/index.xml" rel="self" type="application/rss+xml"/><item><title>『 Awesome 』Root</title><link>https://blog.echosec.top/p/awesome-resources/</link><pubDate>Mon, 20 Sep 2021 05:00:48 +0800</pubDate><guid>https://blog.echosec.top/p/awesome-resources/</guid><description>&lt;img src="https://blog.echosec.top/p/awesome-resources/cover.jpg" alt="Featured image of post 『 Awesome 』Root" />&lt;h2 id="aggregator">Aggregator&lt;/h2>
+&lt;blockquote>
+&lt;p>聚合引擎。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="network-security">Network Security&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://hack.coolzhanweb.com/#term-7" target="_blank" rel="noopener"
+>黑客导航 | 安全网址导航&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://start.me/p/X20Apn" target="_blank" rel="noopener"
+>听风者情报源&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="toolbox">ToolBox&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://ujuji.com/" target="_blank" rel="noopener"
+>优聚集&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="http://www.ucdrs.superlib.net/" target="_blank" rel="noopener"
+>全国图书馆参考咨询联盟 (superlib.net)&lt;/a> | &lt;a class="link" href="https://www.duxiu.com/login.jsp?backurl=&amp;amp;num=&amp;amp;username=&amp;amp;refer=&amp;amp;flag=true" target="_blank" rel="noopener"
+>读秀网&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="curiosity">Curiosity&lt;/h2>
+&lt;blockquote>
+&lt;p>一些猎奇网站。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.yikm.net/" target="_blank" rel="noopener"
+>小霸王，其乐无穷&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://zoom.earth/" target="_blank" rel="noopener"
+>Zoom Earth | 实时气象卫星图像&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="excellent-ers">Excellent ERs&lt;/h2>
+&lt;blockquote>
+&lt;p>汇总各个主题下优秀的博主以及细分领域极具代表性的开源工程项目。（TODO 需细化分类）&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="blogeryoutuber">Bloger/Youtuber&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.youtube.com/watch?v=XKZM_AjCUr0" target="_blank" rel="noopener"
+>Youtuber|电玩科技AK&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.v2rayssr.com/" target="_blank" rel="noopener"
+>Youtuber|波仔&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="http://www.ruanyifeng.com/home.html" target="_blank" rel="noopener"
+>Bloger|阮一峰&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.duyaoss.com/" target="_blank" rel="noopener"
+>Bloger|DuyaoSS-机场测速和简介&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://10beasts.net/" target="_blank" rel="noopener"
+>Bloger|Barry-10BeastsVPN测评&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.wangluotizi.com/" target="_blank" rel="noopener"
+>Bloger|梯子大神&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&amp;hellip;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="project">Project&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/XTLS" target="_blank" rel="noopener"
+>Project X &lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/v2ray" target="_blank" rel="noopener"
+>Project V &lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/trojan-gfw" target="_blank" rel="noopener"
+>Trojan-GFW&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/p4gefau1t/trojan-go" target="_blank" rel="noopener"
+>Trojan-Go&lt;/a>&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;h2 id="hello-world">Hello World&lt;/h2>
+&lt;blockquote>
+&lt;p>开眼看世界，送给CN编程菜鸟的一份礼物。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.githubs.cn/" target="_blank" rel="noopener"
+>GitHub中文社区 &lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://hellogithub.com/" target="_blank" rel="noopener"
+>HelloGitHub 分享 GitHub 上入门级、有趣的开源项目&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.w3schools.com/" target="_blank" rel="noopener"
+>W3Schools Online Web Tutorials&lt;/a> | &lt;a class="link" href="https://www.w3school.com.cn/" target="_blank" rel="noopener"
+>w3school 在线教程&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="material">Material&lt;/h2>
+&lt;blockquote>
+&lt;p>(免费)素材站点，包括但不限于图标，图片，视频模板以及BT种子网站。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="bt-stream">BT-Stream&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.mypianku.net/" target="_blank" rel="noopener"
+>片库 - 全网高清影视聚合下载 (mypianku.net)&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="icons">Icons&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://icons8.com/" target="_blank" rel="noopener"
+>Free Icons, Clipart Illustrations, Photos, and Music (icons8.com)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://emojixd.com/" target="_blank" rel="noopener"
+>🤣 Emoji表情大全，颜文字百科 💌 - EmojiXD&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://iconstore.co/" target="_blank" rel="noopener"
+>Free icons by first-class designers | Iconstore&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="pictures">Pictures&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://pixabay.com/zh/" target="_blank" rel="noopener"
+>Pixabay&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.pexels.com/zh-cn/" target="_blank" rel="noopener"
+>Pexels&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://foter.com/" target="_blank" rel="noopener"
+>Foter&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="videos">videos&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.aigei.com/" target="_blank" rel="noopener"
+>爱给网_音效配乐_3D模型_视频素材_游戏素材_免费下载 (aigei.com)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://unsplash.com/t/film" target="_blank" rel="noopener"
+>Film | Unsplash&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://mixkit.co/" target="_blank" rel="noopener"
+>Mixkit - Awesome free assets for your next video project&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="osint">OSINT&lt;/h2>
+&lt;blockquote>
+&lt;p>开源情报分析框架，囊括了你在网络上以非接触方式了解一个人的各种渠道。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="search-engine">Search Engine&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://gibiru.com/" target="_blank" rel="noopener"
+>Gibiru – Protecting your privacy since 2009&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://duckduckgo.com/?q=&amp;amp;atb=v1-1" target="_blank" rel="noopener"
+>DuckDuckGo — 隐私保护，化繁为简。&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://crt.sh/?" target="_blank" rel="noopener"
+>crt.sh | Certificate Search&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.zoomeye.org/component" target="_blank" rel="noopener"
+>ZoomEye - Cyberspace Search Engine&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://weixin.sogou.com/" target="_blank" rel="noopener"
+>搜狗微信搜索_订阅号及文章内容独家收录，一搜即达 (sogou.com)&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.opengps.cn/Data/IP/ipplus.aspx" target="_blank" rel="noopener"
+>高精度IP定位4 - openGPS.cn&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.linkedin.com/pub/dir?lastName=&amp;amp;firstName=%e8%a2%81%e5%8d%9a&amp;amp;trk=public_profile_people-search-bar_search-submit" target="_blank" rel="noopener"
+>领英 | Linkedin&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.reg007.com/" target="_blank" rel="noopener"
+>你注册过哪些网站？一搜便知 - REG007&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="tech-blog">Tech Blog&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.secjuice.com/tag/osint/" target="_blank" rel="noopener"
+>OSINT - Secjuice&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://pentester.land/" target="_blank" rel="noopener"
+>Pentester Land · Offensive Infosec&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://ahrefs.com/blog/google-advanced-search-operators/" target="_blank" rel="noopener"
+>Google Search Operators&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://osintframework.com/" target="_blank" rel="noopener"
+>OSINT Framework&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="tools-for-breaking-privacy">Tools for Breaking Privacy&lt;/h3>
+&lt;h4 id="global">Global&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://t.me/FreeSGKbot?start=SGKHSBMGGW" target="_blank" rel="noopener"
+>@FreeSGKbot&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://whatsmyname.app/" target="_blank" rel="noopener"
+>WhatsMyName Web&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="cn-people">CN People&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a class="link" href="http://www.cltt.org/studentscore" target="_blank" rel="noopener"
+>全国普通话培训测试信息资源网&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://account.chsi.com.cn/account/password!retrive" target="_blank" rel="noopener"
+>找回密码_学信网&lt;/a> | &lt;a class="link" href="https://account.chsi.com.cn/account/password!rtvlgname" target="_blank" rel="noopener"
+>找回用户名_学信网&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="tools-for-reasoning">Tools for Reasoning&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="http://suncalc.net/" target="_blank" rel="noopener"
+>suncalc&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="programming">Programming&lt;/h2>
+&lt;blockquote>
+&lt;p>与编程相关的一些站点&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://deepsource.io/" target="_blank" rel="noopener"
+>DeepSource: Fast and reliable static analysis platform&lt;/a>&lt;/p>
+&lt;p>代码质量检测，自动集成，扫描代码中的bug，反模式编程，以及非范式编程。&lt;/p>
+&lt;p>支持 PYTHON, JAVASCRIPT, RUBY, GO, TERRAFORM, JAVA, COVERAGE&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

@@ -1,0 +1,927 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Selenium on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/selenium/</link><description>Recent content in Selenium on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 07 Jul 2022 02:22:14 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/selenium/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』爬虫之巅，畅想「矛」与「盾」的未来</title><link>https://blog.echosec.top/p/spider_performance/</link><pubDate>Thu, 07 Jul 2022 02:22:14 +0800</pubDate><guid>https://blog.echosec.top/p/spider_performance/</guid><description>&lt;img src="https://blog.echosec.top/p/spider_performance/pexels-geometric-photography-13271914.jpg" alt="Featured image of post 『Blog』爬虫之巅，畅想「矛」与「盾」的未来" />&lt;p>(填坑中&amp;hellip;)&lt;/p>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>矛与盾的界定，双向时间线，停一下，畅想未来。&lt;/p>
+&lt;h2 id="captcha的前世今生">CAPTCHA的前世今生&lt;/h2>
+&lt;h3 id="字符验证码">字符验证码&lt;/h3>
+&lt;p>以 text-to-image 为例&lt;/p>
+&lt;h3 id="行为验证码">行为验证码&lt;/h3>
+&lt;p>以国内的极验、网易易盾、阿里安全、京东安全为例，涉及高强度的逆向防护，滑动拼图，文字点选，推理拼图，轨迹涂抹，语音验证等丰富的行为验证方案，相关技术步入「&lt;strong>感官挑战&lt;/strong>」阶段。&lt;/p>
+&lt;p>曾被信息技术从业人员戏称为 HelloWorld 的 request-based Spider 早已成为村头树下的豚骨拉面。能否处理行为验证，成为爬虫开发者的分水岭。&lt;/p>
+&lt;h3 id="问答式验证码">问答式验证码&lt;/h3>
+&lt;p>以国外的 hCAPTCHA，reCAPTCHA v2，等前沿服务为例，涉及认知问答、AI对抗、行为检测多点防御。相关技术上升到全新的「&lt;strong>人机挑战&lt;/strong>」阶段。此阶段给出的挑战难题足以放倒人类。&lt;/p>
+&lt;h3 id="我不是人类">我，不是人类&lt;/h3>
+&lt;p>以国外的 hCAPTCHA，reCAPTCHA v3，Talon service of Epic 等前沿服务为例，涉及驱动特征检测，运动数据检测，威胁等级计算，访客信用水平统计等技术，此处涉及的多种检测策略在国内多以「无感验证」统称。&lt;/p>
+&lt;h2 id="无畏的挑战者">无畏的挑战者&lt;/h2>
+&lt;p>领域技术迭代过快，乃至自学爬虫的玩家，驾校网培生以及跨行业的零基础开发者，抱着刚学会即淘汰的《Python爬虫错题本》欲哭无泪。这类开发者在这场逐渐内卷的博弈中连「小镇做题家」都算不上，充其量只能是「乡村错题本」。&lt;/p>
+&lt;p>各位读者可以脑补以下颇有戏剧性的演化场景：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>刚学会网络请求以及基础的伪装，发现获取不到数据&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>刚学会如何逆向前端代码，发现实战中的出题人是行业中最聪明的一批算法工程师&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>发现无法绕过，需要额外学习使用 &lt;strong>Selenium&lt;/strong>/WebDriver 发起&lt;strong>模拟请求&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>发现即使是模拟请求，也“不得不”处理行为验证。于是，开发者开始像机器一样思考，制作能够识别图像，识别语音，理解语义的AI，让网络驱动携带着这些模块上前线答题&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一段时间后，开发者逐渐发现即使 AI 能够答对题目，验证仍无法通过，折腾一阵子后发现需要像人类一样思考，制作符合人类上网习惯的鼠标轨迹&lt;strong>行为&lt;/strong>链，然后呢，学都学了，顺带把键盘输入的模仿也专精了吧！&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>过了不久，开发者发现一切都回到了原点，但凡是 Selenium 启动的网页，即使是自己手动答题也无法通过验证。折腾一阵子后发现需要让机器人认为「我」是人，开始研究 Chrome 开发者工具以及 BiDi 通信，隐藏浏览器的各项异常特征，尽可能地让 Selenium 启动的网页与手动打开的&lt;strong>网页特征&lt;/strong>一致，甚至不惜自行编译浏览器客户端。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>到此，开发者回顾往昔，发现路上已有绝大多数的同道之人倒下了。但秉持“不忘初心”的信念，开发者仍需在「自证为人」的道路上继续前行。再过不久，开发者已能熟练使用与网页驱动相关的工具技术，随时都能制作深度学习赋能的高性能机器人，秒解所有行为验证难题。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>某一天，「问答式验证」出现了，在这场以「常识对决」为游戏规则的博弈中，开发者受到了来自「彼岸」的满满恶意，如果自己不知道这些生而为人就该知道的「常识」，自然也无法培养出优秀的小镇做题家。&lt;/p>
+&lt;p>至此，作为防守方的「挨打人」开始主动出击，在世界各地崭露头角，&lt;strong>人机挑战&lt;/strong>时代拉开序幕。&lt;/p>
+&lt;p>回望往昔，这是一场尚无硝烟的战争，本是机器人之间的对抗，上升为「挑战者」与「彼岸玩家」之间的对决；本是脑力劳动主导的工作，逐渐演化成了纯粹的体力劳动。无畏的挑战者与彼岸的玩家们凭借着自己对工作负责的态度以及对行业的热爱，在场无限轮回的游戏中，推动着人机验证领域高速发展。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>时至今日，「挑战者」与「彼岸玩家」共同开辟了计算机网络空间安全的一个全新分支。在这场对决中，它们分别饰演着「矛」与「盾」的角色，在对立统一中，它们互相吸取和利用有利于自己的因素而得到发展，在矛盾斗争中，它们相互排斥不断变化最终破坏自身统一，在这场形式多样性的对抗中，矛盾双方协同运动，融合成一个新事物。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>从上帝视角来看，这是一场颇具戏剧性的博弈。如果没有「搅局者」的加入，「反爬虫工程师」至今仍会是地球上的一小股极客团体，但我也无法想象没有人机验证的互联网该如何良性发展。&lt;/p>
+&lt;p>当下，对抗恶意流量的安全团队仍是所有技术岗位中最神秘的一批人，有时他们化身白客，守护资本家和客户仅有的数字资产；但有时他们化身黑客，能够组织规模庞大的流量淹没仍处于萌芽阶段的潜在竞争对手。&lt;/p>
+&lt;p>这群秉持着技术中立精神却向网络空间安全不断发起挑战的神秘人到底什么来头？风云激荡的二十年里，网络爬虫的形式经历了怎样的升级迭代？本章节以顺向时间线的形式，浅聊一下作为「矛」的网络机器人技术及其相关的行业领军人物。&lt;/p>
+&lt;p>&lt;em>待序&amp;hellip;&lt;/em>&lt;/p>
+&lt;h3 id="追赶时代的乡村错题本">追赶时代的乡村错题本&lt;/h3>
+&lt;h3 id="来自网络驱动的虚假流量">来自网络驱动的虚假流量&lt;/h3>
+&lt;h3 id="像人类一样思考">像人类一样思考&lt;/h3>
+&lt;h3 id="我不是机器人">我，不是机器人&lt;/h3>
+&lt;h2 id="既见未来为何不拜">既见未来，为何不拜？&lt;/h2>
+&lt;h3 id="灰度空间的失衡与洗牌">灰度空间的失衡与洗牌&lt;/h3>
+&lt;h3 id="防火长城与大航海时代">防火长城与大航海时代&lt;/h3>
+&lt;h2 id="畅想矛与盾的未来">畅想「矛」与「盾」的未来&lt;/h2>
+&lt;h3 id="年轻人的游戏但是适老化">年轻人的游戏，但是适老化&lt;/h3>
+&lt;h3 id="熊掌与鱼兼收并蓄的农场主">熊掌与鱼，兼收并蓄的农场主&lt;/h3>
+&lt;h3 id="搅局者web30的韭菜收割机">搅局者，Web3.0的韭菜收割机&lt;/h3>
+&lt;h3 id="挣脱形态桎梏奔向虚拟现实社会">挣脱形态桎梏，奔向虚拟现实社会&lt;/h3>
+&lt;h3 id="图灵测试20意识与人格的考验">图灵测试2.0，意识与人格的考验&lt;/h3></description></item><item><title>『Blog』Epic Awesome Gamer</title><link>https://blog.echosec.top/p/epic-awesome-gamer/</link><pubDate>Fri, 28 Jan 2022 23:45:18 +0800</pubDate><guid>https://blog.echosec.top/p/epic-awesome-gamer/</guid><description>&lt;img src="https://blog.echosec.top/p/epic-awesome-gamer/pexels-pixabay-219552.jpg" alt="Featured image of post 『Blog』Epic Awesome Gamer" />&lt;h2 id="backstory">Backstory&lt;/h2>
+&lt;p>&lt;strong>🔨 分享一个有关立项的故事。&lt;/strong>&lt;/p>
+&lt;p>去年月底某友在群里分享了一个他自己 fork 的 &lt;code>epicgames-claimer&lt;/code> 的项目，添加了 &lt;code>Actions&lt;/code> 的特性，能够借助工作流实现定时领周免的需求（非滥用），高能现场如下：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220129002530922.png" alt="image-20220129002530922" style="zoom:50%;" />&lt;/div>
+&lt;p>当时我正在搓其他项目的代码，甚至还没点开这个链接，只是感觉这个点子感觉挺“曼妙”的，仅仅是留下印象而已。但巧就巧在- -我当时正在搓的项目是与 &lt;code>anti-CAPTCHA&lt;/code> 密切相关的任务。&lt;/p>
+&lt;p>直到今年年初，1月14日左右，项目告一段落，有了阶段性的积累，对整个领域的技术模块和特性有了充足的了解（其实非常浅嗯）。在一次无意间的检索中 ，以&lt;code>CAPTCHA&lt;/code> 为关键词又重新搜到了这个项目（原来 Epic 真的可以免费领取游戏！用了老半年的 Epic Games Launcher 都没发现同一个客户端还有个游戏库的选项）。&lt;/p>
+&lt;div align="center">&lt;img src="122922274-bb263b00-d363-11eb-8b82-8a3ed6e7e29d.png" alt="122922274-bb263b00-d363-11eb-8b82-8a3ed6e7e29d" style="zoom:50%;" />&lt;/div>
+&lt;p>我翻了翻“评论区”，情况不太乐观- -不少玩家反应 &lt;code>CAPTCHA&lt;/code> 阻挡验证的问题，但维护者疏于忙碌，暂时无暇升级项目，同样的报错议题已经累积的一个月之久。车祸现场如下：&lt;/p>
+&lt;div align="center">&lt;img src="IMG_20220120_015744.jpg" alt="IMG_20220120_015744" style="zoom: 25%;" />&lt;/div>
+&lt;p>当时想着自己对人机挑战略知一二，便翻起了项目源码，看看大佬是如何梳理整个业务流程的。&lt;/p>
+&lt;p>但很遗憾&amp;hellip;&amp;hellip;这项工作持续不到 10 分钟我就放弃了。我用成分分析工具解剖了核心业务类&lt;code>EpicgamesClaimer()&lt;/code> 后发现，这个看似朴实无华的玩意，竟然塞进了 59 个类方法，还放入了意义不明的 &lt;code>async&lt;/code> 事件循环，大概情况如下图所示：&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/epic-awesome-gamer/image-20220129010800843.png"
+width="3840"
+height="1998"
+srcset="https://blog.echosec.top/p/epic-awesome-gamer/image-20220129010800843_hu3ba0a31ffbc0b0e3870be7f2f8b557db_997869_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/epic-awesome-gamer/image-20220129010800843_hu3ba0a31ffbc0b0e3870be7f2f8b557db_997869_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="192"
+data-flex-basis="461px"
+>&lt;/p>
+&lt;p>（os：没有讥讽的意思，这里表露的只是我当时的第一反应，确实没见过这样的场面-。-&lt;/p>
+&lt;p>至此，一个重头构写「Epic免费人」的想法诞生了。但起初，我是奔着 &lt;code>hCaptcha challenge&lt;/code> 去的，刚积累了这么多料子，正好遇到一个可以练手的挑战，不趁热打铁怎么行，于是我在该楼层下烙下一句“问题不大”后，创建了一个空白仓库，开始设计新项目的技术模型。&lt;/p>
+&lt;p>🤦‍♂️emmm&amp;hellip;现在是北京时间 2022-01-29 01:23 博客写到这的时候发现这个仓库被封掉了……真是一言难尽。&lt;/p>
+&lt;h2 id="little-changes">Little changes&lt;/h2>
+&lt;p>🍜 分享一些本项目中有关「人机挑战」的重点与难点。&lt;/p>
+&lt;h3 id="undetected-flow">Undetected Flow&lt;/h3>
+&lt;p>📋 &lt;strong>要处理 &lt;code>hCaptcha challenge&lt;/code> 首先要有可以隐藏控制特征的自动化技术。&lt;/strong>&lt;/p>
+&lt;h4 id="preview">Preview&lt;/h4>
+&lt;p>如果读者和 &lt;code>CAPTCHA&lt;/code> 打交道的时间不够长但又刚好会一点浏览器自动化技术，你可能会抢答“这个反爬用普通的伪装过不去，必须用浏览器自动化！”，大概率是这样，但不够精确，应该改成“无定向的浏览器自动化”技术。&lt;/p>
+&lt;p>咱们做个小测试，分别以手动，编写 &lt;code>selenium&lt;/code> 脚本，以及 &lt;code>selenium headless&lt;/code> 脚本的形式访问这个链接 &lt;a class="link" href="https://bot.sannysoft.com/" target="_blank" rel="noopener"
+>https://bot.sannysoft.com/&lt;/a> 。&lt;/p>
+&lt;p>手工打开的浏览器是我们所谓的“正常特征”，如下图所示（页面中还有很多的参数项，篇幅有限就不多展示了）。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220129014108862.png" alt="image-20220129014108862" style="zoom:50%;" />&lt;/div>
+&lt;p>使用默认参数启动的浏览器会有很多被标红的“异常特征”，如下图所示（页面中还有很多的参数项，篇幅有限就不多展示了）。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220129014842157.png" alt="image-20220129014842157" style="zoom:80%;" />&lt;/div>
+&lt;p>接下来，您可以复制如下代码进行&lt;strong>无头访问&lt;/strong>，并以截图的形式检查回馈参数：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Chrome&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ChromeOptions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">webdriver_manager.chrome&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ChromeDriverManager&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">demo&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">path_screenshot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;stander_headless.png&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ChromeOptions&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">headless&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="n">Chrome&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ChromeDriverManager&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">log_level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">install&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">options&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">ctx&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctx&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">Chrome&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://bot.sannysoft.com/&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save_screenshot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path_screenshot&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">startfile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path_screenshot&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">demo&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>测试结果截图如下：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220129015441536.png" alt="image-20220129015441536" style="zoom: 67%;" />&lt;/div>
+&lt;p>是不是感觉很惊讶？还在以为其实浏览器自动化可以胜任爬虫的工作吗？&lt;/p>
+&lt;p>&lt;code>Selenium Documentation&lt;/code> 中也明确说道，浏览器自动化工具用于爬虫业务并不符合最佳实践的要求，因为 WebDriver 的特征检测技术老早就普及使用了，几乎是和 &lt;code>selenium&lt;/code> 同个时代的技术。&lt;/p>
+&lt;p>这时候有的读者可能会说，我们可以添加 &lt;code>ChromeOptions()&lt;/code> 呀。好的，现在尽你所致，把你知道的所有参数都加上，再次访问。你也许会发现表格上的“正常特征”会越来越多（截图展示的仅是部分参数），这是一件好事吗？我们先按下不表，但你是否发现，无论你怎么努力，表格中 &lt;code>WebDriver&lt;/code> 一项始终是“异常的”。好的，现在我明确告诉你，截图中的 &lt;code>WebDriver&lt;/code> 是识别控制流量的关键指标。&lt;/p>
+&lt;p>这也解释了为什么处理 &lt;code>CAPTCHA&lt;/code> 要先解决 &lt;code>undetected flow&lt;/code> 的问题。现代化的人机验证都会通过前置的 &lt;code>JavaScript&lt;/code> 脚本捕获用户的页面控制轨迹，一旦驱动的 &lt;code>WebDriver&lt;/code> 指标亮起，你的一切后续操作都是徒增功耗，即使人机挑战“通过”，你也无法获取正确的身份令牌。&lt;/p>
+&lt;h4 id="solution">Solution&lt;/h4>
+&lt;p>兜了这么大的圈子，这里要介绍一个在业界几乎没有竞品的项目 &lt;a class="link" href="https://github.com/ultrafunkamsterdam/undetected-chromedriver" target="_blank" rel="noopener"
+>undetected-chromedriver&lt;/a>。通过它，我们可以安全地隐藏驱动控制特征，将我们所有的业务逻辑安全地送到人机挑战页面。关于这个项目的特性我会另开博客详细介绍，其中大有门道。&lt;/p>
+&lt;p>此处，你可以通过如下引导快速复现一个“无踪环境”，并得到驱动测试参数。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">pip install undetected-chromedriver&lt;span class="o">==&lt;/span>3.1.3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Time : 2022/1/27 6:02&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Author : QIN2DIM&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Github : https://github.com/QIN2DIM&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Description:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">undetected_chromedriver&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Chrome&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">demo&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">path_screenshot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;undetected_headless.png&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Chrome&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">headless&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://bot.sannysoft.com/&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">save_screenshot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path_screenshot&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">finally&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ctx&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">startfile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path_screenshot&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">demo&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>undetected-chromedriver 无头启动&lt;/strong>&lt;/p>
+&lt;p>可以看到，我们在不指定任何参数的情况下，&lt;code>WebDriver&lt;/code> 指标是正常的。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;img src="image-20220129022219302.png" alt="Undetected 无头启动" style="zoom:50%;" />
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>undetected-chromedriver 正常启动&lt;/strong>&lt;/p>
+&lt;p>在正常启动且不指定任何可选参数的情况下，&lt;code>WebDriver&lt;/code> 指标是正常的，不仅如此，其他所有的主要特征都通过了验证，和我们手动打开网站得到的结果几乎是一样的。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div align="center">&lt;img src="image-20220129022411626.png" alt="Undetected 正常启动" style="zoom:50%;" />&lt;/div>
+&lt;h4 id="trouble">Trouble&lt;/h4>
+&lt;p>到此阶段，我们可以回顾一下 &lt;code>EpicgamesClaimer&lt;/code> 项目中遇到的第一个困难，那便是整个项目与 &lt;a class="link" href="https://github.com/puppeteer/puppeteer" target="_blank" rel="noopener"
+>Puppeteer&lt;/a> 强绑定，维护者几乎为每一个原子操作都做了修饰封装，而 &lt;code>puppeteer&lt;/code>（也可称 &lt;a class="link" href="https://pypi.org/project/pyppeteer/" target="_blank" rel="noopener"
+>pyppeteer&lt;/a>） 与 &lt;code>Selenium&lt;/code> 一样都是主流的自动化测试框架，并不具备隐秘特征的能力。所以，维护者几乎只能基于 &lt;code>pyppeteer&lt;/code> 的生态寻找类似的解决方案，或基于 &lt;code>pyppeteer&lt;/code> 底层特性寻找突破口，或选择 &lt;code>undetected-chromedriver&lt;/code> 嫁接开发。但无论选择哪一种，代价都是极其惨痛的。&lt;/p>
+&lt;h3 id="threat-level">Threat Level&lt;/h3>
+&lt;p>📋 正所谓「知己知彼百战不殆」，在硬刚人机挑战之前，我们得先知道 &lt;code>hCaptcha challenge&lt;/code> 的运作逻辑，以及「验证通过」「威胁等级」如何定义，我们才能优雅地通过测试，并将挑战模块无缝地衔入到主线业务中去。&lt;/p>
+&lt;p>感兴趣的朋友可以参考一下 M. I. Hossen 等人的攻击方法 &lt;a class="link" href="https://ieeexplore.ieee.org/document/9474292" title="M. I. Hossen and X. Hei, &amp;amp;quot;A Low-Cost Attack against the hCaptcha System,&amp;amp;quot; 2021 IEEE Security and Privacy Workshops (SPW), 2021, pp. 422-431, doi: 10.1109/SPW53761.2021.00061."
+target="_blank" rel="noopener"
+>doi: 10.1109/SPW53761.2021.00061.&lt;/a>&lt;/p>
+&lt;p>文章里详细介绍了人机挑战的前世今生以及当下主流的人机挑战形式；总结了 &lt;code>hCaptcha&lt;/code> 差异特性，并简要说明了一些 &lt;code>element&lt;/code> 的获取思路与模型训练的实验步骤。点击快速打开 &lt;a class="link" href="https://conferences.computer.org/sp/pdfs/spw/2021/893400a422.pdf" title="论文PDF"
+target="_blank" rel="noopener"
+>PDF&lt;/a> 预览文章。&lt;/p>
+&lt;h4 id="preview-1">preview&lt;/h4>
+&lt;p>其中有一些值得注意的现象，在论文摘要中作者写道：&lt;/p>
+&lt;blockquote>
+&lt;p>We evaluate our system against 270 hCaptcha challenges from live websites and demonstrate that it can solve them with &lt;strong>95.93% accuracy&lt;/strong> while taking only &lt;strong>18.76 seconds&lt;/strong> on average to crack a challenge. We run our attack from a docker instance with only 2GB memory (RAM), 3 CPUs, and no GPU devices, demonstrating that it requires minimal resources to launch a successful large-scale attack against the hCaptcha system.&lt;/p>
+&lt;/blockquote>
+&lt;p>在正文中作者详细解析了数据组成：&lt;/p>
+&lt;blockquote>
+&lt;p>&amp;hellip;Our deep learning classifier (the Solver) takes &lt;strong>3.79 seconds&lt;/strong> to classify the images (&lt;strong>usually 9&lt;/strong>) in a challenge, on average&amp;hellip;&lt;/p>
+&lt;/blockquote>
+&lt;p>然后奉上了图3，作者将业务耗时拆分成浏览器自动化的耗时以及图像分类任务的耗时，可以发现浏览器控制用的时间占了一次业务中的绝大部分（符合常识）。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220129033424831.png" alt="image-20220129033424831" style="zoom:67%;" />&lt;/div>
+&lt;p>但其实我是蛮疑惑的，首先是这个 &lt;code>3.79s&lt;/code> 的数据是如何算出来的。我们处理 &lt;code>hCaptcha&lt;/code> 一般有两轮验证一共 18 张图而这里用了&lt;code> usually 9&lt;/code>；其次，当我们的威胁等级足够低时，我们甚至会在激活 &lt;code>checkbox&lt;/code> 后跳过人机挑战。&lt;/p>
+&lt;p>然后是 &lt;code> 18.76s&lt;/code> 的平均总耗时其实也是实验条件下的结果，至少拿 Epic 更新身份令牌的行为来说，我们启动「挑战者驱动」可能就要用 15s 。文章中的浏览器操作耗时的具体行为包括「初始化挑战（进入页面加载页面）」「与 &lt;code>checkbox&lt;/code> 交互并激活挑战」「提交挑战」以及「验证挑战是否成功」，忽视了最耗时的图片下载过程，其次在验证挑战是否成功环节，真实业务场景需要进行非常复杂的元素断言，而在实验环境下几乎只用判断按钮是否能继续点就可以（排除判断）说明挑战是否成功。&lt;/p>
+&lt;blockquote>
+&lt;p>We found that hCaptcha often repeats images across different challenges. We computed the MD5 hashes of &lt;strong>48330 images collected from the hCaptcha challenges&lt;/strong> during our analysis and identifified 9854 redundant images belonging to 1985 sets of identical images.&lt;/p>
+&lt;/blockquote>
+&lt;p>作者后文说道，他们发现挑战中经常遇到重复的图片，于是用了感知哈希判断在多伦测试中攒下来的图片中有多少重复的。真够狠的爬了五千多次。。&lt;/p>
+&lt;h4 id="solution-1">Solution&lt;/h4>
+&lt;h3 id="synergy-framework">Synergy framework&lt;/h3>
+&lt;p>&lt;strong>📋 协同框架立大功！&lt;/strong>&lt;/p>
+&lt;h4 id="preview-2">preview&lt;/h4>
+&lt;p>根据上文可知，&lt;code>CAPTCHA&lt;/code> 一般都设有时间限制，一段时间内未通过测试页面元素就会自主刷新过时。我们知道，下载图片恰巧是个经典的网络I/O耗时场景。因此，我不由地想到利用协程技术缩短人机挑战的耗时，提高容错。&lt;/p>
+&lt;h4 id="solution-2">Solution&lt;/h4>
+&lt;ol>
+&lt;li>&lt;strong>轻量可移植的协同任务框架&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>在本项目 &lt;code>utils &lt;/code>中存放着一个轻量化的 &lt;code>Synergy framework &lt;/code>，其核心业务代码可见 &lt;a class="link" href="https://github.com/QIN2DIM/epic-awesome-gamer/blob/main/src/services/utils/accelerator/core.py" target="_blank" rel="noopener"
+>CoroutineSpeedup()&lt;/a>。打上 &lt;code>monkey&lt;/code> 鸡血补丁后，协同任务开始运作。&lt;/p>
+&lt;ol start="2">
+&lt;li>&lt;strong>使用 &lt;code>gevent&lt;/code> 而不是 &lt;code>async&lt;/code>&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>gevent&lt;/code> 是作者编写 Python 协程的常用方法。相交于 &lt;code>async&lt;/code> ，使用 &lt;code>gevent&lt;/code> 能够更自如地控制模块的布局与业务的上下文联系，不必为了接口的兼容关系割裂本该完整的函数体；从整体上看，这也能让实现同一逻辑的代码更加规范整洁雅观；从 Python 新手来说，&lt;code>gevent&lt;/code> 不需要改动原始代码的逻辑就能实现协同，这给还未深刻理解 &lt;code>async&lt;/code> 的朋友来说降低了很多的理解门槛。借知乎网友的话就是“手动挡和自动挡的区别”，个人觉得是非常真实了。但此处也有个坑，也是本项目目前遇到的最大技术难题，后文细说。&lt;/p>
+&lt;ol start="3">
+&lt;li>&lt;strong>45路公交与自行车&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>原先的 &lt;code>for loop&lt;/code> 循环下载一轮挑战的 9 张图片的总耗时为每张图片下载耗时之和，而在协同任务中，总耗时为单图的最长耗时，由此极大缩短数据集拉取的时间。&lt;/p>
+&lt;p>在 GitHub Actions 里这是一种体感差距，几乎瞬间拉取，如下图所示。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220129044934503.png" alt="image-20220129044934503" style="zoom:67%;" />&lt;/div>
+&lt;p>而在国内网络条件下，这就是判定挑战能否开启的守门员指标。从本人的网络条件来说，在不开启代理的情况下，300MB 带宽跑满拉取位于国外服务器上的图片，每张图花费将近 10 秒的时间，如果不引入协同下载的概念，光是下载图片我们都要干等一分半，而同样的时间，已能在工作流中结束一次人机挑战了。&lt;/p>
+&lt;h2 id="happy-freebie-claiming">Happy Freebie Claiming&lt;/h2>
+&lt;h2 id="reference">Reference&lt;/h2></description></item><item><title>『 Python 』Python Selenium 破解极验(GeeTest)滑动验证</title><link>https://blog.echosec.top/p/python-geetest-breaker/</link><pubDate>Wed, 18 Aug 2021 21:53:50 +0800</pubDate><guid>https://blog.echosec.top/p/python-geetest-breaker/</guid><description>&lt;img src="https://blog.echosec.top/p/python-geetest-breaker/typewriter.jpg" alt="Featured image of post 『 Python 』Python Selenium 破解极验(GeeTest)滑动验证" />&lt;blockquote>
+&lt;p>TOS&lt;/p>
+&lt;ol>
+&lt;li>本项目仅供交流学习，有疑问请在 &lt;a class="link" href="https://github.com/QIN2DIM/armour-geetest/issues" target="_blank" rel="noopener"
+>Issues&lt;/a> 中提出；&lt;/li>
+&lt;li>本项目不提供面向任何商业需求的版本迭代；&lt;/li>
+&lt;li>关于本项目源码的使用请遵循 Apache-2.0 License；&lt;/li>
+&lt;li>禁止任何人使用本项目及其分支提供任何形式的收费代理服务。&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h2 id="项目简介-">项目简介 🐱‍🏍&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/QIN2DIM/armour-geetest" target="_blank" rel="noopener"
+>ArmourGeeTest&lt;/a> 是一种针对 &lt;a class="link" href="https://www.geetest.com/" target="_blank" rel="noopener"
+>GeeTest 极验&lt;/a> 滑动验证的超高通过率解决方案。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>引入&lt;strong>姿态收敛&lt;/strong>以及&lt;strong>惯性&lt;/strong>等初中物理概念解决二维空间中的像素对齐问题。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当这个难倒了大批爬虫玩家的问题被抽象成&lt;strong>缺口识别&lt;/strong>以及&lt;strong>像素对齐&lt;/strong>两个指标时使用本方案进行百次实验：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>当&lt;strong>缺口识别率&lt;/strong>为 100% 时，&lt;code>gt3&lt;/code>通过率为 92%。&lt;/p>
+&lt;p>失败案例中超半数由收敛超时引发，剩下的被怪兽吃掉了；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当&lt;strong>缺口识别率&lt;/strong>为 100% 时，&lt;code>gt2&lt;/code>通过率 100%。&lt;/p>
+&lt;p>仅在缺口被遮挡时失败，但此时更倾向认为&lt;strong>缺口识别率&lt;/strong> &amp;lt;100%；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>gt3&lt;/code> 算子收敛过程小概率出现“震荡”现象，此时（为保证通过率）任务耗时将大幅增长，开发者可通过优（手）化（调）本项目的模型超参数，达成&lt;strong>低耗时&lt;/strong> + &lt;strong>高通过率&lt;/strong>的性能指标。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="快速上手-">快速上手 🛴&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>【方案一】用户&lt;/strong>&lt;/p>
+&lt;p>通过观看 &lt;a class="link" href="https://www.wolai.com/pbhA77godFuXjofA1QC7JG?theme=light" target="_blank" rel="noopener"
+>ArmourGeeTest Demo &lt;/a>了解本项目的工作范围。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>【方案二】开发者&lt;/strong>&lt;/p>
+&lt;p>Clone项目，根据 &lt;a class="link" href="https://github.com/QIN2DIM/sspanel-geetest/blob/main/docs/subs/%e6%8a%80%e6%9c%af%e6%96%87%e6%a1%a3.md" target="_blank" rel="noopener"
+>技术文档 &lt;/a>合理配置 &lt;code>config.py&lt;/code> 后编译项目。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="用法说明-">用法说明 🤷‍♂️&lt;/h2>
+&lt;blockquote>
+&lt;p>更多详细信息请访问本项目 &lt;a class="link" href="https://github.com/QIN2DIM/armour-geetest" target="_blank" rel="noopener"
+>Github仓库&lt;/a>。&lt;/p>
+&lt;/blockquote></description></item><item><title>『 Python 』Passthrough is not supported, GL is swiftshader</title><link>https://blog.echosec.top/p/python-selenium-debug-20210725/</link><pubDate>Sun, 25 Jul 2021 22:14:38 +0800</pubDate><guid>https://blog.echosec.top/p/python-selenium-debug-20210725/</guid><description>&lt;img src="https://blog.echosec.top/p/python-selenium-debug-20210725/vojta.jpg" alt="Featured image of post 『 Python 』Passthrough is not supported, GL is swiftshader" />&lt;h2 id="错误信息">错误信息&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">Passthrough is not supported, GL is swiftshader.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="解决方案">解决方案&lt;/h2>
+&lt;p>通过 &lt;code>ChromeOptions()&lt;/code> 配置 Selenium 启动参数进而实现 &lt;code>chromedriver&lt;/code> 在 Windows 环境中以“无头模式”运行时于控制台的输出信息的控制：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">selenium.webdriver&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Chrome&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ChromeOptions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># True：chromedriver静默启动&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">SILENCE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">set_spider_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">chromedriver_path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">Chrome&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 调整chromedriver的读取路径，若不指定则尝试从环境变量中查找&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">chromedriver_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;chromedriver&amp;#34;&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">chromedriver_path&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="kc">None&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="n">chromedriver_path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 实例化Chrome可选参数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ChromeOptions&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 静默启动 参数组策略&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">SILENCE&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_argument&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;--headless&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_argument&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;--disable-gpu&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_argument&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;--disable-software-rasterizer&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 其他推荐设置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_argument&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;--log-level=3&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_experimental_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;excludeSwitches&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;enable-logging&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">add_experimental_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;excludeSwitches&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;enable-automation&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Chrome&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">executable_path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">chromedriver_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">this_is_a_business&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">chromedriver_path&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">api&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">set_spider_option&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">chromedriver_path&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">api&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://www.baidu.com&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">input&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">finally&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">api&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">quit&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">this_is_a_business&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">chromedriver_path&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">None&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;p>[1] &lt;a class="link" href="https://debugah.com/solved-python-selenium-chromedriver-error-passthrough-is-not-supported-gl-is-disabled-15549/" target="_blank" rel="noopener"
+>[Solved] Python Selenium Chromedriver Error: (Passthrough is not supported, GL is disabled) | DebugAH&lt;/a>&lt;/p>
+&lt;p>[2] &lt;a class="link" href="https://stackoverflow.com/questions/67501093/passthrough-is-not-supported-gl-is-disabled" target="_blank" rel="noopener"
+>python - Passthrough is not supported, GL is disabled - Stack Overflow&lt;/a>&lt;/p></description></item><item><title>『 Python 』CampusDailyAutoSign 今日校园体温检测自动上报系统</title><link>https://blog.echosec.top/p/python-campusdailyautosign/</link><pubDate>Wed, 24 Feb 2021 19:27:24 +0800</pubDate><guid>https://blog.echosec.top/p/python-campusdailyautosign/</guid><description>&lt;img src="https://blog.echosec.top/p/python-campusdailyautosign/old-books.jpg" alt="Featured image of post 『 Python 』CampusDailyAutoSign 今日校园体温检测自动上报系统" />&lt;h2 id="项目简介-">项目简介 🐱‍🏍&lt;/h2>
+&lt;blockquote>
+&lt;ol>
+&lt;li>本项目仅为 &lt;strong>海南大学&lt;/strong> 学子提供服务；&lt;/li>
+&lt;li>本项目 &lt;strong>开源免费&lt;/strong> ，禁止任何人使用此项目及其分支提供任何形式的收费代理服务；&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://blog.echosec.top/p/python-campusdailyautosign/MbkFBGQ3Ohj5X6p.png"
+width="2186"
+height="1162"
+srcset="https://blog.echosec.top/p/python-campusdailyautosign/MbkFBGQ3Ohj5X6p_hub748e3b082325a324d341f92c38137fd_165290_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/python-campusdailyautosign/MbkFBGQ3Ohj5X6p_hub748e3b082325a324d341f92c38137fd_165290_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="451px"
+>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.yuque.com/docs/share/53c62de5-91bf-4f96-9330-fae53c6a4f0d?" title="程序流图1"
+target="_blank" rel="noopener"
+>程序流图 1&lt;/a> &lt;strong>||&lt;/strong> &lt;a class="link" href="https://www.yuque.com/docs/share/94dac928-a89c-47d3-9273-8bd049152b6e?" title="程序流图2"
+target="_blank" rel="noopener"
+>程序流图 2&lt;/a> &lt;strong>||&lt;/strong> &lt;a class="link" href="https://www.yuque.com/docs/share/b0634038-5ee5-4632-80c4-0564e7795489?" title="demo演示"
+target="_blank" rel="noopener"
+>demo 演示&lt;/a>&lt;/li>
+&lt;li>本项目使用 &lt;a class="link" href="https://github.com/beiyuouo/hnu-temp-report-bot" target="_blank" rel="noopener"
+>hnu-temp-report-bot&lt;/a> 跳板机实现人机交互，QQ 群内对 &lt;strong>bot(851722457)&lt;/strong> 使用&lt;code>关键字指令 &lt;/code>+ &lt;code>功能指令&lt;/code> 即可实现相关需求；&lt;/li>
+&lt;/ul>
+&lt;h2 id="快速上手-">快速上手 🛴&lt;/h2>
+&lt;p>&lt;strong>【方案一】用户&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>在群内拉入 QQ 机器人 &lt;strong>bot(851722457)&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>根据 &lt;a class="link" href="https://github.com/QIN2DIM/CampusDailyAutoSign/blob/main/docs/subdirectory/%e6%8a%80%e6%9c%af%e6%96%87%e6%a1%a3%28demo%29.md" title="技术文档"
+target="_blank" rel="noopener"
+>技术文档&lt;/a> 中的引导完成定时任务的增删改查或立即执行签到操作。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>【方案二】开发者&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Clone 项目:champagne:&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>根据 &lt;a class="link" href="https://github.com/QIN2DIM/CampusDailyAutoSign/blob/main/docs/subdirectory/%e6%8a%80%e6%9c%af%e6%96%87%e6%a1%a3%28demo%29.md" title="技术文档"
+target="_blank" rel="noopener"
+>技术文档&lt;/a> 合理配置启动参数并通过脚手架调试或部署项目。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="食用指南-">食用指南 🤷‍♂️&lt;/h2>
+&lt;blockquote>
+&lt;p>详见本项目 &lt;a class="link" href="https://github.com/QIN2DIM/CampusDailyAutoSign" target="_blank" rel="noopener"
+>GitHub Repository&lt;/a>，感谢支持。&lt;/p>
+&lt;/blockquote></description></item><item><title>『 Python 』中国大学生计算机设计大赛📜历史作品博物馆</title><link>https://blog.echosec.top/p/python-4c-excellentproject/</link><pubDate>Tue, 01 Sep 2020 16:24:49 +0800</pubDate><guid>https://blog.echosec.top/p/python-4c-excellentproject/</guid><description>&lt;img src="https://blog.echosec.top/p/python-4c-excellentproject/1052010.jpg" alt="Featured image of post 『 Python 』中国大学生计算机设计大赛📜历史作品博物馆" />&lt;blockquote>
+&lt;p>更多信息请参见 &lt;a class="link" href="https://github.com/QIN2DIM/4C-ExcellentProject" target="_blank" rel="noopener"
+>GitHub Repository&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="前言-">前言 🤦‍♂️&lt;/h2>
+&lt;p>🎉 本人有幸作为项目负责人参加 &lt;strong>2020 中国大学生计算机设计大赛&lt;/strong>，并拿下了大数据实践赛全国一等奖。&lt;/p>
+&lt;p>🧐 做这个程序的初衷垂直~无意中看到了某个设计方向的作品，感触很深 ；本科生能独立完成这样的作品，真是太震撼了！嗯我说的就是“红楼梦信息交互设计”的华科小姐姐团队，真正的&lt;strong>面向薪资编程&lt;/strong>！&lt;/p>
+&lt;p>🛒 于是便有了一个&lt;strong>收藏并展示该类比赛优秀作品&lt;/strong>的想法，于是本人点开官网后发现最新的作品展示还要追溯到 2015 年-……行吧那就撸起袖子自己写了一个自动化采集程序，该程序会自动化采集作品数据，并生成永久访问链接，&lt;strong>展示的信息会经过数据脱敏，仅放出项目 idea 以及作品申报信息，供大家考古学习&lt;/strong>。&lt;/p>
+&lt;p>🚀 总而言之该脚本主要功能就是&lt;strong>采集作品信息&lt;/strong>和&lt;strong>拷贝作品信息&lt;/strong>。我会在均衡程序的鲁棒性后，引入&lt;strong>垂搜引擎&lt;/strong>，帮助使用者检索 &lt;code>同质idea&lt;/code> 以及 &lt;code>同质优秀参赛作品&lt;/code>。&lt;/p>
+&lt;p>🍵 最终的作品展示方式，本人会慎重考虑。如果官方工作人员觉得不太妥，可以私聊本人喝茶[嗯！道歉是认真的！]如果觉得本项目有望吸引更多的年轻人参赛施展才智，提高竞赛的知名度与含金量，可以私聊本人喝咖啡~&lt;/p>
+&lt;h2 id="快速上手-">快速上手 🐱‍🏍&lt;/h2>
+&lt;blockquote>
+&lt;p>Clone 项目，进入 &lt;code>main.py&lt;/code>，按照说明书合理调用 &lt;code>API&lt;/code> ，运行程序即可调度爬虫采集数据。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="配置运行环境">配置运行环境&lt;/h3>
+&lt;p>部分 API 使用 python3 + selenium 的采集方案，且该脚本仅支持 Chrome 驱动，请将您的谷歌浏览器更新到最新版本。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">python -m pip install --upgrade pip &lt;span class="o">&amp;amp;&amp;amp;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="采集作品信息">采集作品信息&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>app.run_crawl_to_capture_workData(work_id: str or list,power: int)&lt;/code>
+&lt;ul>
+&lt;li>work_id：作品编号，支持&lt;strong>单个字符串&lt;/strong>输入以及 &lt;strong>List&lt;/strong> 多个字符串输入
+&lt;ul>
+&lt;li>【1】传入单个作品编号；&lt;/li>
+&lt;li>【2】传入包含多个作品编号的列表；&lt;/li>
+&lt;li>【3】传入空字符串或不传入 &lt;code>work_id&lt;/code>，则默认采集 BASE 中所有的 ID 对应的作品数据(目前有 4076 个数据在库)，此时请适当调高协程功率&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>power：协程功率，&lt;code>power∈[1,∞)&lt;/code>，脚本内置弹性协程队列，此处可随意设置。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>运行后会在 &lt;code>/dataBase/&lt;/code> 目录下生成 &lt;code>合成.csv&lt;/code> 文件&lt;/li>
+&lt;li>从 config 配置文件中打印变量 &lt;code>title&lt;/code> 即可查询信息键&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">MiddleWare&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">config&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">id_list&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;75945&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s1">&amp;#39;68589&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># app.run_crawl_to_capture_workData(work_id=&amp;#39;72862&amp;#39;,power=30)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run_crawl_to_capture_workData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">id_list&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">id_list&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__len&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="n">__&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="xjLGXY32JEmWvIb.png" style="zoom:80%;" />
+&lt;h3 id="拷贝作品信息">拷贝作品信息&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>演示视频&lt;/strong>&lt;a class="link" href="https://www.yuque.com/docs/share/148083ac-c703-4f7c-978b-321b4ae8e6d9?#" target="_blank" rel="noopener"
+>《BackupSpider of CNJSJ》&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>app.run_crawl_to_capture_workData(work_id: str or list,power: int=4)&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>work_id： 作品编号，支持&lt;strong>单个字符串&lt;/strong>输入以及 &lt;strong>List&lt;/strong> 多个字符串输入，&lt;strong>参数传递方案同上&lt;/strong>。&lt;/li>
+&lt;li>power： 协程功率，&lt;code>power∈[1,∞)&lt;/code>，脚本内置弹性协程队列，此处可&lt;code>随意&lt;/code>设置。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>运行后会在 &lt;code>/dataBase/BACKUP/&lt;/code> 目录下生成以作品编号命名的 &lt;code>.mhtml&lt;/code> 文件，该格式网页文件封装了源所有的文本及插图附件，部分作品内容精彩，文件体积占用较大。&lt;/p>
+&lt;ul>
+&lt;li>注：safari 可能会打不开这种格式文件。&lt;/li>
+&lt;li>该功能使用 Selenium(base on Chromedriver) 采集，请确保电脑上安装了最新版本的谷歌浏览器。&lt;/li>
+&lt;li>该功能需要联网使用，请确保网络通畅。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">middleware&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">config&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run_crawl_to_backup_data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;72862&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">power&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div align="center">&lt;img src="3nIbWH5cEiuDVs9.png" style="zoom: 67%;" />&lt;/div>
+&lt;p>&lt;img src="https://blog.echosec.top/p/python-4c-excellentproject/MmYqsBRbPEZglv2.gif"
+width="672"
+height="378"
+srcset="https://blog.echosec.top/p/python-4c-excellentproject/MmYqsBRbPEZglv2_hu59e7919f71bfe8e4776583e924d2a075_2001734_480x0_resize_box_1.gif 480w, https://blog.echosec.top/p/python-4c-excellentproject/MmYqsBRbPEZglv2_hu59e7919f71bfe8e4776583e924d2a075_2001734_1024x0_resize_box_1.gif 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="177"
+data-flex-basis="426px"
+>&lt;/p>
+&lt;h2 id="api">API&lt;/h2>
+&lt;p>在从 &lt;code>MiddleWare&lt;/code> 中导入 &lt;code>app&lt;/code>，即可调用脚本功能，别忘了调用 &lt;code>config&lt;/code> 配置文件设置全局变量~&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">middleware&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">config&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="作品查询学校成果">作品查询~学校成果&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>app.get_school_psar(school_name: str,save: bool)&lt;/code>
+&lt;ul>
+&lt;li>school_name：学校名称。这里不支持模糊匹配，请输入&lt;strong>全称&lt;/strong>！&lt;/li>
+&lt;li>save：保存输出。默认为 False；建议为 True，运行后会在 &lt;code>/dataBase/PSAR&lt;/code> 目录下生成对应学校的分析结果，文件格式为 &lt;code>.json&lt;/code>，信息键仅包括 &lt;code>获奖信息&lt;/code> 以及 &lt;code>作品链接&lt;/code>。文件会&lt;strong>自动打开&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">MiddleWare&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">config&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_school_psar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">school_name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;华中科技大学&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">save&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>/华中科技大学_分析报告.json&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;华中科技大学&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;成果概要&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;一等奖&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;二等奖&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;三等奖&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;作品细节&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;一等奖&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72849&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;皖江之阴，青山之阳；青阳有腔，放遇一欢。&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72862&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34; 红楼梦·可视化赏析信息交互系统&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;二等奖&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72750&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Limfx科研博客&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72764&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;梦·山海&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72795&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;济世方舱&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72796&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;山哈彩带&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72800&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;敦煌·梵音&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72821&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;放大镜下的昆虫世界&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72822&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;九华折扇——数字化非遗文化信息可视化设计&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=74879&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;别让它灭绝&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;三等奖&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72783&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;皮影传承，戏中人生&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;http://2020.jsjds.com.cn/chaxun/?keys=72799&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;希冀&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="作品查询奖级and赛道">作品查询~奖级AND赛道&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>app.find_works_by_level(level: str,class_: str)&lt;/code>
+&lt;ul>
+&lt;li>level：作品等级。这里需要&lt;strong>规范输入&lt;/strong>，只能输入以下选项
+&lt;ul>
+&lt;li>&lt;code>一等奖&lt;/code>、&lt;code>二等奖&lt;/code>、&lt;code>三等奖&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>class_ ：作品赛道。这里支持模糊匹配。在 &lt;code>/dataBase/TPTDP/class_name.txt&lt;/code> 中有C4-2020所有赛道的全称&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>食用说明：&lt;code>level &lt;/code>和 &lt;code>class_&lt;/code> 都不是必选参数，比如只想知道一等奖的所有作品，只需传入 &lt;code>level&lt;/code> 即可，&lt;code>class_&lt;/code> 可不传或传入空字符串。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">MiddleWare&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">config&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># app.find_works_by_level(level=&amp;#39;一等奖&amp;#39;, class_=&amp;#39;大数据&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># app.find_works_by_level(level=&amp;#39;&amp;#39;, class_=&amp;#39;人工智能&amp;#39;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_works_by_level&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;一等奖&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">class_&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203151766.png"
+width="1562"
+height="389"
+srcset="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203151766_hu6333a1f9b6ad0ce5cbbaf9ff77717174_157030_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203151766_hu6333a1f9b6ad0ce5cbbaf9ff77717174_157030_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="401"
+data-flex-basis="963px"
+>&lt;/p>
+&lt;h3 id="作品查询比赛摘要">作品查询~比赛摘要&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>app.get_summary()&lt;/code> 打印决赛成绩概况&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203209320.png"
+width="1232"
+height="359"
+srcset="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203209320_hu142866d07b802d697d5d6e7cd105ce57_81589_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203209320_hu142866d07b802d697d5d6e7cd105ce57_81589_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20211002203209320"
+class="gallery-image"
+data-flex-grow="343"
+data-flex-basis="823px"
+>&lt;/p>
+&lt;h3 id="作品查询链接直达">作品查询~链接直达&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>app.find_works_by_id(key: str, goto: bool)&lt;/code>
+&lt;ul>
+&lt;li>key： 作品编号，仅支持单个字符串输入&lt;/li>
+&lt;li>goto：是否打开网页。若为 True，则使用默认浏览器打开作品首页&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>运行后会在 &lt;code>/dataBase/PSAR/ASH.json&lt;/code> 中留下临时文件&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">MiddleWare&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">config&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_works_by_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;72862&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="works_id数据加载">works_id数据加载&lt;/h3>
+&lt;ul>
+&lt;li>由于表数据结构比较乱，我已经写好了一个全局 load id 的函数，使用方法也很粗暴，调用该函数并传入 &lt;code>spider_key&lt;/code>，即可获取含表头的在库id列表。获取列表后使用切片去除表头候即可获得干净的数据~&lt;/li>
+&lt;li>因为合成BASE文件有点大，故使用 &lt;code>csv.field_size_limit()&lt;/code> 捕获数据流。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># config.py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">load_data_from_id_set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> data_set = title
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> :param mode: 截取模式,
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> spider_key : 联采
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> str:works_id : 该作品编号对应的数据
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> list:works_id :
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> :return:返回表头+数据，使用切片[1:]截出数据集
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 当爬虫程序使用此函数时，并传入‘spider_key’口令，函数执行特殊命令，返回含表头的作品编号 List[str,str...]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 返回的列表里包含了所有在库的works_id,既当爬虫爬虫程序传入该口令时，将采取所有作品信息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">id_fp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;r&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">csv&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">field_size_limit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">500&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">1024&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">1024&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">reader&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">csv&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reader&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">reader&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">mode&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;spider_key&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 清洗数据&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">data&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="s1">&amp;#39;N/A&amp;#39;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>食用方法&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">MiddleWare&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">app&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 返回无表头 id 列表&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">id_flow&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nb">list&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_all_works_id&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 数据预览&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;id池大小：&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">id_flow&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__len__&lt;/span>&lt;span class="p">()))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="注意事项-">注意事项 ❗&lt;/h2>
+&lt;ul>
+&lt;li>工程文件中的&lt;code>/dataBase&lt;/code>目录下存放了脚本核心BASE文件，请勿随意挪动或删除文件，否则会出大问题！&lt;/li>
+&lt;li>&lt;code>config.py&lt;/code>中可以自己调整的参数并不多，请勿随意改动其中数值，否则也会出大问题~&lt;/li>
+&lt;/ul>
+&lt;h2 id="更新日志-">更新日志 📋&lt;/h2>
+&lt;p>&lt;strong>2020.09.06&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>已将所有&lt;code>2020-MTH作品申报信息&lt;/code>离线封装&lt;/li>
+&lt;li>将采集功能都封装进&lt;code>app.py&lt;/code>里，所有功能都可通过该模块调用&lt;/li>
+&lt;li>添加语雀同步文档，解决部分地区图文显示异常的问题&lt;/li>
+&lt;li>项目除虫，增加了垃圾回收机制&lt;/li>
+&lt;/ol>
+&lt;h2 id="todo-">TODO 📈&lt;/h2>
+&lt;ul>
+&lt;li>&lt;input disabled="" type="checkbox"> 搭建类BLOG前端，开放接口映射优秀作品文件&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> 服务器部署&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> 引入鲁棒均衡模组&lt;/li>
+&lt;li>&lt;input disabled="" type="checkbox"> 添加垂搜引擎，提供API接口&lt;/li>
+&lt;/ul></description></item></channel></rss>

@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Notes on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/notes/</link><description>Recent content in Notes on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 15 Oct 2021 19:40:23 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Robot Yea</title><link>https://blog.echosec.top/p/robot-yea/</link><pubDate>Fri, 15 Oct 2021 19:40:23 +0800</pubDate><guid>https://blog.echosec.top/p/robot-yea/</guid><description>&lt;img src="https://blog.echosec.top/p/robot-yea/sins.jpg" alt="Featured image of post 『Blog』Robot Yea" />&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;h2 id="summary">Summary&lt;/h2>
+&lt;h2 id="features">Features&lt;/h2>
+&lt;h2 id="requirements">Requirements&lt;/h2>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;h2 id="usage">Usage&lt;/h2>
+&lt;h2 id="development">Development&lt;/h2>
+&lt;h2 id="changelog">Changelog&lt;/h2>
+&lt;h2 id="faq">FAQ&lt;/h2>
+&lt;h2 id="support">Support&lt;/h2>
+&lt;h2 id="contact">Contact&lt;/h2>
+&lt;h2 id="authors-and-acknowledgment">Authors and acknowledgment&lt;/h2>
+&lt;h2 id="license">License&lt;/h2>
+&lt;p>&lt;img src="https://blog.echosec.top/p/robot-yea/Roobt-Yea.svg"
+loading="lazy"
+alt="Roobt-Yea"
+>&lt;/p></description></item><item><title>『Notes』Python Programming diary</title><link>https://blog.echosec.top/p/python-debug/</link><pubDate>Thu, 14 Oct 2021 18:14:26 +0800</pubDate><guid>https://blog.echosec.top/p/python-debug/</guid><description>&lt;img src="https://blog.echosec.top/p/python-debug/6e1a7a.jpg" alt="Featured image of post 『Notes』Python Programming diary" />&lt;h2 id="packagesnotfounderror-the-following-packages-are-missing-from-the-target-environment">PackagesNotFoundError: The following packages are missing from the target environment&lt;/h2>
+&lt;p>&lt;strong>错误现象：&lt;/strong> 使用 Pycharm 手动添加新环境，或使用 &lt;code>conda create -n [env-name] [python=3.9]&lt;/code>指令遇到如下报错：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">PackagesNotFoundError: The following packages are missing from the target environment - &lt;span class="nv">python&lt;/span>&lt;span class="o">=&lt;/span>3.9
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>事件回溯：&lt;/strong> Pycharm 手动添加源，本质上相当于执行了 &lt;code>conda&lt;/code> 脚手架指令，简单的可视化交互其本质上也只是使用了 &lt;code>-p&lt;/code> 参数指定 &lt;code>env&lt;/code> 存储路径以及 &lt;code>Python&lt;/code> 版本，所以根因出在脚手架身上。&lt;/p>
+&lt;p>在报错时，我设置了 &lt;code>conda config:channels&lt;/code> 也就是所谓的 「源」为清华源。若我开启本机代理，则环境创建会时抛出另一个访问清华园的 &lt;code>404&lt;/code> 错误；若我不开启本机代理，则会抛出本 Tag 异常。我在开关本机代理的时候，也排列组合设置了 Pycharm 中的代理设置（无代理/手动代理）。最终依靠移除 &lt;code>conda&lt;/code> 关于源的环境变量解决问题。&lt;/p>
+&lt;p>&lt;strong>参考方案：&lt;/strong> 执行如下代码移除 &lt;code>conda&lt;/code> 源（使用默认源）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">conda config --remove-key channels
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="sslerrorssleoferror8-eof-occurred-in-violation-of-protocol-_sslc1129">SSLError(SSLEOFError(8, &amp;lsquo;EOF occurred in violation of protocol (_ssl.c:1129)&amp;rsquo;))&lt;/h2>
+&lt;p>&lt;strong>错误现象：&lt;/strong> 使用 &lt;code>pip&lt;/code> 脚手架下载任意包抛出。先经过 N 论超时警告，最后抛出 &lt;code>SSLError&lt;/code> 或 &lt;code>HTTPSConnectionPool&lt;/code> 异常。错误日志如下所示：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; pip install requests
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WARNING: Retrying &lt;span class="o">(&lt;/span>Retry&lt;span class="o">(&lt;/span>&lt;span class="nv">total&lt;/span>&lt;span class="o">=&lt;/span>4, &lt;span class="nv">connect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">read&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">redirect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">status&lt;/span>&lt;span class="o">=&lt;/span>None&lt;span class="o">))&lt;/span> after connection broken by &lt;span class="s1">&amp;#39;SSLError(SSLEOFError(8, &amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EOF occurred in violation of protocol &lt;span class="o">(&lt;/span>_ssl.c:1129&lt;span class="o">)&lt;/span>&lt;span class="s1">&amp;#39;))&amp;#39;&lt;/span>: /simple/requests/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WARNING: Retrying &lt;span class="o">(&lt;/span>Retry&lt;span class="o">(&lt;/span>&lt;span class="nv">total&lt;/span>&lt;span class="o">=&lt;/span>3, &lt;span class="nv">connect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">read&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">redirect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">status&lt;/span>&lt;span class="o">=&lt;/span>None&lt;span class="o">))&lt;/span> after connection broken by &lt;span class="s1">&amp;#39;SSLError(SSLEOFError(8, &amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EOF occurred in violation of protocol &lt;span class="o">(&lt;/span>_ssl.c:1129&lt;span class="o">)&lt;/span>&lt;span class="s1">&amp;#39;))&amp;#39;&lt;/span>: /simple/requests/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WARNING: Retrying &lt;span class="o">(&lt;/span>Retry&lt;span class="o">(&lt;/span>&lt;span class="nv">total&lt;/span>&lt;span class="o">=&lt;/span>2, &lt;span class="nv">connect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">read&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">redirect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">status&lt;/span>&lt;span class="o">=&lt;/span>None&lt;span class="o">))&lt;/span> after connection broken by &lt;span class="s1">&amp;#39;SSLError(SSLEOFError(8, &amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EOF occurred in violation of protocol &lt;span class="o">(&lt;/span>_ssl.c:1129&lt;span class="o">)&lt;/span>&lt;span class="s1">&amp;#39;))&amp;#39;&lt;/span>: /simple/requests/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WARNING: Retrying &lt;span class="o">(&lt;/span>Retry&lt;span class="o">(&lt;/span>&lt;span class="nv">total&lt;/span>&lt;span class="o">=&lt;/span>1, &lt;span class="nv">connect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">read&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">redirect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">status&lt;/span>&lt;span class="o">=&lt;/span>None&lt;span class="o">))&lt;/span> after connection broken by &lt;span class="s1">&amp;#39;SSLError(SSLEOFError(8, &amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EOF occurred in violation of protocol &lt;span class="o">(&lt;/span>_ssl.c:1129&lt;span class="o">)&lt;/span>&lt;span class="s1">&amp;#39;))&amp;#39;&lt;/span>: /simple/requests/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WARNING: Retrying &lt;span class="o">(&lt;/span>Retry&lt;span class="o">(&lt;/span>&lt;span class="nv">total&lt;/span>&lt;span class="o">=&lt;/span>0, &lt;span class="nv">connect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">read&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">redirect&lt;/span>&lt;span class="o">=&lt;/span>None, &lt;span class="nv">status&lt;/span>&lt;span class="o">=&lt;/span>None&lt;span class="o">))&lt;/span> after connection broken by &lt;span class="s1">&amp;#39;SSLError(SSLEOFError(8, &amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">EOF occurred in violation of protocol &lt;span class="o">(&lt;/span>_ssl.c:1129&lt;span class="o">)&lt;/span>&lt;span class="s1">&amp;#39;))&amp;#39;&lt;/span>: /simple/requests/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Could not fetch URL https://pypi.tuna.tsinghua.edu.cn/simple/requests/: There was a problem confirming the ssl certificate: HTTPSConnectionPo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ol&lt;span class="o">(&lt;/span>&lt;span class="nv">host&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;pypi.tuna.tsinghua.edu.cn&amp;#39;&lt;/span>, &lt;span class="nv">port&lt;/span>&lt;span class="o">=&lt;/span>443&lt;span class="o">)&lt;/span>: Max retries exceeded with url: /simple/requests/ &lt;span class="o">(&lt;/span>Caused by SSLError&lt;span class="o">(&lt;/span>SSLEOFError&lt;span class="o">(&lt;/span>8, &lt;span class="s1">&amp;#39;EOF occu
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">rred in violation of protocol (_ssl.c:1129)&amp;#39;&lt;/span>&lt;span class="o">)))&lt;/span> - skipping
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ERROR: Could not find a version that satisfies the requirement requests &lt;span class="o">(&lt;/span>from versions: none&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ERROR: No matching distribution found &lt;span class="k">for&lt;/span> requests
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>事件回溯：&lt;/strong>&lt;code>pip&lt;/code> 配置了全局 &lt;a class="link" href="https://mirrors.tuna.tsinghua.edu.cn/help/pypi/" target="_blank" rel="noopener"
+>清华源&lt;/a>（如下所示），运行指令时使用由 &lt;code>v2rayN&lt;/code> 发起的系统代理，这是一个「墙内人」几乎不会遇到的问题……&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; pip config list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">global.index-url&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;https://pypi.tuna.tsinghua.edu.cn/simple&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>参考方案：&lt;/strong> 根因在于我们访问的镜像接口识别并屏蔽了代理流量（不可信的源），也即核心解决思路为「不使用代理」访问镜像源。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>「&lt;strong>推荐&lt;/strong>」修改 &lt;u>代理客户端&lt;/u> 路由规则（以 &lt;code>v2rayN&lt;/code> 为例其他代理软件同理）&lt;/p>
+&lt;p>这是个一劳永逸的做法，代理软件将不再接管访问此域名的流量。&lt;/p>
+&lt;p>启动代理客户端，依次打开 &lt;kbd>设置&lt;/kbd> → &lt;kbd>参数设置&lt;/kbd> → &lt;kbd>系统代理设置&lt;/kbd>，在「例外」中填入镜像域名，以清华源 pip 镜像域名为例，填入 &lt;code>pypi.tuna.tsinghua.edu.cn&lt;/code>，如下图所示：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20220524045444990.png" style="zoom: 67%;" />&lt;/div>
+&lt;ol start="2">
+&lt;li>
+&lt;p>&lt;strong>「推荐」&lt;/strong> 开启 TUN 模式代理（以 Clash for Windows v0.19.19 为例）&lt;/p>
+&lt;p>在面板中启动 TUN Mode，此时 Clash 可以通过端点间隧道（虚拟网卡）代理当前局域网的全局流量，此时无论是浏览器流量还是各种电脑软件的流量都会通过 Clash 虚拟网卡访问互联网。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在执行 &lt;code>pip&lt;/code> 指令时清除系统代理，也即关闭代理软件的系统代理功能&lt;/p>
+&lt;p>比较繁琐，需要执行前关闭代理，（如果你当前的环境依赖代理）执行后再重新开启代理。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="文件编码">文件编码&lt;/h2>
+&lt;p>&lt;strong>错误现象：&lt;/strong> 此问题难以使用某一类异常描述，因为运行时不会报错，但运行结果和预想的不太一样。例如，网络上抓取语料，需要获取 &lt;code>user-nickname&lt;/code>，不免会遇上使用特殊符号命名的玩家。这些符号直接在网页上渲染，或是直接在控制台输出，都是「所见即所得」，但在「写入文件」这一步骤时，出现了不可控的「乱码」问题。&lt;/p>
+&lt;p>&lt;strong>事件回溯：&lt;/strong> 以下方 Python 代码为例，我们定义一个包含「特殊符号」集合的变量，并以 UTF-8 编码形式将其写入到 CSV 文件当中。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">csv&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;🌪&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;嬡芣释掱&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">with&lt;/span> &lt;span class="nb">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test.csv&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;w&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">encoding&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;utf-8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">newline&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">f&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">writer&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">csv&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">writer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">writer&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">writerow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>打开 &lt;code>test.csv&lt;/code>，查看写入的数据：&lt;/p>
+&lt;div align="center">&lt;img src="image-20211025162216767.png" alt="image-20211025162216767" style="zoom:50%;" />&lt;/div>
+&lt;p>当时的第一反应是 &lt;code>encoding&lt;/code> 参数的选择不恰当，而事实证明的确如此。但我却在编码类型的选择上陷入大坑。最后试出了一种能够正常显示写入数据的编码格式 &lt;code>utf-16&lt;/code>。&lt;/p>
+&lt;p>修改参数 &lt;code>encoding=&amp;quot;utf-16&amp;quot;&lt;/code> 后再次打开文件，查看写入数据：&lt;/p>
+&lt;div align="center">&lt;img src="image-20211025162348681.png" alt="image-20211025162348681" style="zoom:50%;" />&lt;/div>
+&lt;p>可以看到「特殊符号」的**字形（glyph）**已被正常渲染，但似乎分隔符的识别出现了问题，同一行数据被识别为同一个单元的内容。&lt;/p>
+&lt;p>于是我在查了有关资料后，找到了另一种编码格式 &lt;code>utf-8-sig&lt;/code>。&lt;/p>
+&lt;p>修改参数 &lt;code>encoding=&amp;quot;utf-8-sig&amp;quot;&lt;/code> 后再次打开文件，查看写入数据：&lt;/p>
+&lt;div align="center">&lt;img src="image-20211025162553256.png" alt="image-20211025162553256" style="zoom:50%;" />&lt;/div>
+&lt;p>蚌埠住了，这次分隔符正常识别，火星文正常显示，但表情包符号却乱码了。&lt;/p>
+&lt;p>&lt;strong>参考方案：&lt;/strong> 使用 &lt;code>utf-8-sig&lt;/code> 或 &lt;code>utf-16&lt;/code> 编码尝试应对字形渲染问题。&lt;/p>
+&lt;p>但值得一提的是，无论是 &lt;code>utf-8&lt;/code>、&lt;code>utf-8-sig&lt;/code> 还是 &lt;code>utf-16&lt;/code> ，只要不是默认的 &lt;code>gbk&lt;/code> 都不会引发读写错误。尽管在 GUI 软件上出现了字形渲染的问题，但将同样的数据读回 Python 程序后，其仍然是一个正常显示的可以操作的 str 对象。&lt;/p>
+&lt;h2 id="字符编码">字符编码&lt;/h2>
+&lt;blockquote>
+&lt;p>最后更新时间：2022-01-28&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>错误现象：&lt;/strong>「看着一摸一样」的两句字符串，在 &lt;code>==&lt;/code> 条件判别下返回 &lt;code>Flase&lt;/code>。&lt;/p>
+&lt;p>&lt;strong>事件回溯：&lt;/strong> 这里要记录一个有趣的背景故事。这是作者在玩 &lt;a class="link" href="https://www.hcaptcha.com/" target="_blank" rel="noopener"
+>hCaptcha challenge&lt;/a> 时遇上的趣事。&lt;/p>
+&lt;p>如果你接触过爬虫，你一定了解这玩意（如下图所示），给出一个需求标签，点选九宫格中符合要求的图片。当下有很多流行的人机挑战， &lt;code>hCaptcha challenge&lt;/code> 算是其中 T0 级别的模块，能够阻挡近乎九成的爬虫流量，新手遇上这种视觉验证类的 &lt;code>CAPTCHA&lt;/code> ，基本上不会有太多想法。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220128230029379.png" alt="image-20220128230029379" style="zoom:50%;" />&lt;/div>
+&lt;p>但我们环顾这个技术行业，&lt;code>hCaptcha challenge&lt;/code> 显然算不上最“变态”的或者说最困难的人机挑战。最相关的好比 Google 的 &lt;code>reCaptcha v2&lt;/code> ，除了简单的图像分类外，还创新性的使用了图像切割的形式抽象地表述实体，让简单的「分类问题」变成了难度更高的「目标识别」问题（如下图所示），从编码者角度来看，无论是自动化模块的编写还是视觉模块的处理都是不小的挑战。&lt;/p>
+&lt;div align="center">&lt;img src="Snipaste_2022-01-29_00-00-03.png" alt="Snipaste_2022-01-29_00-00-03.png" style="zoom:50%;" />&lt;/div>
+&lt;p>当然，如果你同时熟悉 &lt;code>Undetected Automation&lt;/code> 以及 &lt;code>Darknet Image Classification&lt;/code> 或 &lt;code>Object Detection&lt;/code>，我相信这对你来说不是什么难事。但你要相信，当下的人机挑战的病态程度已经远超你的想象，篇幅有限此处不多展开，后买咱再开个坑详细说说「人机挑战的那些事」。&lt;/p>
+&lt;p>&lt;strong>回到正题&lt;/strong>，此处的 &lt;code>字符编码&lt;/code> 问题出自于 &lt;code>hCaptcha challenge&lt;/code> 。我们通过网页元素截取 &lt;code>label&lt;/code> 也即我们需要 「点击」的图像标签名，送入模型比对后得出相应的结果。此处截取的 &lt;code>label&lt;/code> 是具有 &lt;code>locale&lt;/code> 特性的，如果你以 &lt;code>zh-CN&lt;/code> 请求形式打开，标签名会显示中文。坑就在这了，作者获取到的某些 &lt;code>label&lt;/code> 并&lt;u>不是标准的中文格式编码&lt;/u>，什么意思呢，你可以用你喜欢的编程语言去比对如下两个字符串，看它们是否“相等”。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Python &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;ー条船&amp;#34;&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;一条船&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>结果显然是不相等的，在该篇博客中，由于页面字体兼容此种字符编码的渲染，所以你很明显能看到两个“一”有所不同，但如果在你的 &lt;code>IDE&lt;/code> 中，设置了等宽编程字体，或者 &lt;code>Source code pro&lt;/code> 之类的流行字体，这对字符串从肉眼看是完全一样的。&lt;/p>
+&lt;p>不知道这是不是 &lt;code>hCaptcha&lt;/code> 开发团队的有意为之，至少我觉得这是从“反爬虫”角度来说非常高明的一招。想撩到来犯爬虫，先潦倒它的开发者。同样地，其他语种也会有这样的问题，如英文 &lt;code>bіcycle&lt;/code>（自行车）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#Python&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;bіcycle&amp;#34;&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;bicycle&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>好的，这下连本博客的默认字体引擎也无法渲染了，肉眼可见的“完全一致”，但如果你将它们复制进你的 &lt;code>IDE&lt;/code> ，执行结果显然是 &lt;code>False&lt;/code>。&lt;/p>
+&lt;p>如果你也感叹这一招十分高明，大可在网上检索一下其中的“玄机”。&lt;/p>
+&lt;p>如果你也在处理 &lt;code>hCaptcha challenge&lt;/code>，和我使用同样的思路获取 &lt;code>label&lt;/code>，并且没有发现这个字符编码问题，你会陷入窘况。显然，我们训练的模型的标注 &lt;code>label&lt;/code> 都是标准的国际统一的字符编码，在这种特殊的情况下，一个单词，因为某个字母的编码不同，经过解释器后，在模型看来，这是两个完全不一样的“实体目标”。&lt;/p>
+&lt;p>&lt;strong>参考方案：&lt;/strong> 手动编织 &lt;code>dict mapping&lt;/code> ，将异常编码做一层映射再导向模型。&lt;/p>
+&lt;p>这是个有效的，但也是最笨的方法。当然，根据本人的实验结论来看，使用 &lt;code>locale=zh-CN&lt;/code> 时，这项阻碍是最小的（大部分异常都能看出差别）。如果你使用 &lt;code>en-US&lt;/code> 本地化，任何一个英文字母都有可能出现异常编码（且肉眼难以察觉），工程难度非常大。&lt;/p>
+&lt;h2 id="此时不应有-">此时不应有 &amp;amp;&lt;/h2>
+&lt;p>&lt;strong>错误现象：&lt;/strong> 命令提示符抛出提示「此时不应有 &amp;amp;」后秒退。在 Pycharm 中启动的 CMD 终端秒退。&lt;/p>
+&lt;p>&lt;strong>参考方案：&lt;/strong> &lt;kbd>Win&lt;/kbd> + &lt;kbd>R&lt;/kbd> ，键入 &lt;code>regedit&lt;/code> 打开注册表，在如下路径找到 &lt;code>Autorun&lt;/code>，将其数据数值删去。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cython" data-lang="cython">&lt;span class="line">&lt;span class="cl">&lt;span class="n">HKEY_CURRENT_USER&lt;/span>\&lt;span class="n">Software&lt;/span>\&lt;span class="n">Microsoft&lt;/span>\&lt;span class="n">Command&lt;/span> &lt;span class="n">Processor&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;img src="image-20220524043332047.png" alt="image-20220524043332047" style="zoom: 50%;" /></description></item><item><title>『 Notes 』Aliyundrive API</title><link>https://blog.echosec.top/p/notes-aliyundrive-api/</link><pubDate>Mon, 04 Oct 2021 15:12:52 +0800</pubDate><guid>https://blog.echosec.top/p/notes-aliyundrive-api/</guid><description>&lt;img src="https://blog.echosec.top/p/notes-aliyundrive-api/3862634.jpg" alt="Featured image of post 『 Notes 』Aliyundrive API" />&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;p>截止至 2021/09/15，Aliyundrive 仍采用 &lt;code>access-token&lt;/code> + &lt;code>auto refresh&lt;/code> 机制实现用户鉴权以及身份信息的超时更新。&lt;/p>
+&lt;p>需要通过手动（或额外的自动化操作脚本）的方式「首次」获取 &lt;code>access_token&lt;/code>，&lt;code>refresh_token&lt;/code> 以及 &lt;code>default_drive_id&lt;/code> ，之后可携带「更新码」请求相应的接口实现身份信息的自动更新。&lt;/p>
+&lt;h3 id="get-token">Get Token&lt;/h3>
+&lt;p>以任何你喜欢的方式登录 &lt;a class="link" href="https://www.aliyundrive.com/sign/in?spm=aliyundrive.index.0.0.2d8360203L8x1O" target="_blank" rel="noopener"
+>阿里云盘网页版&lt;/a>，登陆之后开启调试台 &lt;kbd>F12&lt;/kbd>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/notes-aliyundrive-api/image-20211004151603514.png"
+width="2056"
+height="1256"
+srcset="https://blog.echosec.top/p/notes-aliyundrive-api/image-20211004151603514_hu8cdde9c935b14df51ae59762d5a04c2f_256137_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/notes-aliyundrive-api/image-20211004151603514_hu8cdde9c935b14df51ae59762d5a04c2f_256137_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="163"
+data-flex-basis="392px"
+>&lt;/p>
+&lt;p>根据这三个参数，可以对普通用户的挂载资源进行增删改查。&lt;/p>
+&lt;h3 id="hello-world">Hello World&lt;/h3>
+&lt;p>使用 &lt;a class="link" href="#get_user_info" >&lt;strong>接口：获取用户信息&lt;/strong>&lt;/a> 测试 Token 是否有效。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">requests&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Change your private information&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">STATIC_ACCESS_TOKEN&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">STATIC_REFRESH_TOKEN&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">DEFAULT_DRIVE_ID&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_user_info&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">api_url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;https://api.aliyundrive.com/v2/user/get&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">headers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;authorization&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">STATIC_ACCESS_TOKEN&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">session&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">session&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">session&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">post&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">api_url&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">headers&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">headers&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">json&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">json&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">get_user_info&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>若一切正常，你将成功获取到如下信息（返回信息仅供演示，此处隐去 private value ）：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;domain_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;user_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;avatar&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;created_at&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;updated_at&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;email&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;nick_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;phone&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;role&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;user&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;status&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;enabled&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;user_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;default_drive_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;user_data&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;back_up_config&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;手机备份&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;folder_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;photo_folder_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;sub_folder&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;video_folder_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;share&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;deny_change_password_by_self&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;need_change_password_next_login&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;permission&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">null&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>至此，你已成功配置 &lt;code>authorization-header&lt;/code> 并调用 &lt;code>/user/get&lt;/code> 接口实现&lt;strong>用户信息获取&lt;/strong>，而几乎所有的公开 API 都仅需此配置即可调用。&lt;/p>
+&lt;h2 id="public-api">Public API&lt;/h2>
+&lt;h3 id="user-group">User Group&lt;/h3>
+&lt;h4 id="get-user-info">Get User Info&lt;/h4>
+&lt;p>&lt;span id="get_user_info">&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://api.aliyundrive.com/v2/user/get" target="_blank" rel="noopener"
+>https://api.aliyundrive.com/v2/user/get&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>info&lt;/p>
+&lt;p>获取账号基础信息&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Header&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Name&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;em>authorization&lt;/em>&lt;/td>
+&lt;td>your access_token&lt;/td>
+&lt;td>access_token（ 2 小时刷新一次）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>
+&lt;p>Body&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Response&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>example&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="source-group">Source Group&lt;/h3>
+&lt;p>与挂载资源相关的接口组。&lt;/p>
+&lt;h4 id="get-file-list">Get File List&lt;/h4>
+&lt;p>&lt;span id="get_file_list">&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://api.aliyundrive.com/v2/file/list" target="_blank" rel="noopener"
+>https://api.aliyundrive.com/v2/file/list&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>info&lt;/p>
+&lt;p>获取目标挂载区的文件列表标签。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Header&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">Name&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">&lt;em>authorization&lt;/em>&lt;/td>
+&lt;td>&lt;em>your access_token&lt;/em>&lt;/td>
+&lt;td>access_token（ 2 小时刷新一次）详见刷新 token&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">&lt;em>drive_id&lt;/em>&lt;/td>
+&lt;td>&lt;em>your drive_id&lt;/em>&lt;/td>
+&lt;td>磁盘id值&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">parent_file_id&lt;/td>
+&lt;td>root&lt;/td>
+&lt;td>上级文件夹路径&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">limit&lt;/td>
+&lt;td>10&lt;/td>
+&lt;td>每页显示文件数量&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">all&lt;/td>
+&lt;td>false&lt;/td>
+&lt;td>是否显示全部&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">image_thumbnail_process&lt;/td>
+&lt;td>image/resize,w_160/format,jpeg&lt;/td>
+&lt;td>图片缩略图类型&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">order_by&lt;/td>
+&lt;td>updated_at&lt;/td>
+&lt;td>排序字段&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">order_direction&lt;/td>
+&lt;td>desc&lt;/td>
+&lt;td>升序 asce / 降序 desc&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">fields&lt;/td>
+&lt;td>*&lt;/td>
+&lt;td>字段通配符&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>Body&lt;/li>
+&lt;li>Response&lt;/li>
+&lt;li>example&lt;/li>
+&lt;/ul>
+&lt;h4 id="get-file-details">Get File Details&lt;/h4>
+&lt;p>&lt;span id="get_file_details">&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://api.aliyundrive.com/v2/file/get" target="_blank" rel="noopener"
+>https://api.aliyundrive.com/v2/file/get&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>info&lt;/p>
+&lt;p>获取某个文件实体的详细信息&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Header&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Key&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;th>Note&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;em>authorization&lt;/em>&lt;/td>
+&lt;td>&lt;em>your access_token&lt;/em>&lt;/td>
+&lt;td>access_token（ 2 小时刷新一次）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>
+&lt;p>Body&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;drive_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;your drive_id&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;file_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;the file id&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Response&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>example&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="get-download-url">Get Download Url&lt;/h4>
+&lt;p>&lt;span id="get_download_url">&lt;/span>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://api.aliyundrive.com/v2/file/get_download_url" target="_blank" rel="noopener"
+>https://api.aliyundrive.com/v2/file/get_download_url&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>
+&lt;p>info&lt;/p>
+&lt;p>拉取某个指定的文件实体&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Header&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Key&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;th>Note&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;em>authorization&lt;/em>&lt;/td>
+&lt;td>&lt;em>your access_token&lt;/em>&lt;/td>
+&lt;td>access_token（2小时刷新一次）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>
+&lt;p>Body&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Response&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>example&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="advanced-work">Advanced Work&lt;/h2>
+&lt;h3 id="内联搜索系统">内联搜索系统&lt;/h3>
+&lt;p>在 &lt;code>Telegram bot | Inline Queries&lt;/code> 服务中将阿里云盘作为超大型文件的内联搜索中间件。&lt;/p>
+&lt;h3 id="用户组资源映射">用户组资源映射&lt;/h3>
+&lt;p>使用 &lt;code>AliyunDrive&lt;/code> 网页版的现有特性，构建文件秒传通道。&lt;/p>
+&lt;h2 id="excellent-work">Excellent Work&lt;/h2>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/liupan1890/aliyunpan" target="_blank" rel="noopener"
+>liupan1890/aliyunpan: 阿里云盘小白羊版 阿里云盘PC版 (github.com)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.lengmou.net/articles/2021/03/31/1617160877140.html" target="_blank" rel="noopener"
+>基于阿里云盘的共享云盘搭建 | 冷眸小站 (lengmou.net)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Github Actions on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/github-actions/</link><description>Recent content in Github Actions on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 30 Sep 2021 11:16:18 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/github-actions/index.xml" rel="self" type="application/rss+xml"/><item><title>『 Hugo 』Hugo Deploy</title><link>https://blog.echosec.top/p/hugo-hugo-deploy/</link><pubDate>Thu, 30 Sep 2021 11:16:18 +0800</pubDate><guid>https://blog.echosec.top/p/hugo-hugo-deploy/</guid><description>&lt;img src="https://blog.echosec.top/p/hugo-hugo-deploy/6561379.jpg" alt="Featured image of post 『 Hugo 』Hugo Deploy" />&lt;h2 id="摘要">摘要&lt;/h2>
+&lt;p>本文介绍一种利用 &lt;a class="link" href="https://docs.github.com/en/actions" target="_blank" rel="noopener"
+>GitHub Actions / Workflows&lt;/a> 以及 &lt;a class="link" href="https://docs.github.com/cn/repositories/creating-and-managing-repositories/about-repositories#about-repository-visibility" target="_blank" rel="noopener"
+>GitHub Private Repository&lt;/a> 特性实现的 &lt;a class="link" href="https://gohugo.io/hosting-and-deployment/hosting-on-github/" target="_blank" rel="noopener"
+>Hugo&lt;/a> 站点安全分发策略。通过创建公有仓库部署 &lt;a class="link" href="https://docs.github.com/cn/pages/getting-started-with-github-pages/about-github-pages#:~:text=GitHub%20%E7%9A%84%E4%BA%A7%E5%93%81%E2%80%9D%E3%80%82-,%E5%85%B3%E4%BA%8E%20GitHub%20Pages,-GitHub%20Pages%20%E6%98%AF" target="_blank" rel="noopener"
+>GitHub Pages&lt;/a> ，创建私有仓库存储 &lt;a class="link" href="https://gohugo.io/getting-started/directory-structure/" target="_blank" rel="noopener"
+>Hugo 站点源码&lt;/a>，通过私有仓库中的工作流以及 &lt;a class="link" href="https://docs.github.com/cn/authentication/connecting-to-github-with-ssh" target="_blank" rel="noopener"
+>Deploy Key&lt;/a> 机制桥接两个仓库的数据，达到私有化源码信息的同时部署个人站点的目的。&lt;/p>
+&lt;h2 id="相关工作">相关工作&lt;/h2>
+&lt;p>目前传统的 &lt;code>Hugo + GitHub Pages&lt;/code> 部署思路主要分为以下 3 种（以 &lt;code>username.github.io&lt;/code> 公有库为例）：&lt;/p>
+&lt;p>&lt;span id="plan1">&lt;/span>&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>Pages Path = main/(root)&lt;/code>，&lt;code>hugo publishDir = &amp;quot;./public&amp;quot;&lt;/code>，以 &lt;code>./public&lt;/code> 文件夹为项目根推送站点。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;span id="plan2">&lt;/span>&lt;/p>
+&lt;ol start="2">
+&lt;li>&lt;code>Pages Path = main/docs&lt;/code>，&lt;code>hugo publishDir= &amp;quot;./docs&amp;quot;&lt;/code>，以 Hugo 站点文件夹为项目根推送。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;span id="plan3">&lt;/span>&lt;/p>
+&lt;ol start="3">
+&lt;li>&lt;code>Pages Path = gh-pages/(root)&lt;/code>，仍将 Hugo 站点文件夹作为项目根推送至 main 主分支，但通过引入 &lt;a class="link" href="https://github.com/peaceiris/actions-gh-pages" target="_blank" rel="noopener"
+>GitHub Pages action&lt;/a> 以及 &lt;a class="link" href="https://github.com/marketplace/actions/hugo-setup" target="_blank" rel="noopener"
+>Hugo setup&lt;/a> 工作流，编译你推送的 Hugo 源码并将渲染出来的站点文件（如默认的 &lt;code>./public&lt;/code>）拷贝到（当前仓库）子分支 &lt;code>gh-pages&lt;/code>，实现站点部署。&lt;/li>
+&lt;/ol>
+&lt;p>因 GitHub Pages 的部署仓库必须为 Public，如上 3 种方案优劣划分明显。&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="#plan1" >方案一&lt;/a>&lt;/strong> 是新手入门此技术栈最为常见的路线之一，优势显著——&lt;strong>门槛低，快速部署&lt;/strong>。参照着网络上大部分的 Quick Start 教程都可以成功部署自己的站点。但其劣势也足够明显——&lt;strong>无法有效管控 Hugo 源码&lt;/strong>。&lt;/p>
+&lt;p>我们需要知道，Hugo + GitHub Pages 技术栈中，两套代码是相互独立的。Hugo 通过我们编写的「博客内容」以及「主题样式」渲染出站点；而 GitHub Pages 相当于提供了一个实体来托管我们渲染出来的站点。换句话说，除了 GitHub Pages 我们还有不下 10 种 &lt;a class="link" href="https://gohugo.io/hosting-and-deployment/" target="_blank" rel="noopener"
+>托管方案&lt;/a>。此处举个不恰当例子，Hugo 相当于是一个写了 &lt;code>print(&amp;quot;Hello World&amp;quot;)&lt;/code> Python 代码的程序，我们可以用 &lt;code>Pycharm&lt;/code> 打印它，也可以用 &lt;code>Spyder&lt;/code> 打印，只是换了个壳，但如果我们「代码」没了，我只能有当前打印出来的东西，我们博客运营至今的工作进度都没法继承并且「丢失」了。&lt;/p>
+&lt;p>显然，本地存储文件的损坏或丢失将引发不可预估的灾难。&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="#plan2" >方案二&lt;/a>&lt;/strong> 是一种能够有效处理上文所述痛点的解决方案。该方案的关键操作是将整个 Hugo 站点文件托管，指定 GitHub Pages 挂载子目录（既编译输出目录），有效存储了此技术栈的「内脏信息」，但同时它也暴露出了一些无法应对的问题——&lt;strong>我们并不希望自己暂未发表的内容被公开&lt;/strong>。显然这是矛盾的，这与 GitHub 要求挂载博客的仓库必须「可见」有关（Free Plan）。我们暂未完成的工作可能会以 &lt;code>draf: true&lt;/code> 形式标记，防止其被编译渲染进而呈现到公开可见的站点上，但如果我们将整个 Hugo 代码都上传到公有库中， 包括 &lt;code>content/post&lt;/code> 在内的所有文件都是可见的。&lt;/p>
+&lt;p>有的人提出将敏感信息加入到 &lt;code>.gitignore&lt;/code> ，待文章编写工作完成后再一次性上传。显然这治标不治本，甚至有些方案一的影子。&lt;/p>
+&lt;p>&lt;strong>&lt;a class="link" href="#plan3" >方案三&lt;/a>&lt;/strong> 是在方案二上的提升与拓展。&lt;strong>该方案主要解决提交历史紊乱的问题&lt;/strong>。在此方案中，我们一般会人为 ignore &lt;code>publishDir&lt;/code>，意味着我们提交 Hugo 代码时，不会携带编译输出目录中大量繁杂的变更信息。如此一来，我们每次在本地完成编写工作后，无需运行 Hugo 编译指令，只需正常提交改动（仅变更 Markdown 文章或主题样式信息），而编译、推送、部署的工作由工作流自动完成。&lt;/p>
+&lt;p>如上所述，如果你的需求是：&lt;strong>需要一个「不可见仓库」存储源码，同时又不得不依赖「可见仓库」托管博客站点&lt;/strong>，那你也许会对本文介绍的解决方案感兴趣。&lt;/p>
+&lt;h2 id="解决方案">解决方案&lt;/h2>
+&lt;h3 id="预备知识">预备知识&lt;/h3>
+&lt;p>若您阅读了上文所述信息，您应该了解本方案并不是一个 Hello World 操作指南，其具备一定的上手难度，需要您至少掌握如下技术以解决本文暂未提及的偶发性 BUG。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>了解 Git 基本指令（如：remote, pull, add, commit, push, checkout&amp;hellip;）；&lt;/p>
+&lt;p>另外，读者需要知道&lt;a class="link" href="https://blog.csdn.net/sjt19910311/article/details/83685616" target="_blank" rel="noopener"
+>如何设定全局配置用以绑定个人 GitHub 账号&lt;/a>，否则你需要在每次提交代码时输出账号密码。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>了解 Hugo 基本指令，知道如何用 Hugo 写文章；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>了解 Bash(shell) 基本指令；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>了解怎么添加 Actions;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>已有成功部署 Hugo + GitHub Pages 个人博客站点的经历；&lt;/p>
+&lt;p>意味着本文默认读者已有 GitHub 账号且知道如何新建公有/私有仓库。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>[Optional] CNAME 以及 GitHub Pages 自定义域名相关知识；&lt;/p>
+&lt;p>你需要知道 CNAME 文件需要填什么，CNAME 文件命名与存储位置，以及如何在 Pages 中指定 custom domain。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="创建必要仓库">创建必要仓库&lt;/h3>
+&lt;h4 id="创建-github-公有仓库">创建 GitHub 公有仓库&lt;/h4>
+&lt;p>若您仅想测试本方案是否可行，大可新建一个 test repo，而无需直接在 username.github.io 上开刀。此处我们新建一个公有仓库 &lt;a class="link" href="https://github.com/QIN2DIM/test-demo-repo" target="_blank" rel="noopener"
+>test-demo-repo&lt;/a>。建议在创建仓库时不初始化任何文件，让其保持空置状态。&lt;/p>
+&lt;div align="center">&lt;img src="image-20210930183711805.png" alt="image-20210930183711805" style="zoom:50%;" />&lt;/div>
+&lt;h4 id="创建-github-私有仓库">创建 GitHub 私有仓库&lt;/h4>
+&lt;p>同样，我们创建一个不初始化任何文件的私有仓库 &lt;a class="link" href="https://github.com/QIN2DIM/test-demo-actions" target="_blank" rel="noopener"
+>test-demo-actions&lt;/a>。注意，此处为了演示对比，作者将仓库权限设为「可见」。&lt;/p>
+&lt;h3 id="配置-deploy_key">配置 DEPLOY_KEY&lt;/h3>
+&lt;p>参考 GitHub 官方文档查看如何 &lt;a class="link" href="https://docs.github.com/cn/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent" target="_blank" rel="noopener"
+>生成 SSH 密钥&lt;/a>。注意替换 &lt;code>&amp;quot;your_email@example.com&amp;quot;&lt;/code> 即可，生产的密钥默认保存在 &lt;code>~/.ssh/&lt;/code>目录下。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>分配公钥 DEPLOY KEY&lt;/strong>&lt;/p>
+&lt;p>以你喜欢的方式打开 &lt;code>id_rsa.pub&lt;/code>（以使用 RSA 算法为例，根据你所选的算法文件名有所不同），复制其内容，打开 &lt;u>公有仓库&lt;/u> ，&lt;em>Settings&lt;/em> &amp;ndash; &lt;em>Deploy Keys&lt;/em> &amp;ndash; &lt;em>Add deploy key&lt;/em>，添加密钥。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930185355860.png"
+width="1820"
+height="901"
+srcset="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930185355860_hu9345745325c6478d1567ff075a670f79_105721_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930185355860_hu9345745325c6478d1567ff075a670f79_105721_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="分配公钥 DEPLOY KEY"
+class="gallery-image"
+data-flex-grow="201"
+data-flex-basis="484px"
+>&lt;/p>
+&lt;p>此处你可能会疑惑 &lt;a class="link" href="https://blog.csdn.net/qq_34817440/article/details/102963636" target="_blank" rel="noopener"
+>GitHub SSH Key 和 GitHub Deploy Key 的区别&lt;/a> 是什么,可以简要理解为 root 用户和 user 用户的区别,前者配置在你的账号设置里，可以操作你的所有仓库，后者配置在仓库里，只能对此仓库具备操作权限。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>分配私钥 SECRET KEY&lt;/strong>&lt;/p>
+&lt;p>以你喜欢的方式打开 &lt;code>id_rsa&lt;/code>，复制其内容，打开 &lt;u>私有仓库&lt;/u> 也即 &lt;u>源码库&lt;/u> ，&lt;em>Settings&lt;/em> &amp;ndash; &lt;em>Secrets&lt;/em> &amp;ndash; &lt;em>New repository secret&lt;/em> 添加仓库密钥（给予工作流中被临时分发的虚拟机操作你的某个仓库的权限）。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930190145809.png"
+width="1735"
+height="865"
+srcset="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930190145809_hue2b6dc52e6492790407d2348035056eb_46428_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930190145809_hue2b6dc52e6492790407d2348035056eb_46428_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="200"
+data-flex-basis="481px"
+>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="生产-hugo-站点源码">生产 Hugo 站点源码&lt;/h3>
+&lt;ol>
+&lt;li>在一个你喜欢的本机位置打开 Git Bash 并创建 hugo 站点：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo new site blog &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> blog
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>此处我们需要用 git 指令拉取主题代码，并将其作为子模块导入，故需先初始化 git 运行环境：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git init
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>此处使用 &lt;a class="link" href="https://docs.stack.jimmycai.com/zh/getting-started.html" target="_blank" rel="noopener"
+>Stack 主题&lt;/a> 构建演示站点：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git submodule add https://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>拷贝 &lt;em>Stack example site&lt;/em> 演示站点特性：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cp -a themes/hugo-theme-stack/exampleSite/. .
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="5">
+&lt;li>删除默认站点配置文件（防止冲突）：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rm config.toml
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>启动 Hugo 本地服务，查看站点是否正常运行：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">hugo server
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="7">
+&lt;li>访问 Hugo 本地服务器（默认1313端口）如果一切安好，你可以看到如下画面：&lt;span id="local-server">&lt;/span>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930192053948.png"
+width="1878"
+height="1427"
+srcset="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930192053948_hu19a63ef842d61ec7f52684ab8820a5c1_616902_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930192053948_hu19a63ef842d61ec7f52684ab8820a5c1_616902_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="demo-site"
+class="gallery-image"
+data-flex-grow="131"
+data-flex-basis="315px"
+>&lt;/p>
+&lt;ol start="8">
+&lt;li>Press &lt;kbd>Ctrl&lt;/kbd> + &lt;kbd>C&lt;/kbd> to stop hugo server 我们要开始后续步骤了~&lt;/li>
+&lt;/ol>
+&lt;h3 id="连接-hugo-与-私有仓库">连接 Hugo 与 私有仓库&lt;/h3>
+&lt;ol>
+&lt;li>将 &lt;u>源码库&lt;/u> （私有库）作为远程仓库链接（请替换为你自己的 URL）：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git remote add origin https://github.com/QIN2DIM/test-demo-actions.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>我们的仓库处于空置状态，需要先进行一些预处理：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git branch -M main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>
+&lt;p>添加变动并强制推送：&lt;/p>
+&lt;p>这也解释了上文为什么不推荐在创建仓库时添加初始化文件，如果你那样做了，此处需要多一步历史对齐的操作。链接远程仓库后需要先把远程仓库中的初始化文件拉到本地，否则强制推送会出现一些遗留问题。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git add --all &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git commit -m &lt;span class="s2">&amp;#34;migrate&amp;#34;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git push -f origin main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>
+&lt;p>查看仓库盛况&lt;/p>
+&lt;p>如果一切安好，你会在你的私有源码库中看到如下目录结构的信息，如果你足够了解 Git 默认的文件比对机制，应该知道并未被上传的资源是「空文件」。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930194231428.png"
+width="1826"
+height="1080"
+srcset="https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930194231428_hu4a210234f1aa8b4e9eec788678321114_132586_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/hugo-hugo-deploy/image-20210930194231428_hu4a210234f1aa8b4e9eec788678321114_132586_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Init private repository"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="405px"
+>&lt;/p>
+&lt;p>此时，诸如此目录结构的「Hugo 源码」已能渲染出成型的博客站点，就如同你在&lt;a class="link" href="#local-server" >本地启动服务&lt;/a>那样。而我们需要思考的是，这个私有仓库并不能挂载博客，我们需要将渲染出来的站点代码放到可见的公有仓库下面（如 username.github.io），这个工作交由 &lt;code>workflows&lt;/code> 进行。&lt;/p>
+&lt;h3 id="创建工作流">创建工作流&lt;/h3>
+&lt;p>就算您不了解 &lt;code>GitHub Actions / Workflows&lt;/code>也无大碍，我会在后文详细注释「workflows 代码」中关键步骤的具体含义，让你足够了解自己在做什么。你也可以阅览作者临时总结的关于 &lt;a class="link" href="#workflows" >workflows 的运行逻辑&lt;/a>，来了解它是如何工作的。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>打开 &lt;u>私有源码库&lt;/u> ，创建工作流&lt;img src="image-20210930195206733.png" alt="Set up a workflow yourself" />&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>将以下代码覆盖 &lt;code>Edit new file&lt;/code> 窗格中的内容，并按照提示&lt;strong>修改&lt;code>env&lt;/code>环境变量&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># 工作流的名称&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hugo-deploy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 触发事件&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 当主分支 main 文件变更时触发任务&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">push&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">main]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># jobs 此工作流执行的任务&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 在 Workflows 中,各个 job 是并行执行的，此处仅有 1 个 job&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># job-id 在一个工作流中唯一区分，此 job-id 为 build&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 此 job 运行的虚拟系统&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 此 job 的任务执行步骤，默认顺序执行&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># step1: 检查运行环境是否正常&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 若您的代码中携带子模块，请务必书写如下内容&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">submodules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">fetch-depth&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># step2: 开始执行核心逻辑&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># name 是步骤的名称，相当于步骤的简明注释，但可有可无&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;Building...&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># uses FORMAT: 用户/仓库@版本信息&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - uses 是 workflows 的精髓，其作用可概述为：预加载并运行指定资源&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 它可以指向 workflows-image，甚至可以具体到某个仓库中的一个可执行文件&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - 此处使用 reuixiy/hugo-deploy@v1 桥接两个仓库&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">reuixiy/hugo-deploy@v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># env 环境变量&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - job 中的每一个 step 都是独立的进程，其内创建的变量互不共享&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - 通过 env 创建的环境变量（键值对）可以被 step 读取并使用&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - 此处需要设定4个环境变量&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># DEPLOY_REPO 部署 GitHub Pages 的可见代码库(如 username/username.github.io)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">DEPLOY_REPO&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">username/test-demo-repo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># DEPLOY_BRANCH 部署 GitHub Pages 的可见代码库的分支&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - 若上一步选择的是 username.github.io，请不要在不熟悉本解决方案的情况下填写 main,master 等主分支名词；&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - 工作流会自动创建原先不存在的分支&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">DEPLOY_BRANCH&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">build&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># DEPLOY_KEY 操作权限（非对称）密钥&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - 源码仓库中的工作流读取私钥，获取 GitHub Pages 所在仓库的（读写）权限&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># - workflows 读取的是 Secrets Key，只是此处的变量名叫 DEPLOY_KEY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">DEPLOY_KEY&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.DEPLOY_KEY }}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># TZ 时区信息，主要为了 git commit -m &amp;#34;xxx&amp;#34; 提供备注信息&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># https://en.wikipedia.org/wiki/List_of_tz_database_time_zones&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">TZ&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Asia/Shanghai&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div align="center">&lt;img src="image-20210930203417304.png" alt="Commit workflows yourself" style="zoom: 50%;" />&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>为了防止冲突以及提高容错，我们选择先将远程仓库的代码改动（add main.yml）同步到本地：&lt;/p>
+&lt;p>顺便等一下 workflows 运行。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git pull origin main
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>查看仓库盛况&lt;/p>
+&lt;p>当你看到 workflows 运行完成的标志后，访问你部署 GitHub Pages 的仓库页面，如果一切安好，你讲看到如下内容：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20210930204344604.png" alt="image-20210930204344604" style="zoom: 50%;" />&lt;/div>
+&lt;ol start="5">
+&lt;li>
+&lt;p>分析盛况&lt;/p>
+&lt;p>若你严格按照本方案提供的步骤操作， workflows 配置文件的提交也算是一次触发动机，Actions 会自动进行首次工作。若您的顺序有点颠倒，比如先加了工作流，才想起来自己没有配置密钥，那么你仅需要做任何改动再次向主分支提交代码触发 actions 的工作流即可，比如修改一下 workflows 配置文件的注释之类的。&lt;/p>
+&lt;p>你可以看到，在你的公有库（指定分支）下的内容就是你 「Hugo 源码」编译输出的内容。以此公有库分支（如 build 或你指定的分支）为根（/root）即可生成 Pages。&lt;/p>
+&lt;p>是的你没听错，我们进行到这个步骤都还没配置 GitHub Pages，就如同上文所说，Hugo 是「内脏」，而 GitHub Pages 仅是「壳」。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="验收">验收&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>打开公有库配置 GitHub Pages。&lt;/p>
+&lt;p>&lt;em>Settings&lt;/em> &amp;ndash; &lt;em>Pages&lt;/em> ，指定 &lt;em>Source&lt;/em>，Branch 就是你指定的分支，路径选择 &lt;code>/(root)&lt;/code>，完事 Save。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20210930205246497.png" style="zoom:33%;" />&lt;/div>
+&lt;ol start="2">
+&lt;li>
+&lt;p>Page Build&lt;/p>
+&lt;p>等待 GitHub Pages 部署完成，访问部署站点。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20210930205605076.png" style="zoom: 50%;" />&lt;/div>
+&lt;ol start="3">
+&lt;li>
+&lt;p>Hello Man&lt;/p>
+&lt;p>部分同学到这一步会遇到如下图所示的问题（相对路径索引异常），不要慌。&lt;/p>
+&lt;p>1）你需要确保 Hugo Config 中的 baseUrl 是否填写正确。如公有仓库名为 &lt;code>superman/blog&lt;/code>，则 &lt;code>baseUrl: https://supermain.github.io/blog&lt;/code>，若仓库名为 &lt;code>superman/superman.github.io&lt;/code>，则 &lt;code>baseUrl: https://supermain.github.io&lt;/code>。若您的仓库名包含英文大小写，请确保 &lt;code>baseUrl&lt;/code> 中统一小写的写法，这与 Linux 文件系统命名有关。&lt;/p>
+&lt;p>2）如果你正在 test 仓库上进行本方案的实验任务，且其他仓库已经部署了（自定义）根域名站点，那你需要在测试站点上也配置 CNAME（具体如何配置需要您自行掌握，这不在本篇博客的介绍范围之内），同时需要检查上一步的提议。这并不是什么难事，作者几乎每一个有价值的 GitHub Project 都会使用 Hugo + Github Pages 的技术栈部署技术文档，而这些站点都使用同一个自定义域名，而作者的 &lt;a class="link" href="QIN2DIM/QIN2DIM.github.io" >QIN2DIM/QIN2DIM.github.io&lt;/a> 仓库则部署了 Blog Pages。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20210930210421107.png" style="zoom: 33%;" />&lt;/div>
+&lt;ol start="4">
+&lt;li>
+&lt;p>Hello World&lt;/p>
+&lt;p>本站目前采用的就是这种部署方案。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="关联问题">关联问题&lt;/h2>
+&lt;h3 id="workflows-how-does-it-work">Workflows: How does it work?&lt;/h3>
+&lt;p>&lt;span id="workflows">&lt;/span>&lt;/p>
+&lt;h3 id="uses-reuixiyhugo-deployv1">Uses: reuixiy/hugo-deploy@v1&lt;/h3>
+&lt;p>&lt;span id="reuixiy/hugo-deploy@v1">&lt;/span>&lt;/p>
+&lt;p>我们在 workflows 配置文件的任务步骤中拉取并执行了 &lt;a class="link" href="https://github.com/reuixiy/hugo-deploy/blob/master/entrypoint.sh" target="_blank" rel="noopener"
+>reuixiy/hugo-deploy@v1&lt;/a> 指向的代码。这个脚本文件主要做了 3 件事：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>读取我们配置的 env 环境变量&lt;/p>
+&lt;ul>
+&lt;li>定位我们挂载 GitHub Pages 站点的仓库地址；&lt;/li>
+&lt;li>配置 GitHub SSH 用户名以及邮箱（用于鉴权）；&lt;/li>
+&lt;li>拉取 DEPLOY_KEY 并赋予操作权限；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>将我们的源码库克隆到虚拟容器中，执行 Hugo 编译指令生产静态站点&lt;/p>
+&lt;p>划重点，如果你的 Hugo 站点配置文件中没有指定 &lt;code>publishDir&lt;/code> 参数，那么编译输出默认是&lt;code>./public&lt;/code>。换句话说，如果你之前手动指定了 &lt;code>publishDir&lt;/code> 为其他文件，那你需要注释掉这个参数，否则工作流的运行会出现异常。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>进入编译输出文件夹（./public），并在此文件路径下执行代码提交指令&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>此外，我们并不需要在 workflows 配置文件中编写 Hugo setup 等配置 Hugo 编译环境的步骤，因为我们引用的 &lt;a class="link" href="https://github.com/reuixiy/hugo-deploy/blob/master/entrypoint.sh" target="_blank" rel="noopener"
+>reuixiy/hugo-deploy@v1&lt;/a> 已经写了一个拉取最新拓展版 Hugo 的 Dockerfile。&lt;/p>
+&lt;p>脚本源码如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/bash
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Required environment variables:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DEPLOY_KEY SSH private key&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DEPLOY_REPO GitHub Pages repository&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># DEPLOY_BRANCH GitHub Pages publishing branch&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># GITHUB_ACTOR GitHub username&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># GITHUB_REPOSITORY GitHub repository (source code)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># TZ Timezone&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">set&lt;/span> -e
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">REMOTE_REPO&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;git@github.com:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">DEPLOY_REPO&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">.git&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">REMOTE_BRANCH&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">DEPLOY_BRANCH&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.name &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">GITHUB_ACTOR&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global user.email &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">GITHUB_ACTOR&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">@users.noreply.github.com&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># https://github.com/reuixiy/hugo-theme-meme/issues/27&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git config --global core.quotePath &lt;span class="nb">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ln -s /usr/share/zoneinfo/&lt;span class="si">${&lt;/span>&lt;span class="nv">TZ&lt;/span>&lt;span class="si">}&lt;/span> /etc/localtime
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir /root/.ssh
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ssh-keyscan -t rsa github.com &amp;gt; /root/.ssh/known_hosts &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">DEPLOY_KEY&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &amp;gt; /root/.ssh/id_rsa &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>chmod &lt;span class="m">400&lt;/span> /root/.ssh/id_rsa
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">git clone --recurse-submodules &lt;span class="s2">&amp;#34;git@github.com:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">GITHUB_REPOSITORY&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">.git&amp;#34;&lt;/span> site &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="nb">cd&lt;/span> site
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hugo --gc --minify --cleanDestinationDir
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">pushd&lt;/span> public &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git init &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git remote add origin &lt;span class="nv">$REMOTE_REPO&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git add -A &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git checkout -b &lt;span class="nv">$REMOTE_BRANCH&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git commit -m &lt;span class="s2">&amp;#34;Automated deployment @ &lt;/span>&lt;span class="k">$(&lt;/span>date &lt;span class="s1">&amp;#39;+%Y-%m-%d %H:%M:%S&amp;#39;&lt;/span>&lt;span class="k">)&lt;/span>&lt;span class="s2"> &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nv">TZ&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> git push -f origin &lt;span class="nv">$REMOTE_BRANCH&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">popd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">rm -rf /root/.ssh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>下图所示为本文介绍方案的总流程图。核心环节是创建在 「私有仓库」 中的 &lt;em>Workflows hugo-deploy&lt;/em>：&lt;/p>
+&lt;ol>
+&lt;li>工作流将你的 Hugo 私有代码克隆进虚拟容器中；&lt;/li>
+&lt;li>执行 Hugo 编译指令生成静态站点；&lt;/li>
+&lt;li>通过 &lt;em>Secreat Key&lt;/em> / &lt;em>Deploy Key&lt;/em> 权限密钥获取 GitHub Pages 公有仓库的读写权限；&lt;/li>
+&lt;li>将编译输出文件 &lt;em>./publishDir&lt;/em> 推送至公有仓库。&lt;/li>
+&lt;/ol>
+&lt;p>最后部署了 GitHub Pages 的公有仓库拥有自己的网页渲染工作流，执行完毕后将自动更新你的博客站点。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/hugo-hugo-deploy/Hugo%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%AE%89%E5%85%A8%E5%88%86%E5%8F%91%E6%9E%B6%E6%9E%84.svg"
+loading="lazy"
+alt="Hugo 个人博客安全分发架构"
+>&lt;/p>
+&lt;p>下表为本文涉及四种方案在部署速度，隐私性、上手难度等维度的横向比较：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">属性/方案&lt;/th>
+&lt;th style="text-align:center">&lt;a class="link" href="#plan1" >方案一&lt;/a>&lt;/th>
+&lt;th style="text-align:center">&lt;a class="link" href="#plan2" >方案二&lt;/a>&lt;/th>
+&lt;th style="text-align:center">&lt;a class="link" href="#plan3" >方案三&lt;/a>&lt;/th>
+&lt;th style="text-align:center">安全分发&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">部署速度&lt;/td>
+&lt;td style="text-align:center">☀️☀️☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️&lt;/td>
+&lt;td style="text-align:center">☀️&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">隐私性&lt;/td>
+&lt;td style="text-align:center">☀️☀️☀️&lt;/td>
+&lt;td style="text-align:center">☀️&lt;/td>
+&lt;td style="text-align:center">☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️☀️&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">持久运营&lt;/td>
+&lt;td style="text-align:center">☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️☀️&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">上手难度&lt;/td>
+&lt;td style="text-align:center">☀️&lt;/td>
+&lt;td style="text-align:center">☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️&lt;/td>
+&lt;td style="text-align:center">☀️☀️&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>不难看出，本文所介绍的“安全分发”方案优势在于利用 &lt;em>GitHub Private Repository&lt;/em> 不可见特性在提高了隐私性的同时解决了方案一无法持久运营的问题，但其所依赖的 &lt;em>Workflows&lt;/em> 相关技术栈提升了方案整体的上手难度。&lt;/p>
+&lt;p>此外，本文介绍的方案使用了&lt;a class="link" href="https://github.com/reuixiy/hugo-deploy/blob/master/entrypoint.sh" target="_blank" rel="noopener"
+>reuixiy/hugo-deploy@v1&lt;/a> 提供的 Hugo 站点“分发”脚本，其流程上使用 &lt;em>DockerFile&lt;/em> 进行 Hugo 编译环境的创建，而非使用 &lt;em>GitHub Actions&lt;/em> 提供的预加载环境，这极大拖累了“整机性能”，导致“安全分发”的部署速度在此次横评中垫底。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/hugo-hugo-deploy/image-20211001062008560.png"
+width="1450"
+height="558"
+srcset="https://blog.echosec.top/p/hugo-hugo-deploy/image-20211001062008560_hu7998d4d07d85a6e8eaeafa4a460d7cc8_78490_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/hugo-hugo-deploy/image-20211001062008560_hu7998d4d07d85a6e8eaeafa4a460d7cc8_78490_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Workflows hugo-deploy details"
+class="gallery-image"
+data-flex-grow="259"
+data-flex-basis="623px"
+>&lt;/p>
+&lt;p>不可否认的是，你完全可以选择使用诸如 &lt;a class="link" href="#plan1" >方案一&lt;/a> + &lt;a class="link" href="https://www.jianguoyun.com/" target="_blank" rel="noopener"
+>坚果云&lt;/a> 双路复用的解决方案，既保证了部署速度和隐私性，又具备代码实时上云的持久运营能力；也可以使用 GitHub bot 来替代“安全分发”中的某些环节；也可以魔改“安全分发”的工作流来拔升部署速度；甚至你可以使用多级 NAS 存储你的项目源码。毕竟折腾技术总是有趣上头，根据你的具体需求和环境选择适合你的方案即可！&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://dev.to/aormsby/how-to-set-up-a-hugo-site-on-github-pages-with-git-submodules-106p" target="_blank" rel="noopener"
+>How to Set Up a Hugo Site on Github Pages - with Git Submodules! - DEV Community&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://gohugo.io/hosting-and-deployment/" target="_blank" rel="noopener"
+>Hosting &amp;amp; Deployment | Hugo (gohugo.io)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/reuixiy/hugo-deploy/blob/master/entrypoint.sh" target="_blank" rel="noopener"
+>hugo-deploy/entrypoint.sh at master · reuixiy/hugo-deploy (github.com)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://docs.github.com/cn/actions" target="_blank" rel="noopener"
+>GitHub Actions文档 - GitHub Docs&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

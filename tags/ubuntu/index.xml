@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ubuntu on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/ubuntu/</link><description>Recent content in Ubuntu on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 May 2022 13:15:46 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』VMware 虚拟机流量代理</title><link>https://blog.echosec.top/p/vmware-proxy/</link><pubDate>Sat, 07 May 2022 13:15:46 +0800</pubDate><guid>https://blog.echosec.top/p/vmware-proxy/</guid><description>&lt;img src="https://blog.echosec.top/p/vmware-proxy/unsplash.jpg" alt="Featured image of post 『Blog』VMware 虚拟机流量代理" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>本系列博客以 VMware Workstation 16 pro 为例，分享在 Windows11 上启动 Ubuntu 20.04 LTS 虚拟机进行 Python3 项目开发的最佳实践。本章节内容涉及网络连接中较为关键的环节 —— 流量代理。&lt;/p>
+&lt;p>推荐阅读：&lt;/p>
+&lt;p>&lt;a class="link" href="http://localhost:11014/p/python-best-practices-ide/" target="_blank" rel="noopener"
+>『Blog』Python 应用开发最佳实践@环境搭建篇&lt;/a>&lt;/p>
+&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;ol>
+&lt;li>本文首发于 &lt;code>2022-05&lt;/code>，如果你是若干年后到访的读者，请注意甄别文章中可能过时的内容，如有其他问题可在评论区提出；&lt;/li>
+&lt;li>本文不面向零基础的小白读者，不会涉及软件下载安装等细枝末节的内容，不再赘述相关解决方案中涉及到的主流软件的使用细节。&lt;/li>
+&lt;/ol>
+&lt;h2 id="虚拟机设置">虚拟机设置&lt;/h2>
+&lt;p>在 VMware 「虚拟机设置」中修改「网络适配器（网络连接）」，选择「桥接模式」但不复制物理网络连接状态。这是接管虚拟机代理流量最简单的方式，后文会详细介绍一些基于桥接模式的主流的流量代理解决方案。&lt;/p>
+&lt;h2 id="局域网代理方案">局域网代理方案&lt;/h2>
+&lt;h3 id="v2rayn">v2rayN&lt;/h3>
+&lt;p>介绍使用 &lt;a class="link" href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener"
+>v2rayN&lt;/a> 接管虚拟机全局流量的方法。操作前请确保虚拟机网络已被设为「桥接模式」。&lt;/p>
+&lt;p>注意：使用的演示版本为 &lt;code>v5.16&lt;/code>；在这个版本中，v2rayN 区分了本地代理以及局域网代理所用的监听的端口。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>启动主机系统代理&lt;/p>
+&lt;p>在 v2rayN 中主机上开启「自动配置系统代理」，用你喜欢的方式确认系统代理的运行状态。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>启动局域网代理&lt;/p>
+&lt;p>在 v2rayN 中依次点击「设置」「参数设置」在「Core：基础设置」中开启 &lt;code>允许来自局域网的连接&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>查看无线局域网适配器 WLAN&lt;/p>
+&lt;p>在主机命令行窗口输入 &lt;code>ipconfig&lt;/code>，找到其中的无线局域网适配器 WLAN 的 IPv4 地址。如果你是有线连接上网，寻找「以太网适配器」的 IPv4 地址即可（可能会打印很多选项，找有默认网关的那一条）。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align='center'>&lt;img src="image-20220507122059354.png" alt="image-20220507122059354" style="zoom:50%;" />&lt;/div>
+&lt;ol start="4">
+&lt;li>
+&lt;p>查看 v2rayN 的局域网代理端口&lt;/p>
+&lt;p>通常在软件视图的最下方的边框处可见，找到 HTTP 以及 SOCKS 的局域网代理端口。若你使用的是更早的版本，默认情况下的代理端口是 &lt;code>http:10809 socks:10808&lt;/code>，而在 &lt;code>v5.16&lt;/code> 或更高版本中，软件区分了系统代理和局域网代理，此时的局域网代理端口默认是 &lt;code>http:10811 socks:10810&lt;/code>，如下图所示。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align='center'>&lt;img src="image-20220507120921780.png" alt="image-20220507120921780" style="zoom: 33%;" />&lt;/div>
+&lt;ol start="5">
+&lt;li>
+&lt;p>配置虚拟机网络代理&lt;/p>
+&lt;p>打开 Ubuntu 的网络设置，将「网络代理」切换为手动模式，将我们刚才搜集到的（http 以及 socks）路由参数填入即可。下图为参考的填写格式，这与你的网络情况一定不一样，仅供参考。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220507122654416.png" alt="image-20220507122654416" style="zoom: 67%;" />&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>检查虚拟机网络连接&lt;/p>
+&lt;p>查看能否正常访问&lt;a class="link" href="https://www.youtube.com" target="_blank" rel="noopener"
+>Youtube&lt;/a>。此外，你还可以 &lt;a class="link" href="http://www.ip111.cn/" target="_blank" rel="noopener"
+>显示查询自己的IP地址 (ip111.cn)&lt;/a> 。&lt;/p>
+&lt;p>使用系统自带的 Firefox 浏览器访问 Youtube 的结果如下图所示：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20220507123156186.png" alt="image-20220507123156186" style="zoom:20%;" />&lt;/div>
+&lt;h3 id="clash-for-windows">Clash for Windows&lt;/h3>
+&lt;p>介绍使用 &lt;a class="link" href="https://github.com/Fndroid/clash_for_windows_pkg/releases" target="_blank" rel="noopener"
+>Clash for Windows&lt;/a> 接管虚拟机全局流量的方法，其他「类 Clash」产品均可举一反三。操作前请确保虚拟机网络已被设为「桥接模式」。&lt;/p>
+&lt;p>注意：以下使用的演示版本为 &lt;code>Clash for Windows v0.19.17&lt;/code> ，&lt;code>Clash Core 2022.04.17 Premium(10538)&lt;/code>，所有设置均保持“出厂状态” 。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>启动主机系统代理&lt;/p>
+&lt;p>在 Clash for Windows 中启动「System Proxy」，用你喜欢的方式确认系统代理的运行状态。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>启动局域网代理&lt;/p>
+&lt;p>在 Clash for Windows 中启动「Allow LAN」，并将鼠标移动到「Allow LAN」的位置上，悬停，可以看到窗口弹出了一则提示信息，如下图所示。你需要记下这个 &lt;code>WLAN IPv4&lt;/code> 以及 &lt;code>Port&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20220507231335305.png" alt="image-20220507231335305" style="zoom:37%;" />&lt;/div>
+&lt;ol start="3">
+&lt;li>
+&lt;p>配置虚拟机网络代理&lt;/p>
+&lt;p>打开 Ubuntu 的网络设置，将「网络代理」切换为手动模式，将我们刚才搜集到的路由参数填入即可。下图为参考的填写格式，仅供参考。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20220507233025258.png" alt="image-20220507233025258" style="zoom: 33%;" />&lt;/div>
+&lt;ol start="4">
+&lt;li>
+&lt;p>检查虚拟机网络连接&lt;/p>
+&lt;p>查看能否正常访问一些热门站点。此外，你还可以 &lt;a class="link" href="http://www.ip111.cn/" target="_blank" rel="noopener"
+>显示查询自己的IP地址 (ip111.cn)&lt;/a> 。&lt;/p>
+&lt;p>使用 Firefox 访问 Google Scholar 检索关键词 &lt;code>Neurocompositional computing&lt;/code> 的结果如下图所示：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220507233450859.png" alt="image-20220507233450859" style="zoom: 30%;" />&lt;/div>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="错误排查">错误排查&lt;/h2>
+&lt;h3 id="浏览器使用系统代理">浏览器使用系统代理&lt;/h3>
+&lt;p>如果上文所述的局域网代理方案无法达到预期，你可能需要进一步调整 Firefox 浏览器代理。&lt;/p>
+&lt;p>打开浏览器的「Settings」并依次访问「General」「Network Settings」。在弹出的「Connection Settings」中将代理选项切换至「use system proxy settings」也即使用系统代理，点击「OK」保存配置。新建标签页检查网络连接。&lt;/p>
+&lt;p>（当然，如果你是用的是其他浏览器产品，你不应该在 Firefox 里面配置浏览器代理&amp;hellip;&amp;hellip;&lt;/p>
+&lt;div align="center">&lt;img src="image-20220507124058496.png" alt="image-20220507124058496" style="zoom:37%;" />&lt;/div>
+&lt;h3 id="虚拟机网络代理设置">虚拟机网络代理设置&lt;/h3>
+&lt;p>若你在调整 Firefox 浏览器代理为「系统代理」后仍无法正常访问外网，很有可能是你的 IPv4 地址或局域网代理端口填写错误，也有可能是你的软件没有开启「允许局域网连接」的选项，控制变量逐一排查即可。&lt;/p>
+&lt;h3 id="局域网动态-ipv4">局域网动态 IPv4&lt;/h3>
+&lt;p>如果你出现「昨天都可以上网今天怎么就不行了」的情况，请检查你的 &lt;code>WLAN IPv4&lt;/code> 是否有变化。&lt;/p>
+&lt;p>通常情况下国内家用终端物联网设备的局域网 &lt;code>IPv4 地址&lt;/code> 是动态分发的，如果你的物联网设备（如笔记本）从之前的 WIFI 热点（如卧室）中断出重连到其他的 WIFI 热点下（如星巴克），局域网 &lt;code>IPv4 地址&lt;/code> 很可能发生变化。此时按照流程重新检查一下变更后的地址，手动修改虚拟机的网络代理既可。&lt;/p></description></item></channel></rss>

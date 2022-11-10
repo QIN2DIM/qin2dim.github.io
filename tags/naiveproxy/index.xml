@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Naiveproxy on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/naiveproxy/</link><description>Recent content in Naiveproxy on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 30 Oct 2022 00:54:18 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/naiveproxy/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』VMware 虚拟机流量代理最佳实践</title><link>https://blog.echosec.top/p/vmware-proxy-2023/</link><pubDate>Sun, 30 Oct 2022 00:54:18 +0800</pubDate><guid>https://blog.echosec.top/p/vmware-proxy-2023/</guid><description>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/anato1.jpg" alt="Featured image of post 『Blog』VMware 虚拟机流量代理最佳实践" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>本文内容较为硬核，读者不应是 Linux 小白且应对 NekoRay ，VMware 以及操作系统代理有基本的了解。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>本文探讨的场景是 Linux 图形化操作系统，在命令行系统无法运行 NekoRay（也没有必要）直接运行代理核心即可。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>我们曾在 &lt;a class="link" href="https://blog.echosec.top/p/vmware-proxy/" >『Blog』VMware 虚拟机流量代理&lt;/a> 介绍过一种虚拟机借助宿主机局域网代理实现「间接代理」的方案，it works fine 但不够优雅，代理端口的配置让人摸不着头脑，宿主机内网 IP:PORT 变动后，虚拟机代理设置也需要跟着变动，非常繁琐。&lt;/p>
+&lt;p>如今，我们可以借助一些优秀的开源项目直接在 Linux 操作系统上管理代理服务器，即，直接在虚拟机上启动客户端代理内核实现流量代理。此时，虚拟机代理和宿主机代理相互独立，虚拟机系统代理无需跟随宿主机网络环境变动。本文以 VMware Ubuntu20.04LTS 为例介绍虚拟机流量代理的最佳实践，这是目前个人使用场景代理效率最高且配置最简单的方案（暴论）。&lt;/p>
+&lt;p>本文涉及的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">项目名&lt;/th>
+&lt;th style="text-align:center">版本号&lt;/th>
+&lt;th style="text-align:center">用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray" target="_blank" rel="noopener"
+>MatsuriDayo/nekoray&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v2.2&lt;/td>
+&lt;td style="text-align:center">图形化代理客户端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/HyNetwork/hysteria" target="_blank" rel="noopener"
+>HyNetwork/hysteria&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v1.2.2&lt;/td>
+&lt;td style="text-align:center">代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/klzgrad/naiveproxy" target="_blank" rel="noopener"
+>klzgrad/naiveproxy&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v106.0.5249.91-1&lt;/td>
+&lt;td style="text-align:center">代理核心&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="虚拟机设置">虚拟机设置&lt;/h2>
+&lt;p>将虚拟机镜像的网络适配器的网络连接模式改成 &lt;strong>NAT 模式&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030011821220.png"
+width="1028"
+height="555"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030011821220_hu69c7d3be5e90b1ec2f31090859e22746_58949_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030011821220_hu69c7d3be5e90b1ec2f31090859e22746_58949_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt=" 图 1 NAT 模式"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;h2 id="代理设置">代理设置&lt;/h2>
+&lt;p>从这一步开始均为玄学的操作，因为后文中涉及到的开源项目均部署在 GitHub 上，需要优先使用代理才能下载。&lt;/p>
+&lt;p>这里有两种解决方法，要么先在宿主机上下载好必要的软件，再把它们「拖入」虚拟机窗口传输文件；要么通过反代服务解决 wget 等命令的路由问题。下文以「命令行」方案为例梳理配置思路。若随时间推移反代接口失效或脚本执行错误，读者可手动分步执行命令或基于第一种方案照葫芦画瓢。&lt;/p>
+&lt;p>&lt;strong>Script&lt;/strong>: 如果你使用 Ubuntu 20.04 以及 python3 开发环境，可以运行一键安装脚本，直接跳过 NekoRay 下载以及代理核心下载步骤。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -qO- https://gitee.com/yaoqinse/hello-world/raw/develop/npstart.py &lt;span class="p">|&lt;/span> python3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="download-nekoray">Download NekoRay&lt;/h3>
+&lt;p>行为链：从 GitHub 下载 NekoRay 预编译压缩包，解压到桌面，修改控制权限，启动 NekoRay。&lt;/p>
+&lt;p>其中 &lt;code>https://dl.capoo.xyz/&lt;/code> 为作者开放使用的反代接口，去掉这段内容后剩下的部分为正常的 GitHub 的资源链接。如果你的虚拟机此时不存在路由问题，应该去掉这段内容。&lt;/p>
+&lt;p>此外，为保证操作的连贯性，这里写死了 NekoRay v2.2 的下载地址，你可以在部署完毕后通过 NekoRay 内置的在线更新功能追平最新特性。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ~/Desktop/ &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget https://dl.capoo.xyz/https://github.com/MatsuriDayo/nekoray/releases/download/2.2/nekoray-2.2-2022-10-30-linux64.zip &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> unzip nekoray-2.2-2022-10-30-linux64.zip &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> rm nekoray-2.2-2022-10-30-linux64.zip &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> ~/Desktop/nekoray &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ./launcher
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果你是第一次使用 NekoRay ，可以在 &lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >之前的文章&lt;/a> 中了解更多的使用细节，此处不再赘述。&lt;/p>
+&lt;h3 id="download-proxy-core">Download Proxy Core&lt;/h3>
+&lt;p>下文以 Hysteria 及 Naiveproxy 作演示，同样，相关文章可在本站历史查找。&lt;/p>
+&lt;p>行为链：从 GitHub 上游仓库下载预编译代理核心并存放至 NekoRay 的配置路径下，最后赋予 hysteria-core 额外的执行权限。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ~/Desktop/nekoray/config &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget https://dl.capoo.xyz/https://github.com/HyNetwork/hysteria/releases/download/v1.2.2/hysteria-linux-amd64 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x ./hysteria-linux-amd64 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget -O naiveproxy.tar.xz https://dl.capoo.xyz/https://github.com/klzgrad/naiveproxy/releases/download/v106.0.5249.91-1/naiveproxy-v106.0.5249.91-1-linux-x64.tar.xz &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> tar -xvf naiveproxy.tar.xz &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> mv naiveproxy-v106.0.5249.91-1-linux-x64/naive . &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> rm naiveproxy.tar.xz &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> rm -r naiveproxy-v106.0.5249.91-1-linux-x64
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下载完后，参照 &lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >之前的文章&lt;/a> &lt;strong>启用 HTTP 监听端口&lt;/strong> 并 &lt;strong>指定 hysteria-core 以及 naive-core 的绝对路径&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030181001877.png"
+width="992"
+height="670"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030181001877_hu0881c7e6d4401659acf4e07325570ca8_87479_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030181001877_hu0881c7e6d4401659acf4e07325570ca8_87479_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 2 添加代理核心"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="355px"
+>&lt;/p>
+&lt;h3 id="enable-system-proxy">Enable System Proxy&lt;/h3>
+&lt;p>至此， NekoRay 已配置完毕可以直接投入使用。接下来，以你喜欢的方式添加 Hysteria 或 Naiveproxy 的代理服务器，例如从宿主机已配置好的 NekoRay 中导出分享链接并粘贴过来。&lt;/p>
+&lt;p>选中需要激活的服务器，启动系统代理。你可以访问 Google 或 YouTube 等站点检测系统代理连通性，也可以通过 fast.com 或 speedtest.net 甚至是 YouTube 码流速度估算代理最大下行速度，如图 3,4,5 所示。&lt;/p>
+&lt;p>之后，你可以通过双击 &lt;code>~/Desktop/nekoray/launcher&lt;/code> 启动软件本体，也可以设置开机自启。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030032844192.png"
+width="1802"
+height="1464"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030032844192_hud4f69e9f2686dca641de36ce27ec0924_868107_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030032844192_hud4f69e9f2686dca641de36ce27ec0924_868107_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 3 檢測系統代理連通性"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="295px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030033059858.png"
+width="1802"
+height="1465"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030033059858_hudcd8f62db5fb6c42e30cb0329ff4b977_424091_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030033059858_hudcd8f62db5fb6c42e30cb0329ff4b977_424091_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 4 簡單跑個分"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="295px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/Snipaste_2022-10-30_03-44-46.png"
+width="1795"
+height="1293"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/Snipaste_2022-10-30_03-44-46_huf0637cd9ffe9eb3fec00fc57e4bff552_1096315_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/Snipaste_2022-10-30_03-44-46_huf0637cd9ffe9eb3fec00fc57e4bff552_1096315_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 5 YouTube 4K Video Connection Speed"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="333px"
+>&lt;/p>
+&lt;h2 id="开发中的代理问题">开发中的代理问题&lt;/h2>
+&lt;p>介绍常见的虚拟机代理错误设置并给出相应的解决方法。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>浏览器代理&lt;/strong>&lt;/p>
+&lt;p>浏览器代理选择系统代理即可。Google，Edge 默认走系统代理（且不可更改），Firefox 则给出眼花缭乱的选项，将「配置访问互联网的代理服务器」手动置为「使用系统代理」即可。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>wget | git | pip |curl 等命令的路由通路&lt;/strong>&lt;/p>
+&lt;p>这些命令默认走系统代理。如果你配置了优先级更高的回源代理（如 pip 清华镜像源）那么它大概率会和系统代理打架，针对回源代理的说明可看后文小节部分。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>apt 等命令的路由通路&lt;/strong>&lt;/p>
+&lt;p>建议保持国内镜像源。本地与 Ubuntu 软件源服务器是直连关系，流量不走系统代理，选择国内镜像源直连是不错的选择。当然你也可以修改 Ubuntu 软件源指回主根服务器，并保持 NekoRay VPN 模式为开启状态。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>ping 命令的连通性&lt;/strong>&lt;/p>
+&lt;p>我想你应该不会惊讶于「为什么我开启了系统代理，能 ping 通 baidu.com 却 ping 不通 google.com」。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>JetBrains 家族产品的代理设置&lt;/strong>&lt;/p>
+&lt;p>（如：PyCharm，Goland，IDE）&lt;/p>
+&lt;p>这类软件设置项中的代理仅对软件本身有效，如插件商城，而软件运行代码是通过 shell 脚本命令执行的，即，你的代码中的网络请求是否使用代理与这个库的底层逻辑以及你是否传入代理参数有关，而与软件设置的代理无关。&lt;/p>
+&lt;p>比如 Python3 的 &lt;code>requests.get()&lt;/code> 在你不指定参数 &lt;code>proxies&lt;/code> 时会检索环境变量 &lt;code>*_proxy&lt;/code> 自动填充 &lt;code>proxies&lt;/code> 参数，即，reqeusts 流量默认走系统代理。而 &lt;code>aiohttp&lt;/code> 中基于 &lt;code>ClientSession&lt;/code> 对象的网络请求默认直连，即，不指定参数 &lt;code>proxy&lt;/code> 代理不生效。但无论如何，它们都与软件设置的代理无关。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&lt;code>TLS in TLS&lt;/code> 陷阱&lt;/strong>&lt;/p>
+&lt;p>如果你使用 Python3 进行开发，你一定经历过： pip 下载速度慢；换源；镜像源和系统代理打架；自己写的网络请求没法过墙，指定了系统代理却出现了连锁的 &lt;code>SSLError&lt;/code> 异常。这是一个史前巨坑，是一个仅会在中国大陆发生的奇妙化学反应，urllib3 的导演组都自愧不如。这一切的一切都指向一个 &lt;strong>TLS in TLS 陷阱&lt;/strong>。你可以在 &lt;a class="link" href="https://github.com/conda/conda/issues/10590#issuecomment-880196074" target="_blank" rel="noopener"
+>conda issues&lt;/a> 继续吃瓜。&lt;/p>
+&lt;p>解决方法如下，根据你的需求和应用场景择优：&lt;/p>
+&lt;p>&lt;strong>Solution1&lt;/strong>：调整 urllib3 版本，即，&lt;code>pip install urllib3==1.25.11&lt;/code>；&lt;/p>
+&lt;p>&lt;strong>Solution2&lt;/strong>：调整代理软件配置&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>v2rayN v5.36+, 「参数设置 &amp;ndash; 系统代理设置 &amp;ndash; 高级代理设置」选择 &lt;code>http=http://{ip}:{http_port};https=http://{ip}:{http_port}&lt;/code>。在「例外」中添加 &lt;code>pypi.tuna.tsinghua.edu.cn;&lt;/code> 绕过 pip 清华源的代理请求，如果你使用其他 pip 源，填写相应的域名即可。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Clash（cfw/verge/&amp;hellip;）开启 TAP/TUN。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NekoRay 切换至 VPN 模式。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Solution3&lt;/strong>：以你喜欢的方式调整系统代理的协议格式&lt;/p>
+&lt;p>核心操作是让 HTTPS 与 HTTP 的代理流量公用一个端口，并且绕过系统代理的 TLS 认证问题。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">proxies&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;http&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;http://127.0.0.1:10809&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;https&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;http://127.0.0.1:10809&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="相关文章">相关文章&lt;/h2>
+&lt;p>&lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >『Blog』Use Hysteria through NekoRay in Windows&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.echosec.top/p/naiveproxy/" >『Blog』Naiveproxy Quick Start&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" >『Blog』V2rayN 配置 Hysteria&lt;/a>&lt;/p></description></item><item><title>『Blog』Naiveproxy Quick Start</title><link>https://blog.echosec.top/p/naiveproxy/</link><pubDate>Wed, 19 Oct 2022 20:09:33 +0800</pubDate><guid>https://blog.echosec.top/p/naiveproxy/</guid><description>&lt;img src="https://blog.echosec.top/p/naiveproxy/anato-finnstark.jpg" alt="Featured image of post 『Blog』Naiveproxy Quick Start" />&lt;h2 id="introduce">Introduce&lt;/h2>
+&lt;p>本文以 Ubuntu20.04 为例简要介绍 Naiveproxy 服务端的敏捷部署流程，再分别借助 NekoRay/v2rayN 在 Windows 以及 Matsuri（茉莉） 在 Android 启动图形化代理的解决方案。&lt;/p>
+&lt;p>下文均以 Matsuri &amp;amp; NekoRay 统称 NekoRay 以及 Matsuri。这两个项目拥有同样的维护社区和协议解析后端，服务器导入操作无需额外声明。&lt;/p>
+&lt;p>本文涉及的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>发行版本号&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/klzgrad/naiveproxy" target="_blank" rel="noopener"
+>klzgrad/naiveproxy&lt;/a>&lt;/td>
+&lt;td>v106.0.5249.91-1&lt;/td>
+&lt;td>双端代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/QIN2DIM/np-start" target="_blank" rel="noopener"
+>QIN2DIM/np-start&lt;/a>&lt;/td>
+&lt;td>main-branch&lt;/td>
+&lt;td>Naiveproxy 服务端自动编译脚本&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray" target="_blank" rel="noopener"
+>MatsuriDayo/nekoray&lt;/a>&lt;/td>
+&lt;td>v2.0&lt;/td>
+&lt;td>GUI 客户端（Windows/Linux）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri" target="_blank" rel="noopener"
+>MatsuriDayo/Matsuri&lt;/a>&lt;/td>
+&lt;td>v0.5.1&lt;/td>
+&lt;td>GUI 客户端（Android）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/caddyserver/caddy" target="_blank" rel="noopener"
+>caddyserver/caddy&lt;/a>&lt;/td>
+&lt;td>v2.6.2&lt;/td>
+&lt;td>承载代理的 Web 服务器&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/caddyserver/xcaddy" target="_blank" rel="noopener"
+>caddyserver/xcaddy&lt;/a>&lt;/td>
+&lt;td>v0.3.1&lt;/td>
+&lt;td>编译携带 Naiveproxy 插件的 Caddy2 服务器&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="caddy-server-agile-development">Caddy Server Agile Development&lt;/h2>
+&lt;h3 id="compile-the-naiveproxy-server">Compile the Naiveproxy Server&lt;/h3>
+&lt;p>在 &lt;strong>Ubuntu20.04+&lt;/strong> 环境中自动编译 Naiveproxy，其他环境可参见「&lt;a class="link" href="https://github.com/klzgrad/naiveproxy/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener"
+>原理及步骤说明&lt;/a>」进行配置。&lt;/p>
+&lt;p>首次运行后，你可以通过快捷指令 &lt;code>npstart&lt;/code> 运行脚本。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -qO /home/npstart.py https://raw.githubusercontent.com/QIN2DIM/np-start/main/main.py &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> python3 /home/npstart.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>首次运行时，除敏捷部署外的功能被锁定，Naiveproxy 编译成功后解锁。自动编译耗时取决于硬件性能和网络带宽配置，一般 1 ~ 5 分钟内可以完成。&lt;/p>
+&lt;p>下图为 npstart 的命令行控制面板，可以实现基本的 Naiveproxy 生命周期管理工作。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/naiveproxy/image-20221101072516050.png"
+width="630"
+height="913"
+srcset="https://blog.echosec.top/p/naiveproxy/image-20221101072516050_hu1a3beec754b3aa0f121606a074b65836_223278_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/naiveproxy/image-20221101072516050_hu1a3beec754b3aa0f121606a074b65836_223278_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="npstart v0.1.0 - CMD Panel"
+class="gallery-image"
+data-flex-grow="69"
+data-flex-basis="165px"
+>&lt;/p>
+&lt;h3 id="check-the-generated-configuration">Check the Generated Configuration&lt;/h3>
+&lt;p>脚本编译结束后，按任意键自动部署 Naiveproxy 系统服务。&lt;/p>
+&lt;p>脚本会在 &lt;code>/home/naiveproxy&lt;/code> 目录下生成编译产出的 &lt;code>caddy&lt;/code> 以及 &lt;code>Caddyfile&lt;/code>并在屏幕上依次打印：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>用于启动 V2rayN Custom Server 的配置信息&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>用于启动 Matsuri &amp;amp; NekoRay Naiveproxy 的分享链接&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>用于启动 Shadowrocket HTTP/2 代理的分享链接&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>对于 Matsuri &amp;amp; NekoRay 以及 Shadowrocket，复制分享链接后，可以通过粘贴或从剪贴板导入的方式直接在图形化客户端中导入节点；而 V2rayN 则需要编写自定义配置，复制粘贴配置信息即可。&lt;/p>
+&lt;p>Matsuri &amp;amp; NekoRay 以及 V2rayN 需要在客户端安装 naive-core 或 naive plugin 才能正常使用，详细内容文末介绍。&lt;/p>
+&lt;h2 id="windows-pc-configuration">Windows PC Configuration&lt;/h2>
+&lt;blockquote>
+&lt;p>建议每间隔一个月主动更替 naive-core 以追平上游的最新特性&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="v2rayn-custom-server">V2rayN Custom Server&lt;/h3>
+&lt;ol>
+&lt;li>访问 &lt;a class="link" href="https://github.com/klzgrad/naiveproxy/releases" target="_blank" rel="noopener"
+>Releases · klzgrad/naiveproxy&lt;/a> 下载匹配操作系统的最新发行客户端。解压后将其中的 &lt;code>naive.exe&lt;/code> 放置到 v2rayN 工程根目录下。&lt;/li>
+&lt;li>添加自定义配置服务器，复制粘贴 &lt;code>v2rayN custom server&lt;/code> 的配置信息， Core类型 选择 naiveproxy，Socks端口 与配置文件给出的 listen-port 保持一致。下图为参考配置：&lt;img src="https://blog.echosec.top/p/naiveproxy/image-20221019212555596.png"
+width="915"
+height="373"
+srcset="https://blog.echosec.top/p/naiveproxy/image-20221019212555596_hu050c1885ecf7a8209d02ff113beb1585_28405_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/naiveproxy/image-20221019212555596_hu050c1885ecf7a8209d02ff113beb1585_28405_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221019212555596"
+class="gallery-image"
+data-flex-grow="245"
+data-flex-basis="588px"
+>&lt;/li>
+&lt;/ol>
+&lt;h3 id="nekoray-naiveproxy-node">NekoRay Naiveproxy Node&lt;/h3>
+&lt;p>如果你从未使用过 NekoRay，可通过 &lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >这篇博客&lt;/a> 了解预热内容。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>访问 &lt;a class="link" href="https://github.com/klzgrad/naiveproxy/releases" target="_blank" rel="noopener"
+>Releases · klzgrad/naiveproxy&lt;/a> 下载匹配操作系统的最新发行客户端。解压后将其中的 &lt;code>naive.exe&lt;/code> 放置到 NekoRay 工程目录下的 config 文件夹。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>打开 NekoRay，依次选择 「首选项 → 基本设置 → 核心」添加 &lt;code>naive-core&lt;/code>。&lt;img src="https://blog.echosec.top/p/naiveproxy/image-20221019211804619.png"
+width="1246"
+height="851"
+srcset="https://blog.echosec.top/p/naiveproxy/image-20221019211804619_hu49d8ef0737b3aaf21e583fcb0e5d482b_124841_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/naiveproxy/image-20221019211804619_hu49d8ef0737b3aaf21e583fcb0e5d482b_124841_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221019211804619"
+class="gallery-image"
+data-flex-grow="146"
+data-flex-basis="351px"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>复制 &lt;code>NekoRay/Matsuri 分享链接 &lt;/code>，CTRL + V 从剪切板导入 naiveproxy node。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="matsuri-configuration">Matsuri Configuration&lt;/h3>
+&lt;blockquote>
+&lt;p>Matsuri with Naiveproxy Plugin&lt;/p>
+&lt;/blockquote>
+&lt;p>如果你从未使用过 Matsuri，可通过 &lt;a class="link" href="https://blog.echosec.top/p/matsuri-hysteria/" >这篇博客&lt;/a> 了解预热内容。若首次使用 Naiveproxy，依据提示安装 naive-plugin 即可（导入并启动服务器后自动弹出提示）。&lt;/p>
+&lt;h3 id="shadowrocket-configuration">Shadowrocket Configuration&lt;/h3>
+&lt;p>软件自带插件，无需手动安装，直接复制粘贴分享链接即可。&lt;/p></description></item></channel></rss>

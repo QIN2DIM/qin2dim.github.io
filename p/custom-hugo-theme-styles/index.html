@@ -1,0 +1,552 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="分享一些有趣的 Hugo-Stack 自定义主题样式"><title>『Hugo』Hugo Styles</title><link rel=canonical href=https://blog.echosec.top/p/custom-hugo-theme-styles/><link rel=stylesheet href=/scss/style.min.d7c0e8a0988b0dadf5ef703eba9f16edb306fb8f0883e51c33c60133a202c276.css><meta property="og:title" content="『Hugo』Hugo Styles"><meta property="og:description" content="分享一些有趣的 Hugo-Stack 自定义主题样式"><meta property="og:url" content="https://blog.echosec.top/p/custom-hugo-theme-styles/"><meta property="og:site_name" content="Echosec @QIN2DIM"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Hugo"><meta property="article:tag" content="GitHub Pages"><meta property="article:published_time" content="2021-10-10T18:21:10+08:00"><meta property="article:modified_time" content="2021-10-10T18:21:10+08:00"><meta property="og:image" content="https://blog.echosec.top/p/custom-hugo-theme-styles/86fa17a.jpg"><meta name=twitter:site content="@Alkaid20860233"><meta name=twitter:creator content="@Alkaid20860233"><meta name=twitter:title content="『Hugo』Hugo Styles"><meta name=twitter:description content="分享一些有趣的 Hugo-Stack 自定义主题样式"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.echosec.top/p/custom-hugo-theme-styles/86fa17a.jpg"><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@main/avatars/watercolour-4817390__480.jpg><script async src="https://www.googletagmanager.com/gtag/js?id=G-9XVBFK3RRV"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9XVBFK3RRV",{anonymize_ip:!1})}</script><link rel=stylesheet href=//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"light")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/62018067_hu01b1850304f2a433574ed2470395348a_321911_300x0_resize_box_3.png width=300 height=300 class=site-logo loading=lazy alt=Avatar></a>
+<span class=emoji>🎯</span></figure><div class=site-meta><h1 class=site-name><a href=/>Echosec @QIN2DIM</a></h1><h2 class=site-description>A Creator from China.</h2></div></header><ol class=social-menu><li><a href=https://github.com/QIN2DIM target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/Alkaid20860233 target=_blank title=Twitter><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li><li><a href=https://nav.echosec.top target=_blank title=Navigator><!doctype html><svg t="1635028836276" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="9207" width="128" height="128" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style/></defs><path d="M782.802 129.086c3.079.0 5.884 2.805 5.884 5.884v744.58L561.591 601.177 512 540.387l-49.591 60.789-227.095 278.375v-744.58c0-3.08 2.805-5.884 5.884-5.884h541.604m0-64.001H241.198c-38.436.0-69.884 31.448-69.884 69.884v768.729c.276 33.712 27.781 55.214 56.065 55.214 15.368.0 30.969-6.353 42.548-20.546L512 641.633 753.023 937.08c11.68 14.317 27.793 20.773 43.661 20.773 28.115.0 55.458-20.27 55.993-53.003.006-.383.009-.767.009-1.151V134.971c0-38.437-31.447-69.885-69.884-69.885z" p-id="9208" fill="#bababa"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/links><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg><span>Links</span></a></li><li><a href=/archives><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></div></ol></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/custom-hugo-theme-styles/><img src=/p/custom-hugo-theme-styles/86fa17a_hu64b326eea55acfb5753e4efd86e7e730_697256_800x0_resize_q75_box.jpg srcset="/p/custom-hugo-theme-styles/86fa17a_hu64b326eea55acfb5753e4efd86e7e730_697256_800x0_resize_q75_box.jpg 800w, /p/custom-hugo-theme-styles/86fa17a_hu64b326eea55acfb5753e4efd86e7e730_697256_1600x0_resize_q75_box.jpg 1600w" width=800 height=532 loading=lazy alt="Featured image of post 『Hugo』Hugo Styles"></a></div><div class=article-details><header class=article-category><a href=/categories/hugo/ style=background-color:#7e7a6f;color:#fff>Hugo</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/custom-hugo-theme-styles/>『Hugo』Hugo Styles</a></h2><h3 class=article-subtitle>分享一些有趣的 Hugo-Stack 自定义主题样式</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>2021-10-10</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--reading>阅读时长: 7 分钟</time></div></footer></div></header><section class=article-content><h2 id=引言>引言</h2><p>相信你点开这篇文章时，就已感受到本站主题与站源默认样式有较大区别。</p><p>作者最近在自学一些前端的知识，顺便捡起 Hugo 折腾博客建站，理论实践双路开花（不是。在折腾的过程中，结合一些学到的东西，适当发挥，产生了一些曼妙的想法。</p><p>本文就此分享一些站源默认样式不具备的特性以及一些有趣的风格魔改玩法。</p><h2 id=preview>Preview</h2><p>在开始修改样式之前呢，请确保你知道自己在做什么！你需要知道你应该修改哪些文件以达到想要的结果。此部分有经验的玩家可以跳过了~</p><p>Hugo 的模板渲染具有层级明显的覆盖路径。若你也在使用 Stack 主题，你会发现你的站点目录下存在 <code>./themes/hugo-theme/stack</code>主题目录，而此主题目录结构是否与你站点根目录的结构非常相似？是的，主题项目本身就是一个完整的 Hugo 站点样式，而 Hugo 会优先索引你站点根目录下的文件，其次才是主题子目录。不同根但同层级下的同名文件，会出现「交并」现象，也即你需要将需要改动的文件连同文件夹一起复制到你的站点根目录下，仅改动你站点根目录下的资源。</p><h2 id=仿-vue-风格魔改>仿 Vue 风格魔改</h2><h3 id=修改选中目标样式>修改「选中目标」样式</h3><p>你需要新建/修改站点文件 <code>./assets/scss/custom.scss</code>，添加如下内容：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=c1>// 设置选中字体的区域背景颜色
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nd>::selection</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>background</span><span class=o>:</span> <span class=mh>#dae3ea</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>color</span><span class=o>:</span> <span class=mh>#34495e</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nd>::-moz-selection</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>background</span><span class=o>:</span> <span class=mh>#dae3ea</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>color</span><span class=o>:</span> <span class=mh>#34495e</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=nd>::-webkit-selection</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>background</span><span class=o>:</span> <span class=mh>#dae3ea</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>color</span><span class=o>:</span> <span class=mh>#34495e</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们可以获得如下改变，视觉舒适感倍增！</p><div align=center><img src=image-20211010200628635.png alt=image-20211010200628635 style=zoom:50%></div><div align=center><img src=image-20211010200715239.png alt=image-20211010200715239 style=zoom:50%></div><p>顺便提一嘴有没有人和我一样觉得浏览器默认选中体样式有点丑，虽然平时看的很快，也不会在意这些细节，但停下来观察区分后，这种细节带来的体验升级真是用了就回不去。</p><h3 id=修改正文字体样式>修改「正文字体」样式</h3><p>同样，我们需要改动站点文件<code>./assets/scss/custom.scss</code>，添加如下内容：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=nd>:root</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 字体颜色
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>--card-text-color-main</span><span class=o>:</span> <span class=mh>#34495e</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们可以获得如下改变：</p><div align=center><img src=image-20211010202530197-16339419379641.png alt=image-20211010201217691 style=zoom:50%></div><div align=center><img src=image-20211010202454989-16339419459263.png alt=image-20211010201233909 style=zoom:50%></div><h3 id=修改行内代码样式-span-idcode-colorspan>修改「行内代码」样式 <span id=code-color></span></h3><p>同样，我们需要改动站点文件<code>./assets/scss/custom.scss</code>，添加如下内容：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=nd>:root</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 行内代码背景色
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>--code-background-color</span><span class=o>:</span> <span class=mh>#f8f8f8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 行内代码前景色
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>--code-text-color</span><span class=o>:</span> <span class=mh>#e96900</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们可以获得如下改变：</p><div align=center><img src=image-20211010202705348.png alt=image-20211010201604590 style=zoom:50%></div><div align=center><img src=image-20211010201618142.png alt=image-20211010201618142 style=zoom:50%></div><h3 id=修改键盘标签样式>修改「键盘标签」样式</h3><p>我们需要改动站点文件<code>./assets/scss/custom.scss</code>，添加如下内容：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=c1>// 键盘标签样式
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nt>kbd</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=na>margin</span><span class=o>:</span> <span class=mi>0</span> <span class=mf>.1</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>padding</span><span class=o>:</span> <span class=mf>.1</span><span class=kt>em</span> <span class=mf>.6</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>font-size</span><span class=o>:</span> <span class=mf>.8</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>color</span><span class=o>:</span> <span class=mh>#242729</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>background</span><span class=o>:</span> <span class=mh>#fff</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>border</span><span class=o>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=ni>solid</span> <span class=mh>#adb3b9</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>border-radius</span><span class=o>:</span> <span class=mi>3</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>box-shadow</span><span class=o>:</span> <span class=mi>0</span><span class=kt>px</span> <span class=mi>1</span><span class=kt>px</span> <span class=mi>0</span> <span class=nf>rgba</span><span class=p>(</span><span class=mi>12</span><span class=o>,</span> <span class=mi>13</span><span class=o>,</span> <span class=mi>14</span><span class=o>,</span> <span class=mi>0</span><span class=mf>.2</span><span class=p>)</span><span class=o>,</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>2</span><span class=kt>px</span> <span class=mh>#fff</span> <span class=ni>inset</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>white-space</span><span class=o>:</span> <span class=ni>nowrap</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>vertical-align</span><span class=o>:</span> <span class=ni>middle</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>font-family</span><span class=o>:</span> <span class=ni>monospace</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>使用如下 Markdown 高级语法可以生成键盘标签样式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>在 Windows 操作系统中，「复制」功能的快捷键是：<span class=p>&lt;</span><span class=nt>kbd</span><span class=p>&gt;</span>CTRL<span class=p>&lt;/</span><span class=nt>kbd</span><span class=p>&gt;</span> + <span class=p>&lt;</span><span class=nt>kbd</span><span class=p>&gt;</span>C<span class=p>&lt;/</span><span class=nt>kbd</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们可以获得如下改变：</p><div align=center>在 Windows 操作系统中，「复制」功能的快捷键是：<kbd>CTRL</kbd> + <kbd>C</kbd></div><h3 id=修改正文链接样式>修改「正文链接」样式</h3><p>我们需要改动站点文件 <code>./assets/scss/style.scss</code>，注释掉主题对 <code>&lt;a></code> 标签的样式设定，然后在文件中添加如下内容：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=nt>a</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>text-decoration</span><span class=o>:</span> <span class=ni>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>color</span><span class=o>:</span> <span class=nf>var</span><span class=p>(</span><span class=o>--</span><span class=n>accent-color</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>&amp;</span><span class=nd>:hover</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>color</span><span class=o>:</span> <span class=nf>var</span><span class=p>(</span><span class=o>--</span><span class=n>accent-color-darker</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>&amp;</span><span class=nc>.link</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>color</span><span class=o>:</span> <span class=mh>#42b983</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>font-weight</span><span class=o>:</span> <span class=mi>600</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>padding</span><span class=o>:</span> <span class=mi>0</span> <span class=mi>2</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>text-decoration</span><span class=o>:</span> <span class=ni>none</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>cursor</span><span class=o>:</span> <span class=ni>pointer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl>        <span class=k>&amp;</span><span class=nd>:hover</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=na>text-decoration</span><span class=o>:</span> <span class=ni>underline</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>我们会获得如下改变：</p><div align=center><img src=image-20211013190157639.png alt=image-20211013190157639 style=zoom:50%></div><div align=center><img src=image-20211013190248688.png alt=image-20211013190248688 style=zoom:50%></div><p>主要改动是正文超链接文本变色（#42b983）且当滑鼠移向文本时标记下划线，这在 <code>dark</code> 模式下保持同样效果。其他改动主要是符合个人的文档习惯，例如添加 <code>padding</code> 提供符合中文文档写作规范的视觉效果。</p><p>📌 这是个激进的改动，移除了 Stack 默认样式中关于 box-shadow 阴影下划线以及触发渐变的样式特效。</p><p>当文档中出现多个对比色系的强调色时，文章给人的第一感觉会很「脏」。如下提供一种仍基于 Vue 的视觉平衡方案。当然如果你觉得这样的改动难以接受，可以跳过此步骤，毕竟本篇博客中各个修改方案都是互相独立的，选择合适的就好~</p><p>此处给出的的视觉平衡方案是再次微调「行内代码」样式。我们需要改动站点文件 <code>./assets/scss/custom.scss</code> 找到 <a class=link href=#code-color>修改「行内代码」样式</a> 中我们添加的代码，然后修补为如下形式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=nd>:root</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// Vue plan 1
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=c1>// --code-background-color: #f3f4f4;
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=c1>// --code-text-color: #476582;
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=c1>// Vue plan 2
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=na>--code-background-color</span><span class=o>:</span> <span class=mh>#f8f8f8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>--code-text-color</span><span class=o>:</span> <span class=mh>#e96900</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>Vue plan 2</code> 的颜色样式与之前的修改完全相同，你只需要反复注释对比两个 plan ，选择感官上合适的既可。</p><p>微调后我们可以获得如下改变：</p><div align=center><img src=image-20211013192930517.png alt=image-20211013192930517 style=zoom:50%></div><div align=center><img src=image-20211010202705348.png alt=image-20211010201604590 style=zoom:50%></div><p>emmm，个人感觉看着都挺舒服的Orz。相比默认样式来说更符合我个人的审美，我觉得默认样式的 <code>inline-code</code> 的背景色纯度过高（反正你怎么开心怎么调，毕竟样式调整本来就是很主观的东西）。</p><h2 id=自定义友链界面>自定义友链界面</h2><p>目前 Stack 主题并不提供友链样式，我们可以自己魔改一个。具体效果看本站 Links 子页既可。显然开疆拓土并不是一件易事，下文既将分享完整的样式代码，但复制粘贴也得小心，记得按开头提醒的那样基于备份文件修改样式，在任何时候都不应该直接对主题子模块进行改动。</p><h3 id=遇见友链>遇见友链</h3><p>第一步需要让「Links」界面出现在 Menu 上，这样所见所得调试起来比较方便。</p><ol><li>以你喜欢的方式在你的站点根目录下执行如下代码新建友链子页：</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>hugo new page/links.md
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>打开 <code>links.md</code> 文件，添加/修改前置参数：</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl>---
+</span></span><span class=line><span class=cl>title: &#34;『 Links 』友情链接&#34;
+</span></span><span class=line><span class=cl>date: 2021-10-01T16:45:06+08:00
+</span></span><span class=line><span class=cl>slug: &#34;links&#34;
+</span></span><span class=line><span class=cl>layout: &#34;links&#34;
+</span></span><span class=line><span class=cl>license: false
+</span></span><span class=line><span class=cl>toc: false
+</span></span><span class=line><span class=cl>---
+</span></span></code></pre></td></tr></table></div></div><p>此处我们需要明确 <code>toc:false</code> 隐藏目录。因为本文提供的样式是基于 Markdown + Shortcode 执行的，当我们的 Markdown 正文中出现标题分级时，这份文件会被当成文章跳转，而站点左边栏将被隐去，我们希望 Links 子页能和 Categories 以及 About 一样达到在首页中切换窗格的效果，而非页面的“转换”。</p><ol start=3><li>我们需要修改站点配置文件（以 <code>config.yaml</code> 为例），添加如下内容：</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>menu</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>main</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    	</span><span class=c># Links 友链</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=l>links</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Links</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=l>/links</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span>-<span class=m>75</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>pre</span><span class=p>:</span><span class=w> </span><span class=l>link</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>需要注意的是，当你的配置文件中已存在 menu-main 时，你仅需要添加组内容，千万不要再将 menu-main 复写。当然，你也可以在 <code>links.md</code> 的前置参数中声明此配置。</p><p>修改 <code>weight</code> 权重调整此栏目于 Menu 中的排位；修改 <code>name</code> 以调整需要显示在网页上的信息；<code>pre</code> 表示此栏目搭配使用的图标，它默认存放在主题文件夹的 <code>./assets/icons/</code> 目录下。</p><ol start=4><li>此时我们已能在博客首页中点开 <code>Links</code> 子页面了。</li></ol><h3 id=创建友链>创建友链</h3><blockquote><p>本篇博客毕竟是「提高篇」这里就不多介绍 Shortcode 及其样式调度的原理了，感兴趣的朋友们可以自行检索，此处直接上源码！</p></blockquote><p>既然本方案基于 Markdown 和 Shortcode 实现，现在编写友链内容的 Markdown 文件有了，就差 Short code 短码调用了。</p><ol><li>站点根目录下新建/修改 <code>./layouts/shortcodes/friend.html</code>，添加如下内容：</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl>{{- $name := .Get &#34;name&#34; | default (.Get 0) -}}
+</span></span><span class=line><span class=cl>{{- $url := .Get &#34;url&#34; | default (.Get 1) -}}
+</span></span><span class=line><span class=cl>{{- $avatar := .Get &#34;avatar&#34; | default (.Get 2) -}}
+</span></span><span class=line><span class=cl>{{- $bio := .Get &#34;bio&#34; | default (.Get 3) -}}
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&#34;{{- $url -}}&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;{{- $name -}}&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;friend-link&#34;</span> <span class=na>target</span><span class=o>=</span><span class=s>&#34;_blank&#34;</span> <span class=na>rel</span><span class=o>=</span><span class=s>&#34;friend&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;friend-link-div&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;friend-link-avatar&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>img</span> <span class=na>src</span><span class=o>=</span><span class=s>{{</span> <span class=err>.</span><span class=na>Get</span> <span class=err>&#34;</span><span class=na>avatar</span><span class=err>&#34;</span> <span class=err>}}</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;friend-avatar&#34;</span> <span class=na>loading</span><span class=o>=</span><span class=s>&#34;lazy&#34;</span> <span class=na>alt</span><span class=o>=</span><span class=s>&#34;Avatar&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;friend-link-info&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>i</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;fa fa-link&#34;</span> <span class=na>aria-hidden</span><span class=o>=</span><span class=s>&#34;true&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>i</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>i</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;friend-name&#34;</span><span class=p>&gt;</span>{{ $name }}<span class=p>&lt;/</span><span class=nt>i</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>            <span class=p>&lt;</span><span class=nt>p</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;friend-bio&#34;</span><span class=p>&gt;</span>{{ $bio }}<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li>参数讲解</li></ol><div class=table-wrapper><table><thead><tr><th style=text-align:center>Name</th><th style=text-align:center>Value</th><th style=text-align:center>Description</th></tr></thead><tbody><tr><td style=text-align:center>name</td><td style=text-align:center>必填（Type: String）</td><td style=text-align:center>名称</td></tr><tr><td style=text-align:center>url</td><td style=text-align:center>必填（Type: String）</td><td style=text-align:center>站点链接</td></tr><tr><td style=text-align:center>avatar</td><td style=text-align:center>必填（Type: String）</td><td style=text-align:center>头像链接</td></tr><tr><td style=text-align:center>bio</td><td style=text-align:center>必填（Type: String）</td><td style=text-align:center>简介</td></tr></tbody></table></div><ol start=3><li><p>应用案例</p><p>在你刚创建的 <code>./content/page/links.md</code> 正文中输入如下格式内容用以「创建友链」：</p></li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-markdown data-lang=markdown><span class=line><span class=cl><span class=c>&lt;!-- 此处为了正常演示添加反斜杠防止转译。 --&gt;</span>
+</span></span><span class=line><span class=cl>{\{<span class=p>&lt;</span> <span class=nt>friend</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;BeiYu&#34;</span> <span class=na>url</span><span class=o>=</span><span class=s>&#34;https://www.bj-yan.top/&#34;</span> <span class=na>avatar</span><span class=o>=</span><span class=s>&#34;https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/44976445.png&#34;</span> <span class=na>bio</span><span class=o>=</span><span class=s>&#34;北屿小智障！&#34;</span> <span class=p>&gt;</span>}}
+</span></span><span class=line><span class=cl>{\{<span class=p>&lt;</span> <span class=nt>friend</span> <span class=na>name</span><span class=o>=</span><span class=s>&#34;BernieLBY&#34;</span> <span class=na>url</span><span class=o>=</span><span class=s>&#34;https://github.com/BernieLBY&#34;</span> <span class=na>avatar</span><span class=o>=</span><span class=s>&#34;https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/37860855.jpg&#34;</span> <span class=na>bio</span><span class=o>=</span><span class=s>&#34;刘院士&#34;</span> <span class=p>&gt;</span>}}
+</span></span></code></pre></td></tr></table></div></div><p>我们 <u>也许</u> 可以获得如下效果：</p><a href=https://www.bj-yan.top/ title=BeiYu class=friend-link target=_blank rel=friend><div class=friend-link-div><div class=friend-link-avatar><img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/44976445.png class=friend-avatar loading=lazy alt=Avatar></div><div class=friend-link-info><i class="fa fa-link" aria-hidden=true></i>
+<i class=friend-name>BeiYu</i><p class=friend-bio>北屿小智障！</p></div></div></a><a href=https://github.com/BernieLBY title=BernieLBY class=friend-link target=_blank rel=friend><div class=friend-link-div><div class=friend-link-avatar><img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/37860855.jpg class=friend-avatar loading=lazy alt=Avatar></div><div class=friend-link-info><i class="fa fa-link" aria-hidden=true></i>
+<i class=friend-name>BernieLBY</i><p class=friend-bio>刘院士</p></div></div></a><h3 id=修饰友链>修饰友链</h3><ol><li>站点根目录下新建/修改 <code>./assets/scss/style.css</code>，添加如下内容：</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=k>@import</span> <span class=s2>&#34;partials/layout/links.scss&#34;</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><ol start=2><li><p>站点根目录下新建/修改 <code>./assets/scss/partials/layout/links.scss</code>，添加如下内容：</p><details><summary>展开代码</summary><div class=markdown-inner><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=c1>// 头像边框颜色
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$avatar-border-color</span><span class=o>:</span> <span class=mh>#566a82</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nv>$avatar-border-color-dark</span><span class=o>:</span> <span class=mh>#C0C0C0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// style-card 背景色
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$friend-link-background-color</span><span class=o>:</span> <span class=mh>#51a8ca</span><span class=mi>10</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nv>$friend-link-background-color-dark</span><span class=o>:</span> <span class=mh>#696971</span><span class=mi>41</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 友链 name 原始色
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$friend-link-color</span><span class=o>:</span> <span class=mh>#11a1a2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nv>$friend-link-color-dark</span><span class=o>:</span> <span class=mh>#ffffff</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 友链 name 气泡响应对比色
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$friend-link-hover-color</span><span class=o>:</span> <span class=mh>#ea4e2f</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nv>$friend-link-hover-color-dark</span><span class=o>:</span> <span class=nf>rgb</span><span class=p>(</span><span class=mi>241</span><span class=o>,</span> <span class=mi>213</span><span class=o>,</span> <span class=mi>159</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// bio 简介上下文
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nv>$context-color</span><span class=o>:</span> <span class=mh>#404040</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nv>$context-color-dark</span><span class=o>:</span> <span class=mh>#c0c0c0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 友链头像及头像边框的样式
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nc>.friend-avatar</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>width</span><span class=o>:</span> <span class=mi>56</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>height</span><span class=o>:</span> <span class=mi>56</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>padding</span><span class=o>:</span> <span class=mi>2</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-top</span><span class=o>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-left</span><span class=o>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>border-radius</span><span class=o>:</span> <span class=mi>15</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>border</span><span class=o>:</span> <span class=mi>3</span><span class=mf>.6</span><span class=kt>px</span> <span class=ni>inset</span> <span class=nv>$avatar-border-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>[</span><span class=nt>data-scheme</span><span class=o>=</span><span class=nt>dark</span><span class=o>]</span> <span class=k>&amp;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>border</span><span class=o>:</span> <span class=mi>3</span><span class=mf>.6</span><span class=kt>px</span> <span class=ni>inset</span> <span class=nv>$avatar-border-color-dark</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nc>.friend-link-div</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// 实现卡片双栏排列效果
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>height</span><span class=o>:</span> <span class=ni>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-top</span><span class=o>:</span> <span class=ni>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-inline-start</span><span class=o>:</span> <span class=mi>4</span><span class=mf>.5</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>width</span><span class=o>:</span> <span class=mi>43</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>display</span><span class=o>:</span> <span class=ni>inline-block</span> <span class=k>!important</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 控制上下连续排列的卡片之间的行距
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>margin-bottom</span><span class=o>:</span> <span class=mi>11</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 卡片圆角
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>border-radius</span><span class=o>:</span> <span class=mi>7</span><span class=kt>px</span> <span class=mi>7</span><span class=kt>px</span> <span class=mi>7</span><span class=kt>px</span> <span class=mi>7</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 卡片阴影
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>-webkit-box-shadow</span><span class=o>:</span> <span class=mi>0</span><span class=kt>px</span> <span class=mi>14</span><span class=kt>px</span> <span class=mi>32</span><span class=kt>px</span> <span class=mi>0</span><span class=kt>px</span> <span class=nf>rgba</span><span class=p>(</span><span class=mi>231</span><span class=o>,</span> <span class=mi>224</span><span class=o>,</span> <span class=mi>224</span><span class=o>,</span> <span class=mi>0</span><span class=mf>.15</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=na>-moz-box-shadow</span><span class=o>:</span> <span class=mi>0</span><span class=kt>px</span> <span class=mi>14</span><span class=kt>px</span> <span class=mi>32</span><span class=kt>px</span> <span class=mi>0</span><span class=kt>px</span> <span class=nf>rgba</span><span class=p>(</span><span class=mi>0</span><span class=o>,</span> <span class=mi>0</span><span class=o>,</span> <span class=mi>0</span><span class=o>,</span> <span class=mi>0</span><span class=mf>.15</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=na>box-shadow</span><span class=o>:</span> <span class=mi>0</span><span class=mf>.7</span><span class=kt>px</span> <span class=mi>1</span><span class=kt>px</span> <span class=mi>6</span><span class=kt>px</span> <span class=mi>0</span><span class=kt>px</span> <span class=nf>rgba</span><span class=p>(</span><span class=mi>0</span><span class=o>,</span> <span class=mi>0</span><span class=o>,</span> <span class=mi>0</span><span class=o>,</span> <span class=mi>0</span><span class=mf>.16</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 卡片背景色
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>background</span><span class=o>:</span> <span class=nv>$friend-link-background-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>[</span><span class=nt>data-scheme</span><span class=o>=</span><span class=nt>dark</span><span class=o>]</span> <span class=k>&amp;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>background</span><span class=o>:</span> <span class=nv>$friend-link-background-color-dark</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// 卡牌气泡响应动画
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>-webkit-transition</span><span class=o>:</span> <span class=ni>transform</span> <span class=mi>0</span><span class=mf>.4</span><span class=kt>s</span> <span class=ni>ease</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>-moz-transition</span><span class=o>:</span> <span class=ni>transform</span> <span class=mi>0</span><span class=mf>.4</span><span class=kt>s</span> <span class=ni>ease</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>-o-transition</span><span class=o>:</span> <span class=ni>transform</span> <span class=mi>0</span><span class=mf>.4</span><span class=kt>s</span> <span class=ni>ease</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>transition</span><span class=o>:</span> <span class=ni>transform</span> <span class=mi>0</span><span class=mf>.15</span><span class=kt>s</span> <span class=ni>ease</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>&amp;</span><span class=nd>:hover</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>transform</span><span class=o>:</span> <span class=nf>scale</span><span class=p>(</span><span class=mi>1</span><span class=mf>.03</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nc>.friend-link-avatar</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>width</span><span class=o>:</span> <span class=mi>92</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>float</span><span class=o>:</span> <span class=ni>left</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-right</span><span class=o>:</span> <span class=mi>2</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// name 特效样式， hover 气泡效果,友链 name 变色
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nc>.friend-link-info</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-top</span><span class=o>:</span> <span class=mi>13</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-right</span><span class=o>:</span> <span class=mi>18</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>color</span><span class=o>:</span> <span class=nv>$friend-link-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>[</span><span class=nt>data-scheme</span><span class=o>=</span><span class=nt>dark</span><span class=o>]</span> <span class=k>&amp;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>color</span><span class=o>:</span> <span class=nv>$friend-link-color-dark</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>&amp;</span><span class=nd>:hover</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>color</span><span class=o>:</span> <span class=nv>$friend-link-hover-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=o>[</span><span class=nt>data-scheme</span><span class=o>=</span><span class=nt>dark</span><span class=o>]</span> <span class=k>&amp;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=na>color</span><span class=o>:</span> <span class=nv>$friend-link-hover-color-dark</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// name 文字样式
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nc>.friend-name</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>text-overflow</span><span class=o>:</span> <span class=ni>ellipsis</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>overflow</span><span class=o>:</span> <span class=ni>hidden</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>white-space</span><span class=o>:</span> <span class=ni>nowrap</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>font-style</span><span class=o>:</span> <span class=ni>normal</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>font-family</span><span class=o>:</span> <span class=s1>&#39;Comic Sans MS&#39;</span><span class=o>,</span> <span class=ni>cursive</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>font-size</span><span class=o>:</span> <span class=mi>16</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// bio 文字样式
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nc>.friend-bio</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=na>text-overflow</span><span class=o>:</span> <span class=ni>ellipsis</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>overflow</span><span class=o>:</span> <span class=ni>hidden</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>white-space</span><span class=o>:</span> <span class=ni>nowrap</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>margin-top</span><span class=o>:</span> <span class=ni>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// font: 12px/1 Tahoma,Helvetica,Arial,&#34;\5b8b\4f53&#34;,sans-serif;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=na>font-family</span><span class=o>:</span> <span class=n>Helvetica</span><span class=o>,</span> <span class=s1>&#39;Hiragino Sans GB&#39;</span><span class=o>,</span> <span class=s1>&#39;Microsoft Yahei&#39;</span><span class=o>,</span> <span class=s1>&#39;微软雅黑&#39;</span><span class=o>,</span> <span class=n>Arial</span><span class=o>,</span> <span class=ni>sans-serif</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=na>font-size</span><span class=o>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=na>color</span><span class=o>:</span> <span class=nv>$context-color</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=o>[</span><span class=nt>data-scheme</span><span class=o>=</span><span class=nt>dark</span><span class=o>]</span> <span class=k>&amp;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>color</span><span class=o>:</span> <span class=nv>$context-color-dark</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 响应式页面，允许根据不同的尺寸调整样式
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>@media</span> <span class=ni>screen</span> <span class=ow>and</span> <span class=p>(</span><span class=na>max-width</span><span class=o>:</span> <span class=mi>720</span><span class=kt>px</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nc>.friend-link-div</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>width</span><span class=o>:</span> <span class=mi>92</span><span class=kt>%</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>margin-right</span><span class=o>:</span> <span class=ni>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nc>.friend-bio</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>margin</span><span class=o>:</span> <span class=ni>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>align-content</span><span class=o>:</span> <span class=ni>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>justify-content</span><span class=o>:</span> <span class=ni>left</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nc>.friend-link-avatar</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>width</span><span class=o>:</span> <span class=mi>84</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>margin</span><span class=o>:</span> <span class=ni>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// .friend-link-info {
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//     height: 100%;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//     margin: auto;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//     display: flex;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//     align-items: center;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>//     justify-content: left;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=c1>// }
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>    <span class=nc>.friend-name</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=na>font-size</span><span class=o>:</span> <span class=mi>14</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>font-style</span><span class=o>:</span> <span class=ni>normal</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>        <span class=na>font-family</span><span class=o>:</span> <span class=s1>&#39;Microsoft Yahei&#39;</span><span class=o>,</span> <span class=s1>&#39;微软雅黑&#39;</span><span class=o>,</span> <span class=n>Arial</span><span class=o>,</span> <span class=ni>sans-serif</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></div></details></li><li><p>访问本站 Links 友链子页，查看盛况，并根据自己的喜好适当微调样式或模板代码。</p></li></ol><h2 id=loading>Loading&mldr;</h2></section><footer class=article-footer><section class=article-tags><a href=/tags/hugo/>Hugo</a>
+<a href=/tags/github-pages/>Github Pages</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><section class=article-views><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2"/><path d="M12 19c-4 0-7.333-2.333-10-7 2.667-4.667 6-7 10-7s7.333 2.333 10 7c-.42.736-.858 1.414-1.311 2.033"/><path d="M15 19l2 2 4-4"/></svg><span id=busuanzi_value_page_pv><i class="fa fa-spinner fa-spin"></i></span><span>&nbsp;&nbsp;views</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title></h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/hugo-shortcode/><div class=article-image><img src=/p/hugo-shortcode/3174729.ebc0ccce4bfbcbeed3518d3c78dbdd33_hu6fca887f85cc6d9a8c86aeb13665d90b_125366_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『 Hugo 』Shortcode" data-hash="md5-68DMzkv7y+7TUY08eNvdMw=="></div><div class=article-details><h2 class=article-title>『 Hugo 』Shortcode</h2></div></a></article><article class=has-image><a href=/p/blog-comments-system/><div class=article-image><img src=/p/blog-comments-system/648440.6d57d0005f3a4da5585891bfedd3e703_hu955718f9ea4266afcc67e5e6a764f88f_201168_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『 Hugo 』Blog Comments System" data-key=blog-comments-system data-hash="md5-bVfQAF86TaVYWJG/7dPnAw=="></div><div class=article-details><h2 class=article-title>『 Hugo 』Blog Comments System</h2></div></a></article><article class=has-image><a href=/p/typlog-atlas/><div class=article-image><img src=/p/typlog-atlas/topic.ba3827d8b9ae2d9f769ba6f3a9410edb_hu0b47b138f493b3f6e0d84b750117d30b_2670061_250x150_fill_box_smart1_3.png width=250 height=150 loading=lazy alt="Featured image of post 『 Hugo 』Typlog Atlas" data-key=typlog-atlas data-hash="md5-ujgn2LmuLZ92m6bzqUEO2w=="></div><div class=article-details><h2 class=article-title>『 Hugo 』Typlog Atlas</h2></div></a></article><article class=has-image><a href=/p/hello-hugo/><div class=article-image><img src=/p/hello-hugo/2511065.c7bff0845cf145339ca52f0dc679c995_hu542c575640116087aad91130e63312e2_586804_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『 Hugo 』Hello Hugo" data-key=hello-hugo data-hash="md5-x7/whFzxRTOcpS8NxnnJlQ=="></div><div class=article-details><h2 class=article-title>『 Hugo 』Hello Hugo</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=qin2dim/blog-comments issue-term=pathname crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2022 Echosec @QIN2DIM</section><section class=powerby>You will to enjoy grander sight / By climing to a greater height.<br>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#引言>引言</a></li><li><a href=#preview>Preview</a></li><li><a href=#仿-vue-风格魔改>仿 Vue 风格魔改</a><ol><li><a href=#修改选中目标样式>修改「选中目标」样式</a></li><li><a href=#修改正文字体样式>修改「正文字体」样式</a></li><li><a href=#修改行内代码样式-span-idcode-colorspan>修改「行内代码」样式 <span id=code-color></span></a></li><li><a href=#修改键盘标签样式>修改「键盘标签」样式</a></li><li><a href=#修改正文链接样式>修改「正文链接」样式</a></li></ol></li><li><a href=#自定义友链界面>自定义友链界面</a><ol><li><a href=#遇见友链>遇见友链</a></li><li><a href=#创建友链>创建友链</a></li><li><a href=#修饰友链>修饰友链</a></li></ol></li><li><a href=#loading>Loading&mldr;</a></li></ol></nav></div></section></aside></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

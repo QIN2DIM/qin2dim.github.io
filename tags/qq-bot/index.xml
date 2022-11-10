@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>QQ Bot on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/qq-bot/</link><description>Recent content in QQ Bot on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 24 Feb 2021 19:27:24 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/qq-bot/index.xml" rel="self" type="application/rss+xml"/><item><title>『 Python 』CampusDailyAutoSign 今日校园体温检测自动上报系统</title><link>https://blog.echosec.top/p/python-campusdailyautosign/</link><pubDate>Wed, 24 Feb 2021 19:27:24 +0800</pubDate><guid>https://blog.echosec.top/p/python-campusdailyautosign/</guid><description>&lt;img src="https://blog.echosec.top/p/python-campusdailyautosign/old-books.jpg" alt="Featured image of post 『 Python 』CampusDailyAutoSign 今日校园体温检测自动上报系统" />&lt;h2 id="项目简介-">项目简介 🐱‍🏍&lt;/h2>
+&lt;blockquote>
+&lt;ol>
+&lt;li>本项目仅为 &lt;strong>海南大学&lt;/strong> 学子提供服务；&lt;/li>
+&lt;li>本项目 &lt;strong>开源免费&lt;/strong> ，禁止任何人使用此项目及其分支提供任何形式的收费代理服务；&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://blog.echosec.top/p/python-campusdailyautosign/MbkFBGQ3Ohj5X6p.png"
+width="2186"
+height="1162"
+srcset="https://blog.echosec.top/p/python-campusdailyautosign/MbkFBGQ3Ohj5X6p_hub748e3b082325a324d341f92c38137fd_165290_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/python-campusdailyautosign/MbkFBGQ3Ohj5X6p_hub748e3b082325a324d341f92c38137fd_165290_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="188"
+data-flex-basis="451px"
+>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.yuque.com/docs/share/53c62de5-91bf-4f96-9330-fae53c6a4f0d?" title="程序流图1"
+target="_blank" rel="noopener"
+>程序流图 1&lt;/a> &lt;strong>||&lt;/strong> &lt;a class="link" href="https://www.yuque.com/docs/share/94dac928-a89c-47d3-9273-8bd049152b6e?" title="程序流图2"
+target="_blank" rel="noopener"
+>程序流图 2&lt;/a> &lt;strong>||&lt;/strong> &lt;a class="link" href="https://www.yuque.com/docs/share/b0634038-5ee5-4632-80c4-0564e7795489?" title="demo演示"
+target="_blank" rel="noopener"
+>demo 演示&lt;/a>&lt;/li>
+&lt;li>本项目使用 &lt;a class="link" href="https://github.com/beiyuouo/hnu-temp-report-bot" target="_blank" rel="noopener"
+>hnu-temp-report-bot&lt;/a> 跳板机实现人机交互，QQ 群内对 &lt;strong>bot(851722457)&lt;/strong> 使用&lt;code>关键字指令 &lt;/code>+ &lt;code>功能指令&lt;/code> 即可实现相关需求；&lt;/li>
+&lt;/ul>
+&lt;h2 id="快速上手-">快速上手 🛴&lt;/h2>
+&lt;p>&lt;strong>【方案一】用户&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>在群内拉入 QQ 机器人 &lt;strong>bot(851722457)&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>根据 &lt;a class="link" href="https://github.com/QIN2DIM/CampusDailyAutoSign/blob/main/docs/subdirectory/%e6%8a%80%e6%9c%af%e6%96%87%e6%a1%a3%28demo%29.md" title="技术文档"
+target="_blank" rel="noopener"
+>技术文档&lt;/a> 中的引导完成定时任务的增删改查或立即执行签到操作。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>【方案二】开发者&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Clone 项目:champagne:&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>根据 &lt;a class="link" href="https://github.com/QIN2DIM/CampusDailyAutoSign/blob/main/docs/subdirectory/%e6%8a%80%e6%9c%af%e6%96%87%e6%a1%a3%28demo%29.md" title="技术文档"
+target="_blank" rel="noopener"
+>技术文档&lt;/a> 合理配置启动参数并通过脚手架调试或部署项目。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="食用指南-">食用指南 🤷‍♂️&lt;/h2>
+&lt;blockquote>
+&lt;p>详见本项目 &lt;a class="link" href="https://github.com/QIN2DIM/CampusDailyAutoSign" target="_blank" rel="noopener"
+>GitHub Repository&lt;/a>，感谢支持。&lt;/p>
+&lt;/blockquote></description></item></channel></rss>

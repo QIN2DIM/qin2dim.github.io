@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tmux on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/tmux/</link><description>Recent content in Tmux on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Aug 2021 01:44:51 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/tmux/index.xml" rel="self" type="application/rss+xml"/><item><title>『 Tmux 』在脚本中运行 Tmux</title><link>https://blog.echosec.top/p/tmux-shell/</link><pubDate>Fri, 06 Aug 2021 01:44:51 +0800</pubDate><guid>https://blog.echosec.top/p/tmux-shell/</guid><description>&lt;img src="https://blog.echosec.top/p/tmux-shell/coffee-g2e.jpg" alt="Featured image of post 『 Tmux 』在脚本中运行 Tmux" />&lt;h2 id="问题描述">问题描述&lt;/h2>
+&lt;p>在 shell 脚本中编写了含有 &lt;code>tmux&lt;/code> 的指令，希望规定的指令能在独立的某个会话中运行，防止特殊任务阻塞脚本的运行。然而在脚本执行!到“开启 tmux 窗口”时，后续指令并不会按照原意灌入指定的窗格，而是弥散到原面板或 tmux 窗口中。&lt;/p>
+&lt;h2 id="解决思路">解决思路&lt;/h2>
+&lt;h3 id="已验证的不可靠思路">已验证的不可靠思路&lt;/h3>
+&lt;p>认为错误原因是窗口的创建“来不及加载”导致后续打算在该窗口中运行的指令乱飞，故使用 &lt;code>sleep&lt;/code> 穿插在代码中尝试解决问题。实际上，这种思路是不可靠的，因为运行在脚本中的tmux命令会在指令尾默认加上一条“分离指令 (detach)”，这会导致 tmux 无法理解紧接着执行的原生 sh 脚本指令 (&lt;code>no client found&lt;/code>)[3,4]。换言之，tmux 不知道后续的指令是否需要在当前的窗口中运行，包括上文说到的 &lt;code>sleep&lt;/code> 指令。&lt;/p>
+&lt;h3 id="可靠的解决方案">可靠的解决方案&lt;/h3>
+&lt;p>引用tmux中的&lt;code>send&lt;/code>参数按照规定的写法指定会话，指定窗口（窗格）执行指定的命令实现“指哪打哪”。参考代码如下所示：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># -*- coding: utf-8 -*-&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Time : 2021/8/5 23:40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Author : QIN2DIM&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Github : https://github.com/QIN2DIM&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Description: Tmux 脚本编程&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">systemctl_create_v2raycs&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 创建一个后台运行的名为v2raycs的session会话，其默认窗口名为system&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># [-s sessionName] [-n windowName] [-d daemon]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">system&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;tmux new -s v2raycs -n system -d&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 水平切割 v2raycs:system 使窗口分为上下屏（窗格），光标随splicer切换至下分屏&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 使用标识符指定后台运行的操作目标 [-t targetPane]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># os.system(f&amp;#34;tmux split-window -t &amp;#39;v2raycs:system&amp;#39;&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 向指定会话的指定窗格发出指令&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 使用标识符指定后台运行的操作目标 [-t targetPane]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">system&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;tmux send -t &amp;#39;v2raycs:system&amp;#39; &amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&amp;#39;cd /qinse/V2RaycSpider1325/;python main.py deploy&amp;#39; Enter&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">systemctl_create_bot&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">system&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;tmux new -s bot -n core -d&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">system&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;tmux new -s go-cqhttp -n core -d&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">system&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;tmux send -t &amp;#39;bot:core&amp;#39; &amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&amp;#39;cd /qinse/cqbot/bbot;python bot.py&amp;#39; Enter&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">system&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;tmux send -t &amp;#39;go-cqhttp:core&amp;#39; &amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;&amp;#39;cd /qinse/cqbot/go-cqhttp;./go-cqhttp ./device.json&amp;#39; Enter&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">systemctl_create_v2raycs&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">systemctl_create_bot&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;p>[1] &lt;a class="link" href="http://louiszhai.github.io/2017/09/30/tmux/" target="_blank" rel="noopener"
+>Louis Tumux使用手册&lt;/a>&lt;/p>
+&lt;p>[2] &lt;a class="link" href="https://www.kancloud.cn/kancloud/tmux" target="_blank" rel="noopener"
+>Tmux: Productive Mouse-Free Development 中文版&lt;/a>&lt;/p>
+&lt;p>[3] &lt;a class="link" href="https://github.com/tmux/tmux/wiki/FAQ#i-found-a-bug-in-tmux-what-do-i-do" target="_blank" rel="noopener"
+>FAQ · tmux/tmux Wiki&lt;/a>&lt;/p>
+&lt;p>[4] &lt;a class="link" href="https://stackoverflow.com/questions/31902929/how-to-write-a-shell-script-that-starts-tmux-session-and-then-runs-a-ruby-scrip" target="_blank" rel="noopener"
+>bash - How to write a shell script that starts tmux session, and then runs a ruby script - Stack Overflow&lt;/a>&lt;/p></description></item></channel></rss>

@@ -1,0 +1,517 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="词频图分析营销号文案"><title>『 Python 』jieba+wordcloud 词频可视化</title><link rel=canonical href=https://blog.echosec.top/p/python-jieba-wrodcloud/><link rel=stylesheet href=/scss/style.min.d7c0e8a0988b0dadf5ef703eba9f16edb306fb8f0883e51c33c60133a202c276.css><meta property="og:title" content="『 Python 』jieba+wordcloud 词频可视化"><meta property="og:description" content="词频图分析营销号文案"><meta property="og:url" content="https://blog.echosec.top/p/python-jieba-wrodcloud/"><meta property="og:site_name" content="Echosec @QIN2DIM"><meta property="og:type" content="article"><meta property="article:section" content="Post"><meta property="article:tag" content="Python"><meta property="article:published_time" content="2020-02-29T01:20:33+08:00"><meta property="article:modified_time" content="2020-02-29T01:20:33+08:00"><meta property="og:image" content="https://blog.echosec.top/p/python-jieba-wrodcloud/wordcloud.jpeg"><meta name=twitter:site content="@Alkaid20860233"><meta name=twitter:creator content="@Alkaid20860233"><meta name=twitter:title content="『 Python 』jieba+wordcloud 词频可视化"><meta name=twitter:description content="词频图分析营销号文案"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://blog.echosec.top/p/python-jieba-wrodcloud/wordcloud.jpeg"><link rel="shortcut icon" href=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@main/avatars/watercolour-4817390__480.jpg><script async src="https://www.googletagmanager.com/gtag/js?id=G-9XVBFK3RRV"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-9XVBFK3RRV",{anonymize_ip:!1})}</script><link rel=stylesheet href=//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"light")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/><img src=/img/62018067_hu01b1850304f2a433574ed2470395348a_321911_300x0_resize_box_3.png width=300 height=300 class=site-logo loading=lazy alt=Avatar></a>
+<span class=emoji>🎯</span></figure><div class=site-meta><h1 class=site-name><a href=/>Echosec @QIN2DIM</a></h1><h2 class=site-description>A Creator from China.</h2></div></header><ol class=social-menu><li><a href=https://github.com/QIN2DIM target=_blank title=GitHub><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/Alkaid20860233 target=_blank title=Twitter><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li><li><a href=https://nav.echosec.top target=_blank title=Navigator><!doctype html><svg t="1635028836276" class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" p-id="9207" width="128" height="128" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style/></defs><path d="M782.802 129.086c3.079.0 5.884 2.805 5.884 5.884v744.58L561.591 601.177 512 540.387l-49.591 60.789-227.095 278.375v-744.58c0-3.08 2.805-5.884 5.884-5.884h541.604m0-64.001H241.198c-38.436.0-69.884 31.448-69.884 69.884v768.729c.276 33.712 27.781 55.214 56.065 55.214 15.368.0 30.969-6.353 42.548-20.546L512 641.633 753.023 937.08c11.68 14.317 27.793 20.773 43.661 20.773 28.115.0 55.458-20.27 55.993-53.003.006-.383.009-.767.009-1.151V134.971c0-38.437-31.447-69.885-69.884-69.885z" p-id="9208" fill="#bababa"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg><span>Home</span></a></li><li><a href=/links><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg><span>Links</span></a></li><li><a href=/archives><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg><span>Archives</span></a></li><li><a href=/search><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg><span>Search</span></a></li><div class=menu-bottom-section><li id=dark-mode-toggle><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg><span>暗色模式</span></li></div></ol></aside><main class="main full-width"><article class="has-image main-article"><header class=article-header><div class=article-image><a href=/p/python-jieba-wrodcloud/><img src=/p/python-jieba-wrodcloud/wordcloud_hudfe8075ab25e2dc7353e929b52673e96_374013_800x0_resize_q75_box.jpeg srcset="/p/python-jieba-wrodcloud/wordcloud_hudfe8075ab25e2dc7353e929b52673e96_374013_800x0_resize_q75_box.jpeg 800w, /p/python-jieba-wrodcloud/wordcloud_hudfe8075ab25e2dc7353e929b52673e96_374013_1600x0_resize_q75_box.jpeg 1600w" width=800 height=450 loading=lazy alt="Featured image of post 『 Python 』jieba+wordcloud 词频可视化"></a></div><div class=article-details><header class=article-category><a href=/categories/software-engineering/ style=background-color:#cfb887;color:#fff>Software Engineering</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/p/python-jieba-wrodcloud/>『 Python 』jieba+wordcloud 词频可视化</a></h2><h3 class=article-subtitle>词频图分析营销号文案</h3></div><footer class=article-time><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg><time class=article-time--published>2020-02-29</time></div><div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg><time class=article-time--reading>阅读时长: 8 分钟</time></div></footer></div></header><section class=article-content><h2 id=案例实操>案例实操</h2><h3 id=准备资源>准备资源</h3><ol><li><p>导入所需库</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>wordcloud</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>jieba</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>准备好源文件，屏蔽词文件，备用字体</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>font_path</span> <span class=o>=</span> <span class=s1>&#39;C:\Windows\Fonts\时尚中黑简体.ttf&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>file_path</span> <span class=o>=</span> <span class=s1>&#39;新建文本文档.txt&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>fake_path</span> <span class=o>=</span> <span class=s1>&#39;stop_key.txt&#39;</span>
+</span></span></code></pre></td></tr></table></div></div></li><li><p>自定义变量</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>alist</span> <span class=o>=</span> <span class=p>[]</span>  <span class=c1>#</span>
+</span></span><span class=line><span class=cl><span class=n>btext</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span>  <span class=c1>#</span>
+</span></span><span class=line><span class=cl><span class=n>fake_set</span> <span class=o>=</span> <span class=p>{</span><span class=mi>1</span><span class=p>}</span>  <span class=c1>#第三方屏蔽列集合</span>
+</span></span><span class=line><span class=cl><span class=c1>#根据文档特殊性而设计的自定义屏蔽词</span>
+</span></span><span class=line><span class=cl><span class=n>stop_words</span> <span class=o>=</span> <span class=p>{</span><span class=s1>&#39;我们&#39;</span><span class=p>,</span><span class=s1>&#39;这个&#39;</span><span class=p>,</span><span class=s1>&#39;一个&#39;</span><span class=p>,</span><span class=s1>&#39;可以&#39;</span><span class=p>,</span><span class=s1>&#39;下来&#39;</span><span class=p>,</span><span class=s1>&#39;这样&#39;</span><span class=p>,</span><span class=s1>&#39;就是&#39;</span><span class=p>,</span><span class=s1>&#39;用来&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>              <span class=s1>&#39;非常&#39;</span><span class=p>,</span><span class=s1>&#39;然后&#39;</span><span class=p>,</span><span class=s1>&#39;这里&#39;</span><span class=p>,</span><span class=s1>&#39;非常&#39;</span><span class=p>,</span><span class=s1>&#39;大家&#39;</span><span class=p>,</span><span class=s1>&#39;时候&#39;</span><span class=p>,</span><span class=s1>&#39;上面&#39;</span><span class=p>,</span><span class=s1>&#39;里面&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>              <span class=s1>&#39;放在&#39;</span><span class=p>,</span><span class=s1>&#39;首先&#39;</span><span class=p>,</span><span class=s1>&#39;准备&#39;</span><span class=p>,</span><span class=s1>&#39;出来&#39;</span><span class=p>,</span><span class=s1>&#39;很多&#39;</span><span class=p>,</span><span class=s1>&#39;其实&#39;</span><span class=p>,</span><span class=s1>&#39;一些&#39;</span><span class=p>,</span><span class=s1>&#39;拿出&#39;</span><span class=p>,</span><span class=s1>&#39;还有&#39;</span><span class=p>,</span><span class=s1>&#39;如果&#39;</span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div></li></ol><h3 id=读取数据集>读取数据集</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#读入源文档</span>
+</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=n>file_path</span><span class=p>,</span><span class=s1>&#39;r&#39;</span><span class=p>,</span><span class=n>encoding</span><span class=o>=</span><span class=s1>&#39;GBK&#39;</span><span class=p>,</span><span class=n>errors</span><span class=o>=</span><span class=s1>&#39;ignore&#39;</span><span class=p>)</span><span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>text</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#type（text）:str</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#ignore errors</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#读入屏蔽词</span>
+</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span> <span class=p>(</span><span class=n>fake_path</span><span class=p>,</span><span class=s1>&#39;r&#39;</span><span class=p>,</span><span class=n>encoding</span><span class=o>=</span><span class=s1>&#39;utf-8&#39;</span><span class=p>)</span><span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>fake_data</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>readlines</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#屏蔽词文件中，每一个词汇独占一行，因此逐行读取</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#type（fake_data） is list. 这个列表里的每个元素都是str</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>fake_data</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#遍历屏蔽词列表，每个i都是一个屏蔽词</span>
+</span></span><span class=line><span class=cl>        <span class=n>fake_set</span><span class=o>.</span><span class=n>add</span><span class=p>(</span><span class=n>i</span><span class=o>.</span><span class=n>strip</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#将屏蔽词加入集合，集合具有无序独立性，会自动排除重复词</span>
+</span></span><span class=line><span class=cl>        
+</span></span><span class=line><span class=cl><span class=c1>#扩充屏蔽词库</span>
+</span></span><span class=line><span class=cl><span class=n>fake_set</span> <span class=o>=</span> <span class=n>fake_set</span><span class=o>|</span><span class=n>stop_words</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=分词>分词</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1>#alist装填分词句</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>jieba</span><span class=o>.</span><span class=n>cut</span><span class=p>(</span><span class=n>text</span><span class=p>,</span><span class=n>cut_all</span><span class=o>=</span><span class=kc>False</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#text是源文档</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#切分采用精确模式</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#jieba.cut（）返回一个generate对象，使用for语句可以遍历此对象</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#每一个i都是一个str</span>
+</span></span><span class=line><span class=cl>    <span class=n>alist</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>i</span><span class=o>.</span><span class=n>strip</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#循环结束后，alist列表里的若干个元素，都是通过jieba分好的词</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl><span class=c1># 剔除屏蔽词</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>word</span> <span class=ow>in</span> <span class=n>alist</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>	<span class=c1>#alist是一个装填分词的列表，里面的每一个元素都来自源文档</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>word</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>fake_set</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#如果遍历到的词汇不是屏蔽词，那么就把这词接入btext</span>
+</span></span><span class=line><span class=cl>        <span class=n>btext</span> <span class=o>+=</span> <span class=n>word</span>
+</span></span><span class=line><span class=cl>        <span class=n>btext</span> <span class=o>+=</span><span class=s1>&#39;/&#39;</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#每个分词之间用/断开</span>
+</span></span><span class=line><span class=cl>        <span class=c1>#btext变量是一个较长的且已过滤屏蔽词的字符串str，每个分词之间由&#39;/&#39;断开</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=生成词云>生成词云</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 实例化</span>
+</span></span><span class=line><span class=cl><span class=n>wc</span> <span class=o>=</span> <span class=n>wordcloud</span><span class=o>.</span><span class=n>WordCloud</span><span class=p>(</span><span class=n>font_path</span><span class=o>=</span><span class=n>font_path</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                         <span class=n>width</span><span class=o>=</span><span class=mi>1920</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                         <span class=n>height</span><span class=o>=</span><span class=mi>1080</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                         <span class=n>background_color</span><span class=o>=</span><span class=s2>&#34;white&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 传入 str 对象 </span>
+</span></span><span class=line><span class=cl><span class=c1># 此处给 generate 传入的参数 btext 已手动除杂，无需在 wordcloud 的实例化参数中指明 stopwords</span>
+</span></span><span class=line><span class=cl><span class=n>wc</span><span class=o>.</span><span class=n>generate</span><span class=p>(</span><span class=n>btext</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>file</span> <span class=o>=</span> <span class=n>wc</span><span class=o>.</span><span class=n>to_file</span><span class=p>(</span><span class=s1>&#39;11111.jpg&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>image</span> <span class=o>=</span> <span class=n>wc</span><span class=o>.</span><span class=n>to_image</span><span class=p>(</span><span class=err>）</span>
+</span></span><span class=line><span class=cl><span class=n>image</span><span class=o>.</span><span class=n>show</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=demo>Demo</h3><p>手动爬取 15 个沙雕营销号生活妙用视频文案，利用 jieba + wordcloud 统计高频词。</p><p><img src=/p/python-jieba-wrodcloud/wordcloud.jpeg width=1920 height=1080 srcset="/p/python-jieba-wrodcloud/wordcloud_hudfe8075ab25e2dc7353e929b52673e96_374013_480x0_resize_q75_box.jpeg 480w, /p/python-jieba-wrodcloud/wordcloud_hudfe8075ab25e2dc7353e929b52673e96_374013_1024x0_resize_q75_box.jpeg 1024w" loading=lazy class=gallery-image data-flex-grow=177 data-flex-basis=426px></p><h2 id=问题总结>问题总结</h2><h3 id=文件读写统一编码格式>文件读写统一编码格式</h3><p><strong>错误案例</strong>：读取多个编码格式不同的文件时，使用了统一的解码格式，导致文本乱码或屏蔽失效。</p><p>例如：屏蔽词文件 <code>stop_key.txt</code> 编码为 GBK，源文件 <code>raw_text.txt</code> 编码为 <code>UTF-8</code>。一开始写函数并没有注意到这个细节，而后整个程序的读文件操作都通过一个 <code>read_file() function</code> 进行，导致整个程序陷入了无限报错之中，拆东墙补西墙。</p><p><strong>解决方案</strong>：给 <code>read_file() function</code> 自定义参数 <code>mode</code>，进而针对特殊编码的文件单独控制 encoding。</p><ul><li>ps：此处分别用两个 <code>open</code> 强调文件编码不同</li><li>ps：在我没意识到文件编码异常之前，一直在调整统一的 encoding 试错，从 UTF-8 到 GBK 再到 GB18030，显然都不能解决问题。如果通过设置 <code>errors=ignore</code> 强行忽视非法编码，要么导致源文文本乱码，要么就会在词库过滤时发现 stop_words 集合并没有起作用（原因一致）。由此引发的 Error 信息如下。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>UnicodeDecodeError: <span class=s1>&#39;gbk&#39;</span> codec can<span class=s1>&#39;t decode byte 0x80 in position 91: illegal multibyte sequence
+</span></span></span><span class=line><span class=cl><span class=s1>UnicodeDecodeError: &#39;</span>utf-8<span class=s1>&#39; codec can&#39;</span>t decode byte 0xbd in position    0: invalid start byteshell
+</span></span></code></pre></td></tr></table></div></div><p><strong>补充</strong>：如果数据集从创建到调用都是自己通过python函数操作，往往不会出现编码格式错乱的问题（无非就 GBK 或 UTF-8 ）。出现问题很可能是数据集被创建后自己 手动 打开 修改 保存 了源文档！这时候保存的文档编码格式可能会分裂成 UTF-8，GBK，GB18030，Unicode，ANSI，GB2312，BIG5 等等常见的中文格式编码，这要看编辑器的默认转录格式</p><h3 id=wordcloud易错参数解释>wordcloud易错参数解释</h3><ul><li><p>参数<strong>stopwords</strong>接受的文本格式是<strong>set</strong></p></li><li><p>函数 <strong>generate</strong>接受的文本格式是<strong>str</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># 词云实例化</span>
+</span></span><span class=line><span class=cl><span class=n>wc</span> <span class=o>=</span> <span class=n>wordcloud</span><span class=o>.</span><span class=n>WordCloud</span><span class=p>(</span><span class=n>stopwords</span><span class=o>=</span><span class=n>stop_words</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>stop_words</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=c1># &lt;class &#39;set&#39;&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 词云生成</span>
+</span></span><span class=line><span class=cl><span class=n>wc</span><span class=o>.</span><span class=n>generate</span><span class=p>(</span><span class=n>btext</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>type</span><span class=p>(</span><span class=n>btext</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=c1># &lt;class &#39;str&#39;&gt;</span>
+</span></span></code></pre></td></tr></table></div></div></li></ul><h2 id=实验附件>实验附件</h2><p>这里呈上沙雕营销号文案</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;接着利用剪刀剪下来一个正方形纸片。
+</span></span></span><span class=line><span class=cl><span class=s2>利用我们的美工刀在上面裁剪一个小孔。
+</span></span></span><span class=line><span class=cl><span class=s2>小孔裁剪好了。
+</span></span></span><span class=line><span class=cl><span class=s2>大家肯定非常好奇。
+</span></span></span><span class=line><span class=cl><span class=s2>这个是用来做什么的？
+</span></span></span><span class=line><span class=cl><span class=s2>其实这个就是我们用来阅读的一个小神器。
+</span></span></span><span class=line><span class=cl><span class=s2>我们在阅读的时候。
+</span></span></span><span class=line><span class=cl><span class=s2>可以将它放在我们的书上。
+</span></span></span><span class=line><span class=cl><span class=s2>然后这样逐字阅读。
+</span></span></span><span class=line><span class=cl><span class=s2>这个方法就是采用了我们小孔成像的原理。
+</span></span></span><span class=line><span class=cl><span class=s2>这样我们阅读的时候就可以方便很多。
+</span></span></span><span class=line><span class=cl><span class=s2>而且看得很清楚。
+</span></span></span><span class=line><span class=cl><span class=s2>我们可以先把油桶的提手取下来
+</span></span></span><span class=line><span class=cl><span class=s2>其实取下提手也是有小方法的
+</span></span></span><span class=line><span class=cl><span class=s2>我们只要把这一圈齿片一片一片的往外掰
+</span></span></span><span class=line><span class=cl><span class=s2>掰完以后，我们就可以把它取下来了
+</span></span></span><span class=line><span class=cl><span class=s2>接下来我们看看它的妙用吧
+</span></span></span><span class=line><span class=cl><span class=s2>家里衣服太多衣柜挂不下
+</span></span></span><span class=line><span class=cl><span class=s2>我们只需把油桶上的塑料把手清洗干净
+</span></span></span><span class=line><span class=cl><span class=s2>然后套在衣架上
+</span></span></span><span class=line><span class=cl><span class=s2>这时我们将下一件衣服也挂在上面
+</span></span></span><span class=line><span class=cl><span class=s2>这样就能为我们节省很多空间
+</span></span></span><span class=line><span class=cl><span class=s2>我们拿出家里的吹风机
+</span></span></span><span class=line><span class=cl><span class=s2>开启冷风档
+</span></span></span><span class=line><span class=cl><span class=s2>大家看这个时候它散发出来的一股吸附力
+</span></span></span><span class=line><span class=cl><span class=s2>能够将我们的一次性纸杯牢牢吸附在它的后盖上
+</span></span></span><span class=line><span class=cl><span class=s2>能够轻松地吸附我们桌子上面的一些纸屑
+</span></span></span><span class=line><span class=cl><span class=s2>热熔胶热熔胶热熔胶热熔胶热熔胶
+</span></span></span><span class=line><span class=cl><span class=s2>然后将刀片黏在梳子上
+</span></span></span><span class=line><span class=cl><span class=s2>我们准备一个卫生巾
+</span></span></span><span class=line><span class=cl><span class=s2>把它贴在门把手侧面
+</span></span></span><span class=line><span class=cl><span class=s2>妙用2用来戒烟
+</span></span></span><span class=line><span class=cl><span class=s2>将风油精涂在香烟上 会有一股难闻的气味
+</span></span></span><span class=line><span class=cl><span class=s2>吸烟者抽了就会头痛恶心 能达到减肥的效果
+</span></span></span><span class=line><span class=cl><span class=s2>第三个妙用 我们可以在上面套一个垃圾袋
+</span></span></span><span class=line><span class=cl><span class=s2>要当垃圾桶吗
+</span></span></span><span class=line><span class=cl><span class=s2>这样把它放在我们卧室的床头上
+</span></span></span><span class=line><span class=cl><span class=s2>在扔垃圾的时候就会变得非常容易了
+</span></span></span><span class=line><span class=cl><span class=s2>如果觉得有异味的话
+</span></span></span><span class=line><span class=cl><span class=s2>如果觉得有异味的话 我们扔完垃圾后可以盖上盖子
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>我们先来准备食材：馒头、蜂蜜还有洗洁精
+</span></span></span><span class=line><span class=cl><span class=s2>我们拿出馒头在上面 均匀地涂抹一些蜂蜜
+</span></span></span><span class=line><span class=cl><span class=s2>然后再加入适量的洗洁精 切记涂抹均匀o
+</span></span></span><span class=line><span class=cl><span class=s2>然后我们把它放在老鼠经常出没的地方
+</span></span></span><span class=line><span class=cl><span class=s2>老鼠一碰到找个馒头就会轻松挂掉了
+</span></span></span><span class=line><span class=cl><span class=s2>原理解释
+</span></span></span><span class=line><span class=cl><span class=s2>蜂蜜是甜性物质 涂抹它是为了吸引老鼠过来
+</span></span></span><span class=line><span class=cl><span class=s2>而洗洁精本身就是有毒的液体，老鼠一沾到就会自然挂掉
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>你说涂点老鼠药上去1那我银A可能还能稍微能接受一点
+</span></span></span><span class=line><span class=cl><span class=s2>可以我今天颠对洗清精的认识好吧
+</span></span></span><span class=line><span class=cl><span class=s2>绝对不会出现老鼠
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>今天呢城西教大家用现有的材料自制胶水那个效果呢用起来跟买的
+</span></span></span><span class=line><span class=cl><span class=s2>效果是擦不多的
+</span></span></span><span class=line><span class=cl><span class=s2>首先我们只需要准备一点淀粉
+</span></span></span><span class=line><span class=cl><span class=s2>淀粉就是那个玉米定粉啊
+</span></span></span><span class=line><span class=cl><span class=s2>这个声音像我小学门口小卖店的老板
+</span></span></span><span class=line><span class=cl><span class=s2>接着我们挤入洗洁精
+</span></span></span><span class=line><span class=cl><span class=s2>大家看同样是有粘的效果的
+</span></span></span><span class=line><span class=cl><span class=s2>希望对大家有所帮助
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>今天呢城西就跟大家讲一下
+</span></span></span><span class=line><span class=cl><span class=s2>我们一定要在我们的钱包里面放一张纸
+</span></span></span><span class=line><span class=cl><span class=s2>为什么呢？（为什么这个营销号不上字幕？）
+</span></span></span><span class=line><span class=cl><span class=s2>作用可是非常的大啊
+</span></span></span><span class=line><span class=cl><span class=s2>首先呢我们要拿出
+</span></span></span><span class=line><span class=cl><span class=s2>一张这么大小的纸
+</span></span></span><span class=line><span class=cl><span class=s2>裁剪出跟这里差不多大小
+</span></span></span><span class=line><span class=cl><span class=s2>然后呢我们要在这个上面写上我们的姓名
+</span></span></span><span class=line><span class=cl><span class=s2>姓名然后电话号码
+</span></span></span><span class=line><span class=cl><span class=s2>然后呢还有家庭住址之类的
+</span></span></span><span class=line><span class=cl><span class=s2>这个纸啊塞在最显眼的地方
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>把冰淇淋拿出来把肥皂弄成永淇淋装回袋子
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>另外我们还可以在废旧的鞋子里面
+</span></span></span><span class=line><span class=cl><span class=s2>铺上一层锡箔纸
+</span></span></span><span class=line><span class=cl><span class=s2>因为锡箔纸不怕烫
+</span></span></span><span class=line><span class=cl><span class=s2>我们把它放在床头
+</span></span></span><span class=line><span class=cl><span class=s2>就可以成为一个小小的烟灰缸啦
+</span></span></span><span class=line><span class=cl><span class=s2>你为什么非要用个高跟鞋去做烟灰缸
+</span></span></span><span class=line><span class=cl><span class=s2>实个烟灰缸就这么难吗
+</span></span></span><span class=line><span class=cl><span class=s2>还要铺上锡销E
+</span></span></span><span class=line><span class=cl><span class=s2>哇失响1你好讲究晚你，意识好强哦
+</span></span></span><span class=line><span class=cl><span class=s2>是不是非常方便呢
+</span></span></span><span class=line><span class=cl><span class=s2>而且也非常美观 像一件艺术品
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>火机放在水里以后还能开火吗
+</span></span></span><span class=line><span class=cl><span class=s2>打火机大家常见特别的男生
+</span></span></span><span class=line><span class=cl><span class=s2>今天我们就来做这实验
+</span></span></span><span class=line><span class=cl><span class=s2>首先准畜一个打火机和一个气球
+</span></span></span><span class=line><span class=cl><span class=s2>把气球套在打火机上面
+</span></span></span><span class=line><span class=cl><span class=s2>然后端口打个死结
+</span></span></span><span class=line><span class=cl><span class=s2>接者我们把用气球装好的打火机放进水里
+</span></span></span><span class=line><span class=cl><span class=s2>来回浸泡几分钟后拿出来
+</span></span></span><span class=line><span class=cl><span class=s2>会发生什么变化呢
+</span></span></span><span class=line><span class=cl><span class=s2>我们把气球剪破口 然后把火机拿出来
+</span></span></span><span class=line><span class=cl><span class=s2>开火试一下竟然还是能用的
+</span></span></span><span class=line><span class=cl><span class=s2>火花比原来的还要大
+</span></span></span><span class=line><span class=cl><span class=s2>原来打火机在的密封下浸水
+</span></span></span><span class=line><span class=cl><span class=s2>还是可以用的
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>我们拿手机看电视时
+</span></span></span><span class=line><span class=cl><span class=s2>可以将塑料提手向后掰几下
+</span></span></span><span class=line><span class=cl><span class=s2>这时再把手机放上去
+</span></span></span><span class=line><span class=cl><span class=s2>这样我们手机支架就做好了
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>我们拿来一个家里面都有的废旧盒子
+</span></span></span><span class=line><span class=cl><span class=s2>接着利用剪刀剪下来一个正方形纸片
+</span></span></span><span class=line><span class=cl><span class=s2>利用我们的美工刀在上面裁剪一个小孔
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>这一次性纸杯相信大家都不陌生
+</span></span></span><span class=line><span class=cl><span class=s2>很多朋友的家里都会买一些这种纸杯
+</span></span></span><span class=line><span class=cl><span class=s2>用它来招待客人
+</span></span></span><span class=line><span class=cl><span class=s2>但是你知道
+</span></span></span><span class=line><span class=cl><span class=s2>在这些纸杯上面扎一些小洞
+</span></span></span><span class=line><span class=cl><span class=s2>他有什么作用吗
+</span></span></span><span class=line><span class=cl><span class=s2>下面跟三毛一起来了解一下吧
+</span></span></span><span class=line><span class=cl><span class=s2>首先我们准备一个一次性纸杯
+</span></span></span><span class=line><span class=cl><span class=s2>还有一个叉子
+</span></span></span><span class=line><span class=cl><span class=s2>然后我们用叉子
+</span></span></span><span class=line><span class=cl><span class=s2>在这个杯子的底部给他戳一个小洞
+</span></span></span><span class=line><span class=cl><span class=s2>将杯子底部扎完小洞之后
+</span></span></span><span class=line><span class=cl><span class=s2>然后我们再将这个纸杯
+</span></span></span><span class=line><span class=cl><span class=s2>放到另一个杯子里面
+</span></span></span><span class=line><span class=cl><span class=s2>接下来我们再到这杯子里面
+</span></span></span><span class=line><span class=cl><span class=s2>放入少许的茶叶
+</span></span></span><span class=line><span class=cl><span class=s2>添加适量的茶叶之后
+</span></span></span><span class=line><span class=cl><span class=s2>我们再倒入适量的开水
+</span></span></span><span class=line><span class=cl><span class=s2>添加开水之后我们让它浸泡2-3分钟时间
+</span></span></span><span class=line><span class=cl><span class=s2>浸泡2-3分钟时间后我们在将里面的杯子拿出来
+</span></span></span><span class=line><span class=cl><span class=s2>我们现在可以看到
+</span></span></span><span class=line><span class=cl><span class=s2>杯子里面的茶叶已经全部给过滤出来了
+</span></span></span><span class=line><span class=cl><span class=s2>非常的方便
+</span></span></span><span class=line><span class=cl><span class=s2>用这个方法来泡茶喝
+</span></span></span><span class=line><span class=cl><span class=s2>它还可以节省茶叶
+</span></span></span><span class=line><span class=cl><span class=s2>这么一点点茶叶我们可以泡好几杯茶
+</span></span></span><span class=line><span class=cl><span class=s2>小妙招
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>超实用的小妙招
+</span></span></span><span class=line><span class=cl><span class=s2>学会了快告诉妈妈
+</span></span></span><span class=line><span class=cl><span class=s2>准备一张吸油纸
+</span></span></span><span class=line><span class=cl><span class=s2>将牙膏一粒一粒均匀地挤在纸上
+</span></span></span><span class=line><span class=cl><span class=s2>然后撒上小苏打
+</span></span></span><span class=line><span class=cl><span class=s2>等待凝固后
+</span></span></span><span class=line><span class=cl><span class=s2>把它装进小瓶子里
+</span></span></span><span class=line><span class=cl><span class=s2>刷牙的时候倒出一粒
+</span></span></span><span class=line><span class=cl><span class=s2>就可以直接刷牙了
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>将香皂融化吸入针管
+</span></span></span><span class=line><span class=cl><span class=s2>然后挤入药板模型里面
+</span></span></span><span class=line><span class=cl><span class=s2>用锡纸封柱模板
+</span></span></span><span class=line><span class=cl><span class=s2>旅游的时候带在身上
+</span></span></span><span class=line><span class=cl><span class=s2>随时随地都可以用来洗手
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>废旧的牙刷还有怎样的妙用呢
+</span></span></span><span class=line><span class=cl><span class=s2>跟我来看看
+</span></span></span><span class=line><span class=cl><span class=s2>我们先准备两个差不多的牙刷
+</span></span></span><span class=line><span class=cl><span class=s2>用皮筋将它们绑起来
+</span></span></span><span class=line><span class=cl><span class=s2>那么这两支牙刷的第一个作用就是用来清洗水龙头
+</span></span></span><span class=line><span class=cl><span class=s2>由于水龙头的形状比较特殊
+</span></span></span><span class=line><span class=cl><span class=s2>所以它的内侧经常很难清理到
+</span></span></span><span class=line><span class=cl><span class=s2>将牙刷取开 然后均匀的擦拭
+</span></span></span><span class=line><span class=cl><span class=s2>可以看到里外都清理的非常干净
+</span></span></span><span class=line><span class=cl><span class=s2>而且可以随时调换位置
+</span></span></span><span class=line><span class=cl><span class=s2>
+</span></span></span><span class=line><span class=cl><span class=s2>喝茶剩下的茶叶根不要扔
+</span></span></span><span class=line><span class=cl><span class=s2>我们还可以拿它来做很实用的东西
+</span></span></span><span class=line><span class=cl><span class=s2>首先将茶叶取出来 挤干水分放入盘中
+</span></span></span><span class=line><span class=cl><span class=s2>然后翻在太阳下晒干
+</span></span></span><span class=line><span class=cl><span class=s2>晒好后
+</span></span></span><span class=line><span class=cl><span class=s2>将我们穿的袜子脱下来一只
+</span></span></span><span class=line><span class=cl><span class=s2>将晒干的茶叶倒入袜子中
+</span></span></span><span class=line><span class=cl><span class=s2>扎好口
+</span></span></span><span class=line><span class=cl><span class=s2>一个便携的香袋就完成了
+</span></span></span><span class=line><span class=cl><span class=s2>茶香四溢
+</span></span></span><span class=line><span class=cl><span class=s2>怎么样 是不是很实用呢
+</span></span></span><span class=line><span class=cl><span class=s2>如果实用别忘记点赞
+</span></span></span><span class=line><span class=cl><span class=s2>&#34;&#34;&#34;</span>
+</span></span></code></pre></td></tr></table></div></div></section><footer class=article-footer><section class=article-tags><a href=/tags/python/>Python</a></section><section class=article-copyright><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg><span>Licensed under CC BY-NC-SA 4.0</span></section><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><section class=article-views><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye-check" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="2"/><path d="M12 19c-4 0-7.333-2.333-10-7 2.667-4.667 6-7 10-7s7.333 2.333 10 7c-.42.736-.858 1.414-1.311 2.033"/><path d="M15 19l2 2 4-4"/></svg><span id=busuanzi_value_page_pv><i class="fa fa-spinner fa-spin"></i></span><span>&nbsp;&nbsp;views</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title></h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=/p/vmware-proxy/><div class=article-image><img src=/p/vmware-proxy/unsplash.0ec8e82208efc0810de40af8c5116809_hu28c8a8bd94e85a9393a63ebe5a01d637_240960_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『Blog』VMware 虚拟机流量代理" data-key=vmware-proxy data-hash="md5-DsjoIgjvwIEN5Ar4xRFoCQ=="></div><div class=article-details><h2 class=article-title>『Blog』VMware 虚拟机流量代理</h2></div></a></article><article class=has-image><a href=/p/python-best-practices-ide/><div class=article-image><img src=/p/python-best-practices-ide/23591f5.5b98d0e421f7864097be806c4d5adc16_huca468907c0b94334c1b276c4c73544ea_737091_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『Blog』Python 应用开发最佳实践@环境搭建篇" data-key=python-best-practices-IDE data-hash="md5-W5jQ5CH3hkCXvoBsTVrcFg=="></div><div class=article-details><h2 class=article-title>『Blog』Python 应用开发最佳实践@环境搭建篇</h2></div></a></article><article class=has-image><a href=/p/selenium4-intro/><div class=article-image><img src=/p/selenium4-intro/adb2.5c68f5fe8dca5bfb98f39207fd4a216c_hu1c5cdf8ecdeb62c5c7317b95d9d1f1d1_260932_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『Blog』Selenium 4.0" data-key=selenium4-intro data-hash="md5-XGj1/o3KW/uY85IH/UohbA=="></div><div class=article-details><h2 class=article-title>『Blog』Selenium 4.0</h2></div></a></article><article class=has-image><a href=/p/python-debug/><div class=article-image><img src=/p/python-debug/6e1a7a.02646340e9d1a4894a54275c09cad867_hu79af78f4766e84ea9218b45410c60ec9_237077_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『Notes』Python Programming diary" data-key=python-debug data-hash="md5-AmRjQOnRpIlKVCdcCcrYZw=="></div><div class=article-details><h2 class=article-title>『Notes』Python Programming diary</h2></div></a></article><article class=has-image><a href=/p/2d-object-detection-bleach-vs-naruto/><div class=article-image><img src=/p/2d-object-detection-bleach-vs-naruto/Jlog7weRvmDTfhr.9eef4547653237609fc773777e802a8c_huccaad804e4b49c112e1e23c8189f5184_230476_250x150_fill_q75_box_smart1.jpg width=250 height=150 loading=lazy alt="Featured image of post 『 YOLOv5 』死神VS火影 | 2D目标检测" data-key=2D-object-detection-Bleach-vs-Naruto data-hash="md5-nu9FR2UyN2Cfx3N3foAqjA=="></div><div class=article-details><h2 class=article-title>『 YOLOv5 』死神VS火影 | 2D目标检测</h2></div></a></article></div></div></aside><script src=https://utteranc.es/client.js repo=qin2dim/blog-comments issue-term=pathname crossorigin=anonymous async></script><style>.utterances{max-width:unset}</style><script>function setUtterancesTheme(e){let t=document.querySelector(".utterances iframe");t&&t.contentWindow.postMessage({type:"set-theme",theme:`github-${e}`},"https://utteranc.es")}addEventListener("message",e=>{if(e.origin!=="https://utteranc.es")return;setUtterancesTheme(document.documentElement.dataset.scheme)}),window.addEventListener("onColorSchemeChange",e=>{setUtterancesTheme(e.detail)})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2022 Echosec @QIN2DIM</section><section class=powerby>You will to enjoy grander sight / By climing to a greater height.<br>Built with <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a><br>Theme <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.12.0>Stack</a></b> designed by <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a></section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css integrity="sha256-c0uckgykQ9v5k+IqViZOZKc47Jn7KQil4/MP3ySA3F8=" crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE=" crossorigin=anonymous></main><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#案例实操>案例实操</a><ol><li><a href=#准备资源>准备资源</a></li><li><a href=#读取数据集>读取数据集</a></li><li><a href=#分词>分词</a></li><li><a href=#生成词云>生成词云</a></li><li><a href=#demo>Demo</a></li></ol></li><li><a href=#问题总结>问题总结</a><ol><li><a href=#文件读写统一编码格式>文件读写统一编码格式</a></li><li><a href=#wordcloud易错参数解释>wordcloud易错参数解释</a></li></ol></li><li><a href=#实验附件>实验附件</a></li></ol></nav></div></section></aside></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g=" crossorigin=anonymous></script><script type=text/javascript src=/ts/main.js defer></script>
+<script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>

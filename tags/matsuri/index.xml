@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Matsuri on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/matsuri/</link><description>Recent content in Matsuri on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 19 Oct 2022 20:09:33 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/matsuri/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Naiveproxy Quick Start</title><link>https://blog.echosec.top/p/naiveproxy/</link><pubDate>Wed, 19 Oct 2022 20:09:33 +0800</pubDate><guid>https://blog.echosec.top/p/naiveproxy/</guid><description>&lt;img src="https://blog.echosec.top/p/naiveproxy/anato-finnstark.jpg" alt="Featured image of post 『Blog』Naiveproxy Quick Start" />&lt;h2 id="introduce">Introduce&lt;/h2>
+&lt;p>本文以 Ubuntu20.04 为例简要介绍 Naiveproxy 服务端的敏捷部署流程，再分别借助 NekoRay/v2rayN 在 Windows 以及 Matsuri（茉莉） 在 Android 启动图形化代理的解决方案。&lt;/p>
+&lt;p>下文均以 Matsuri &amp;amp; NekoRay 统称 NekoRay 以及 Matsuri。这两个项目拥有同样的维护社区和协议解析后端，服务器导入操作无需额外声明。&lt;/p>
+&lt;p>本文涉及的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>发行版本号&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/klzgrad/naiveproxy" target="_blank" rel="noopener"
+>klzgrad/naiveproxy&lt;/a>&lt;/td>
+&lt;td>v106.0.5249.91-1&lt;/td>
+&lt;td>双端代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/QIN2DIM/np-start" target="_blank" rel="noopener"
+>QIN2DIM/np-start&lt;/a>&lt;/td>
+&lt;td>main-branch&lt;/td>
+&lt;td>Naiveproxy 服务端自动编译脚本&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray" target="_blank" rel="noopener"
+>MatsuriDayo/nekoray&lt;/a>&lt;/td>
+&lt;td>v2.0&lt;/td>
+&lt;td>GUI 客户端（Windows/Linux）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri" target="_blank" rel="noopener"
+>MatsuriDayo/Matsuri&lt;/a>&lt;/td>
+&lt;td>v0.5.1&lt;/td>
+&lt;td>GUI 客户端（Android）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/caddyserver/caddy" target="_blank" rel="noopener"
+>caddyserver/caddy&lt;/a>&lt;/td>
+&lt;td>v2.6.2&lt;/td>
+&lt;td>承载代理的 Web 服务器&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/caddyserver/xcaddy" target="_blank" rel="noopener"
+>caddyserver/xcaddy&lt;/a>&lt;/td>
+&lt;td>v0.3.1&lt;/td>
+&lt;td>编译携带 Naiveproxy 插件的 Caddy2 服务器&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="caddy-server-agile-development">Caddy Server Agile Development&lt;/h2>
+&lt;h3 id="compile-the-naiveproxy-server">Compile the Naiveproxy Server&lt;/h3>
+&lt;p>在 &lt;strong>Ubuntu20.04+&lt;/strong> 环境中自动编译 Naiveproxy，其他环境可参见「&lt;a class="link" href="https://github.com/klzgrad/naiveproxy/wiki/%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener"
+>原理及步骤说明&lt;/a>」进行配置。&lt;/p>
+&lt;p>首次运行后，你可以通过快捷指令 &lt;code>npstart&lt;/code> 运行脚本。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -qO /home/npstart.py https://raw.githubusercontent.com/QIN2DIM/np-start/main/main.py &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> python3 /home/npstart.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>首次运行时，除敏捷部署外的功能被锁定，Naiveproxy 编译成功后解锁。自动编译耗时取决于硬件性能和网络带宽配置，一般 1 ~ 5 分钟内可以完成。&lt;/p>
+&lt;p>下图为 npstart 的命令行控制面板，可以实现基本的 Naiveproxy 生命周期管理工作。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/naiveproxy/image-20221101072516050.png"
+width="630"
+height="913"
+srcset="https://blog.echosec.top/p/naiveproxy/image-20221101072516050_hu1a3beec754b3aa0f121606a074b65836_223278_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/naiveproxy/image-20221101072516050_hu1a3beec754b3aa0f121606a074b65836_223278_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="npstart v0.1.0 - CMD Panel"
+class="gallery-image"
+data-flex-grow="69"
+data-flex-basis="165px"
+>&lt;/p>
+&lt;h3 id="check-the-generated-configuration">Check the Generated Configuration&lt;/h3>
+&lt;p>脚本编译结束后，按任意键自动部署 Naiveproxy 系统服务。&lt;/p>
+&lt;p>脚本会在 &lt;code>/home/naiveproxy&lt;/code> 目录下生成编译产出的 &lt;code>caddy&lt;/code> 以及 &lt;code>Caddyfile&lt;/code>并在屏幕上依次打印：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>用于启动 V2rayN Custom Server 的配置信息&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>用于启动 Matsuri &amp;amp; NekoRay Naiveproxy 的分享链接&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>用于启动 Shadowrocket HTTP/2 代理的分享链接&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>对于 Matsuri &amp;amp; NekoRay 以及 Shadowrocket，复制分享链接后，可以通过粘贴或从剪贴板导入的方式直接在图形化客户端中导入节点；而 V2rayN 则需要编写自定义配置，复制粘贴配置信息即可。&lt;/p>
+&lt;p>Matsuri &amp;amp; NekoRay 以及 V2rayN 需要在客户端安装 naive-core 或 naive plugin 才能正常使用，详细内容文末介绍。&lt;/p>
+&lt;h2 id="windows-pc-configuration">Windows PC Configuration&lt;/h2>
+&lt;blockquote>
+&lt;p>建议每间隔一个月主动更替 naive-core 以追平上游的最新特性&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="v2rayn-custom-server">V2rayN Custom Server&lt;/h3>
+&lt;ol>
+&lt;li>访问 &lt;a class="link" href="https://github.com/klzgrad/naiveproxy/releases" target="_blank" rel="noopener"
+>Releases · klzgrad/naiveproxy&lt;/a> 下载匹配操作系统的最新发行客户端。解压后将其中的 &lt;code>naive.exe&lt;/code> 放置到 v2rayN 工程根目录下。&lt;/li>
+&lt;li>添加自定义配置服务器，复制粘贴 &lt;code>v2rayN custom server&lt;/code> 的配置信息， Core类型 选择 naiveproxy，Socks端口 与配置文件给出的 listen-port 保持一致。下图为参考配置：&lt;img src="https://blog.echosec.top/p/naiveproxy/image-20221019212555596.png"
+width="915"
+height="373"
+srcset="https://blog.echosec.top/p/naiveproxy/image-20221019212555596_hu050c1885ecf7a8209d02ff113beb1585_28405_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/naiveproxy/image-20221019212555596_hu050c1885ecf7a8209d02ff113beb1585_28405_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221019212555596"
+class="gallery-image"
+data-flex-grow="245"
+data-flex-basis="588px"
+>&lt;/li>
+&lt;/ol>
+&lt;h3 id="nekoray-naiveproxy-node">NekoRay Naiveproxy Node&lt;/h3>
+&lt;p>如果你从未使用过 NekoRay，可通过 &lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >这篇博客&lt;/a> 了解预热内容。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>访问 &lt;a class="link" href="https://github.com/klzgrad/naiveproxy/releases" target="_blank" rel="noopener"
+>Releases · klzgrad/naiveproxy&lt;/a> 下载匹配操作系统的最新发行客户端。解压后将其中的 &lt;code>naive.exe&lt;/code> 放置到 NekoRay 工程目录下的 config 文件夹。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>打开 NekoRay，依次选择 「首选项 → 基本设置 → 核心」添加 &lt;code>naive-core&lt;/code>。&lt;img src="https://blog.echosec.top/p/naiveproxy/image-20221019211804619.png"
+width="1246"
+height="851"
+srcset="https://blog.echosec.top/p/naiveproxy/image-20221019211804619_hu49d8ef0737b3aaf21e583fcb0e5d482b_124841_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/naiveproxy/image-20221019211804619_hu49d8ef0737b3aaf21e583fcb0e5d482b_124841_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221019211804619"
+class="gallery-image"
+data-flex-grow="146"
+data-flex-basis="351px"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>复制 &lt;code>NekoRay/Matsuri 分享链接 &lt;/code>，CTRL + V 从剪切板导入 naiveproxy node。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="matsuri-configuration">Matsuri Configuration&lt;/h3>
+&lt;blockquote>
+&lt;p>Matsuri with Naiveproxy Plugin&lt;/p>
+&lt;/blockquote>
+&lt;p>如果你从未使用过 Matsuri，可通过 &lt;a class="link" href="https://blog.echosec.top/p/matsuri-hysteria/" >这篇博客&lt;/a> 了解预热内容。若首次使用 Naiveproxy，依据提示安装 naive-plugin 即可（导入并启动服务器后自动弹出提示）。&lt;/p>
+&lt;h3 id="shadowrocket-configuration">Shadowrocket Configuration&lt;/h3>
+&lt;p>软件自带插件，无需手动安装，直接复制粘贴分享链接即可。&lt;/p></description></item><item><title>『Blog』Use Hysteria through Matsuri in Android</title><link>https://blog.echosec.top/p/matsuri-hysteria/</link><pubDate>Wed, 31 Aug 2022 06:57:23 +0800</pubDate><guid>https://blog.echosec.top/p/matsuri-hysteria/</guid><description>&lt;img src="https://blog.echosec.top/p/matsuri-hysteria/webpti.jpg" alt="Featured image of post 『Blog』Use Hysteria through Matsuri in Android" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>在以往文章中我们介绍了在 Windows 上以图形化界面的形式管理 Hysteria 的解决方案：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria" >『Blog』NekoRay 配置 Hysteria&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" target="_blank" rel="noopener"
+>『Blog』V2rayN 配置 Hysteria&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>本文继续介绍有关 Hysteria 代理核心更多内容。本篇以 Matsuri 为切入点，介绍在 Android 手机上启动 Hysteria 代理核心的 quick-start 入门步骤，开箱即用。&lt;/p>
+&lt;p>如果你已持有一枚可用的 Hysteria 节点链接，只需要花费不到 3 分钟的时间便可在自己的手机上架起代理与互联国际完成「友好交互」。&lt;/p>
+&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;p>本文涉及的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>发行版本号&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/HyNetwork/hysteria" target="_blank" rel="noopener"
+>HyNetwork/hysteria&lt;/a>&lt;/td>
+&lt;td>v1.2.0&lt;/td>
+&lt;td>代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri" target="_blank" rel="noopener"
+>MatsuriDayo/Matsuri&lt;/a>&lt;/td>
+&lt;td>v0.4.1&lt;/td>
+&lt;td>图形化客户端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/plugins/releases/tag/Hysteria-v1.2.0-2" target="_blank" rel="noopener"
+>MatsuriDayo/Hysteria-Plugin&lt;/a>&lt;/td>
+&lt;td>v1.2.0-2&lt;/td>
+&lt;td>兼容性插件&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>注意 →&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>本文不面向零基础的小白读者，且仅涉及与 Matsuri Android 客户端相关的操作演示，hysteria 服务端的配置详见&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" target="_blank" rel="noopener"
+>『Blog』V2rayN 配置 Hysteria&lt;/a>。&lt;/li>
+&lt;li>该项目仍处于成长期，且因开发者精力有限，无法保证 SagerNet 的最新特性得到及时迁移。本人在相关测试后认为该项目已能实现有关 Hysteria 代理的核心功能，可以正常使用，也即，本文不涉及该软件兼容的其他代理类型的介绍，玩家需要根据自己的喜好和需求选择适合自己的产品。&lt;/li>
+&lt;/ol>
+&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>如果你已是 Hysteria 其他桌面系统的玩家，那你一定参阅过 &lt;a class="link" href="https://github.com/HyNetwork/hysteria/wiki/%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85" target="_blank" rel="noopener"
+>Hysteria 的 Wiki 文档&lt;/a>，你会发现，早在一年前， SagerNet 就以插件的形式支持了 Hysteria 在安卓手机上的运行。然而，该上游项目欠缺维护，实际情况是大量型号的安卓设备并不能正常启动 Hysteria 代理核心，乃至在作者撰文的现在，大量潜在 BUG 仍未得到妥善处理，常见的问题是弹出如下提示：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>缺少插件&lt;/strong>：&amp;hellip; 专有设备提供商篡改了你的安卓系统，使该插件无法使用。&lt;/p>
+&lt;/blockquote>
+&lt;p>那么，该主角出场了！&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri" target="_blank" rel="noopener"
+>Matsuri&lt;/a>，是一个用 Kotlin 编写的 Android 代理工具链，是 &lt;a class="link" href="https://github.com/SagerNet/SagerNet" target="_blank" rel="noopener"
+>SagerNet&lt;/a> 的一个子分支。Matsuri 继承了 SagerNet 的诸多优良特性，并在此基础上修补了一些历史遗留问题。相关内容可访问 Matsuri 仓库文档，本文仅介绍有关 Hysteria 代理核心相关的内容。&lt;/p>
+&lt;h2 id="快速上手">快速上手&lt;/h2>
+&lt;h3 id="下载-matsuri">下载 Matsuri&lt;/h3>
+&lt;p>Matsuri 支持从 &lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri/releases" target="_blank" rel="noopener"
+>GitHub Releases&lt;/a> 以及 &lt;a class="link" href="https://play.google.com/store/apps/details?id=moe.matsuri.lite" target="_blank" rel="noopener"
+>Google Play&lt;/a> 两种途径下载。目前，谷歌商店上架的版本与 GitHub 发行版的版本号一致，两者均支持在线更新。如果条件允许，从谷歌商店下载比较方便。&lt;/p>
+&lt;h4 id="从-github-下载">从 GitHub 下载&lt;/h4>
+&lt;p>访问 &lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri/releases" target="_blank" rel="noopener"
+>GitHub Releases&lt;/a> ，下载最新发行版即可。主流的安卓手机适合使用 &lt;code>arm64-v8a&lt;/code> 类型 APK 客户端。&lt;/p>
+&lt;h4 id="从-google-play-下载">从 Google Play 下载&lt;/h4>
+&lt;p>访问内联链接 &lt;a class="link" href="https://play.google.com/store/apps/details?id=moe.matsuri.lite" target="_blank" rel="noopener"
+>Google Play&lt;/a> 或手动搜索关键词 &lt;code>Matsuri Makubaro&lt;/code> 。&lt;/p>
+&lt;figure align="center">
+&lt;img src="image-20220831131748008.png" alt=" Download CMFA release arm64-v8a." width="33%"/>&lt;br>
+&lt;/figure>
+&lt;h3 id="导入-hysteria-节点">导入 Hysteria 节点&lt;/h3>
+&lt;p>此处推荐的操作是先导入一个可用的 Hysteria 节点，再进行插件的（自动）安装。&lt;/p>
+&lt;p>与同世代项目操作逻辑一致，Matsuri 支持从二维码，剪切板，配置文件以及手动编辑 4 种方式导入代理。推荐从剪切板导入 Hysteria 节点分享链接。&lt;/p>
+&lt;h3 id="下载-hysteria-plugin">下载 Hysteria-Plugin&lt;/h3>
+&lt;p>选中导入的节点，点击下方的启动开关，此时会弹出如下警告交互框：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831133400876.png" alt="image-20220831133400876" style="zoom: 25%;" />&lt;/div>
+&lt;p>点击「下载」自动打开浏览器前往 &lt;a class="link" href="https://github.com/MatsuriDayo/plugins/releases" target="_blank" rel="noopener"
+>Hysteria 插件页面&lt;/a>，根据你自己的设备情况选择最新发行版的软件即可。如骁龙系列产品通常选择 &lt;code>arm64-v8a.apk&lt;/code>，相关截屏如下所示：&lt;/p>
+&lt;div align="center">
+&lt;img src="image-20220831133813986.png" alt="image-20220831133813986" style="zoom: 15%;" />
+&lt;img src="image-20220831133819439.png" alt="image-20220831133819439" style="zoom:15%;" />
+&lt;/div>
+下载完后正常安装即可，不要点击多余的东西。
+&lt;div align="center">&lt;img src="image-20220831134255535.png" alt="image-20220831134255535" style="zoom:25%;" />&lt;/div>
+&lt;h3 id="配置-matsuri-代理核心">配置 Matsuri 代理核心&lt;/h3>
+&lt;h4 id="解除插件限制">解除插件限制&lt;/h4>
+&lt;p>首先，下载好的 plugin 在桌面上不显示快捷方式，需要在你自己设备中的「应用管理」中查找（不同设备操作路径不一致，此处不多赘述，大体上从设置界面进入）Hysteria Plugin，如下图所示：&lt;/p>
+&lt;div align="center">
+&lt;img src="image-20220831134752294.png" alt="image-20220831134752294" style="zoom:25%;" />
+&lt;img src="image-20220831134958164.png" alt="image-20220831134958164" style="zoom:25%;" />
+&lt;/div>
+&lt;h4 id="解除主程序限制">解除主程序限制&lt;/h4>
+&lt;p>同样，需要在应用信息界面调整 Matsuri 的软件权限。具体来说有 3 点，联网权限，自启动以及省电策略。&lt;/p>
+&lt;p>最后，你需要锁定驻台进程，防止一键清除后台缓存时退出代理。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831135551288.png" alt="image-20220831135551288" style="zoom:25%;" />&lt;/div>
+&lt;h4 id="启用-http-入站">启用 HTTP 入站&lt;/h4>
+&lt;p>回到主程序界面，从侧边栏中进入到「设置」界面，下滑找到「入站设置」板块，勾选「启动 HTTP 入站」。&lt;/p>
+&lt;p>软件默认的 SOCKS5 入站代理端口为 2080，本地 DNS 端口为 6540，HTTP 代理端口为 9080。若有端口冲突更改代理端口即可。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831142427900.png" alt="image-20220831142427900" style="zoom:25%;" />&lt;/div>
+&lt;h3 id="启动-hysteria-节点">启动 Hysteria 节点&lt;/h3>
+&lt;p>配置完成后回到主程序界面，点击启动开关。若节点服务正常，此时已能正常通过代理连接互联网。你可以访问 Google 以及 YouTube 等站点进行行为测试。&lt;/p>
+&lt;h2 id="网络优化">网络优化&lt;/h2>
+&lt;p>介绍推荐使用的最佳实践方案，可在网络质量较差时明显提升网路冲浪体验，下文未提及的配置项保持默认即可。&lt;/p>
+&lt;h3 id="设置">设置&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Matsuri v0.5.2 play&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">软件设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">运行模式&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VPN&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">TUN实现&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Tun2Socket&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">MTU&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1500&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">路由设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">分应用代理&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">域名解析策略&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">AsIs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">启动流量探测&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">IPv6路由&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">禁用&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">路由资源更新&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">官方&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">协议设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">复用最大并发&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">8&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># If enable&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">DNS设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">增强域名解析&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">远程DNS&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://8.8.8.8/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">直连DNS&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https+local://233.5.5.5/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">启动DNS路由&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">入站设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">启用HTTP入站&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">追加HTTP代理至VPN&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">杂项&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">首选插件提供者&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Matsuri&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="路由规则">路由规则&lt;/h3>
+&lt;p>Matsuri 提供了一些默认的路由规则，路由规则的优先级高于分应用代理。改动路由规则和分应用代理都需要重启代理服务才能生效。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">屏蔽QUIC:（屏蔽）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">屏蔽跟踪器（屏蔽）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">屏蔽广告（屏蔽）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">中国Play商店规则（代理）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">中国域名规则（绕过）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">中国IP规则（绕过）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>场景优化：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>通用场景。建议在「设置 - 分应用代理」中&lt;strong>绕过&lt;/strong>「国产应用」并将「中国域名」以及「中国 IP 」的路由规则关闭。你可以借助软件内置的「扫描中国应用」一键添加。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>覆盖某些国产应用中的 IP 位置显示。先保持通用场景设置，再将指定的国产应用从绕过列表中移除。&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

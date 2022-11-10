@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>proxy on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/proxy/</link><description>Recent content in proxy on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 13 Dec 2021 22:17:48 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』v2rayN 订阅更新最佳实践</title><link>https://blog.echosec.top/p/v2rayn-subscribe-update/</link><pubDate>Mon, 13 Dec 2021 22:17:48 +0800</pubDate><guid>https://blog.echosec.top/p/v2rayn-subscribe-update/</guid><description>&lt;img src="https://blog.echosec.top/p/v2rayn-subscribe-update/1805246.png" alt="Featured image of post 『Blog』v2rayN 订阅更新最佳实践" />&lt;h2 id="推荐工序">推荐工序&lt;/h2>
+&lt;p>本段简述使用 Windows 桌面代理客户端 &lt;code>v2rayN - V5.9&lt;/code> 更新订阅并优选代理节点的推荐步骤，其他软件同理。&lt;/p>
+&lt;h3 id="节点优选">节点优选&lt;/h3>
+&lt;p>&lt;strong>Step1：更新订阅&lt;/strong>&lt;/p>
+&lt;p>打开软件先更新订阅。&lt;/p>
+&lt;blockquote>
+&lt;p>注意：在 &lt;code>v5.9&lt;/code> 中可以选择通过代理更新订阅。在旧版本中默认使用直连通信更新订阅。&lt;/p>
+&lt;/blockquote>
+&lt;div align="center">&lt;img src="image-20220405191102477.png" />&lt;/div>
+&lt;ul>
+&lt;li>
+&lt;p>若开启代理，更新订阅的流量由 v2rayN 转发；若正在使用的订阅已过期（或节点失效），会出现一些不可控的异常输出。&lt;/p>
+&lt;div align="center">&lt;img src="image.png" alt="image" />&lt;/div>
+&lt;/li>
+&lt;li>
+&lt;p>在一些极端情况下必须使用系统代理更新订阅，如：目标服务器设置了身份认证，或更新订阅需要访问的站点IP已被墙（这种情况下 使用A提供商的节点挂起代理并更新订阅A订阅组可能会出现问题，需要使用其他节点挂起代理）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Step2：等待UI刷新&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>若订阅过期或异常，控制台会显示「订阅更新失败」或不显示节点列表；&lt;/li>
+&lt;li>若更新成功，则显示更新后的节点列表。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Step3：测试服务器延迟 ping&lt;/strong>&lt;/p>
+&lt;p>测试目标节点是否开放连接，测试目标IP是否被墙。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>快捷键 &lt;kbd>Ctrl&lt;/kbd> + &lt;kbd>P&lt;/kbd>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>选中订阅组的 &lt;u>所有节点&lt;/u>，&lt;kbd>Ctrl&lt;/kbd> + &lt;kbd>P&lt;/kbd> 批量测试节点延迟。&lt;/p>
+&lt;div align="center">&lt;img src="image-20211128181009104.png" style="zoom:50%;" />&lt;/div>
+&lt;ul>
+&lt;li>若返回正确的 ms 延迟信息，说明节点没有被墙；&lt;/li>
+&lt;li>若返回 &lt;code>Timeout&lt;/code> 说明节点无法连接，不可用。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Step4：测试节点真延迟&lt;/strong>&lt;/p>
+&lt;p>测试目标节点代理功能是否正常运行。真延迟在数值上反应了网页打开的速度。&lt;/p>
+&lt;p>实验条件下，真延迟越低，网页响应速度越快（页面元素加载越快），而真延迟与“物理距离”有较大关系。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>快捷键 &lt;kbd>Ctrl&lt;/kbd> + &lt;kbd>R&lt;/kbd>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;u>小批量&lt;/u> 选中上一步并未 Timeout 且值得关注的节点，测试节点的真延迟。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>真延迟测试前提是能通过 ping 测试，也即上一步中 ping 出 timeout 的节点已经没有必要进行真延迟测试了。&lt;/p>
+&lt;p>这一步输出正常 ms 延迟信息的，说明节点的代理功能正常。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div align="center">&lt;img src="image-20211128181345144.png" alt="image-20211128181345144" style="zoom:80%;" />&lt;/div>
+&lt;p>&lt;strong>Step5：测试服务器速度&lt;/strong>&lt;/p>
+&lt;p>用代理下载 &amp;ldquo;&lt;a class="link" href="http://speedtest-sgp1.digitalocean.com/10mb.test%22" target="_blank" rel="noopener"
+>http://speedtest-sgp1.digitalocean.com/10mb.test"&lt;/a> ，用时与大小相除。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>快捷键 &lt;kbd>Ctrl&lt;/kbd> + &lt;kbd>T&lt;/kbd>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;u>单选&lt;/u> 通过真延迟测试的服务器节点进行测速。选择下载速度最快的节点连接使用既可。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>若出现 &lt;code>在 WebClient 请求期间发生异常&lt;/code> 并不表示节点不可用（通过真延迟测试的节点的代理功能正常，出现速度测试异常的可能原因是本地网速太慢或目标服务器的负载紊乱）&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div align="center">&lt;img src="image-20211128182356066.png" style="zoom: 80%;" />&lt;/div>
+&lt;ul>
+&lt;li>
+&lt;p>节点服务器速度与本地带宽关系如下（实验期望）：&lt;/p>
+&lt;p>此处的「服务器速度」指v2rayN测量值，「本地带宽」指跑测试的实时网速。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">本地带宽&lt;/th>
+&lt;th style="text-align:center">服务器速度(limit)&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">0~50 Mbps&lt;/td>
+&lt;td style="text-align:center">0~2 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">50~100 Mbps&lt;/td>
+&lt;td style="text-align:center">2~6 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">100~300 Mbps&lt;/td>
+&lt;td style="text-align:center">6~15 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">300~500 Mbps&lt;/td>
+&lt;td style="text-align:center">15~27 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">500~1k Mbps&lt;/td>
+&lt;td style="text-align:center">27~ Mbps&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>这是个玄学变量关系图。这个映射关系与当前时段线路拥塞状况，本地实时带宽状况，节点服务器负载状况（或端口限速）等多种变量有关，并不是个能严格控制的映射关系。&lt;/p>
+&lt;p>实际上，当服务器速度（观测值）有 4~5 Mbps （行话油管速度四万左右）已经能流畅观看 4K Playing bitrate Netflix，也能“秒开” 4K Youtube 视频。&lt;/p>
+&lt;p>上表给出的建议方案较为保守。一般情况下，你的 Connection Speed 大于 2.2Mbps 就能几乎不卡顿地观看 4K Youtube 视频（行话油管速度两万五）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="总结与注意事项">总结与注意事项&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>除了 Ping 测试，其他测试都不可一下子选中所有节点服务器操作，否则会出现大规模的数据偏差。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>真延迟测试：建议根据个人喜好手动选择 remark 标注的地区节点，进行小批次的分段测试。&lt;/p>
+&lt;p>推荐使用的地区节点降序排列如下：&lt;/p>
+&lt;p>&lt;strong>香港 &amp;gt; 新加坡 &amp;gt; 日本 &amp;gt; 韩国 &amp;gt; 美国 &amp;gt; 其他&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>速度测试：建议单选测速。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>若订阅服务器IP / 域名被墙（无法更新订阅或无法通过 ping 测试），你需要使用代理更新订阅，也即使用其他家的节点挂起本地全局代理后更新被墙订阅。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>v2rayN 的节点测试功能并不严谨，当你认为测试结果明显不符预期，可重复测试。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>显然，ping 延迟和代理网速没有必然联系。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一个明显的实验结论是：当你能跑满本地带宽 100Mbps 且代理节点的端口限速 ≥ 100Mbps 时，必然能畅通无阻地浏览 4K Youtube Video。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="边缘测试">边缘测试&lt;/h2>
+&lt;h3 id="多快网速可看-4k-youtube-video">多快网速可看 4K Youtube Video？&lt;/h3>
+&lt;blockquote>
+&lt;p>数据来源：&lt;a class="link" href="https://support.google.com/youtube/answer/78358?hl=zh-Hans" target="_blank" rel="noopener"
+>系统要求 - YouTube帮助 (google.com)&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">视频分辨率（Res）&lt;/th>
+&lt;th style="text-align:center">建议的持续速度（Connection Speed）&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">4k&lt;/td>
+&lt;td style="text-align:center">20 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">高清1080P&lt;/td>
+&lt;td style="text-align:center">5 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">高清 720P&lt;/td>
+&lt;td style="text-align:center">2.5 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">标清480P&lt;/td>
+&lt;td style="text-align:center">1.1 Mbps&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">标清360P&lt;/td>
+&lt;td style="text-align:center">0.7 Mbps&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>设备当前可看的分辨率组与本机硬件配置，网速以及浏览器有关。例如，截止至 2021-11-29，几乎所有手机/平板仅能观看最高 1080P 的视频；绝大多数 Windows 笔记本仅能观看最高 4K 的视频，而近几代 macOS 笔记本可解码并观看 8K HDR 视频。&lt;/p>
+&lt;h3 id="如何突破代理速度瓶颈">如何突破代理速度瓶颈？&lt;/h3>
+&lt;p>推荐顺序：升级本地带宽套餐 &amp;gt; 升级无线路由器配置 &amp;gt; 升级代理配置&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>升级本地带宽套餐（提高网速上限）&lt;/strong>&lt;/p>
+&lt;p>特指从 ≤100 Mbps 的本地带宽套餐提升至更高级别，若已满足则无需调整。&lt;/p>
+&lt;p>升级带宽套餐成本最低，带来的提升最明显。&lt;/p>
+&lt;p>若你使用软路由有线桥接主路由，使用 Friendly ARM NanoPI R2S 可接管的忙时带宽为 800 Mbps（实验条件下的极限值），也即一般情况下，家用带宽 ≤ 500 Mbps 都可以跑满，无需升级。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>升级无线路由器配置（提高网速下限）&lt;/strong>&lt;/p>
+&lt;p>当你的本地带宽套餐 ≤ 100 Mbps 时不考虑本方案。&lt;/p>
+&lt;ul>
+&lt;li>若为普通家庭无线上网环境（非无线桥接，非 Mesh 组网环境，非网线直连），建议摆在客厅的无线路由功率 3000M+（营销行话：双频千兆无线路由器，而且不是 1 千，是 3 千；官方售价一般￥250+）。&lt;/li>
+&lt;li>若是 6 人左右的高校宿舍使用，建议无线路由器功率 1600~3000M。&lt;/li>
+&lt;/ul>
+&lt;p>路由厂商推荐顺序：小米 &amp;gt; TP-Link &amp;gt; 华为，主要考虑因素为性价比。&lt;/p>
+&lt;p>升级无线路由器配置的根本目的是提高「带宽升级」带来的收益，也即提升代理速度的下限。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>升级代理配置（提升代理质量，也即提升网速稳定性）&lt;/strong>&lt;/p>
+&lt;p>当你的本地带宽套餐 ≤ 100 Mbps 时不考虑本方案。&lt;/p>
+&lt;p>本方案包括但不限于“升级机场套餐”“自建节点机房更换（线路优选）”&lt;/p>
+&lt;p>当然，若你使用的是白嫖节点，发现当前节点明显跑不满带宽时更换其他白嫖节点是最便捷的“瓶颈突破”方案。一般情况下，公网上暴露的白嫖节点都难以跑满带宽，横向比较下优选既可。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>升级机场套餐&lt;/strong>&lt;/p>
+&lt;p>仅当 &lt;strong>端口限速 &amp;lt; 带宽速度&lt;/strong> 且有更快代理网速 &lt;strong>需求&lt;/strong> 时更换。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>自建节点机房更换（线路优选）&lt;/strong>&lt;/p>
+&lt;p>不作介绍（本文面向的读者群体独自操作此种方案有反向优化风险）&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

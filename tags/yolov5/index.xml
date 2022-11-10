@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>YOLOv5 on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/yolov5/</link><description>Recent content in YOLOv5 on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 02 Sep 2021 23:11:00 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/yolov5/index.xml" rel="self" type="application/rss+xml"/><item><title>『 YOLOv5 』死神VS火影 | 2D目标检测</title><link>https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/</link><pubDate>Thu, 02 Sep 2021 23:11:00 +0800</pubDate><guid>https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/</guid><description>&lt;img src="https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/Jlog7weRvmDTfhr.jpg" alt="Featured image of post 『 YOLOv5 』死神VS火影 | 2D目标检测" />&lt;blockquote>
+&lt;p>2D-object-detection-Bleach-vs-Naruto&lt;/p>
+&lt;/blockquote>
+&lt;p>《死神VS火影》| 试用 YOLOv5 完整体验自建数据集，训练模型，参数调优，最后实现 2D 目标检测的全过程。&lt;/p>
+&lt;h2 id="demo">Demo&lt;/h2>
+&lt;p>&lt;img src="https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/Jlog7weRvmDTfhr.jpg"
+width="1280"
+height="732"
+srcset="https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/Jlog7weRvmDTfhr_huccaad804e4b49c112e1e23c8189f5184_230476_480x0_resize_q75_box.jpg 480w, https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/Jlog7weRvmDTfhr_huccaad804e4b49c112e1e23c8189f5184_230476_1024x0_resize_q75_box.jpg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="174"
+data-flex-basis="419px"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.wolai.com/pHSh6Uuc9x1wwC2GSiLtyf?theme=light" target="_blank" rel="noopener"
+> &lt;strong>🚀See more demo&lt;/strong> &lt;/a>&lt;/p>
+&lt;h2 id="background">Background&lt;/h2>
+&lt;p>NIIT 暑期实习课后作业。&lt;/p>
+&lt;h2 id="install">Install&lt;/h2>
+&lt;h3 id="download-project">Download Project&lt;/h3>
+&lt;p>Clone 项目，使用 Pycharm 启动工程 &lt;a class="link" href="https://github.com/QIN2DIM/2D-object-detection-Bleach-vs-Naruto" target="_blank" rel="noopener"
+>🚀 See Github Homepage&lt;/a>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/5b467eefa083c38d4d5f5785b4cfc250.png"
+width="1728"
+height="684"
+srcset="https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/5b467eefa083c38d4d5f5785b4cfc250_hub25e5356a7b0a5d5e8e7e008f2d30798_198584_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/2d-object-detection-bleach-vs-naruto/5b467eefa083c38d4d5f5785b4cfc250_hub25e5356a7b0a5d5e8e7e008f2d30798_198584_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="252"
+data-flex-basis="606px"
+>&lt;/p>
+&lt;h3 id="download-game-optional">Download Game [optional]&lt;/h3>
+&lt;p>获取《死神vs火影 3.3》FLASH 游戏本体&lt;/p>
+&lt;p>链接：https://pan.baidu.com/s/1gjYlIzwjsYKDt8-cq1AqhA&lt;/p>
+&lt;p>提取码：5dyt&lt;/p>
+&lt;h3 id="download-bvn-network-optional">Download BVN-Network [optional]&lt;/h3>
+&lt;p>获取欠优化的序列模型，可直接用于预测任务&lt;/p>
+&lt;p>链接：https://pan.baidu.com/s/12Re3w9V56z-J-0LGCPK_IQ&lt;/p>
+&lt;p>提取码：digz&lt;/p>
+&lt;h3 id="download-database-optional">Download Database [optional]&lt;/h3>
+&lt;p>获取作者手动标注的数据集（未经数据增强）；包含录制的游戏视频及分割成帧的游戏图片，视频分割成帧的&lt;code>.py&lt;/code> 脚本，官方贴图（人物模型），images 图片数据集及其对应的 labels 标注集（使用 &lt;a class="link" href="https://blog.csdn.net/To_ChaRiver/article/details/119619515?spm=1001.2014.3001.5501" target="_blank" rel="noopener"
+>make-sense&lt;/a> 导出）&lt;/p>
+&lt;p>链接：https://pan.baidu.com/s/1o64LCXUk9LR85ipCR9-cSw&lt;/p>
+&lt;p>提取码：7qqa&lt;/p>
+&lt;h2 id="usage">Usage&lt;/h2>
+&lt;p>Clone 项目后，请标记 &lt;code>database&lt;/code>、&lt;code>game&lt;/code> 目录为“排除”，&lt;code>network&lt;/code> 为“运行根”。&lt;/p>
+&lt;p>以 &lt;code>./network&lt;/code> 为运行根启动 &lt;code>Terminal&lt;/code>，执行 &lt;code>detect.py&lt;/code> 进行预测：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/2D-object-detection-Bleach-vs-Naruto/network
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>python detect.py
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>执行结果缓存到目录 &lt;code>./network/runs/detect/exp[number]&lt;/code> 。&lt;/p>
+&lt;h2 id="project-tree">Project Tree&lt;/h2>
+&lt;p>如下为本项目的工程结构。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="mi">2&lt;/span>&lt;span class="n">D&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nb">object&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">detection&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">Bleach&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">vs&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">Naruto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">├──&lt;/span> &lt;span class="n">database&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">captures&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">images&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">labels&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">└──&lt;/span> &lt;span class="n">role_map&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">├──&lt;/span> &lt;span class="n">game&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">└──&lt;/span> &lt;span class="n">死神vs火影3&lt;/span>&lt;span class="mf">.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">├──&lt;/span> &lt;span class="n">LICENSE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">├──&lt;/span> &lt;span class="n">network&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">detect&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">export&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">hubconf&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">LICENSE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">models&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">requirements&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">txt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">runs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">train&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">├──&lt;/span> &lt;span class="n">utils&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">│&lt;/span> &lt;span class="err">└──&lt;/span> &lt;span class="n">val&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">└──&lt;/span> &lt;span class="n">README&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">md&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;code>./database&lt;/code> 存放训练数据&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>./database/captures&lt;/code>：游戏录屏文件的存放目录&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./database/images&lt;/code>：游戏录屏文件切割成帧后的图片存放目录&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./database/labels&lt;/code>：图片帧的标注集（与images一一对应）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./database/role_map&lt;/code>：预存放的游戏人物贴图，包含角色一户（卍解）以及漩涡鸣人&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./game&lt;/code> 存放《死神vs火影3.3》FLASH 游戏本体&lt;/p>
+&lt;p>Windows 客户端直接运行&lt;code>./game/死神vs火影3.3/launch.exe&lt;/code> 进入游戏。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./network&lt;/code> 目录仿制 &lt;code>YOLOv5&lt;/code> 编排&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>./network/data&lt;/code> 存放需要执行预测任务的素材（如：图片、视频）&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>./network/data/images&lt;/code>：需要执行预测任务的图片存放目录&lt;/li>
+&lt;li>&lt;code>./network/data/video&lt;/code>：需要执行预测任务的视频存放目录&lt;/li>
+&lt;li>&lt;code>./network/data/BleachVsNaruto.yaml&lt;/code>：引导模型训练所用数据集路径的配置文件&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./network/models&lt;/code> 存放yolo基准模型参数&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./network/utils&lt;/code> 存放构建网络的必要工具&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./network/runs&lt;/code> 存放网络运行缓存&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>./network/runs/detect&lt;/code>：由 &lt;code>detect.py&lt;/code> 预测任务产生的输出，与所选择的 &lt;code>./network/data/&lt;/code> 资源一一对应&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./network/runs/train&lt;/code>：由 &lt;code>train.py&lt;/code> 训练任务产生的输出，存放导出的模型、网络收敛图以及各种评价指标图&lt;/p>
+&lt;p>&lt;code>./network/runs/train/bvn-base/weights/&lt;/code> 中存放了欠优化的序列模型，可直接用于预测任务。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./network/detect.py&lt;/code> 预测任务的启动接口&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>./network/train.py&lt;/code> 训练任务的启动接口&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title>『 YOLOv5 』Make Sense</title><link>https://blog.echosec.top/p/yolov5-make-sense/</link><pubDate>Wed, 11 Aug 2021 23:54:55 +0800</pubDate><guid>https://blog.echosec.top/p/yolov5-make-sense/</guid><description>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/4ef6638.png" alt="Featured image of post 『 YOLOv5 』Make Sense" />&lt;blockquote>
+&lt;p>Make Sense | Free to use online tool for labelling photos.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="摘要">摘要&lt;/h2>
+&lt;p>本文简要介绍使用 make-sense 建立 &lt;code>YOLOv5 Object Detection&lt;/code> 图像标签的完整步骤并提及使用过程中的注意事项。&lt;/p>
+&lt;h2 id="平台简介">平台简介&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/SkalskiP/make-sense" target="_blank" rel="noopener"
+>make-sense&lt;/a> 是一个被 &lt;a class="link" href="https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data" target="_blank" rel="noopener"
+>YOLOv5官方&lt;/a> 推荐使用的图像标注工具。&lt;/p>
+&lt;p>相比于其他工具，make-sense 的上手难度非常低，仅需数分钟，玩家便能熟练掌握工作台中的功能选项，快速地进入工作状态；此外，由于 make-sense 是一款 web 应用，各个操作系统的玩家可打破次元壁实现工作协同。&lt;/p>
+&lt;h2 id="快速上手">快速上手&lt;/h2>
+&lt;h3 id="sneak-peek-流程预览">Sneak Peek 流程预览&lt;/h3>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/08f77172e306461e92b0cb75bd1e929d.gif"
+width="1754"
+height="891"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/08f77172e306461e92b0cb75bd1e929d_hu5e8c533ededd7ddfd9def97f149d6b1c_4814462_480x0_resize_box_1.gif 480w, https://blog.echosec.top/p/yolov5-make-sense/08f77172e306461e92b0cb75bd1e929d_hu5e8c533ededd7ddfd9def97f149d6b1c_4814462_1024x0_resize_box_1.gif 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="196"
+data-flex-basis="472px"
+>&lt;/p>
+&lt;h3 id="drop-images-缓存需要标注的图像数据集">Drop Images 缓存需要标注的图像数据集&lt;/h3>
+&lt;p>进入 &lt;a class="link" href="https://www.makesense.ai/" target="_blank" rel="noopener"
+>make sense&lt;/a> 站点主页，点击右下角 &lt;code>Get Started&lt;/code> 进入任务。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RvX0NoYVJpdmVy,size_16,color_FFFFFF,t_70.png"
+width="1342"
+height="790"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/_hu9b50f8f8c9a09018e35f83b943878765_693622_7737bebfb8700f3918bfbf13e583e090.png 480w, https://blog.echosec.top/p/yolov5-make-sense/_hu9b50f8f8c9a09018e35f83b943878765_693622_d323be20d7b38dc389fcd4a5fd844295.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="407px"
+>&lt;/p>
+&lt;p>拖入或上传需要标注的图像数据集。此处不支持文件夹套娃，请将所有需要标注的图像放在同一文件夹下，需要做避免重名的处理；或者您也可以多次上传位于不同文件夹下的图像。&lt;/p>
+&lt;p>值得一提的是，标注任务开时候您也可以再补充缓存需要标注的图像，但没有可靠的方式“删除”已缓存的图像。若您在标注过程中发现上传了脏数据，只需不对此图片进行任何标注，导出时就不会生成对该图像的标注数据（文件）。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/a059d15d9eb8dee3bfdc1d96cf686aa6-16331692661806.png"
+width="651"
+height="470"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/a059d15d9eb8dee3bfdc1d96cf686aa6-16331692661806_hu8da9d8fde3a89ae6c0556d8da4f79a2e_111058_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/a059d15d9eb8dee3bfdc1d96cf686aa6-16331692661806_hu8da9d8fde3a89ae6c0556d8da4f79a2e_111058_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="332px"
+>&lt;/p>
+&lt;h3 id="object-detection-进入目标检测标注模式">Object Detection 进入目标检测标注模式&lt;/h3>
+&lt;p>上传图像后，选择进入目标检测的标注模式。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/617764cd22629333edd999abb6ecf1e5.png"
+width="622"
+height="464"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/617764cd22629333edd999abb6ecf1e5_hu8c6aeedf516d7601a72e8fe040048ab2_103691_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/617764cd22629333edd999abb6ecf1e5_hu8c6aeedf516d7601a72e8fe040048ab2_103691_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="134"
+data-flex-basis="321px"
+>&lt;/p>
+&lt;h3 id="create-labels-创建标签">Create Labels 创建标签&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>导入文件自动生成标签（Load labels from file ）一行一个；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>手动创建标签，点击左边栏的“＋”符号；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>创建成功后点击 [Start project] 开始标注。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/R4QFCh7qcN2V3Et.png"
+width="1877"
+height="1287"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/R4QFCh7qcN2V3Et_hubbf57ae39ed7b77f5cba1bb001c3a824_133405_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/R4QFCh7qcN2V3Et_hubbf57ae39ed7b77f5cba1bb001c3a824_133405_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="350px"
+>&lt;/p>
+&lt;p>此处为了方便演示，我们选择手动创建标签。&lt;/p>
+&lt;div align="center">&lt;img src="EAeOYndMx4o1Nvy.png" alt="image-20210811220853094" style="zoom: 50%;" />&lt;/div>
+&lt;p>同样，我们仍可在工作过程中随时调整（&lt;kbd>Actions&lt;/kbd> | &lt;kbd>Edit Labels&lt;/kbd>）标签的&lt;code>规模&lt;/code>及&lt;code>顺序&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/9789a712bcb28ad3d50375d10ecb6afb.png"
+width="387"
+height="366"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/9789a712bcb28ad3d50375d10ecb6afb_hu4e8b75c35f39e24f2d9d3c8a44dfa048_23921_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/9789a712bcb28ad3d50375d10ecb6afb_hu4e8b75c35f39e24f2d9d3c8a44dfa048_23921_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="105"
+data-flex-basis="253px"
+>&lt;/p>
+&lt;h3 id="work-开始标注">Work 开始标注&lt;/h3>
+&lt;p>Make Sense 支持矩形 (Rect)、点 (Point)、线 (Line)、多边形 (Polyygon) 多种标注模式，点选相应的模式开始“抠图”既可。&lt;/p>
+&lt;p>工作台上有放大、缩小、还原比例、拖动、删除标签等操作工具，不过多介绍，玩几下就懂了。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/9a33ab4b094ba09ca86a25ead78945ce.png"
+width="1878"
+height="1288"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/9a33ab4b094ba09ca86a25ead78945ce_hu08fc7987495858cf550b73d0b5ce94f4_462039_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/9a33ab4b094ba09ca86a25ead78945ce_hu08fc7987495858cf550b73d0b5ce94f4_462039_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="349px"
+>&lt;/p>
+&lt;h3 id="export-导出标注">Export 导出标注&lt;/h3>
+&lt;p>点选 &lt;kbd>Actions&lt;/kbd> | &lt;kbd>Export Annotations&lt;/kbd> 导出标注。&lt;/p>
+&lt;div align="center">&lt;img src="SIsn8miqA7zXbZW.png" alt="image-20210811222025070" style="zoom:50%;" />&lt;/div>
+&lt;p>Export后会自动下载生成的压缩包文件。压缩包内是一一对应的标注集文件，与标注数据文件名与其对应的图像文件名一致。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/379019ee57844820a72bc2970b2736ed.png"
+width="1456"
+height="329"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/379019ee57844820a72bc2970b2736ed_hu1eb0ae680a9665f223504e18f0f00572_79024_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/379019ee57844820a72bc2970b2736ed_hu1eb0ae680a9665f223504e18f0f00572_79024_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="442"
+data-flex-basis="1062px"
+>&lt;/p>
+&lt;h3 id="review-审查标注数据">Review 审查标注数据&lt;/h3>
+&lt;p>由 &lt;a class="link" href="https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data" target="_blank" rel="noopener"
+>YOLOv5作者对创建标签的有关介绍 &lt;/a>可知，图像标注文件有明确的格式要求（&lt;code>YOLO format&lt;/code>）,图像 （&lt;code>ImageObject&lt;/code>）对应的标注文件（&lt;code>LabelObject&lt;/code>）必须是 &lt;code>.txt&lt;/code> 格式文件，其内容必须以空格按序切割成如下成分：&lt;/p>
+&lt;ul>
+&lt;li>目标类型：第1列成分，以数字序号区分的标签；&lt;/li>
+&lt;li>目标标识区域（以&lt;code>2D Object &lt;/code>为例）：4列连续的成分，依次为目标实体的中点 x 坐标（class x_center），中点 y 坐标（class x_center），宽度（width）以及高度 （height）；&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/7862b814c7eb88586c58cc415aac0ee0.png"
+width="1480"
+height="920"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/7862b814c7eb88586c58cc415aac0ee0_huf929e521836f485071e453974af6cb89_248810_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/7862b814c7eb88586c58cc415aac0ee0_huf929e521836f485071e453974af6cb89_248810_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="160"
+data-flex-basis="386px"
+>&lt;/p>
+&lt;p>再来看看刚才标注的&lt;code>宵宫&lt;/code>目标数据。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="mi">0&lt;/span> &lt;span class="mf">0.493783&lt;/span> &lt;span class="mf">0.509473&lt;/span> &lt;span class="mf">0.454707&lt;/span> &lt;span class="mf">0.969410&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如上所示，&lt;strong>第一列&lt;/strong>是标签&lt;code>宵宫&lt;/code>所在标签集合的序号，由于我们仅有一个标签，此处自然为0。值得一提的是，此处的序号是按照Make Sense中的标签&amp;quot;顺序&amp;quot;排列的，与 &lt;code>YOLOv5&lt;/code> train 数据集索引配置文件 (&lt;code>.yaml&lt;/code>) 中的 &lt;code>names&lt;/code> 变量的分类名 &lt;code>class names&lt;/code> 顺序无关，建议两者顺序保持一致。&lt;strong>后四列&lt;/strong>为作者框选的目标边界数据，我们可以大概这么理解，根据下图我们可知人物主体居中构图，2，3 列体现的趋于 0.5 的数据符合主观预估值；人物宽度约占画幅 X 区间的一半 (0.454707)，而高度却几乎占满整个画幅Y区间 (0.969410)。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/4ef6638.png"
+width="1342"
+height="790"
+srcset="https://blog.echosec.top/p/yolov5-make-sense/4ef6638_hu9b50f8f8c9a09018e35f83b943878765_693622_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/4ef6638_hu9b50f8f8c9a09018e35f83b943878765_693622_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="407px"
+>&lt;/p>
+&lt;h2 id="高级操作">高级操作&lt;/h2>
+&lt;p>原本至此完整的标注集导出流程已完全结束，但是作者发现本项目竟然是开源的&amp;hellip;意味着感兴趣的同学可以通过 &lt;a class="link" href="https://github.com/SkalskiP/make-sense" target="_blank" rel="noopener"
+>项目README&lt;/a> 中推荐的方案（Docker/npm）在自己熟悉的环境中部署此项目。&lt;/p>
+&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;ul>
+&lt;li>普通操作模式下，数据集缓存在内存里不会&amp;quot;上传&amp;quot;，这也解释了为何图像加载后我们能迅速投入工作。若使用 AI 标注功能，数据集可能被成批次地上传，而且此过程可能涉及与国外多服务器的通信，用时较长，且 AI 标注场景局限在日常生活的应用场景中，若场景不符则不推荐使用；&lt;/li>
+&lt;li>因此，页面误操作关闭后，标注结果必然游离，所以标注工程量较大的任务时建议小批次缓存标注，或按时导出以保存本阶段的工作进度；&lt;/li>
+&lt;/ul>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;p>[1] &lt;a class="link" href="https://www.dexerto.com/genshin-impact/genshin-impact-yoimiya-banner-leaks-5-star-pyro-character-release-date-1625360/" target="_blank" rel="noopener"
+>Genshin Impact Yoimiya banner leaks: 5-star Pyro character release date - Dexerto&lt;/a>&lt;/p>
+&lt;p>[2] &lt;a class="link" href="https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data" target="_blank" rel="noopener"
+>Train Custom Data · ultralytics/yolov5 Wik&lt;/a>&lt;/p>
+&lt;p>[3] &lt;a class="link" href="https://github.com/SkalskiP/make-sense" target="_blank" rel="noopener"
+>SkalskiP/make-sense: Free to use online tool for labelling photos&lt;/a>&lt;/p></description></item></channel></rss>

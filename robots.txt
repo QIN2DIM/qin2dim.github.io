@@ -1,0 +1,2 @@
+user-agent: *
+sitemap: https://blog.echosec.top/sitemap.xml

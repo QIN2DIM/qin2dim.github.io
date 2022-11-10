@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hysteria on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/hysteria/</link><description>Recent content in Hysteria on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 30 Oct 2022 00:54:18 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/hysteria/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』VMware 虚拟机流量代理最佳实践</title><link>https://blog.echosec.top/p/vmware-proxy-2023/</link><pubDate>Sun, 30 Oct 2022 00:54:18 +0800</pubDate><guid>https://blog.echosec.top/p/vmware-proxy-2023/</guid><description>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/anato1.jpg" alt="Featured image of post 『Blog』VMware 虚拟机流量代理最佳实践" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>本文内容较为硬核，读者不应是 Linux 小白且应对 NekoRay ，VMware 以及操作系统代理有基本的了解。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>本文探讨的场景是 Linux 图形化操作系统，在命令行系统无法运行 NekoRay（也没有必要）直接运行代理核心即可。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>我们曾在 &lt;a class="link" href="https://blog.echosec.top/p/vmware-proxy/" >『Blog』VMware 虚拟机流量代理&lt;/a> 介绍过一种虚拟机借助宿主机局域网代理实现「间接代理」的方案，it works fine 但不够优雅，代理端口的配置让人摸不着头脑，宿主机内网 IP:PORT 变动后，虚拟机代理设置也需要跟着变动，非常繁琐。&lt;/p>
+&lt;p>如今，我们可以借助一些优秀的开源项目直接在 Linux 操作系统上管理代理服务器，即，直接在虚拟机上启动客户端代理内核实现流量代理。此时，虚拟机代理和宿主机代理相互独立，虚拟机系统代理无需跟随宿主机网络环境变动。本文以 VMware Ubuntu20.04LTS 为例介绍虚拟机流量代理的最佳实践，这是目前个人使用场景代理效率最高且配置最简单的方案（暴论）。&lt;/p>
+&lt;p>本文涉及的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">项目名&lt;/th>
+&lt;th style="text-align:center">版本号&lt;/th>
+&lt;th style="text-align:center">用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray" target="_blank" rel="noopener"
+>MatsuriDayo/nekoray&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v2.2&lt;/td>
+&lt;td style="text-align:center">图形化代理客户端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/HyNetwork/hysteria" target="_blank" rel="noopener"
+>HyNetwork/hysteria&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v1.2.2&lt;/td>
+&lt;td style="text-align:center">代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/klzgrad/naiveproxy" target="_blank" rel="noopener"
+>klzgrad/naiveproxy&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v106.0.5249.91-1&lt;/td>
+&lt;td style="text-align:center">代理核心&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="虚拟机设置">虚拟机设置&lt;/h2>
+&lt;p>将虚拟机镜像的网络适配器的网络连接模式改成 &lt;strong>NAT 模式&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030011821220.png"
+width="1028"
+height="555"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030011821220_hu69c7d3be5e90b1ec2f31090859e22746_58949_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030011821220_hu69c7d3be5e90b1ec2f31090859e22746_58949_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt=" 图 1 NAT 模式"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;h2 id="代理设置">代理设置&lt;/h2>
+&lt;p>从这一步开始均为玄学的操作，因为后文中涉及到的开源项目均部署在 GitHub 上，需要优先使用代理才能下载。&lt;/p>
+&lt;p>这里有两种解决方法，要么先在宿主机上下载好必要的软件，再把它们「拖入」虚拟机窗口传输文件；要么通过反代服务解决 wget 等命令的路由问题。下文以「命令行」方案为例梳理配置思路。若随时间推移反代接口失效或脚本执行错误，读者可手动分步执行命令或基于第一种方案照葫芦画瓢。&lt;/p>
+&lt;p>&lt;strong>Script&lt;/strong>: 如果你使用 Ubuntu 20.04 以及 python3 开发环境，可以运行一键安装脚本，直接跳过 NekoRay 下载以及代理核心下载步骤。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -qO- https://gitee.com/yaoqinse/hello-world/raw/develop/npstart.py &lt;span class="p">|&lt;/span> python3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="download-nekoray">Download NekoRay&lt;/h3>
+&lt;p>行为链：从 GitHub 下载 NekoRay 预编译压缩包，解压到桌面，修改控制权限，启动 NekoRay。&lt;/p>
+&lt;p>其中 &lt;code>https://dl.capoo.xyz/&lt;/code> 为作者开放使用的反代接口，去掉这段内容后剩下的部分为正常的 GitHub 的资源链接。如果你的虚拟机此时不存在路由问题，应该去掉这段内容。&lt;/p>
+&lt;p>此外，为保证操作的连贯性，这里写死了 NekoRay v2.2 的下载地址，你可以在部署完毕后通过 NekoRay 内置的在线更新功能追平最新特性。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ~/Desktop/ &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget https://dl.capoo.xyz/https://github.com/MatsuriDayo/nekoray/releases/download/2.2/nekoray-2.2-2022-10-30-linux64.zip &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> unzip nekoray-2.2-2022-10-30-linux64.zip &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> rm nekoray-2.2-2022-10-30-linux64.zip &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> ~/Desktop/nekoray &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ./launcher
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果你是第一次使用 NekoRay ，可以在 &lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >之前的文章&lt;/a> 中了解更多的使用细节，此处不再赘述。&lt;/p>
+&lt;h3 id="download-proxy-core">Download Proxy Core&lt;/h3>
+&lt;p>下文以 Hysteria 及 Naiveproxy 作演示，同样，相关文章可在本站历史查找。&lt;/p>
+&lt;p>行为链：从 GitHub 上游仓库下载预编译代理核心并存放至 NekoRay 的配置路径下，最后赋予 hysteria-core 额外的执行权限。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> ~/Desktop/nekoray/config &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget https://dl.capoo.xyz/https://github.com/HyNetwork/hysteria/releases/download/v1.2.2/hysteria-linux-amd64 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x ./hysteria-linux-amd64 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget -O naiveproxy.tar.xz https://dl.capoo.xyz/https://github.com/klzgrad/naiveproxy/releases/download/v106.0.5249.91-1/naiveproxy-v106.0.5249.91-1-linux-x64.tar.xz &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> tar -xvf naiveproxy.tar.xz &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> mv naiveproxy-v106.0.5249.91-1-linux-x64/naive . &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> rm naiveproxy.tar.xz &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> rm -r naiveproxy-v106.0.5249.91-1-linux-x64
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下载完后，参照 &lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >之前的文章&lt;/a> &lt;strong>启用 HTTP 监听端口&lt;/strong> 并 &lt;strong>指定 hysteria-core 以及 naive-core 的绝对路径&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030181001877.png"
+width="992"
+height="670"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030181001877_hu0881c7e6d4401659acf4e07325570ca8_87479_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030181001877_hu0881c7e6d4401659acf4e07325570ca8_87479_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 2 添加代理核心"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="355px"
+>&lt;/p>
+&lt;h3 id="enable-system-proxy">Enable System Proxy&lt;/h3>
+&lt;p>至此， NekoRay 已配置完毕可以直接投入使用。接下来，以你喜欢的方式添加 Hysteria 或 Naiveproxy 的代理服务器，例如从宿主机已配置好的 NekoRay 中导出分享链接并粘贴过来。&lt;/p>
+&lt;p>选中需要激活的服务器，启动系统代理。你可以访问 Google 或 YouTube 等站点检测系统代理连通性，也可以通过 fast.com 或 speedtest.net 甚至是 YouTube 码流速度估算代理最大下行速度，如图 3,4,5 所示。&lt;/p>
+&lt;p>之后，你可以通过双击 &lt;code>~/Desktop/nekoray/launcher&lt;/code> 启动软件本体，也可以设置开机自启。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030032844192.png"
+width="1802"
+height="1464"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030032844192_hud4f69e9f2686dca641de36ce27ec0924_868107_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030032844192_hud4f69e9f2686dca641de36ce27ec0924_868107_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 3 檢測系統代理連通性"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="295px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030033059858.png"
+width="1802"
+height="1465"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/image-20221030033059858_hudcd8f62db5fb6c42e30cb0329ff4b977_424091_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/image-20221030033059858_hudcd8f62db5fb6c42e30cb0329ff4b977_424091_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 4 簡單跑個分"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="295px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/vmware-proxy-2023/Snipaste_2022-10-30_03-44-46.png"
+width="1795"
+height="1293"
+srcset="https://blog.echosec.top/p/vmware-proxy-2023/Snipaste_2022-10-30_03-44-46_huf0637cd9ffe9eb3fec00fc57e4bff552_1096315_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/vmware-proxy-2023/Snipaste_2022-10-30_03-44-46_huf0637cd9ffe9eb3fec00fc57e4bff552_1096315_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="图 5 YouTube 4K Video Connection Speed"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="333px"
+>&lt;/p>
+&lt;h2 id="开发中的代理问题">开发中的代理问题&lt;/h2>
+&lt;p>介绍常见的虚拟机代理错误设置并给出相应的解决方法。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>浏览器代理&lt;/strong>&lt;/p>
+&lt;p>浏览器代理选择系统代理即可。Google，Edge 默认走系统代理（且不可更改），Firefox 则给出眼花缭乱的选项，将「配置访问互联网的代理服务器」手动置为「使用系统代理」即可。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>wget | git | pip |curl 等命令的路由通路&lt;/strong>&lt;/p>
+&lt;p>这些命令默认走系统代理。如果你配置了优先级更高的回源代理（如 pip 清华镜像源）那么它大概率会和系统代理打架，针对回源代理的说明可看后文小节部分。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>apt 等命令的路由通路&lt;/strong>&lt;/p>
+&lt;p>建议保持国内镜像源。本地与 Ubuntu 软件源服务器是直连关系，流量不走系统代理，选择国内镜像源直连是不错的选择。当然你也可以修改 Ubuntu 软件源指回主根服务器，并保持 NekoRay VPN 模式为开启状态。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>ping 命令的连通性&lt;/strong>&lt;/p>
+&lt;p>我想你应该不会惊讶于「为什么我开启了系统代理，能 ping 通 baidu.com 却 ping 不通 google.com」。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>JetBrains 家族产品的代理设置&lt;/strong>&lt;/p>
+&lt;p>（如：PyCharm，Goland，IDE）&lt;/p>
+&lt;p>这类软件设置项中的代理仅对软件本身有效，如插件商城，而软件运行代码是通过 shell 脚本命令执行的，即，你的代码中的网络请求是否使用代理与这个库的底层逻辑以及你是否传入代理参数有关，而与软件设置的代理无关。&lt;/p>
+&lt;p>比如 Python3 的 &lt;code>requests.get()&lt;/code> 在你不指定参数 &lt;code>proxies&lt;/code> 时会检索环境变量 &lt;code>*_proxy&lt;/code> 自动填充 &lt;code>proxies&lt;/code> 参数，即，reqeusts 流量默认走系统代理。而 &lt;code>aiohttp&lt;/code> 中基于 &lt;code>ClientSession&lt;/code> 对象的网络请求默认直连，即，不指定参数 &lt;code>proxy&lt;/code> 代理不生效。但无论如何，它们都与软件设置的代理无关。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&lt;code>TLS in TLS&lt;/code> 陷阱&lt;/strong>&lt;/p>
+&lt;p>如果你使用 Python3 进行开发，你一定经历过： pip 下载速度慢；换源；镜像源和系统代理打架；自己写的网络请求没法过墙，指定了系统代理却出现了连锁的 &lt;code>SSLError&lt;/code> 异常。这是一个史前巨坑，是一个仅会在中国大陆发生的奇妙化学反应，urllib3 的导演组都自愧不如。这一切的一切都指向一个 &lt;strong>TLS in TLS 陷阱&lt;/strong>。你可以在 &lt;a class="link" href="https://github.com/conda/conda/issues/10590#issuecomment-880196074" target="_blank" rel="noopener"
+>conda issues&lt;/a> 继续吃瓜。&lt;/p>
+&lt;p>解决方法如下，根据你的需求和应用场景择优：&lt;/p>
+&lt;p>&lt;strong>Solution1&lt;/strong>：调整 urllib3 版本，即，&lt;code>pip install urllib3==1.25.11&lt;/code>；&lt;/p>
+&lt;p>&lt;strong>Solution2&lt;/strong>：调整代理软件配置&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>v2rayN v5.36+, 「参数设置 &amp;ndash; 系统代理设置 &amp;ndash; 高级代理设置」选择 &lt;code>http=http://{ip}:{http_port};https=http://{ip}:{http_port}&lt;/code>。在「例外」中添加 &lt;code>pypi.tuna.tsinghua.edu.cn;&lt;/code> 绕过 pip 清华源的代理请求，如果你使用其他 pip 源，填写相应的域名即可。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Clash（cfw/verge/&amp;hellip;）开启 TAP/TUN。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>NekoRay 切换至 VPN 模式。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Solution3&lt;/strong>：以你喜欢的方式调整系统代理的协议格式&lt;/p>
+&lt;p>核心操作是让 HTTPS 与 HTTP 的代理流量公用一个端口，并且绕过系统代理的 TLS 认证问题。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">proxies&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;http&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;http://127.0.0.1:10809&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;https&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;http://127.0.0.1:10809&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="相关文章">相关文章&lt;/h2>
+&lt;p>&lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria/" >『Blog』Use Hysteria through NekoRay in Windows&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.echosec.top/p/naiveproxy/" >『Blog』Naiveproxy Quick Start&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" >『Blog』V2rayN 配置 Hysteria&lt;/a>&lt;/p></description></item><item><title>『Blog』Use Hysteria through Clash Verge</title><link>https://blog.echosec.top/p/clash-verge-hysteria/</link><pubDate>Fri, 02 Sep 2022 20:04:10 +0800</pubDate><guid>https://blog.echosec.top/p/clash-verge-hysteria/</guid><description>&lt;img src="https://blog.echosec.top/p/clash-verge-hysteria/anato.jpg" alt="Featured image of post 『Blog』Use Hysteria through Clash Verge" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>本文以 Windows 为例介绍使用 Clash Verge 启动 Hysteria 代理核心的快速入门步骤并列举一些注意事项。下文以 Verge 代称 Clash Verge。&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/zzzgydi/clash-verge" target="_blank" rel="noopener"
+>Verge&lt;/a> 是一个基于 &lt;a class="link" href="https://github.com/tauri-apps/tauri" target="_blank" rel="noopener"
+>tauri&lt;/a> 编写的 &lt;a class="link" href="https://docs.cfw.lbyczf.com/" target="_blank" rel="noopener"
+>Clash系列图形化客户端&lt;/a>，支持跨平台（Windows x64, Linux x86_64 and macOS 11+）。Verge 支持更换至 &lt;a class="link" href="https://github.com/MetaCubeX/Clash.Meta" target="_blank" rel="noopener"
+>Meta-core&lt;/a>，即，支持多平台的 &lt;a class="link" href="https://github.com/HyNetwork/hysteria" target="_blank" rel="noopener"
+>Hysteria&lt;/a> 代理核心的管理。您可以查阅下表列出的 Documentation 了解有关 Verge（Meta）组合的诸多特性。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>发行版本号&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/zzzgydi/clash-verge" target="_blank" rel="noopener"
+>zzzgydi/clash-verge&lt;/a>&lt;/td>
+&lt;td>v1.0.5&lt;/td>
+&lt;td>图形化客户端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/Loyalsoldier/clash-rules" target="_blank" rel="noopener"
+>Loyalsoldier/clash-rules&lt;/a>&lt;/td>
+&lt;td>202208302241&lt;/td>
+&lt;td>开源规则集&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/Dreamacro/clash/wiki" target="_blank" rel="noopener"
+>Dreamacro/clash Wiki &lt;/a>&lt;/td>
+&lt;td>/&lt;/td>
+&lt;td>Documentation&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://docs.metacubex.one/" target="_blank" rel="noopener"
+>Clash.Meta Wiki&lt;/a>&lt;/td>
+&lt;td>/&lt;/td>
+&lt;td>Documentation&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://docs.cfw.lbyczf.com/" target="_blank" rel="noopener"
+>Clash for Windows Wiki&lt;/a>&lt;/td>
+&lt;td>/&lt;/td>
+&lt;td>Documentation&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/emptysuns/Hi_Hysteria" target="_blank" rel="noopener"
+>emptysuns/Hi_Hysteria&lt;/a>&lt;/td>
+&lt;td>v0.4.0&lt;/td>
+&lt;td>服务端安装脚本&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="快速上手">快速上手&lt;/h2>
+&lt;h3 id="下载设置现象-verge">下载设置现象 Verge&lt;/h3>
+&lt;p>访问 &lt;a class="link" href="https://github.com/zzzgydi/clash-verge/releases" target="_blank" rel="noopener"
+>Releases · zzzgydi/clash-verge&lt;/a>，下载最新发行版本。建议 Windows 用户选择 &lt;code>_zh-CN.msi&lt;/code>。&lt;/p>
+&lt;h3 id="编排配置文件">编排配置文件&lt;/h3>
+&lt;p>因为 Verge 也是基于 Meta 运行 Hysteria 代理核心，我们在 &lt;a class="link" href="https://blog.echosec.top/p/clash-meta-for-android-hysteria/#%e9%99%84%e4%bb%b6" >Clash.Meta&lt;/a> 这篇博客介绍的配置模版可以重用，配置项完全一致。如果你通过 &lt;a class="link" href="https://github.com/emptysuns/Hi_Hysteria" target="_blank" rel="noopener"
+>hihy&lt;/a> 在服务器上维护 Hysteria，那么可以非常方便地导出包含预设规则的 Meta YAML 配置文件，你可以将该配置文件导入到 Verge 或 CMFA（Clash Meta for Android） 等客户端直接使用。&lt;/p>
+&lt;h3 id="配置-verge">配置 Verge&lt;/h3>
+&lt;p>假设已获取配置文件并存到本地&amp;hellip;&lt;/p>
+&lt;p>从主界面进入到「配置」页，选择「新建」，调整配置类型为 &lt;code>Local&lt;/code>，加上合理的 Name 以及 Descriptions，点击「选择文件」找到存在本地的 YAML 配置文件，点击「保存」导入配置。Verge 会拷贝一份配置文件存储到目录 &lt;code>~/.config/clash-verge-prfiles&lt;/code> 。&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220902204955592.png" alt="新建配置" width="80%"/>&lt;br>
+&lt;figcapton>图 1 新建配置&lt;/figcapton>
+&lt;/figure>
+&lt;p>回到「配置」页，选中刚创建的配置激活代理组（或「右键」目标代理组选择「使用」）。&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220902205916250.png" alt="激活配置" width="80%"/>&lt;br>
+&lt;figcapton>图 2 激活配置&lt;/figcapton>
+&lt;/figure>
+&lt;p>可以在「代理」页查看当前激活的代理组。&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220902210134475.png" alt=" Verge 代理组" width="80%"/>&lt;br>
+&lt;figcapton>图 3 Verge 代理组&lt;/figcapton>
+&lt;/figure>
+&lt;p>进入「设置」页，检查 「Clash 设置」，&lt;strong>切换内核&lt;/strong>至 Clash.Meta。&lt;/p>
+&lt;p>在当前页面检查「系统设置」，如下图所示，开启「服务模式」，开启「系统代理」。若服务模式下载异常，可以先开启系统代理后再下载启用服务模式。访问 Google 或 YouTube 等站点进行行为检测，「流量图显」正常波动说明网络代理工作正常。&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220902210406243.png" alt="Verge 系统代理" width="80%"/>&lt;br>
+&lt;figcapton>图 4 Verge 系统代理&lt;/figcapton>
+&lt;/figure>
+&lt;h2 id="进阶操作">进阶操作&lt;/h2>
+&lt;h3 id="检查网络连接">检查网络连接&lt;/h3>
+&lt;p>进入「连接」页中检查经由 Verge 的网络活动（即不开启代理时「连接」和「日志」不工作）。在下图中，我们筛选了经由 Verge 前往以 &lt;code>api.bilibili&lt;/code> 为前缀的域名的流量去向，可以看到使用的传输协议是 &lt;code>HTTPS&lt;/code>，访问策略是 &lt;code>DIRECT&lt;/code>，直译为「直接连接」表示访问数据包不经由远程代理服务器转发而是直接去往B站。&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220902212142666.png" alt="Verge 网络连接 - DIRECT " width="80%"/>&lt;br>
+&lt;figcapton>图 5 Verge 网络连接 - DIRECT&lt;/figcapton>
+&lt;/figure>
+&lt;p>同样，我们筛选 &lt;code>youtube&lt;/code> 可以看到如下内容：&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220902212619771.png" alt="Verge 网络连接 - PROXY" width="80%"/>&lt;br>
+&lt;figcapton>图 6 Verge 网络连接 - PROXY&lt;/figcapton>
+&lt;/figure>
+&lt;p>图中的标签 &lt;code>PROXY&lt;/code> 对应着配置文件中的代理组名称，此处直译为「通用代理」表示 Verge 使用 PROXY 这个代理组中的节点处理面向当前连接的网络请求。我们切换到「日志」页面，可以进一步地查看访问细节，如下图所示：&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220902213034334.png" alt="Verge logs" width="80%"/>&lt;br>
+&lt;figcapton>图 7 Verge logs&lt;/figcapton>
+&lt;/figure>
+&lt;p>以 &lt;code>09-02 21:24:15 INFO&lt;/code> 这条日志为例，其表述了一个数据包的行为链：数据包从「本地系统代理」7890 端口转发到本地 44391 端口“准备发往” Youtube（HTTPS），又因为当前站点触发了（域名）匹配规则 &lt;code>RuleSet(proxy)&lt;/code> ，意味着这次“发送”需要使用规则所指定的代理组 &lt;code>PROXY&lt;/code>，而具体使用该代理组中的哪个节点呢？默认是我们手动选中（Select）的节点，在配置文件中它的别名（name）是 &lt;code>CA Clone&lt;/code>&lt;/p>
+&lt;h3 id="tun-模式">TUN 模式&lt;/h3></description></item><item><title>『Blog』Use Hysteria through Clash.Meta in Android</title><link>https://blog.echosec.top/p/clash-meta-for-android-hysteria/</link><pubDate>Thu, 01 Sep 2022 01:59:39 +0800</pubDate><guid>https://blog.echosec.top/p/clash-meta-for-android-hysteria/</guid><description>&lt;img src="https://blog.echosec.top/p/clash-meta-for-android-hysteria/finnstark-1.jpg" alt="Featured image of post 『Blog』Use Hysteria through Clash.Meta in Android" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>本文涉及的开源项目：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">项目名&lt;/th>
+&lt;th style="text-align:left">发行版本号&lt;/th>
+&lt;th style="text-align:left">用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">&lt;a class="link" href="https://github.com/MetaCubeX/ClashMetaForAndroid/releases" target="_blank" rel="noopener"
+>MetaCubeX/ClashMetaForAndroid&lt;/a>&lt;/td>
+&lt;td style="text-align:left">v2.5.11-pre02&lt;/td>
+&lt;td style="text-align:left">图形化客户端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">&lt;a class="link" href="https://github.com/Loyalsoldier/clash-rules" target="_blank" rel="noopener"
+>Loyalsoldier/clash-rules&lt;/a>&lt;/td>
+&lt;td style="text-align:left">202208302241&lt;/td>
+&lt;td style="text-align:left">开源规则集&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>下文均以 CMFA 代称 Clash Meta for Android。&lt;/p>
+&lt;h2 id="快速上手">快速上手&lt;/h2>
+&lt;h3 id="下载-cmfa">下载 CMFA&lt;/h3>
+&lt;p>推荐从 &lt;a class="link" href="https://github.com/MetaCubeX/ClashMetaForAndroid/releases" target="_blank" rel="noopener"
+>Releases&lt;/a> 下载最新发行版软件。&lt;/p>
+&lt;p>通常，主流安卓手机使用带有 &lt;code>arm64-v8a&lt;/code> 标签的 APK 文件。以你喜欢的方式在移动设备上安装 CMFA，不要点击多余的东西。&lt;/p>
+&lt;figure align="center" style="flex-grow: 169; flex-basis: 407px;">
+&lt;img src="image-20220901034946913.png" alt=" Download CMFA release arm64-v8a." width="80%"/>&lt;br>
+&lt;figcapton>Fig1. - Download CMFA release through GitHub.&lt;/figcapton>
+&lt;/figure>
+&lt;h3 id="导入配置文件">导入配置文件&lt;/h3>
+&lt;p>参考 &lt;a class="link" href="#asset" >文末附件 &lt;/a>编写你的配置信息，导入移动设备。从 CMFA 应用主界面点击「配置」进入创建配置页面，导入配置文件，点击保存。&lt;/p>
+&lt;p>值得一提的是，目前 Hysteria 仍未被普及使用，你可能缺少一种合理的方式部署 URI 服务用于定时更新 Hysteria 配置信息。目前的最佳实践仍是通过配置文件导入相关数据，通过链接导入反而有订阅泄漏的风险。&lt;/p>
+&lt;figure align="center">
+&lt;img src="image-20220901042857526.png" alt="Import rules file(yaml) of CMFA." width="60%"/>&lt;br>
+&lt;figcapton>Fig2. - Import rules from external YAML file.&lt;/figcapton>
+&lt;/figure>
+&lt;figure align="center">
+&lt;img src="image-20220901035951449.png" alt="Waiting for external resources to load." width="60%"/>&lt;br>
+&lt;figcapton>Fig3. - Waiting for rule-providers to load.&lt;/figcapton>
+&lt;/figure>
+&lt;figure align="center">
+&lt;img src="image-20220901040031284.png" alt="Select the (hysteria) configuration item." width="60%"/>&lt;br>
+&lt;figcapton>Fig4. - Select the (hysteria) configuration item.&lt;/figcapton>
+&lt;/figure>
+&lt;h3 id="启动代理">启动代理&lt;/h3>
+&lt;p>返回 CMFA 应用主界面，点击「启动」即可。&lt;/p>
+&lt;figure align="center">
+&lt;img src="image-20220901040247273.png" alt="Startup proxy." width="60%"/>&lt;br>
+&lt;figcapton>Fig5. - Startup proxy.&lt;/figcapton>
+&lt;/figure>
+&lt;h3 id="黑名单访问控制模式">黑名单访问控制模式&lt;/h3>
+&lt;p>黑名单模式，意为「&lt;strong>只有命中规则的网络流量，才使用代理&lt;/strong>」，这是一个大幅度提升网上冲浪体验的关键操作。在 Kotlin 系列的软件中，该选项还被称为「分应用代理」。&lt;/p>
+&lt;p>由于每个人的设备环境大相径庭，很难用一套模版覆盖所有环境，所以我们只说明操作方法以及注意事项，提供的 rules 仅供参考，你需要根据具体情况进一步调教。&lt;/p>
+&lt;p>关闭代理，从应用界面依次进入「设置 &amp;ndash; 网络 」，将访问控制模式调整为「仅允许已选择的应用」，其他选项保持默认即可，具体内容如下所示：&lt;/p>
+&lt;figure align="center">
+&lt;img src="image-20220901122526318.png" alt=" Access control mode of VpnService." width="60%"/>&lt;br>
+&lt;figcapton>Fig6. - Access control mode of VpnService. &lt;/figcapton>
+&lt;/figure>
+&lt;p>打开「访问控制应用包列表」，开始点选&lt;strong>需要使用代理的应用软件&lt;/strong>。可供参考的应用包列表如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="l">com.azure.authenticator&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.android.chrome&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.discord&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.microsoft.office.excel&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.github.android&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.google.android.gm&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.google.ar.core&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.instagram.android&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.medium.reader&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.microsoft.office.officehubrow&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.picsart.studio&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.microsoft.office.powerpoint&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.reddit.frontpage&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.spotify.music&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">org.telegram.messenger&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.twitter.android&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">twittervideosaver.twittervideodownloader.twimate.savetwittergif&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.microsoft.office.word&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.google.android.youtube&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">photo.editor.photoeditor.photoeditorpro&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.google.earth&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.android.vending&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.google.android.gms&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">com.google.android.gsf&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>你可以在「访问控制应用包列表」中从外部（剪切板）导入以上内容，部分应用需要关闭包列表的系统应用过滤器才能看到。我们以上述内容为例阐述黑名单访问控制模式的最佳实践案例。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">代理类&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">谷歌商店&lt;/td>
+&lt;td>&lt;code>Google Play Store&lt;/code>，&lt;code>Google Play 服务&lt;/code> 以及 &lt;code>Google 服务框架&lt;/code>。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">浏览器&lt;/td>
+&lt;td>主用的浏览器，如 Google，Edge，Firefox，DuckGo 等，否则应用内的多种服务无法正常使用。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">邮箱&lt;/td>
+&lt;td>Gmail，Protonmail 等需要代理才能正常收发件的产品。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">Authenticator&lt;/td>
+&lt;td>用于二步验证或多因素验证的软件，若您使用的是国外产品（这类生态在国内不成熟），它们的云服务备份功能自然是需要通过代理的。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">其他&lt;/td>
+&lt;td>（1）各种需要代理的国外应用。如 YouTube，Twitter，Telegram，Instagram，Reddit，Spotify，Google Earth ，Microsoft Office 等人尽皆知的国外御三家应用；（2）Twitter、Instagram下载器（用于下载推文视频）之类的软件；（3）需要代理才能正常使用的游戏、流媒体及协作服务。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>反模式警告&lt;/strong>，除非是特殊用途（比如装逼、连入公司内网、开发），否则你不应在任何情况下使用境外代理访问支付宝、微信、反炸中心、百度/高德地图、Bilibili、电商软件、抖音等知名国内御三家应用。&lt;/p>
+&lt;p>这种反模式的行为会不会带来意料之外的惊喜暂且不谈，就上网体验本身就非常糟糕，也许是出入公共场合地点码半分钟加载不出来，也许是 B站 的下饭体验极其恶劣，但无论如何，长期「异地登录人」的用户画像会给你今后的网上冲浪生活留下浓墨重彩的一笔。&lt;/p>
+&lt;p>&lt;span id="asset">&lt;/span>&lt;/p>
+&lt;h2 id="附件">附件&lt;/h2>
+&lt;ol>
+&lt;li>参考项目&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/HyNetwork/hysteria/wiki/%e9%ab%98%e7%ba%a7%e7%94%a8%e6%b3%95" target="_blank" rel="noopener"
+>HyNetwork/hysteria Wiki&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/Loyalsoldier/clash-rules" target="_blank" rel="noopener"
+>Loyalsoldier/clash-rules&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>
+&lt;p>配置文件&lt;/p>
+&lt;p>根据注释修改配置信息&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">mixed-port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">7890&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">allow-lan&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">mode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">rule&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">log-level&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">info&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">ipv6&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">listen&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0.0.0.0&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">53&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ipv6&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">default-nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">114.114.114.114&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enhanced-mode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redir-host&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://dns.alidns.com/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://doh.pub/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">fallback&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">114.114.114.114&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 编写 Hysteria 客户端的协商配置信息&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">proxies&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;CN2 GIA-E&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hysteria&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">server&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Hysteria 服务域名&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Hysteria 服务端口&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">auth_str&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 字符串校验密钥&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">alpn&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">h3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">protocol&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">wechat-video&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># udp/wechat-video&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">up&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">25&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">down&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">125&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">sni&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Hysteria 服务域名&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">skip-cert-verify&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">recv_window_conn&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">12320768&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">recv_window&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">49283072&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">disable_mtu_discovery&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 服务注册&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 将上文配置的 proxies-name 的值依次编排到下方的 proxies 列表中&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">proxy-groups&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;PROXY&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">select&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">proxies&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;CN2 GIA-E&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rule-providers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">reject&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/reject.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/reject.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">icloud&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/icloud.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/icloud.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">apple&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/apple.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/apple.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">proxy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/proxy.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/proxy.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">direct&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/direct.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/direct.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">private&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/private.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/private.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">gfw&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/gfw.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/gfw.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">greatfire&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">domain&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/greatfire.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/greatfire.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">telegramcidr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ipcidr&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/telegramcidr.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/telegramcidr.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">cncidr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ipcidr&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/cncidr.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/cncidr.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">lancidr&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ipcidr&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/lancidr.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/lancidr.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">applications&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">behavior&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">classical&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;https://ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/clash-rules/release/applications.txt&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./ruleset/applications.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">86400&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,clash.razord.top,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,yacd.haishan.me,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,proxy,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,telegramcidr,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,direct,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,applications,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,private,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,icloud,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,apple,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,lancidr,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,cncidr,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,reject,RECEJT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,LAN,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item><item><title>『Blog』Use Hysteria through Matsuri in Android</title><link>https://blog.echosec.top/p/matsuri-hysteria/</link><pubDate>Wed, 31 Aug 2022 06:57:23 +0800</pubDate><guid>https://blog.echosec.top/p/matsuri-hysteria/</guid><description>&lt;img src="https://blog.echosec.top/p/matsuri-hysteria/webpti.jpg" alt="Featured image of post 『Blog』Use Hysteria through Matsuri in Android" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>在以往文章中我们介绍了在 Windows 上以图形化界面的形式管理 Hysteria 的解决方案：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://blog.echosec.top/p/nekoray-hysteria" >『Blog』NekoRay 配置 Hysteria&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" target="_blank" rel="noopener"
+>『Blog』V2rayN 配置 Hysteria&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>本文继续介绍有关 Hysteria 代理核心更多内容。本篇以 Matsuri 为切入点，介绍在 Android 手机上启动 Hysteria 代理核心的 quick-start 入门步骤，开箱即用。&lt;/p>
+&lt;p>如果你已持有一枚可用的 Hysteria 节点链接，只需要花费不到 3 分钟的时间便可在自己的手机上架起代理与互联国际完成「友好交互」。&lt;/p>
+&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;p>本文涉及的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>发行版本号&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/HyNetwork/hysteria" target="_blank" rel="noopener"
+>HyNetwork/hysteria&lt;/a>&lt;/td>
+&lt;td>v1.2.0&lt;/td>
+&lt;td>代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri" target="_blank" rel="noopener"
+>MatsuriDayo/Matsuri&lt;/a>&lt;/td>
+&lt;td>v0.4.1&lt;/td>
+&lt;td>图形化客户端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/plugins/releases/tag/Hysteria-v1.2.0-2" target="_blank" rel="noopener"
+>MatsuriDayo/Hysteria-Plugin&lt;/a>&lt;/td>
+&lt;td>v1.2.0-2&lt;/td>
+&lt;td>兼容性插件&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>注意 →&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>本文不面向零基础的小白读者，且仅涉及与 Matsuri Android 客户端相关的操作演示，hysteria 服务端的配置详见&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" target="_blank" rel="noopener"
+>『Blog』V2rayN 配置 Hysteria&lt;/a>。&lt;/li>
+&lt;li>该项目仍处于成长期，且因开发者精力有限，无法保证 SagerNet 的最新特性得到及时迁移。本人在相关测试后认为该项目已能实现有关 Hysteria 代理的核心功能，可以正常使用，也即，本文不涉及该软件兼容的其他代理类型的介绍，玩家需要根据自己的喜好和需求选择适合自己的产品。&lt;/li>
+&lt;/ol>
+&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>如果你已是 Hysteria 其他桌面系统的玩家，那你一定参阅过 &lt;a class="link" href="https://github.com/HyNetwork/hysteria/wiki/%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85" target="_blank" rel="noopener"
+>Hysteria 的 Wiki 文档&lt;/a>，你会发现，早在一年前， SagerNet 就以插件的形式支持了 Hysteria 在安卓手机上的运行。然而，该上游项目欠缺维护，实际情况是大量型号的安卓设备并不能正常启动 Hysteria 代理核心，乃至在作者撰文的现在，大量潜在 BUG 仍未得到妥善处理，常见的问题是弹出如下提示：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>缺少插件&lt;/strong>：&amp;hellip; 专有设备提供商篡改了你的安卓系统，使该插件无法使用。&lt;/p>
+&lt;/blockquote>
+&lt;p>那么，该主角出场了！&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri" target="_blank" rel="noopener"
+>Matsuri&lt;/a>，是一个用 Kotlin 编写的 Android 代理工具链，是 &lt;a class="link" href="https://github.com/SagerNet/SagerNet" target="_blank" rel="noopener"
+>SagerNet&lt;/a> 的一个子分支。Matsuri 继承了 SagerNet 的诸多优良特性，并在此基础上修补了一些历史遗留问题。相关内容可访问 Matsuri 仓库文档，本文仅介绍有关 Hysteria 代理核心相关的内容。&lt;/p>
+&lt;h2 id="快速上手">快速上手&lt;/h2>
+&lt;h3 id="下载-matsuri">下载 Matsuri&lt;/h3>
+&lt;p>Matsuri 支持从 &lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri/releases" target="_blank" rel="noopener"
+>GitHub Releases&lt;/a> 以及 &lt;a class="link" href="https://play.google.com/store/apps/details?id=moe.matsuri.lite" target="_blank" rel="noopener"
+>Google Play&lt;/a> 两种途径下载。目前，谷歌商店上架的版本与 GitHub 发行版的版本号一致，两者均支持在线更新。如果条件允许，从谷歌商店下载比较方便。&lt;/p>
+&lt;h4 id="从-github-下载">从 GitHub 下载&lt;/h4>
+&lt;p>访问 &lt;a class="link" href="https://github.com/MatsuriDayo/Matsuri/releases" target="_blank" rel="noopener"
+>GitHub Releases&lt;/a> ，下载最新发行版即可。主流的安卓手机适合使用 &lt;code>arm64-v8a&lt;/code> 类型 APK 客户端。&lt;/p>
+&lt;h4 id="从-google-play-下载">从 Google Play 下载&lt;/h4>
+&lt;p>访问内联链接 &lt;a class="link" href="https://play.google.com/store/apps/details?id=moe.matsuri.lite" target="_blank" rel="noopener"
+>Google Play&lt;/a> 或手动搜索关键词 &lt;code>Matsuri Makubaro&lt;/code> 。&lt;/p>
+&lt;figure align="center">
+&lt;img src="image-20220831131748008.png" alt=" Download CMFA release arm64-v8a." width="33%"/>&lt;br>
+&lt;/figure>
+&lt;h3 id="导入-hysteria-节点">导入 Hysteria 节点&lt;/h3>
+&lt;p>此处推荐的操作是先导入一个可用的 Hysteria 节点，再进行插件的（自动）安装。&lt;/p>
+&lt;p>与同世代项目操作逻辑一致，Matsuri 支持从二维码，剪切板，配置文件以及手动编辑 4 种方式导入代理。推荐从剪切板导入 Hysteria 节点分享链接。&lt;/p>
+&lt;h3 id="下载-hysteria-plugin">下载 Hysteria-Plugin&lt;/h3>
+&lt;p>选中导入的节点，点击下方的启动开关，此时会弹出如下警告交互框：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831133400876.png" alt="image-20220831133400876" style="zoom: 25%;" />&lt;/div>
+&lt;p>点击「下载」自动打开浏览器前往 &lt;a class="link" href="https://github.com/MatsuriDayo/plugins/releases" target="_blank" rel="noopener"
+>Hysteria 插件页面&lt;/a>，根据你自己的设备情况选择最新发行版的软件即可。如骁龙系列产品通常选择 &lt;code>arm64-v8a.apk&lt;/code>，相关截屏如下所示：&lt;/p>
+&lt;div align="center">
+&lt;img src="image-20220831133813986.png" alt="image-20220831133813986" style="zoom: 15%;" />
+&lt;img src="image-20220831133819439.png" alt="image-20220831133819439" style="zoom:15%;" />
+&lt;/div>
+下载完后正常安装即可，不要点击多余的东西。
+&lt;div align="center">&lt;img src="image-20220831134255535.png" alt="image-20220831134255535" style="zoom:25%;" />&lt;/div>
+&lt;h3 id="配置-matsuri-代理核心">配置 Matsuri 代理核心&lt;/h3>
+&lt;h4 id="解除插件限制">解除插件限制&lt;/h4>
+&lt;p>首先，下载好的 plugin 在桌面上不显示快捷方式，需要在你自己设备中的「应用管理」中查找（不同设备操作路径不一致，此处不多赘述，大体上从设置界面进入）Hysteria Plugin，如下图所示：&lt;/p>
+&lt;div align="center">
+&lt;img src="image-20220831134752294.png" alt="image-20220831134752294" style="zoom:25%;" />
+&lt;img src="image-20220831134958164.png" alt="image-20220831134958164" style="zoom:25%;" />
+&lt;/div>
+&lt;h4 id="解除主程序限制">解除主程序限制&lt;/h4>
+&lt;p>同样，需要在应用信息界面调整 Matsuri 的软件权限。具体来说有 3 点，联网权限，自启动以及省电策略。&lt;/p>
+&lt;p>最后，你需要锁定驻台进程，防止一键清除后台缓存时退出代理。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831135551288.png" alt="image-20220831135551288" style="zoom:25%;" />&lt;/div>
+&lt;h4 id="启用-http-入站">启用 HTTP 入站&lt;/h4>
+&lt;p>回到主程序界面，从侧边栏中进入到「设置」界面，下滑找到「入站设置」板块，勾选「启动 HTTP 入站」。&lt;/p>
+&lt;p>软件默认的 SOCKS5 入站代理端口为 2080，本地 DNS 端口为 6540，HTTP 代理端口为 9080。若有端口冲突更改代理端口即可。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831142427900.png" alt="image-20220831142427900" style="zoom:25%;" />&lt;/div>
+&lt;h3 id="启动-hysteria-节点">启动 Hysteria 节点&lt;/h3>
+&lt;p>配置完成后回到主程序界面，点击启动开关。若节点服务正常，此时已能正常通过代理连接互联网。你可以访问 Google 以及 YouTube 等站点进行行为测试。&lt;/p>
+&lt;h2 id="网络优化">网络优化&lt;/h2>
+&lt;p>介绍推荐使用的最佳实践方案，可在网络质量较差时明显提升网路冲浪体验，下文未提及的配置项保持默认即可。&lt;/p>
+&lt;h3 id="设置">设置&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Matsuri v0.5.2 play&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">软件设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">运行模式&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VPN&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">TUN实现&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Tun2Socket&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">MTU&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1500&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">路由设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">分应用代理&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">域名解析策略&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">AsIs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">启动流量探测&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">IPv6路由&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">禁用&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">路由资源更新&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">官方&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">协议设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">复用最大并发&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">8&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># If enable&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">DNS设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">增强域名解析&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">远程DNS&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://8.8.8.8/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">直连DNS&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https+local://233.5.5.5/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">启动DNS路由&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">入站设置&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">启用HTTP入站&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">追加HTTP代理至VPN&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">杂项&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">首选插件提供者&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Matsuri&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="路由规则">路由规则&lt;/h3>
+&lt;p>Matsuri 提供了一些默认的路由规则，路由规则的优先级高于分应用代理。改动路由规则和分应用代理都需要重启代理服务才能生效。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">屏蔽QUIC:（屏蔽）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">屏蔽跟踪器（屏蔽）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">屏蔽广告（屏蔽）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">中国Play商店规则（代理）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">中国域名规则（绕过）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">中国IP规则（绕过）&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>场景优化：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>通用场景。建议在「设置 - 分应用代理」中&lt;strong>绕过&lt;/strong>「国产应用」并将「中国域名」以及「中国 IP 」的路由规则关闭。你可以借助软件内置的「扫描中国应用」一键添加。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>覆盖某些国产应用中的 IP 位置显示。先保持通用场景设置，再将指定的国产应用从绕过列表中移除。&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>『Blog』Use Hysteria through NekoRay in Windows</title><link>https://blog.echosec.top/p/nekoray-hysteria/</link><pubDate>Fri, 26 Aug 2022 05:51:00 +0800</pubDate><guid>https://blog.echosec.top/p/nekoray-hysteria/</guid><description>&lt;img src="https://blog.echosec.top/p/nekoray-hysteria/finnstark.jpg" alt="Featured image of post 『Blog』Use Hysteria through NekoRay in Windows" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>2022年3月，我们在&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" target="_blank" rel="noopener"
+>《V2rayN 配置 Hysteria》&lt;/a> 一文中简要介绍了一种 Windows 环境下借助 V2rayN 运行并管理 Hysteria 代理核心的可视化解决方案。行文中，我们提到了一些该种解决方案未能处理的问题，即，无法将 Hysteria 节点的启动与测试集成到一个 action 上，需要自行添加一个 Socks5 驻台线程并手动运行 hysteria-core 才能完成节点测试。在 V2rayN v5.32 中，软件作者 2dust 使用了一种妥协的方法尝试处理这种需求，但仍不够优雅，且方案可行性有待考究。&lt;/p>
+&lt;p>为了达成上述「检测 + 管理」的集成体验，本文介绍一个仍处于成长期的开源项目——&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray" target="_blank" rel="noopener"
+>NekoRay&lt;/a>，基于 Qt/C++ 跨平台代理配置管理器。NekoRay 不仅能优雅地解决这个问题，还先于 V2rayN 支持了 &lt;code>hysteria://&lt;/code> 协议头的解析，在一定程度上促进 hysteria 节点的社区传播。&lt;/p>
+&lt;div align="center">&lt;img src="nekoray.png" alt="NekoRay 虚拟形象" style="zoom:67%;" />&lt;/div>
+&lt;p>本文从「快速上手」及「进阶指南」两个阶段介绍这个项目。你如果已持有一枚可以使用的 hysteria 节点分享链接，那么只需 1 分钟即可完成与启动系统代理有关的一切操作，开箱机用，十分方便。&lt;/p>
+&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;p>本文最后更新时间 &lt;code>2022-08-26&lt;/code>， 请注意甄别本文中可能过时的内容，谨慎参考。&lt;/p>
+&lt;p>本文涉及的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>发行版本号&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/HyNetwork/hysteria" target="_blank" rel="noopener"
+>HyNetwork/hysteria&lt;/a>&lt;/td>
+&lt;td>v1.2.0&lt;/td>
+&lt;td>代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray" target="_blank" rel="noopener"
+>MatsuriDayo/nekoray&lt;/a>&lt;/td>
+&lt;td>v1.4&lt;/td>
+&lt;td>图形化客户端&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>注意 →&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>本文不面向零基础的小白读者，且仅涉及与 NekoRay &lt;strong>Win10+&lt;/strong> 客户端相关的操作演示，hysteria 服务端的配置详见&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" target="_blank" rel="noopener"
+>『Blog』V2rayN 配置 Hysteria&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>该项目仍处于成长期，其成熟度仍与 V2rayN 有较大差距。本文仅提供解决方案的演示说明，玩家需要根据自己的喜好和需求选择适合自己的产品。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="快速上手">快速上手&lt;/h2>
+&lt;h3 id="下载-nekoray">下载 NekoRay&lt;/h3>
+&lt;p>进入 &lt;a class="link" href="https://github.com/MatsuriDayo/nekoray/releases" target="_blank" rel="noopener"
+>Releases · MatsuriDayo/nekoray&lt;/a>，下载最新版的 NekoRay Windows 压缩包。免安装，开箱即用。此处假设解压目录为 &lt;code>C:\\nekoray&lt;/code>，则主程序路径为 &lt;code>C:\\nekoray\\nekoray.exe&lt;/code>。&lt;/p>
+&lt;h3 id="下载-hysteria-windows">下载 hysteria-windows&lt;/h3>
+&lt;p>进入 &lt;a class="link" href="https://github.com/HyNetwork/hysteria/releases" target="_blank" rel="noopener"
+>Releases · HyNetwork/hysteria&lt;/a>，下载最新版的 &lt;code>hysteria-windows-amd64.exe&lt;/code>，将其放置在解压后的 NekoRay 配置目录下，例如：&lt;code>C:\\nekoray\\config\\hysteria-windows-amd64.exe&lt;/code>（此处随意，但 config 为核心界面的默认启动路径，这样放置方面找文件）。&lt;/p>
+&lt;h3 id="配置-nekoray-代理核心">配置 NekoRay 代理核心&lt;/h3>
+&lt;p>持续进入「首选项」「基本设置」「核心」界面，选择 &lt;strong>hysteria-core&lt;/strong> 的绝对路径，即刚下载的 &lt;code>hysteria-windows-amd64.exe&lt;/code> 文件绝对路径。&lt;/p>
+&lt;p>选定后切换到「基本设置 - 通用」界面，&lt;strong>将 HTTP 监听端口启用&lt;/strong>。其他设置保持默认，点击确定，保存设置。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220826075323108.png" alt="首选项 - 基本设置 - 核心 - hysteria" style="zoom:48%;" />&lt;/div>
+&lt;p>需要注意的是，若在后续操作中出现端口重用或冲突的弹窗警告，需要回到「基本设置 - 通用」中修改 Socks 监听端口或 HTTP 监听端口。下图为改变后的端口值：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831145659642.png" alt="image-20220831145659642" style="zoom:67%;" />&lt;/div>
+&lt;h3 id="导入-hysteria-节点">导入 hysteria 节点&lt;/h3>
+&lt;h4 id="从分享链接或剪切板添加">从分享链接或剪切板添加&lt;/h4>
+&lt;p>NekoRay 支持 &lt;code>hysteria://&lt;/code> 协议头的解析，可以直接将订阅链接粘贴进来自动获取节点的配置信息，如下图所示:&lt;/p>
+&lt;div align="center">&lt;img src="image-20220826075502047.png" alt="NekoRay - 从剪切板添加 hysteria 节点分享链接" style="zoom: 48%;" />&lt;/div>
+&lt;p>值得一提的是，我们在经典的 hysteria 客户端配置文件中设定字段 &lt;code>acl&lt;/code>以及 &lt;code>mmdb&lt;/code> 用以调取分流策略，还能额外设置 &lt;code>recv_window_conn&lt;/code> ，&lt;code>recv_window&lt;/code>以及 &lt;code>resolver&lt;/code> 等参数更细粒度地控制代理行为。但我们观察&lt;code>hysteria://&lt;/code> 的节点分享链接的参数后发现，其只保留了 C/S 通信的必要参数，即 &lt;code>host&lt;/code>，&lt;code>protocol&lt;/code>，&lt;code>auth_str&lt;/code> 等字段。&lt;/p>
+&lt;p>显然，在最佳实践中，我们不应在为传播的设计的参数结构体中携带诸如文件路径等奇怪的东西，这会让整个分享体系变得非常冗余，十分不优雅。但我又偏有分流这样的需求怎么办呢？非常简单，我们可以通过 NekoRay 间接地为代理核心提供相关的配置信息（相关操作其实也非常简单，自己玩一玩就会了，具体操作我会在下文的进阶部分补充）。&lt;/p>
+&lt;h4 id="手动编辑">手动编辑&lt;/h4>
+&lt;p>有关 hysteria 服务端的配置介绍及最佳实践可见&lt;a class="link" href="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/" target="_blank" rel="noopener"
+>另一篇博客&lt;/a>。&lt;/p>
+&lt;p>相关配置的注释及生成后的面板预览结果如下图所示：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220826074722587.png" alt="NekoRay - Hysteria 配置生成面板" style="zoom: 67%;" />&lt;/div>
+&lt;div align="center">&lt;img src="image-20220826075056836.png" alt="NekoRay - Hysteria 配置生成预览" style="zoom:63%;" />&lt;/div>
+&lt;p>此处出现了被称为 &lt;code>替换串&lt;/code> 的占位符，即 &lt;code>%mapping_port%&lt;/code> 与 &lt;code>%socks_port%&lt;/code> ，不需要修改，保持默认即可。&lt;/p>
+&lt;h3 id="启动-hysteria-节点">启动 hysteria 节点&lt;/h3>
+&lt;p>初次使用时，选中目标节点，并依次点击「程序 &amp;ndash; 系统代理 &amp;ndash; 启动系统代理」。当控制台开始持续输出来自 hysteria-core 的日志信息时，说明节点启动成功，你可以访问 Google 或 YouTube 等站点进行行为校验。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220826081449835.png" alt="image-20220826081449835" style="zoom:48%;" />&lt;/div>
+&lt;p>值得一提的是，NekoRay 的 &amp;lt;系统代理启动&amp;gt; 及 &amp;lt;代理核心运行&amp;gt; 的业务是分离的，也即对着节点敲回车的作用是启动/重启代理核心，只有勾选「启动系统代理」后才能连接互联网，这点与 V2rayN 相似。&lt;/p>
+&lt;h3 id="测试-hysteria-节点">测试 hysteria 节点&lt;/h3>
+&lt;p>在合理配置前置代理选项后，你可以将「节点激活 + 节点测试」集成到一个 action 中，这比 V2rayN 目前(~v5.32)的解决方案要更加优雅。&lt;/p>
+&lt;p>若你按照本文档介绍的步骤走，你只需要在默认分组状态下，依次点击「服务器 – 当前分组」即可调出测试控件的接口，如下图所示：&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/nekoray-hysteria/image-20220826082130683.png"
+width="323"
+height="224"
+srcset="https://blog.echosec.top/p/nekoray-hysteria/image-20220826082130683_hu0a171cb7f6b55220a14afee1c80b5a6a_6909_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/nekoray-hysteria/image-20220826082130683_hu0a171cb7f6b55220a14afee1c80b5a6a_6909_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="144"
+data-flex-basis="346px"
+>&lt;/p>
+&lt;p>NekoRay 集成了一些主流的测试工具，直接运行「完整测试」即可。测试包含以下四个项目（点击跳转源码）：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">测试项目&lt;/th>
+&lt;th style="text-align:center">简介&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray/blob/4ed46c10feef17831398d7daf5829e01b446d3f5/go/grpc_core.go#L204" target="_blank" rel="noopener"
+>Latency 延迟测试&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray/blob/4ed46c10feef17831398d7daf5829e01b446d3f5/go/grpc_core.go#L247" target="_blank" rel="noopener"
+>下载速度测试&lt;/a>&lt;/td>
+&lt;td style="text-align:center">使用代理下载 10MiB 文件，计算下载速度。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray/blob/4ed46c10feef17831398d7daf5829e01b446d3f5/go/grpc_core.go#L216" target="_blank" rel="noopener"
+>入口IP&lt;/a>， &lt;a class="link" href="https://github.com/MatsuriDayo/nekoray/blob/4ed46c10feef17831398d7daf5829e01b446d3f5/go/grpc_core.go#L229" target="_blank" rel="noopener"
+>出口IP&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray/blob/4ed46c10feef17831398d7daf5829e01b446d3f5/go/grpc_core.go#L263" target="_blank" rel="noopener"
+>NAT类型&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>常见的（玄学）速度测试分布如下：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>0~5 MiB/s&lt;/code>，绝大多数免费节点，山路十八弯的自建节点&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>4~6 MiB/s&lt;/code>，优选IP，反代优选IP，机场普通节点，自建普通线路节点&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>~10MiB/s&lt;/code>，机场上游质量节点，自建优质线路节点，hysteria+自建普通线路节点&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>&amp;gt;18MiB/s&lt;/code>，机场上游至最贵一档的机场节点，hysteria+自建优质线路节点（家宽 200Mpbs 起且服务端未限制 100Mbps 的下行速度）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>上不封顶&lt;/code>，hysteria 一般用于普通或劣质线路的环境改善，在G口档做 UDP 发包是非常睿智的行为。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>测试的输出结果如下图所示：&lt;/p>
+&lt;div align="center">&lt;img src="image-20220826083252485.png" alt="image-20220826083024670" style="zoom:48%;" />&lt;/div>
+&lt;p>我们在经典的 hysteria 代理拓扑中使用的是最简单的 QUIC 直连方案，也即入口地址 In 和出口地址 Out 是相同的，其值均为你的代理服务器的真实 IP。&lt;/p>
+&lt;p>需要注意的是，hysteria 的通信协议是基于 quic-go 实现的，TCPing 测试不可用。&lt;/p>
+&lt;h2 id="进阶教程">进阶教程&lt;/h2>
+&lt;blockquote>
+&lt;p>（必读）官方文档：&lt;a class="link" href="https://matsuridayo.github.io/n-configuration/" target="_blank" rel="noopener"
+>Nekoray-配置 - Matsuri &amp;amp; NekoRay &lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="vpn模式">VPN模式&lt;/h3>
+&lt;h3 id="服务器组">服务器组&lt;/h3>
+&lt;p>NekoRay 以组的形式管理和编排代理对象，因此，所有的测试都是基于组进行的，即，所有组内节点都会被测。&lt;/p>
+&lt;h3 id="必读分流策略">[必读]分流策略&lt;/h3>
+&lt;p>在 Windows 上，NekoRay 默认以全局代理的形式启动。因此，我们需要通过设置基础的路由策略来提升网上冲浪的体验，否则会有大量的代理流量被浪费，还会无端加大断流风险。&lt;/p>
+&lt;p>此处举个简单的例子说明设置分流的必要性。如果你使用过 Bilibili 你应该知道 B站番剧对「不同地区」用户有着不一样的版权策略，而界定「不同地区」用户的规则是基于「访客IP」编写的（目前），即，使用不同的 IP 访问 B站，推荐系统，搜索引擎，页面布局等服务的响应均有所不同。&lt;/p>
+&lt;ul>
+&lt;li>US Global Proxy&lt;/li>
+&lt;/ul>
+&lt;img src="image-20220831151213827.png" alt="image-20220831151213827" style="zoom:33%;" />
+&lt;ul>
+&lt;li>GEOIP-CN Bypass（简单理解为访问B站不用代理）&lt;/li>
+&lt;/ul>
+&lt;img src="image-20220831151428355.png" alt="image-20220831151428355" style="zoom:33%;" />
+&lt;p>访问国内站点却绕行国外代理除了在评论区装逼我想不出任何动机。由于本篇文章属于「入门介绍」，不过多深入自定义规则或高级路由分流策略之类的东西，只需要按照下图所示操作开启 NekoRay 预设的路由规则即可。&lt;/p>
+&lt;p>&lt;strong>TL;TD&lt;/strong>&lt;/p>
+&lt;p>进入「首选项 &amp;ndash; 路由 VPN 设置」，选择预设「绕过局域网和大陆」，确定保存，重启代理。&lt;/p>
+&lt;div align="center">&lt;img src="image-20220831152027353.png" alt="image-20220831152027353" style="zoom: 67%;" />&lt;/div></description></item><item><title>『Blog』Hysteria Advanced</title><link>https://blog.echosec.top/p/hysteria-advanced/</link><pubDate>Sun, 10 Apr 2022 12:12:09 +0800</pubDate><guid>https://blog.echosec.top/p/hysteria-advanced/</guid><description>&lt;img src="https://blog.echosec.top/p/hysteria-advanced/207983.jpg" alt="Featured image of post 『Blog』Hysteria Advanced" />&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;p>截至 &lt;code>2022-04-05&lt;/code> 该解决方案仍处于测试阶段，未来短期内会有大量的版本更新，请注意甄别本文中可能过时的内容，谨慎参考。如有错误歧义之处欢迎指正。&lt;/p>
+&lt;h2 id="进阶配置">进阶配置&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/HyNetwork/hysteria/wiki/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95" target="_blank" rel="noopener"
+>Hysteria 高级用法&lt;/a>的拓展描述，原文已有的不再赘述。&lt;/p>
+&lt;p>&lt;span id="advanced">&lt;/span>&lt;/p>
+&lt;h3 id="linux-服务端配置">Linux 服务端配置&lt;/h3>
+&lt;h3 id="windows-客户端配置">Windows 客户端配置&lt;/h3>
+&lt;p>必填参数为 &lt;code>server&lt;/code>（或 &lt;code>host&lt;/code> and &lt;code>port&lt;/code> ） ，&lt;code>up_mbps &lt;/code> 以及 &lt;code>down_mbps&lt;/code>，其余配置与服务端的设置相匹配既可。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>server&lt;/code>：服务器地址。如&lt;code>domain.com:52025&lt;/code>，在部分图形化代理软件中将此项拆分成「服务器」与「服务器端口」，注意甄别。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>protocol&lt;/code>：传输协议。可选项为 &lt;code>udp&lt;/code>，&lt;code>wechat-video&lt;/code>，&lt;code>faketcp&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>up_mbps&lt;/code>：最大上行（Mbps）。此项限制的是当前客户端的最大上传速度。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>down_mbps&lt;/code>：最大下行（Mbps）。此项限制的是当前客户端的最大下载速度。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>retry&lt;/code>：启动时连接服务器异常后的重试次数。0 为不重试，负数为无限重试。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>retry_interval&lt;/code>：重试间隔，单位为秒。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>acl&lt;/code>：分流规则。通过一系列语法决定访问指定「端点」的流量是否是用代理。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>mmdb&lt;/code>：MaxMind IP 库。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>obfs&lt;/code>：混淆密码。与服务端保持一致。一般不必混淆通信。若开启混淆，极端情况下会略微影响性能。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>auth&lt;/code> | &lt;code>auth_str&lt;/code>：认证类型，其值通常称为「认证载荷」。二选一，与服务端保持一致。&lt;code>auth&lt;/code> 为 BASE64 验证密钥，&lt;code>auth_str&lt;/code> 为自定义的认证字符串。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>alpn&lt;/code>：QUIC TLS ALPN。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>server_name&lt;/code>：服务器名称指示，用于验证服务端的 hostname。填写服务端域名既可（申请证书时解析的域名）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>insecure&lt;/code>：允许不安全的连接。禁用证书检查，启用后该配置安全性相当于明文。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>ca&lt;/code>：自定义证书（链）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>recv_window_conn&lt;/code>：QUIC 连接接收窗口。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>recv_window&lt;/code>：QUIC 流接收窗口。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>disable_mtu_discovery&lt;/code>：禁用路径MTU发现。此处的 &lt;code>mtu_discovery&lt;/code> 指的是 &lt;a class="link" href="https://en.wikipedia.org/wiki/Path_MTU_Discovery" target="_blank" rel="noopener"
+>Path MTU Discovery(PMTUD)&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>『Blog』V2rayN 配置 Hysteria</title><link>https://blog.echosec.top/p/v2rayn-hysteria-tutorial/</link><pubDate>Tue, 05 Apr 2022 23:42:34 +0800</pubDate><guid>https://blog.echosec.top/p/v2rayn-hysteria-tutorial/</guid><description>&lt;img src="https://blog.echosec.top/p/v2rayn-hysteria-tutorial/3593983.jpg" alt="Featured image of post 『Blog』V2rayN 配置 Hysteria" />&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;p>截至本文最后更新时间 &lt;code>2022-08-24&lt;/code> ，该解决方案仍处于测试阶段，未来短期内会有大量的版本更新，请注意甄别本文中可能过时的内容，谨慎参考。&lt;/p>
+&lt;p>本文涉及到的开源项目如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">项目名&lt;/th>
+&lt;th style="text-align:center">发行版本号&lt;/th>
+&lt;th style="text-align:center">用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/HyNetwork/hysteria" target="_blank" rel="noopener"
+>HyNetwork/hysteria&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v1.2.0&lt;/td>
+&lt;td style="text-align:center">代理核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/2dust/v2rayN" target="_blank" rel="noopener"
+>2dust/v2rayN&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v5.32&lt;/td>
+&lt;td style="text-align:center">图形化客户端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/emptysuns/Hi_Hysteria" target="_blank" rel="noopener"
+>emptysuns/Hi_Hysteria&lt;/a>&lt;/td>
+&lt;td style="text-align:center">v0.4.0&lt;/td>
+&lt;td style="text-align:center">服务端安装脚本&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>注意&lt;/strong> 本文不面向零基础的小白读者，开始前，请确保你已了解 v2rayN 的基本用法，备有一台国外 VPS 以及可解析的域名，最后你需要了解基本的 Linux 操作指令用以解决本文尚未提及的偶发性异常。&lt;/p>
+&lt;h2 id="快速上手">快速上手&lt;/h2>
+&lt;p>以 V2rayN 图形客户端为例，介绍在 Windows 上启动 hysteria 客户端的具体方法。&lt;/p>
+&lt;h3 id="前期准备">前期准备&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>关闭服务器防火墙&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>域名解析，关闭 CDN&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>关闭冲突服务&lt;/p>
+&lt;p>若服务器此前运行过或正在运行 xray-core 及其他代理核心服务，你需要先暂停或关闭这些服务。&lt;/p>
+&lt;p>&lt;strong>注意：&lt;/strong> hysteria 与 xray-core 等服务并不冲突，可以同时运行，此处关闭仅为控制查错变量。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>更新 v2rayN 客户端至最新版&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="linux-服务端配置">Linux 服务端配置&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>通过脚本拉取基础设施&lt;/p>
+&lt;p>如下指令需要在 &lt;code>superuser env&lt;/code> 下执行，使用 &lt;code>sudo su root&lt;/code> 切换至管理员上下文（如有必要）。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">bash &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL https://git.io/hysteria.sh&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>脚本配置&lt;/p>
+&lt;p>在弹出的菜单中选择「安装 hysteria」。首次安装后，可通过全局脚手架指令 &lt;code>hihy&lt;/code> 调出菜单。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>配置介绍&lt;/p>
+&lt;blockquote>
+&lt;p>此处仅描述脚本运行所涉及到的基础配置项，更多高级参数详见 &lt;a class="link" href="../hysteria-advanced" >高级配置&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>域名&lt;/strong>：输入解析到本服务器 IP 的域名即可，解析前不可开启 CDN 。另外，确保已处理「前期准备」否则后续步骤必然报错。&lt;/p>
+&lt;p>&lt;strong>端口：&lt;/strong> 无特殊要求，按回车随机选取即可。&lt;/p>
+&lt;p>&lt;strong>协议类型：&lt;/strong> 经本人测试，仅有 &lt;code>wechat-video&lt;/code> 能够较好地兼容 &lt;code>v2rayN&lt;/code> 运行，其他协议类型大概率不可用（留意时效性）。&lt;/p>
+&lt;p>&lt;strong>转发延迟：&lt;/strong> 在本地调出控制台，&lt;code>ping&lt;/code> 服务器 IP，执行 3 轮，每轮间隔 5 秒，取平均值即可。服务对此项配置并不敏感，保持在相交于真实值略低的区间即可（留意时效性）。&lt;/p>
+&lt;p>&lt;strong>下行速度：&lt;/strong> 限制每个客户端的最大下载速率（mbps）。留有 1.25 倍的冗余，也即填入 50，最后配置为 62.5。此项不宜过大，否则会导致客户端频繁遇到「Google reCAPTCHA 异常流量」的提示。&lt;/p>
+&lt;p>取&amp;lt;本地带宽理想值&amp;gt;以及&amp;lt;服务器带宽上限&amp;gt;的最小值，如服务器限速 100mbps，这里填 100 即可，若服务器带宽上限严重溢出，根据本地带宽取值。如：家宽 300Mbps 但你在阳台用笔记本的 WIFI 上网，实际网速可能只有 50Mbps ，这里填什么？好吧我也不知道，影响网速的东西可太多了Orz，一般情况下个人使用填 100 足足有余。&lt;/p>
+&lt;p>&lt;strong>上行速度：&lt;/strong> 限制每个客户端的最大上传速率（mbps），同「下行速度」。&lt;/p>
+&lt;p>&lt;strong>认证口令：&lt;/strong> 输入一串用于身份认证的指令， 如 &lt;code>fuck me till the daylight&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>复制输出&lt;/p>
+&lt;p>脚本解析结束后会打印客户端的 &lt;code>json&lt;/code> 配置信息以及 &lt;code>Shadowrocket/Sagernet/Passwall&lt;/code> 一键链接。此处，你需要复制其中的 &lt;code>json&lt;/code> 配置信息。&lt;/p>
+&lt;p>上述的「一键链接」是以 &lt;code>hysteria://&lt;/code> 打头的分别可用于 iOS/Andoid/软路由等嵌入式设备进行代理的 &lt;a class="link" href="https://github.com/HyNetwork/hysteria/wiki/URI-Scheme" target="_blank" rel="noopener"
+>URI Scheme&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="windows-客户端配置">Windows 客户端配置&lt;/h3>
+&lt;p>操作前，请确保你的 v2rayN 客户端已更新至最新版本。&lt;/p>
+&lt;h4 id="下载-hysteria-core">下载 &lt;code>hysteria-core&lt;/code>&lt;/h4>
+&lt;p>访问 &lt;a class="link" href="https://github.com/HyNetwork/hysteria/releases" target="_blank" rel="noopener"
+>hysteria releases&lt;/a>，在「Assets」找到最新版本的&lt;code>hysteria-tun-windows-6.0.amd64.exe&lt;/code>，下载。文件名随着时间推移可能会有所变更，留意时效性。&lt;/p>
+&lt;h4 id="下载-hihy-分流文件">下载 &lt;code>hihy&lt;/code> 分流文件&lt;/h4>
+&lt;p>访问 &lt;a class="link" href="https://github.com/emptysuns/Hi_Hysteria/releases" target="_blank" rel="noopener"
+>hihy releases&lt;/a>，在「Assets」找到最新版的压缩文件，如 &lt;code>v2rayN-hysteriaCore.rar&lt;/code>，下载解压。这个包中的文件我们只会用到 &lt;code>acl&lt;/code> ，此处先按下不表。&lt;/p>
+&lt;h4 id="启动-v2rayn-添加自定义配置服务器">启动 &lt;code>v2rayN&lt;/code> 添加自定义配置服务器&lt;/h4>
+&lt;ol>
+&lt;li>在界面的「服务器」一栏中选择「添加自定义配置服务器」。&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20220406004646824.png" alt="image-20220406004646824" style="zoom:50%;" />&lt;/div>
+&lt;ol start="2">
+&lt;li>
+&lt;p>在「自定义配置中」点击「预览」，弹出一个窗口，&lt;strong>访问 v2rayN 的项目根目录&lt;/strong>。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>将 &lt;code>hihy&lt;/code> 中的 &lt;code>acl&lt;/code> 文件夹以及 &lt;code>hysteria-tun-windows-6.0.amd64.exe&lt;/code> 拖入到此窗口中（也即拖入到 v2rayN 的根目录下）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在 v2rayN 的根目录下选中 &lt;code>config.json&lt;/code>模版文件，点击 &lt;strong>「打开」&lt;/strong> 自动拷贝一份配置文件。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在自定义配置窗口下点击 &lt;strong>「编辑」&lt;/strong>，弹出 UUID 源文件窗口，将刚才复制的 &lt;code>json&lt;/code> 配置信息复制进来。&lt;/p>
+&lt;p>&lt;strong>注意：&lt;/strong> 若你使用 &lt;code>hihy v3.7+&lt;/code> 版本，自动生成的客户端配置（http，socks5）已自动适配 v2rayN 的系统代理监听端口，无需更改。&lt;/p>
+&lt;p>&lt;strong>Modify listen port&lt;/strong>。将 &lt;code>http&lt;/code> 以及 &lt;code>socks5&lt;/code> 字段改为如下内容。也即将 &lt;code>http&lt;/code> 监听端口改为 10809，将 &lt;code>socks5&lt;/code> 监听端口改为 &lt;code>10808&lt;/code>（对接 v2rayN 的端口配置即可）。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;http&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;listen&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;127.0.0.1:10809&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;timeout&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">300&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;disable_udp&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>&lt;span class="err">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2">&amp;#34;socks5&amp;#34;&lt;/span>&lt;span class="err">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;listen&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;127.0.0.1:10808&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;timeout&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">300&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;disable_udp&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>&lt;strong>Select Core Type&lt;/strong>。修改端口后保存并关闭配置文件。回到此处，在「Core 类型」中选择 &lt;code>hysteria&lt;/code> ，确定，保存。完整配置后的参考截图如下：&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center"> &lt;img src="image-20220406010435991.png" alt="image-20220406010435991" style="zoom:50%;" />&lt;/div>
+&lt;div align="center"> &lt;img src="image-20220501175014854.png" alt="image-20220501175014854" style="zoom:45%;" />&lt;/div>
+&lt;h4 id="连接测试">连接测试&lt;/h4>
+&lt;p>选中新加入的代理服务器并启动系统代理。若配置正常，即可正常访问互联网。&lt;/p>
+&lt;h3 id="可选-socks5-系统代理">[可选] Socks5 系统代理&lt;/h3>
+&lt;p>这里介绍一种通用的客户端代理方法，同样是凭借 v2rayN 图形化客户端启动 hysteria 代理。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>修改节点客户端配置&lt;/strong>&lt;/p>
+&lt;p>以同样的方法打开 uuid 配置文件，将 http 的监听配置删去，修改 socks5 的监听端口，建议不与常见端口冲突，如可设为 &lt;code>8889&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>启动 hysteria 服务&lt;/strong>&lt;/p>
+&lt;p>从 v2rayN 根目录启动 shell，运行 hysteria 服务，配置文件在“当前目录”的 &lt;code>guiConfigs&lt;/code> 文件夹下。&lt;/p>
+&lt;p>假设 v2rayN 根目录路径为 &lt;code>C:\v2rayn&lt;/code>，hysteria 文件名为 &lt;code>hysteria-tun-windows-6.0.amd64.exe&lt;/code>，节点客户端配置文件名为 &lt;code>UUID.json&lt;/code>，那么可以假设的命令行如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">C:&lt;span class="se">\\&lt;/span>v2rayn&amp;gt; hysteria-tun-windows-6.0.amd64.exe -c guiConfigs&lt;span class="se">\\&lt;/span>UUID.json
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>运行成功后可以看到如下输出日志，说明服务启动成功。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">时间 &lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>addr:服务端IP:服务端port&lt;span class="o">]&lt;/span> Connected
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">时间 &lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>addr:127.0.0.1:8889&lt;span class="o">]&lt;/span> SOCKS5 server up and running
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>添加 Socks5 服务器&lt;/strong>&lt;/p>
+&lt;p>唤出 v2rayN 主界面，右键空白处，在弹出的菜单中选择「添加 Socks 服务器」。&lt;/p>
+&lt;p>以上文所述内容为例，此处分别在地址（address）以及端口（port）处填写 127.0.0.1 以及 8889，别名（remarks）随意，其余不动。&lt;/p>
+&lt;p>&lt;strong>注意：&lt;/strong> 如果你额外设置了用户名及密码，在配置窗口中对应填写即可。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>连接测试&lt;/strong>&lt;/p>
+&lt;p>选中刚创建的类型为「Socks」的 &lt;code>inner-hysteria&lt;/code> “套娃节点”，启动系统代理，以你喜欢的方式运行一系列的指标检测。&lt;/p>
+&lt;p>值得一提的是，使用本方法在 v2rayN 中添加的配置项，可以使用 v2rayN 内置的测速功能（如真延迟，速度测试等），而根据上一节创建的类型为「Custom」的节点则不行（留意时效性）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>组合推荐&lt;/strong>&lt;/p>
+&lt;p>通常情况下推荐使用 2.3 介绍的方法直接添加服务器。&lt;/p>
+&lt;p>如果你依赖 v2rayN 的内置工具完成一些必要的测试工作，我建议你将指向同一个服务端的客户端配置文件分写，既使用完整的配置用于直接启动 hysteria 客户端代理，另起一个配置文件仅用于添加 Socks5 服务，在需要测速时按照 2.4.2 中介绍的方法手动运行 hysteria 服务，最后进行测速。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="speedtest-测试">Speedtest 测试&lt;/h2>
+&lt;p>本人使用多个代理节点进行对比测试后发现，&lt;code>hysteria&lt;/code> 对素质较差的代理节点有较大提升，尤其在网络拥堵时间段。如下测试仅为不严谨的「玄学对比定性分析」，请忽视各种所谓的「测不准」因素。&lt;/p>
+&lt;p>以下测试中，左组均使用 &lt;code>hysteria-core&lt;/code> 进行 100Mbps 下行，10Mbps 上行的带宽限制（有 1.25 倍冗余溢出）；右组均使用 &lt;code>xray-core&lt;/code> ，拥塞算法 &lt;code>bbr&lt;/code>，队列算法 &lt;code>fq&lt;/code>。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>VPS/Solution&lt;/th>
+&lt;th>hysteria-core &amp;amp;&amp;amp; wechat-video&lt;/th>
+&lt;th>xray-core &amp;amp;&amp;amp; Trojan TLS&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>CloudPowerall&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="image-20220406011708210.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom:33%;" />&lt;/td>
+&lt;td>&lt;img src="image-20220406011721458.png" alt="xray-core &amp;&amp; Trojan TLS" style="zoom:33%;" />&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Racknerd&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="image-20220406012005041.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom:33%;" />&lt;/td>
+&lt;td>&lt;img src="image-20220406011947154.png" alt="xray-core &amp;&amp; Trojan TLS" style="zoom:33%;" />&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>PacificRack&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="12992967224.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom:49.8%;" />&lt;/td>
+&lt;td>&lt;img src="12992984222.png" alt="xray-core &amp;&amp; Trojan TLS" style="zoom:49.8%;" />&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>BandwagonHost&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="12993007120.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom:49.8%;" />&lt;/td>
+&lt;td>&lt;img src="12993019859.png" alt="xray-core &amp;&amp; VLESS TCP XTLS-direct " style="zoom:49.8%;" />&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="youtube-测试">Youtube 测试&lt;/h2>
+&lt;p>如下测试使用同上文一样的限制策略。&lt;/p>
+&lt;p>测试方法是，播放 Youtube 视频 &lt;a class="link" href="https://www.youtube.com/watch?v=linlz7-Pnvw&amp;amp;t=79s&amp;amp;ab_channel=8KWorld" target="_blank" rel="noopener"
+>Switzerland in 8K ULTRA HD HDR - Heaven of Earth (60 FPS) - YouTube&lt;/a> ，播放源 &lt;code>7680x4320@60&lt;/code> ， 从 1:30 持续播放至 2:50，取 2:50 时刻的截图（在这段时间内我会关注连接速度的取值，如果截停瞬间出现了偏离正常区间的异常数值，我会剔除这个样本并继续播放视频 1~2s 并取位于正常区间或附近的正常值）。不同节点和代理策略切换时，使用控制台清除本地缓存。测试时间段并非晚高峰。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>VPS/Solution&lt;/th>
+&lt;th>xray-core &amp;amp;&amp;amp; Trojan TLS&lt;/th>
+&lt;th>hysteria-core &amp;amp;&amp;amp; wechat-video&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>CloudPowerall&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="clone-vless.png" alt="xray-core &amp;&amp; Trojan TLS" style="zoom: 67%;" />&lt;/td>
+&lt;td>&lt;img src="clone-hysteria.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom: 67%;" />&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Racknerd&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="rn-vless.png" alt="xray-core &amp;&amp; Trojan TLS" style="zoom: 67%;" />&lt;/td>
+&lt;td>&lt;img src="rn-hysteria.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom: 67%;" />&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>PacificRack&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="pack-trojan.png" alt="xray-core &amp;&amp; Trojan TLS" style="zoom: 67%;" />&lt;/td>
+&lt;td>&lt;img src="pack-hysteria.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom: 67%;" />&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>BandwagonHost&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="bwg-vless.png" alt="xray-core &amp;&amp; Trojan TLS" style="zoom: 67%;" />&lt;/td>
+&lt;td>&lt;img src="bwg-hihy.png" alt="hysteria-core &amp;&amp; wechat-video" style="zoom: 67%;" />&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>
