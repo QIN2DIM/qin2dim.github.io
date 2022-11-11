@@ -50,56 +50,42 @@
 &lt;/table>
 &lt;h2 id="服务端配置">服务端配置&lt;/h2>
 &lt;p>&lt;strong>Step1: 下载预编译的 tuic-server&lt;/strong>&lt;/p>
-&lt;p>创建工作目录 &lt;code>/home/tuic&lt;/code>，拉取 v0.8.5 预编译的 tuic 服务端。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir --parents /home/tuic &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget -O /home/tuic/tuic https://github.com/EAimTY/tuic/releases/download/0.8.5/tuic-server-0.8.5-x86_64-linux-gnu &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x /home/tuic/tuic
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>&lt;strong>Step2: 申请证书&lt;/strong>&lt;/p>
-&lt;p>安装 ACME&lt;/p>
+&lt;p>创建工作目录 &lt;code>/home/tuic/&lt;/code>，拉取预编译的 &lt;a class="link" href="https://github.com/EAimTY/tuic/releases/tag/0.8.5" target="_blank" rel="noopener"
+>tuic-server v0.8.5&lt;/a>，安装 &lt;a class="link" href="https://github.com/acmesh-official/acme.sh/releases/tag/3.0.4" target="_blank" rel="noopener"
+>ACME&lt;/a>，调整默认 CA &lt;code>letsencrypt&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;span class="lnt">2
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y socat &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> curl https://get.acme.sh &lt;span class="p">|&lt;/span> sh &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --upgrade --auto-upgrade &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir --parents /home/tuic &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget -O /home/tuic/tuic https://github.com/EAimTY/tuic/releases/download/0.8.5/tuic-server-0.8.5-x86_64-linux-gnu &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x /home/tuic/tuic &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> apt install -y socat &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> curl https://get.acme.sh &lt;span class="p">|&lt;/span> sh &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --upgrade --auto-upgrade &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>生成密钥，替换你的域名&lt;/p>
+&lt;/div>&lt;p>&lt;strong>Step2: 申请证书&lt;/strong>&lt;/p>
+&lt;p>申请证书，将证书移至 &lt;code>/home/tuic/&lt;/code> 工作目录。&lt;/p>
+&lt;p>一个 A 域名每 170h 最多申请 5 次证书，如果你玩的太花被限制了，开一个新的 A 域名到本机 IPv4 即可。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --issue -d &lt;span class="o">[&lt;/span>YOUR_DOMAIN&lt;span class="o">]&lt;/span> --standalone --keylength ec-256
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>申请证书，替换你的域名，若申请成功，证书被移至 &lt;code>/home/tuic/&lt;/code> 工作目录下&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --install-cert --ecc -d &lt;span class="o">[&lt;/span>YOUR_DOMAIN&lt;span class="o">]&lt;/span> --fullchain-file /home/tuic/fullchain.crt --key-file /home/tuic/private.key
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>查看已安装的证书&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --info --ecc -d &lt;span class="o">[&lt;/span>YOUR_DOMAIN&lt;span class="o">]&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">read&lt;/span> -p &lt;span class="s2">&amp;#34;请输入解析到本机 IPv4 的域名：&amp;#34;&lt;/span> DOMAIN &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --issue -d &lt;span class="nv">$DOMAIN&lt;/span> --standalone --keylength ec-256 &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>&lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --install-cert --ecc -d &lt;span class="nv">$DOMAIN&lt;/span> --fullchain-file /home/tuic/fullchain.crt --key-file /home/tuic/private.key
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;strong>Step3: 编辑服务配置文件&lt;/strong>&lt;/p>
@@ -174,7 +160,7 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>更新系统服务&lt;/p>
+&lt;/div>&lt;p>更新系统服务缓存，允许 &lt;code>tuic service&lt;/code> 开机自启&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -201,6 +187,8 @@
 &lt;/span>&lt;span class="lnt">4
 &lt;/span>&lt;span class="lnt">5
 &lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看运行状态&lt;/span>
@@ -209,6 +197,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">journalctl -u tuic --output cat -f
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看服务端配置&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /home/tuic/config.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看证书，其中 &amp;#34;~/.acme.sh/acme.sh&amp;#34; 可替换为别名 &amp;#34;acme.sh&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --info --ecc -d &lt;span class="o">[&lt;/span>YOUR_DOMAIN&lt;span class="o">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="客户端配置">客户端配置&lt;/h2>
@@ -257,7 +247,7 @@
 &lt;ol>
 &lt;li>
 &lt;p>下载预编译的 &lt;a class="link" href="https://github.com/EAimTY/tuic/releases" target="_blank" rel="noopener"
->tuic-client(windows-gnu)&lt;/a>，放置到 NekoRay config 目录下&lt;/p>
+>tuic-client(windows-gnu)&lt;/a>，放置到 NekoRay config 目录下。务必下载 client，而不是 server。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>「首选项 - 基本设置 - 核心」添加自定义核心，命名「tuic」，添加 tuic-client 的绝对路径，如果你已将核心放置在 config 目录下，点击「选择」可以直接看见。&lt;/p>
@@ -364,12 +354,13 @@ data-flex-basis="117px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>下方对比中，选用来自 &lt;strong>PacificRack&lt;/strong> 提供商的网络环境较有挑战的云服务器，本地带宽 300Mbps。&lt;/p>
+&lt;/div>&lt;p>下方对比中，选用来自 &lt;strong>PacificRack&lt;/strong> 提供商的网络环境较有挑战的云服务器，本地带宽 300Mbps，调整 Hysteria &lt;code>down_mbps: 110&lt;/code>，&lt;a class="link" href="https://www.youtube.com/watch?v=1La4QzGeaaQ&amp;amp;ab_channel=Jacob%2BKatieSchwarz" target="_blank" rel="noopener"
+>YouTube 4K 视频&lt;/a>，大文件下载速度测试选用 &lt;a class="link" href="https://storage.googleapis.com/openimages/web/download_v7.html#download-manually" target="_blank" rel="noopener"
+>Open Images Dataset V7&lt;/a> 的 Boxes 训练集。&lt;/p>
 &lt;ul>
-&lt;li>可以看到两种协议均能在 Speedtest 跑满上限（Hysteria 限制 110Mbps 下行），微量损耗误差忽略不计。&lt;/li>
-&lt;li>&lt;a class="link" href="https://www.youtube.com/watch?v=1La4QzGeaaQ&amp;amp;ab_channel=Jacob%2BKatieSchwarz" target="_blank" rel="noopener"
->YouTube 4K 视频&lt;/a>的连接速度均溢出（一般情况下超过 2w Kbps 即可流畅播放），Hysteria 表现较优，但实测中连接速度不稳定，出现「间接抽风」的情况。&lt;/li>
-&lt;li>在下载数据集时，Hysteria 的封印彻底解除（适当调高下行限制后能够跑满本地带宽），而 TUIC 的下载速度则稳定在 3~5 MB/s。&lt;/li>
+&lt;li>Speedtest ：两种协议均能跑满理论上限，微量损耗误差忽略不计。&lt;/li>
+&lt;li>YouTube4K：两种协议连接速度均溢出（一般认为连接速度超过 2W Kbps 即可流畅播放）。其中，Hysteria 略有优势，但实测中连接速度不稳定，出现「间接抽风」的情况，波动非常大。&lt;/li>
+&lt;li>FileDownload：Hysteria 下载速度接近&lt;code>down_mbps&lt;/code>理论上限，而 TUIC 的下载速度则稳定在 3~5 MB/s。&lt;/li>
 &lt;/ul>
 &lt;table>
 &lt;thead>
@@ -451,7 +442,13 @@ data-flex-basis="1424px"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>现将服务器调整为 &lt;strong>V.PS&lt;/strong> 提供的线路质量较好的 Tokyo Micro Pro 服务器，调整 Hysteria &lt;code>down_mbps: 187&lt;/code>，其他环境条件不变。可以看到此时 Hysteria 的性能优势已相当明显，Speedtest 测试表现和先前的趋势相同，而 YouTube Connection Speed 以及 Download Speed 的差距逐渐拉大。值得一提的是，此时 Hysteria 在 YouTube 测试中的抖动情况不再出现。&lt;/p>
+&lt;p>现将服务器调整为 &lt;strong>V.PS&lt;/strong> 提供的线路质量较好的 Tokyo Micro Pro 服务器，调整 Hysteria &lt;code>down_mbps: 187&lt;/code>，其他环境条件不变。&lt;/p>
+&lt;ul>
+&lt;li>Speedtest：趋势相同。&lt;/li>
+&lt;li>YouTube4K：连接速度同样已溢出，但 Hysteria 已能跑出一倍之差的测试成绩&lt;/li>
+&lt;li>FileDownload：Hysteria 下载速度接近&lt;code>down_mbps&lt;/code>理论上限，而 TUIC 的下载速度稳定在 9MB/s 左右。&lt;/li>
+&lt;/ul>
+&lt;p>值得一提的是，先前 Hysteria 在 YouTube 测试中的抖动情况不再出现。&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
