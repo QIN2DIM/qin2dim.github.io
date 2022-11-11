@@ -50,13 +50,13 @@
 &lt;/table>
 &lt;h2 id="服务端配置">服务端配置&lt;/h2>
 &lt;p>&lt;strong>Step1: 下载预编译的 tuic-server&lt;/strong>&lt;/p>
-&lt;p>创建工作目录 &lt;code>mkdir /home/tuic&lt;/code>，拉取 v0.8.5 预编译的 tuic 服务端。&lt;/p>
+&lt;p>创建工作目录 &lt;code>/home/tuic&lt;/code>，拉取 v0.8.5 预编译的 tuic 服务端。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget -O /home/tuic/tuic https://github.com/EAimTY/tuic/releases/download/0.8.5/tuic-server-0.8.5-x86_64-linux-gnu &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x /home/tuic/tuic
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir --parents /home/tuic &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> wget -O /home/tuic/tuic https://github.com/EAimTY/tuic/releases/download/0.8.5/tuic-server-0.8.5-x86_64-linux-gnu &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x /home/tuic/tuic
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;strong>Step2: 申请证书&lt;/strong>&lt;/p>
