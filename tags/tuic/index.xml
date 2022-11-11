@@ -344,9 +344,6 @@ data-flex-basis="117px"
 >&lt;/p>
 &lt;h2 id="网络对比测试">网络对比测试&lt;/h2>
 &lt;p>使用 NekoRay 对同一服务器上监听不同端口的代理服务进行对比测试，核心版本及客户端配置如下：&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>TUIC v0.8.5&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -367,13 +364,11 @@ data-flex-basis="117px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;/li>
-&lt;/ul>
-&lt;p>下方对比中，选用来自 &lt;strong>PacificRack&lt;/strong> 提供商的网络环境较有挑战的云服务器，本地带宽 300Mbps。点击图片查看高清截图。&lt;/p>
+&lt;/div>&lt;p>下方对比中，选用来自 &lt;strong>PacificRack&lt;/strong> 提供商的网络环境较有挑战的云服务器，本地带宽 300Mbps。&lt;/p>
 &lt;ul>
 &lt;li>可以看到两种协议均能在 Speedtest 跑满上限（Hysteria 限制 110Mbps 下行），微量损耗误差忽略不计。&lt;/li>
 &lt;li>&lt;a class="link" href="https://www.youtube.com/watch?v=1La4QzGeaaQ&amp;amp;ab_channel=Jacob%2BKatieSchwarz" target="_blank" rel="noopener"
->YouTube 4K 视频&lt;/a>的连接速度均溢出（一般情况下超过2w Kbps即可流畅播放），Hysteria 表现较优，但实测中连接速度不稳定，出现“间接抽风”的情况。&lt;/li>
+>YouTube 4K 视频&lt;/a>的连接速度均溢出（一般情况下超过 2w Kbps 即可流畅播放），Hysteria 表现较优，但实测中连接速度不稳定，出现「间接抽风」的情况。&lt;/li>
 &lt;li>在下载数据集时，Hysteria 的封印彻底解除（适当调高下行限制后能够跑满本地带宽），而 TUIC 的下载速度则稳定在 3~5 MB/s。&lt;/li>
 &lt;/ul>
 &lt;table>
@@ -456,7 +451,7 @@ data-flex-basis="1424px"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>现将服务器调整为 &lt;strong>V.PS&lt;/strong> 提供的线路质量较好的 Tokyo Micro Pro 服务器，调整 Hysteria &lt;code>down_mbps: 187&lt;/code>，其他环境条件不变。可以看到此时 Hysteria 的性能优势已相当明显。&lt;/p>
+&lt;p>现将服务器调整为 &lt;strong>V.PS&lt;/strong> 提供的线路质量较好的 Tokyo Micro Pro 服务器，调整 Hysteria &lt;code>down_mbps: 187&lt;/code>，其他环境条件不变。可以看到此时 Hysteria 的性能优势已相当明显，Speedtest 测试表现和先前的趋势相同，而 YouTube Connection Speed 以及 Download Speed 的差距逐渐拉大。值得一提的是，此时 Hysteria 在 YouTube 测试中的抖动情况不再出现。&lt;/p>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -543,7 +538,7 @@ data-flex-basis="1670px"
 &lt;p>REF: &lt;a class="link" href="https://github.com/EAimTY/tuic/tree/dev/protocol" target="_blank" rel="noopener"
 >https://github.com/EAimTY/tuic/tree/dev/protocol&lt;/a>&lt;/p>
 &lt;/blockquote>
-&lt;p>TUIC 是一个基于 QUIC 的有状态的协议，目前的版本是 &lt;code>0x04&lt;/code>。&lt;/p>
+&lt;p>TUIC 是一个基于 QUIC 的有状态协议，目前的版本是 &lt;code>0x04&lt;/code>。&lt;/p>
 &lt;h3 id="协议特性">协议特性&lt;/h3>
 &lt;blockquote>
 &lt;p>REF: &lt;a class="link" href="https://github.com/EAimTY/tuic#design" target="_blank" rel="noopener"
