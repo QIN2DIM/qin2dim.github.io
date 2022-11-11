@@ -50,6 +50,7 @@
 &lt;/table>
 &lt;h2 id="服务端配置">服务端配置&lt;/h2>
 &lt;p>&lt;strong>Step1: 下载预编译的 tuic-server&lt;/strong>&lt;/p>
+&lt;p>创建工作目录 &lt;code>mkdir /home/tuic&lt;/code>，拉取 v0.8.5 预编译的 tuic 服务端。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -59,23 +60,37 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;strong>Step2: 申请证书&lt;/strong>&lt;/p>
-&lt;p>替换你的域名&lt;/p>
+&lt;p>安装 ACME&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;span class="lnt">2
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">apt install -y socat &lt;span class="se">\
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> curl https://get.acme.sh &lt;span class="p">|&lt;/span> sh &lt;span class="se">\
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --upgrade --auto-upgrade &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh -set-default-ca --server letsencrypt &lt;span class="se">\
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --issue -d your.domain.com --standalone --keylength ec-256 &lt;span class="se">\ &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --install-cert -d --ecc your.domain.com --fullchain-file /home/tuic/fullchain.crt --key-file /home/tuic/private.key
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> ~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>生成密钥，替换你的域名&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --issue -d &lt;span class="o">[&lt;/span>YOUR_DOMAIN&lt;span class="o">]&lt;/span> --standalone --keylength ec-256
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>申请证书，替换你的域名，若申请成功，证书被移至 &lt;code>/home/tuic/&lt;/code> 工作目录下&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --install-cert --ecc -d &lt;span class="o">[&lt;/span>YOUR_DOMAIN&lt;span class="o">]&lt;/span> --fullchain-file /home/tuic/fullchain.crt --key-file /home/tuic/private.key
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>查看已安装的证书&lt;/p>
@@ -84,7 +99,7 @@
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --info -d --ecc your.domain.com
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">~/.acme.sh/acme.sh --info --ecc -d YOUR_DOMAIN
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;strong>Step3: 编辑服务配置文件&lt;/strong>&lt;/p>
@@ -110,8 +125,8 @@
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;port&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50002&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;token&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;fuck-me-till-the-daylight&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;port&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">16387&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;token&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;how-dare-you&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;certificate&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;/home/tuic/fullchain.crt&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;private_key&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;/home/tuic/private.key&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;congestion_controller&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;bbr&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
@@ -177,7 +192,7 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">systemctl start tuic
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>常用命令&lt;/p>
+&lt;/div>&lt;p>其他常用命令&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -188,12 +203,12 @@
 &lt;/span>&lt;span class="lnt">6
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看服务端配置&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /home/tuic/config.json
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看运行状态&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看运行状态&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">systemctl status tuic
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 实时日志&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">journalctl -u tuic --output cat -f
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看服务端配置&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /home/tuic/config.json
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="客户端配置">客户端配置&lt;/h2>
@@ -222,17 +237,17 @@
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;relay&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;server&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;YOUR SERVER DOMAIN&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;port&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50002&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;token&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;fuck-me-till-the-daylight&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;port&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">16387&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;token&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;how-dare-you&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ip&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;YOUR SERVER IP&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;congestion_controller&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;bbr&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;alpn&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;h3&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;reduce_rtt&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;local&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;port&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">50001&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;port&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">%socks_port%&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;log_level&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;info&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;log_level&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;off&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
@@ -295,19 +310,21 @@ data-flex-basis="420px"
 &lt;/li>
 &lt;li>
 &lt;p>添加服务器配置「手动输入 - TUIC」，对照配置模版填入必要信息：&lt;/p>
+&lt;/li>
+&lt;/ol>
 &lt;p>&lt;img src="https://blog.echosec.top/p/tuic/image-20221110103616402.png"
 width="1080"
 height="2583"
 srcset="https://blog.echosec.top/p/tuic/image-20221110103616402_hu72fbec67810d1b9fce6b74e920f1ef80_379680_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/tuic/image-20221110103616402_hu72fbec67810d1b9fce6b74e920f1ef80_379680_1024x0_resize_box_3.png 1024w"
 loading="lazy"
-alt="image-20221110103616402"
+alt="「SagerNet - 手动添加 TUIC 服务器」"
 class="gallery-image"
 data-flex-grow="41"
 data-flex-basis="100px"
 >&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>首次使用时根据提示下载 SagerNet - TUIC 插件，主流安卓设备选择 arm64-v8a 的版本。参考&lt;a class="link" href="https://blog.echosec.top/p/matsuri-hysteria/" >这篇文章&lt;/a>的软件配置，解除插件和主程序的限制。首先，长按 SagertNet，设置应用信息，提供自启动，联网控制和无限制省电的权限，然后再通过「系统设置 - 应用管理」查找 TUIC Plugin，给予自启动和无限制省电的权限。&lt;/p>
+&lt;ol start="3">
+&lt;li>首次使用时根据提示下载 SagerNet - TUIC 插件，主流安卓设备选择 arm64-v8a 的版本。参考&lt;a class="link" href="https://blog.echosec.top/p/matsuri-hysteria/" >这篇文章&lt;/a>的软件配置，解除插件和主程序的限制。首先，长按 SagertNet，设置应用信息，提供自启动，联网控制和无限制省电的权限，然后再通过「系统设置 - 应用管理」查找 TUIC Plugin，给予自启动和无限制省电的权限。&lt;/li>
+&lt;/ol>
 &lt;p>&lt;img src="https://blog.echosec.top/p/tuic/image-20221110104128245.png"
 width="1037"
 height="1818"
@@ -325,49 +342,9 @@ class="gallery-image"
 data-flex-grow="48"
 data-flex-basis="117px"
 >&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>正常启动代理即可。&lt;/p>
-&lt;/li>
-&lt;/ol>
 &lt;h2 id="网络对比测试">网络对比测试&lt;/h2>
 &lt;p>使用 NekoRay 对同一服务器上监听不同端口的代理服务进行对比测试，核心版本及客户端配置如下：&lt;/p>
 &lt;ul>
-&lt;li>
-&lt;p>Hysteria v1.3.0&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;alpn&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;h3&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;auth_str&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;xxx&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;down_mbps&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">110&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;insecure&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;obfs&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;protocol&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;udp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;server&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;127.0.0.1:%mapping_port%&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;socks5&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;listen&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;127.0.0.1:%socks_port%&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;up_mbps&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">11&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;/li>
 &lt;li>
 &lt;p>TUIC v0.8.5&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -392,7 +369,13 @@ data-flex-basis="117px"
 &lt;/div>
 &lt;/div>&lt;/li>
 &lt;/ul>
-&lt;p>下方对比中，选用来自 PacificRack 提供商的网络环境较有挑战的云服务器，本地带宽 300Mbps。可以看到两种协议均能在 Speedtest 跑满上限（Hysteria 限制 110Mbps 下行），微量损耗误差忽略不计。 YouTube 4K 视频的连接速度均溢出（一般情况下超过2w Kbps即可流畅播放），Hysteria 表现较优，但实测中连接速度不稳定，出现“间接抽风”的情况。在下载数据集时，Hysteria 的封印彻底解除（适当调高下行限制后能够跑满本地带宽），而 TUIC 的下载速度则稳定在 3~5 MB/s。&lt;/p>
+&lt;p>下方对比中，选用来自 &lt;strong>PacificRack&lt;/strong> 提供商的网络环境较有挑战的云服务器，本地带宽 300Mbps。点击图片查看高清截图。&lt;/p>
+&lt;ul>
+&lt;li>可以看到两种协议均能在 Speedtest 跑满上限（Hysteria 限制 110Mbps 下行），微量损耗误差忽略不计。&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.youtube.com/watch?v=1La4QzGeaaQ&amp;amp;ab_channel=Jacob%2BKatieSchwarz" target="_blank" rel="noopener"
+>YouTube 4K 视频&lt;/a>的连接速度均溢出（一般情况下超过2w Kbps即可流畅播放），Hysteria 表现较优，但实测中连接速度不稳定，出现“间接抽风”的情况。&lt;/li>
+&lt;li>在下载数据集时，Hysteria 的封印彻底解除（适当调高下行限制后能够跑满本地带宽），而 TUIC 的下载速度则稳定在 3~5 MB/s。&lt;/li>
+&lt;/ul>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -473,17 +456,117 @@ data-flex-basis="1424px"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
+&lt;p>现将服务器调整为 &lt;strong>V.PS&lt;/strong> 提供的线路质量较好的 Tokyo Micro Pro 服务器，调整 Hysteria &lt;code>down_mbps: 187&lt;/code>，其他环境条件不变。可以看到此时 Hysteria 的性能优势已相当明显。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>来源/协议&lt;/th>
+&lt;th>TUIC&lt;/th>
+&lt;th>Hysteria&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>Speedtest&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="https://blog.echosec.top/p/tuic/13927396378.png"
+width="750"
+height="400"
+srcset="https://blog.echosec.top/p/tuic/13927396378_hu068435353ecbad0f45c0b926800f8279_50250_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/tuic/13927396378_hu068435353ecbad0f45c0b926800f8279_50250_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="187"
+data-flex-basis="450px"
+>&lt;/td>
+&lt;td>&lt;img src="https://blog.echosec.top/p/tuic/13927419994.png"
+width="750"
+height="400"
+srcset="https://blog.echosec.top/p/tuic/13927419994_hu3e7b1e1b025c2dd34a35e1e695856209_50295_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/tuic/13927419994_hu3e7b1e1b025c2dd34a35e1e695856209_50295_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="187"
+data-flex-basis="450px"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>YouTube Connection Speed&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="https://blog.echosec.top/p/tuic/image-20221111234649105.png"
+width="755"
+height="320"
+srcset="https://blog.echosec.top/p/tuic/image-20221111234649105_hu22311f120c3eb486f41b505ad31bd463_188860_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/tuic/image-20221111234649105_hu22311f120c3eb486f41b505ad31bd463_188860_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221111234649105"
+class="gallery-image"
+data-flex-grow="235"
+data-flex-basis="566px"
+>&lt;/td>
+&lt;td>&lt;img src="https://blog.echosec.top/p/tuic/image-20221111235300137.png"
+width="764"
+height="318"
+srcset="https://blog.echosec.top/p/tuic/image-20221111235300137_hud29a1ebcbf8690c6ddabd88a37e8436f_206359_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/tuic/image-20221111235300137_hud29a1ebcbf8690c6ddabd88a37e8436f_206359_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221111235300137"
+class="gallery-image"
+data-flex-grow="240"
+data-flex-basis="576px"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>Download&lt;/strong>&lt;/td>
+&lt;td>&lt;img src="https://blog.echosec.top/p/tuic/image-20221112010449698.png"
+width="536"
+height="77"
+srcset="https://blog.echosec.top/p/tuic/image-20221112010449698_hue3d3c341024741a1b39543f3a7c84dd7_7208_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/tuic/image-20221112010449698_hue3d3c341024741a1b39543f3a7c84dd7_7208_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221112010449698"
+class="gallery-image"
+data-flex-grow="696"
+data-flex-basis="1670px"
+>&lt;/td>
+&lt;td>&lt;img src="https://blog.echosec.top/p/tuic/image-20221112010520098.png"
+width="536"
+height="77"
+srcset="https://blog.echosec.top/p/tuic/image-20221112010520098_huf4af3df0742cc563a511322a933861fe_17152_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/tuic/image-20221112010520098_huf4af3df0742cc563a511322a933861fe_17152_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221112010520098"
+class="gallery-image"
+data-flex-grow="696"
+data-flex-basis="1670px"
+>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
 &lt;h2 id="tuic">TUIC&lt;/h2>
 &lt;h3 id="协议简介">协议简介&lt;/h3>
+&lt;blockquote>
+&lt;p>REF: &lt;a class="link" href="https://github.com/EAimTY/tuic/tree/dev/protocol" target="_blank" rel="noopener"
+>https://github.com/EAimTY/tuic/tree/dev/protocol&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>TUIC 是一个基于 QUIC 的有状态的协议，目前的版本是 &lt;code>0x04&lt;/code>。&lt;/p>
 &lt;h3 id="协议特性">协议特性&lt;/h3>
-&lt;h3 id="协议对比">协议对比&lt;/h3>
-&lt;h2 id="总结">总结&lt;/h2>
-&lt;p>TUIC 设计目标是「尽可能减少握手造成的网络往返时延」，相比之下，更加适合「&lt;strong>湍流&lt;/strong>」应用场景，即，快速响应的持续不断的小流量请求，如快速加载 YouTube/TikTok/Twitter 首帧内容，访问素材网站快速加载缩略图等。&lt;/p>
-&lt;p>总得来说，TUIC 更适合移动端（手机平板）使用场景，较低的网络往返时延能够给短视频，即时通信等应用场景带来不错的体感升级，从实际体验来看，基本不会遇到「视频转半天还没开始播放」的窘况。但当你的 VPS 线路质量较差时（如骨干网晚高峰），TUIC 发挥的作用非常有限。&lt;/p>
-&lt;p>Hysteria 的设计目标是「最大化数据吞吐量」，相比之下，社区更加活跃，协议完成度更高，例如：已于 1.3.0 支持 &lt;a class="link" href="https://hysteria.network/zh/docs/port-hopping/" target="_blank" rel="noopener"
+&lt;blockquote>
+&lt;p>REF: &lt;a class="link" href="https://github.com/EAimTY/tuic#design" target="_blank" rel="noopener"
+>https://github.com/EAimTY/tuic#design&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>1-RTT TCP 中继&lt;/li>
+&lt;li>0-RTT UDP 中继，且 NAT 类型为 FullCone&lt;/li>
+&lt;li>在用户空间的拥塞控制，也就是说可以在任何系统平台实现双向的 BBR&lt;/li>
+&lt;li>两种 UDP 中继模式: &lt;code>native&lt;/code> （原生 UDP 特性，数据仍被 TLS 加密）和 &lt;code>quic&lt;/code> (100% 送达率，每个包单独单独作为一个 QUIC 「流」，一个包的确认重传不会阻塞其它包)&lt;/li>
+&lt;li>完全多路复用，服务器和客户端之间始终只需要一条 QUIC 连接，所有任务作为这个连接中的 “流” 进行传输（一个流的暂时阻塞不会影响其它流），所以除连接第一个中继任务外的其它任务都不需要经过 QUIC 握手和 TUIC 的鉴权&lt;/li>
+&lt;li>网络切换时的会话平滑转移，例如在从 Wi-Fi 切换到移动数据时连接不会像 TCP 一样直接断开&lt;/li>
+&lt;li>0-RTT 、与中继任务并行的鉴权&lt;/li>
+&lt;li>支持 QUIC 的 0-RTT 握手（开启之后能达到 真・ 1 -RTT TCP 和 0-RTT UDP ，但是就算不开启，多路复用的特性也能保证在绝大多数情况下 1-RTT 和 0-RTT ）&lt;/li>
+&lt;/ul>
+&lt;h2 id="总结对比">总结对比&lt;/h2>
+&lt;p>&lt;strong>TUIC 设计目标是「尽可能减少握手造成的网络往返时延」&lt;/strong>，相比之下，更加适合「&lt;strong>湍流&lt;/strong>」应用场景，即，快速响应的持续不断的小流量请求，如快速加载 YouTube/TikTok/Twitter 首帧内容，访问素材网站快速加载缩略图等。&lt;/p>
+&lt;p>&lt;strong>Hysteria 的设计目标是「最大化数据吞吐量」&lt;/strong>，相比之下，社区更加活跃，协议完成度更高，例如：已于 1.3.0 支持 &lt;a class="link" href="https://hysteria.network/zh/docs/port-hopping/" target="_blank" rel="noopener"
 >port-hopping&lt;/a>，可在一定程度上缓解 UDP 单端口长连接被运营商丢包的风险；支持 obfs 流量混淆；内部实现 TUN 以及ACL路由；相比之下，Hysteria 更加适合「&lt;strong>激流&lt;/strong>」应用场景，即，非即时响应的高速流量，如数据集拉取，YouTube 8K 视频播放。&lt;/p>
-&lt;p>总得来说，Hysteria 更适合 PC 端的大流量应用场景，绝大多数的单节点 VPS 直连线路质量都很差，Hysteria 灵活的拥塞控制机制能给劣质网络环境带来质变，但也需警惕错误的客户端配置带来的负优化。&lt;/p>
-&lt;p>但无论如何，在未被 QOS 的前提下，TUIC 和 Hysteria 带来的网络冲浪体验远超 VMESS, VLESS 及 Trojan。&lt;/p>
+&lt;p>总得来说，TUIC 更适合移动端（手机平板）使用场景，较低的网络往返时延以及较少的性能及带宽开销能够给短视频，即时通信等应用场景带来不错的体感升级，从实际体验来看，基本不会遇到「媒体资源加载好久还没开始播放」的窘况。但当你的 VPS 线路质量较差时（如骨干网晚高峰），TUIC 发挥的作用非常有限。&lt;/p>
+&lt;p>Hysteria 更适合 PC 端的大流量应用场景，绝大多数的单节点 VPS 直连线路质量都很一般，Hysteria 灵活的拥塞控制机制能给劣质网络环境带来质变，但也需警惕错误的客户端配置带来的负优化。&lt;/p>
+&lt;p>在节点带宽盈余时，Hysteria 更加符合大多数用户的综合需求，此时同节点 TUIC Protocol 仍在延时和功耗表现上优于 Hysteria，但在用户层面感知不强，反倒是数倍之差的下载速度体验成为矛盾焦点。&lt;/p>
+&lt;p>在条件允许的情况下，使用 QUIC 变种协议簇而非 VMESS，Trojan，VLESS 是更加明智的选择。&lt;/p>
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;p>&lt;a class="link" href="https://www.eaimty.com/2022/03/tuic.html" target="_blank" rel="noopener"
 >基于 QUIC 的代理软件：TUIC - EAimTY 的博客&lt;/a>&lt;/p>
