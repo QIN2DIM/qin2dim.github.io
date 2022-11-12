@@ -280,7 +280,7 @@ data-flex-basis="154px"
 &lt;ol>
 &lt;li>下载预编译的 &lt;a class="link" href="https://github.com/EAimTY/tuic/releases" target="_blank" rel="noopener"
 >tuic-client(windows-gnu)&lt;/a>，放置到 V2RayN 工程根目录下。&lt;/li>
-&lt;li>添加自定义配置服务器，复制粘贴配置模版，替换掉占位符 &lt;code>YOUR SERVER DOMAIN&lt;/code>以及 &lt;code>YOUR SERVER IP&lt;/code>。如果你改变了上文给出的服务端口 &lt;code>ip&lt;/code> 以及身份令牌 &lt;code>token&lt;/code>，则此处对照改变即可。&lt;/li>
+&lt;li>添加自定义配置服务器，复制粘贴配置模版，替换掉占位符 &lt;code>YOUR SERVER DOMAIN&lt;/code>以及 &lt;code>YOUR SERVER IP&lt;/code>，修改 local port 为 50001。如果你改变了上文给出的服务端口 &lt;code>ip&lt;/code> 以及身份令牌 &lt;code>token&lt;/code>，则此处对照改变即可。&lt;/li>
 &lt;/ol>
 &lt;p>&lt;img src="https://blog.echosec.top/p/tuic/image-20221110085635390.png"
 width="920"
@@ -555,7 +555,7 @@ data-flex-basis="1670px"
 &lt;p>&lt;strong>TUIC 设计目标是「尽可能减少握手造成的网络往返时延」&lt;/strong>，相比之下，更加适合「&lt;strong>湍流&lt;/strong>」应用场景，即，快速响应的持续不断的小流量请求，如快速加载 YouTube/TikTok/Twitter 首帧内容，访问素材网站快速加载缩略图等。&lt;/p>
 &lt;p>&lt;strong>Hysteria 的设计目标是「最大化数据吞吐量」&lt;/strong>，相比之下，社区更加活跃，协议完成度更高，例如：已于 1.3.0 支持 &lt;a class="link" href="https://hysteria.network/zh/docs/port-hopping/" target="_blank" rel="noopener"
 >port-hopping&lt;/a>，可在一定程度上缓解 UDP 单端口长连接被运营商丢包的风险；支持 obfs 流量混淆；内部实现 TUN 以及ACL路由；相比之下，Hysteria 更加适合「&lt;strong>激流&lt;/strong>」应用场景，即，非即时响应的高速流量，如数据集拉取，YouTube 8K 视频播放。&lt;/p>
-&lt;p>总得来说，TUIC 更适合移动端（手机平板）使用场景，较低的网络往返时延以及更低的性能與带宽开销能够在短视频，即时通信等应用场景带来不错的体感升级，从实际体验来看，基本不会遇到「媒体资源加载好久还没开始播放」的窘况。而当你的 VPS 线路质量较差时（如骨干网晚高峰），TUIC 发挥的作用非常有限。&lt;/p>
+&lt;p>总得来说，TUIC 更适合移动端（蜂窝流量）使用场景，较低的网络往返时延，较低的性能损耗以及更低带宽开销能够在短视频，即时通信等应用场景带来不错的体感升级，从实际体验来看，基本不会遇到「媒体资源加载好久还没开始播放」的窘况。而当你的 VPS 线路质量较差时（如骨干网晚高峰），TUIC 发挥的作用非常有限。&lt;/p>
 &lt;p>Hysteria 更适合 PC 端的大流量应用场景，绝大多数的单节点 VPS 直连线路质量都很一般，Hysteria 灵活的拥塞控制机制能给劣质网络环境带来质变，但也需警惕错误的客户端配置带来的负优化。&lt;/p>
 &lt;p>在服务器带宽盈余时，Hysteria 更加符合大多数普通用户的综合需求，此时同节点 TUIC Protocol 仍在延时和功耗表现上优于 Hysteria，但在用户层面感知不强，反倒是数倍之差的下载速度体验成为矛盾焦点。&lt;/p>
 &lt;p>在条件允许的情况下，使用 QUIC 变种协议簇而非 VMESS，Trojan，VLESS 是更加明智的选择。&lt;/p>
