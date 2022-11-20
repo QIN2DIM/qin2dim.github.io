@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 19 Nov 2022 17:56:01 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Git Myself</title><link>https://blog.echosec.top/p/git-myself/</link><pubDate>Sat, 19 Nov 2022 17:56:01 +0800</pubDate><guid>https://blog.echosec.top/p/git-myself/</guid><description>&lt;img src="https://blog.echosec.top/p/git-myself/village.jpg" alt="Featured image of post 『Blog』Git Myself" />&lt;h2 id="概念界定">概念界定&lt;/h2>
 &lt;h3 id="账号为什么会被标记flagged">账号为什么会被标记（flagged）&lt;/h3>
-&lt;p>GitHub 内部实现了一个严格的反机器人/反滥用监测系统，这是一套标准化的风控系统，它会自动标记高威胁目标。被封禁的用户会看到 &lt;strong>Your account has been flagged.&lt;/strong> 的标志。&lt;/p>
+&lt;p>GitHub 内部实现了一个严格的反机器人/反滥用监测系统，这是一套标准化的风控系统，它会自动标记高威胁目标。被封禁的用户会看到 &lt;strong>Your account has been flagged&lt;/strong> 的标志。&lt;/p>
+&lt;div align="center">&lt;img src="image-20221120183334009.png" alt="Your account has been flagged" style="zoom: 50%;" />&lt;/div>
 &lt;p>这套监测系统的实现逻辑处于保密状态，但其监听的行为规则可以大致总结为：&lt;/p>
 &lt;ol>
 &lt;li>频繁创建 Git 仓库（速率极大，非人类操作）；&lt;/li>
@@ -14,42 +15,16 @@
 &lt;p>GitHub Flag Attack 统称为一系列利用风控规则致使目标账号被针对性封禁的访问攻击，是一种名副其实的「借刀杀人」式网络攻击。&lt;/p>
 &lt;p>从正向规则来看，一个机器人被创建后给数千个项目点赞，如果开发者把握不好请求速率和指纹数据的反射频率，这个机器人会被秒封。值得一提的是，这种请求通常是基于 Access Token 的 full-request 而非基于 Playwright 或 Selenium 的网页自动化，所以请求速率非常快，仅受权限上限控制。&lt;/p>
 &lt;p>同样的规则可以反向利用，创建数百个机器人，向同一个靶向账号灌入恶意流量，如：follow，star，fork，watch，这些行为是多向的，如：follow 和 unfollow 高频次交替进行，机器人会互赞 fork 下来的仓库等。目标用户通常是 Create/Fork 仓库数几十上百的玩家，这对恶意流量是种利好，可交互对象更多，窗口期更小。短时间内，被攻击账号将收到数万的「点赞」（以及「取消点赞」）的请求，被攻击玩家甚至察觉不到这些异常。标记攻击通常仅需数分钟就可以将目标账号关入小黑屋。&lt;/p>
-&lt;p>事发时，我的 GitHub Dashboard 正好停留在主屏上，无意间记录下了这个让我目瞪口呆的过程。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/git-myself/image-20221119200828753.png"
-width="1596"
-height="1743"
-srcset="https://blog.echosec.top/p/git-myself/image-20221119200828753_hua796603dfe6cba41c95165d3eb963010_441870_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/git-myself/image-20221119200828753_hua796603dfe6cba41c95165d3eb963010_441870_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="GitHub Flag Attack"
-class="gallery-image"
-data-flex-grow="91"
-data-flex-basis="219px"
->&lt;/p>
+&lt;p>事发时，我的 GitHub Dashboard 正好停留在主屏上，无意间记录下了这个让我目瞪口呆的过程，这让我陷入了对人与社会的思考……&lt;/p>
+&lt;img src="image-20221119200828753.png" alt="GitHub Flag Attack" style="zoom:50%;" />
 &lt;h3 id="被标记-vs-被停用">被标记 vs 被停用&lt;/h3>
 &lt;p>标记通常针对账号，而停用通常针对某个具体的项目仓库。&lt;/p>
-&lt;p>账号被标记期间，&lt;strong>除了账号所有者外&lt;/strong>，其他访客无法查看被标记账号的 profile 及其所有的附属域资源，看起来像是这个账号不曾存在一样。此时，账号所有者仍能（或通过 Git）操作账户数据，如 push commit，export account data 等，即，账号所有者仍保留对上游数据的读写权限。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/git-myself/image-20221119200757708.png"
-width="680"
-height="388"
-srcset="https://blog.echosec.top/p/git-myself/image-20221119200757708_hu47b1b43d74c27158c23fb629bc0f68ba_204407_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/git-myself/image-20221119200757708_hu47b1b43d74c27158c23fb629bc0f68ba_204407_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="GitHub 404 Page"
-class="gallery-image"
-data-flex-grow="175"
-data-flex-basis="420px"
->&lt;/p>
+&lt;p>账号被标记期间，&lt;strong>除了账号所有者外&lt;/strong>，其他访客/无法查看被标记账号的 profile 及其所有的附属域资源，看起来像是这个账号不曾存在一样。此时，账号所有者仍能（或通过 Git）操作账户数据，如 push commit，export account data 等，即，账号所有者仍保留对上游数据的读写权限。&lt;/p>
+&lt;div align="center">&lt;img src="image-20221119200757708.png" alt="GitHub Page 404" style="zoom:80%;" />&lt;/div>
 &lt;p>某个仓库被停用后，包括账号所有者在内的所有普通用户均无法正常访问仓库地址，仓库页会显示警告 &lt;strong>This repository has been disabled&lt;/strong>。账号所有者彻底失去该项目的控制权，所有下游 fork 分支被一并删除，母仓库的 Releases 被重置到不可访问域。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/git-myself/image-20221119203017574.png"
-width="622"
-height="228"
-srcset="https://blog.echosec.top/p/git-myself/image-20221119203017574_hu2193e7b2c305386b8fe4d37f30966f36_17019_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/git-myself/image-20221119203017574_hu2193e7b2c305386b8fe4d37f30966f36_17019_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-alt="image-20221119203017574"
-class="gallery-image"
-data-flex-grow="272"
-data-flex-basis="654px"
->&lt;/p>
+&lt;div align="center">&lt;img src="image-20221119203017574.png" alt="This repository has been disabled" style="zoom: 80%;" />&lt;/div>
 &lt;h2 id="解决方案">解决方案&lt;/h2>
+&lt;h3 id="移除账号的标记">移除账号的标记&lt;/h3>
 &lt;p>目前，仅能通过联系&lt;a class="link" href="https://support.github.com/contact/account" target="_blank" rel="noopener"
 >技术支持&lt;/a>的方式解除账号的标记状态。可供参考的正文内容如下：&lt;/p>
 &lt;blockquote>
@@ -60,6 +35,11 @@ Thank you very much for your support.
 I don’t know why my account has been flagged.&lt;/p>
 &lt;/blockquote>
 &lt;p>如果工单积累过多，可能至多要 7 天才能得到首次回复（remote work 的效率是真的低）如果是闲时请求，至少也需要等个半天。这种恶意攻击引发的封禁案例并不少见，技术支持可能还要甄别是否是「有意为之」。&lt;/p>
+&lt;h3 id="重定向-github-pages">重定向 GitHub Pages&lt;/h3>
+&lt;p>如果你使用 GitHub Pages 搭建个人博客站点，当你的账号处于被标记状态时，&lt;code>username.github.io&lt;/code> 仓库地址处于不可访问状态，你的博客会被重置到 404 页面。&lt;/p>
+&lt;div align="center">&lt;img src="image-20221120184458295.png" alt="There isn't a GitHub Pages site here" style="zoom:67%;" />&lt;/div>
+&lt;p>你需要另一个未被标记的 GitHub 账号，按同样的方法创建一个 public repo，将站点静态输出 push 到新仓库中，GitHub Pages Custom Domain 仍填写博客站的自定义域名，然后将你的博客站的 CNAME recode 指向新的仓库地址，即，&lt;code>username2.github.io&lt;/code>。这么说有点抽象，但这对于使用 GitHub Pages 搭建博客的玩家来说并不难理解。这样操作可接燃眉之急，访问你的站点域名，实际上会被解析到新仓库地址。&lt;/p>
+&lt;p>如果你依赖 GitHub Pages 搭建了其他静态内容，也可以照葫芦画瓢完成同样的操作。这也意味着博客站的源码非常关键，持有源码，可以在任何时间点通过渲染引擎生成静态站点。&lt;/p>
 &lt;h2 id="因果链分析">因果链分析&lt;/h2>
 &lt;h3 id="动机分析">动机分析&lt;/h3>
 &lt;p>显然，攻击者组织起一批足以扰动 GitHub 风控系统的机器人集群需要不少的时间和金钱开销，若不是出于测试目的，很难想象攻击者会发起无差别攻击。可以认为，这种「恶作剧」是种「报复行为」。可以预见的动机有：恶意竞争，社会工程学攻击，某些群体的嫉妒行为等等。（有待展开&amp;hellip;）&lt;/p>
@@ -69,16 +49,15 @@ I don’t know why my account has been flagged.&lt;/p>
 &lt;li>部分求职者喜欢在简历或个人宣传页中附上自己的 GitHub Profile 链接；&lt;/li>
 &lt;li>部分研究者会在自己的论文预印刊页面以及正刊附件中添加源码实现的索引，而项目仓库八成是放在 GitHub 上的。&lt;/li>
 &lt;li>部分玩家依赖 GitHub Pages 部署自己的个人静态站点，如博客站，导航站，在线简历等等。&lt;/li>
-&lt;li>部分玩家基于 GitHub Issues 编排日志或周报月刊系统，纪录打卡数据，即使新闻等等。&lt;/li>
+&lt;li>部分玩家基于 GitHub Issues 编排日志或周报月刊系统，纪录打卡数据和突发事件等等。&lt;/li>
 &lt;/ol>
-&lt;p>账号被标记后，这些链接将被路由至 404 页面。很难想像候选人一通介绍后向 HR 展示一个空页面时会怎样解释；或是审稿人发现（有点恶劣，不敢想）；尽管是个人使用的静态站点，也会造成诸多不便，站长可能需要花费数个小时的时间用于重建镜像仓库、解析 DNS 以及部署 CDN。&lt;/p>
+&lt;p>账号被标记后，这些链接将被路由至 404 页面。一些可预见的概率事件有：候选人向 HR 描述了一个可靠的架构模型然后展示了一个无法访问的仓库链接；或是审稿人发现投稿中的附件链接不可达或是「查无此人」；尽管是个人使用的静态站点，也会造成诸多不便，站长可能需要花费数个小时的时间用于重建镜像仓库、解析 DNS 以及部署 CDN。&lt;/p>
 &lt;h2 id="结语及预案">结语及预案&lt;/h2>
 &lt;p>我们在工程上设计「预案」时通常会分为「监」「控」两个方面，既要准确捕捉到攻击发起的状态，也要尽可能减少攻击带来的损失。遗憾的是，在本文描述的案例中，似乎很难找到一种完美的权衡，我们不可能做出将所有仓库私有化这种极端的行为；也很难将毫不相干的个人仓库划分到多个组织账号中，这样维护和管理都十分麻烦；尽管是设置其他人不可查看自己的项目列表，攻击者仍可通过 GitHub API 绕过这层限制直接获取目标用户持有的仓库链接，进而发起攻击。&lt;/p>
 &lt;p>此外，我们还需注意 GitHub 是一家美国公司，其运营活动受美国法律限制，其品牌形象受美国利益影响。早在俄乌冲突早期，GitHub 就站队乌方，将一大批俄罗斯组织账号及少量的俄罗斯个人开发者账号标记；同样的操作在中东地区开发者账号上也发生过（这也是我支持实名制的国产 Gitee 的主要原因之一，尽管现在仍有许多进步空间）。事出有因，我们不能脱离上下文去批判 GitHub 的这些「制裁措施」，但我想 GitHub 对于大多数中国程序员来说，其存在意义等同于 QQ空间与朋友圈，有太多的大牛在这片交界之地见证自己逐渐成长的过程。&lt;/p>
 &lt;p>无论如何，我不希望这份仅属于开发者自己的珍贵回忆最终仅会流向互联网历史归档馆。你也许需要更可靠的 Git 系统， 也许你需要养成良好的备份习惯避免某些珍贵的东西悄然流失，也许你需要一个可靠的备案来保证某些流行项目的可用性。&lt;/p>
 &lt;p>回到文章标题「&lt;strong>Git Myself&lt;/strong>」，如何理解它呢？你可以说「守住我的饭碗」也可以是「留住我的影响力」或是「自建 Git Service」。如果你之前没有做过与「舆情」相关的工作，你也许很难作为当事人去想像：朋友圈/QQ空间被永久封禁，百万微博粉丝账号被限流或是呕心沥血数年构建的社区被恶意攻击淹没。这对他们来说，意味着青春记忆的停顿，他们在这里分享自己的小学中学大学，分享生活槽点与职场高光时刻；这对他们来说，是一个打造人设的绝佳平台，是供粉丝亲近自己的机会，是一个见证自己从草根进军娱乐圈的重要盈利工具；这对他们来说，是N多个熬夜通宵敲代码，投入巨额时间成本的满意作品。作为一个遵守 WEB2.0 游戏规则的人，你可能很难想象自己视为珍宝的东西其实是可以被其他人轻易夺走的。&lt;/p>
-&lt;p>当然，本文不会去深究这些话题，这些领域知识过于错综复杂（水太深），但无论如何，我希望本文读者都能重视起自己的网络数据，在符合游戏规则的前提下，将属于自己的东西牢牢抓住。&lt;/p>
-&lt;h2 id="reference">Reference&lt;/h2></description></item><item><title>『Blog』TUIC 敏捷部署</title><link>https://blog.echosec.top/p/tuic/</link><pubDate>Thu, 10 Nov 2022 07:23:04 +0800</pubDate><guid>https://blog.echosec.top/p/tuic/</guid><description>&lt;img src="https://blog.echosec.top/p/tuic/alexander.jpg" alt="Featured image of post 『Blog』TUIC 敏捷部署" />&lt;h2 id="摘要">摘要&lt;/h2>
+&lt;p>当然，本文不会去深究这些话题，这些领域知识过于错综复杂（水太深），但无论如何，我希望本文读者都能重视起自己的网络数据，在符合游戏规则的前提下，将属于自己的东西牢牢抓住。&lt;/p></description></item><item><title>『Blog』TUIC 敏捷部署</title><link>https://blog.echosec.top/p/tuic/</link><pubDate>Thu, 10 Nov 2022 07:23:04 +0800</pubDate><guid>https://blog.echosec.top/p/tuic/</guid><description>&lt;img src="https://blog.echosec.top/p/tuic/alexander.jpg" alt="Featured image of post 『Blog』TUIC 敏捷部署" />&lt;h2 id="摘要">摘要&lt;/h2>
 &lt;p>本文先介绍基于 TUIC 实现的双端代理敏捷部署方案，以 Ubuntu20.04 为例介绍服务端代理架设的步骤，再分别介绍在 Windows（V2RayN/NekoRay），Android（SagerNet/Matsuri） 以及 iOS（Shadowrocket） 启动客户端代理的方案。最后介绍 TUIC 协议的特性、适用场景以及与 Hysteria 协议的区别。&lt;/p>
 &lt;p>本文涉及的开源项目如下：&lt;/p>
 &lt;table>
