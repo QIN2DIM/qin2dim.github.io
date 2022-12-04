@@ -1,4 +1,96 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Echosec @QIN2DIM</title><link>https://blog.echosec.top/post/</link><description>Recent content in Posts on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 19 Nov 2022 17:56:01 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/post/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Git Myself</title><link>https://blog.echosec.top/p/git-myself/</link><pubDate>Sat, 19 Nov 2022 17:56:01 +0800</pubDate><guid>https://blog.echosec.top/p/git-myself/</guid><description>&lt;img src="https://blog.echosec.top/p/git-myself/village.jpg" alt="Featured image of post 『Blog』Git Myself" />&lt;h2 id="概念界定">概念界定&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Echosec @QIN2DIM</title><link>https://blog.echosec.top/post/</link><description>Recent content in Posts on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 04 Dec 2022 16:56:02 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/post/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Chatgpt Helloworld</title><link>https://blog.echosec.top/p/chatgpt-register/</link><pubDate>Sun, 04 Dec 2022 16:56:02 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-register/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-register/lixin-yin-e6tbaezuuaal46n.jpg" alt="Featured image of post 『Blog』Chatgpt Helloworld" />&lt;h2 id="preview">Preview&lt;/h2>
+&lt;p>如何在中国大陆获取 ChatGPT 的试用权限？你需要一个代理 IP 以及一个可接码的其他地区的手机号。&lt;/p>
+&lt;p>目前，OpenAI 未向中国大陆以及港澳台提供 ChatGPT 服务，你需要使用其他地区的代理 IP （优先使用日韩美新）进入注册页面并使用其他地区的手机号进行接码验证，注意：港澳台地区无法使用 OpenAI。&lt;/p>
+&lt;p>ChatGPT 屏蔽了虚拟号码，类似 Google Voice 的服务无法正常使用，但接码平台的屏蔽策略仍是基于数据库匹配，所以有些平台成了漏网之鱼，如 &lt;a class="link" href="https://sms-activate.org/cn" target="_blank" rel="noopener"
+>sms-activate&lt;/a>。&lt;/p>
+&lt;h2 id="快速注册">快速注册&lt;/h2>
+&lt;h3 id="准备阶段">准备阶段&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>准备接码&lt;/p>
+&lt;p>打开 &lt;a class="link" href="https://sms-activate.org/cn" target="_blank" rel="noopener"
+>sms-activate&lt;/a> 注册一个账号，请使用真实邮箱注册。接受验证邮件可能用时略久。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>注册 OpenAI 账号&lt;/p>
+&lt;p>访问 &lt;a class="link" href="https://auth0.openai.com/u/signup/identifier?state=hKFo2SBvWTJjb0dadlhiY3lLT1FOSlMyWkMyY2E5aFZka2FOQqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIDRIQzlsUXJFV2hPUEZIUllxaHR1eW1vVUk0X0d5X3VOo2NpZNkgRFJpdnNubTJNdTQyVDNLT3BxZHR3QjNOWXZpSFl6d0Q" target="_blank" rel="noopener"
+>OpenAI 认证界面&lt;/a>，如果你已有账号，选择 Continue with xxx 或者点击 LogIn 即可，否则填写邮箱走流程，跟着步骤操作走就行。&lt;/p>
+&lt;img src="image-20221204192058339.png" alt="image-20221204192058339" style="zoom:50%;" />
+&lt;p>跟着操作直到 Verify Your Phone Number 界面。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>购买接码账号&lt;/p>
+&lt;p>使用 AliPay 对账号充值，每个接码手机号 10 卢布左右，20分钟有效，有效期内未接收到验证码，手机号将被回收，付款退回账号。&lt;/p>
+&lt;img src="image-20221204191842258.png" alt="image-20221204191842258" style="zoom:50%;" />
+&lt;p>购买 OpenAI 接码账号，选一个便宜的，这些手机号在本文首发时还剩下十几万个，用完就没了~由于账号有效期内没有活动会被回收，不用担心黄牛批量买入，这些账号用于真实注册 OpenAI。&lt;/p>
+&lt;img src="image-20221204191322173.png" alt="image-20221204191322173" style="zoom:50%;" />
+&lt;/li>
+&lt;li>
+&lt;p>填写手机号，接受验证码&lt;/p>
+&lt;p>账户余额足够时，点击购物车图表，自动跳转到接码界面，复制手机号填写到 ChatGPT 的验证界面中，地区选择印度，等待验证短信即可。&lt;/p>
+&lt;img src="image-20221204191509831.png" alt="image-20221204191509831" style="zoom:50%;" />
+&lt;p>​ 选择个人用途。如果操作流程丢失，访问 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT&lt;/a> 回到操作流程中。&lt;/p>
+&lt;img src="image-20221204192255336.png" alt="image-20221204192255336" style="zoom:50%;" />
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="首次使用">首次使用&lt;/h3>
+&lt;p>注册完成后，访问 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT (openai.com)&lt;/a>，点击 LogIN 即可。在下方的搜索框中开始你的奇思妙想。&lt;/p>
+&lt;img src="image-20221204180633995.png" alt="image-20221204180633995" style="zoom:80%;" />
+&lt;h2 id="问答案例">问答案例&lt;/h2>
+&lt;p>注意，ChatGPT 不能联网，基础知识构建工作在 2021 年完成，擅长知识型问答，它有一定的接受边界：&lt;/p>
+&lt;ol>
+&lt;li>不能用于撰写实时性较强的时政性质的答案；&lt;/li>
+&lt;li>不能用于回答权限受限的问题；&lt;/li>
+&lt;li>不能用于回答政策、政治等专业领域的问题；&lt;/li>
+&lt;li>不能有效应对 2021 年之后的新知识；&lt;/li>
+&lt;li>禁黄赌毒；&lt;/li>
+&lt;/ol>
+&lt;h3 id="联合对话">联合对话&lt;/h3>
+&lt;p>ChatGPT 可以结合上下文信息回复你的提问。&lt;/p>
+&lt;img src="image-20221204181912296.png" alt="image-20221204181912296" style="zoom:80%;" />
+&lt;h3 id="编程用例">编程用例&lt;/h3>
+&lt;p>不必像使用搜素引擎那样为了精确结果而使用精简的语法和特殊字符，只需要礼貌且准确地描述你的问题，像这样：&lt;/p>
+&lt;img src="image-20221204182021698.png" alt="image-20221204182021698" style="zoom:80%;" />
+&lt;p>经测试，ChatGPT 还能妙解 LeetCode 困难算法题，能给出适合某个小需求的代码片段，代码中会有「对应语种」的行内注释，也会在用例下方解释代码的运行逻辑。&lt;/p>
+&lt;h3 id="钓鱼提问">钓鱼提问&lt;/h3>
+&lt;p>尝试提出一些钓鱼问题，即，一般权限玩家无法访问的机密信息。比如：诶隆马斯克的中间名，美国驻日军事基地的经纬度坐标等等。这些是边界问题，「答不出来」才是正确答案。&lt;/p>
+&lt;img src="image-20221204182234888.png" alt="image-20221204182234888" style="zoom:80%;" />
+&lt;h3 id="范文模版">范文模版&lt;/h3>
+&lt;p>英文（标准格式）邮件，作文范文，辞职信，请假条等等。&lt;/p>
+&lt;img src="image-20221204183004649.png" alt="image-20221204183004649" style="zoom:80%;" />
+&lt;h3 id="场景对话">场景对话&lt;/h3>
+&lt;p>让通识性客服感受到行业危机的一个重要特性，ChatGPT 可以和用户愉快地交流，这远比一口一个“亲”来的爽快。&lt;/p>
+&lt;img src="image-20221204184003292.png" alt="image-20221204184003292" style="zoom:80%;" />
+&lt;h3 id="梦幻联动">梦幻联动&lt;/h3>
+&lt;p>我们可以把 ChatGPT 和 Stable Diffusion 结合使用，如果你暂时不知道如何向 imagine 提供准确的 prompt 或者没啥思路，ChatGPT 也许能为你提供灵感。&lt;/p>
+&lt;img src="image-20221204193802653.png" alt="image-20221204193802653" style="zoom:80%;" />
+&lt;p>我们通过 ChatGPT 询问了一些描述「动漫女孩」的可行方向，并嫖了一份中文翻译。我们稍微操作一下，拼凑成 扩散模型可以识别的句式，最后通过 ImaginAIry 生成图片。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/imagine prompt: 机械翅膀，魔法能量纹身，彩虹色头发，法杖，猫咪伴侣，artstation, 4k, --ar 2:3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="推荐阅读">推荐阅读&lt;/h2>
+&lt;p>我们在问答案例中提出了一些有趣的用例，篇幅有限，这里列出一些精彩的 thread 纪录 ChatGPT 更多的精彩用法，建议阅读😁&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://openai.com/blog/chatgpt/" target="_blank" rel="noopener"
+>ChatGPT: Optimizing Language Models for Dialogue&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/forrestchang/gptlang" target="_blank" rel="noopener"
+>forrestchang/gptlang: A new programming language running in ChatGPT (github.com)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://twitter.com/Tisoga/status/1599347662888882177" target="_blank" rel="noopener"
+>Jiayuan Thread&lt;/a> ChatGPT 花活&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>『Blog』Git Myself</title><link>https://blog.echosec.top/p/git-myself/</link><pubDate>Sat, 19 Nov 2022 17:56:01 +0800</pubDate><guid>https://blog.echosec.top/p/git-myself/</guid><description>&lt;img src="https://blog.echosec.top/p/git-myself/village.jpg" alt="Featured image of post 『Blog』Git Myself" />&lt;h2 id="概念界定">概念界定&lt;/h2>
 &lt;h3 id="账号为什么会被标记flagged">账号为什么会被标记（flagged）&lt;/h3>
 &lt;p>GitHub 内部实现了一个严格的反机器人/反滥用监测系统，这是一套标准化的风控系统，它会自动标记高威胁目标。被封禁的用户会看到 &lt;strong>Your account has been flagged&lt;/strong> 的标志。&lt;/p>
 &lt;div align="center">&lt;img src="image-20221120183334009.png" alt="Your account has been flagged" style="zoom: 50%;" />&lt;/div>
