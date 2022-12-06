@@ -22,7 +22,7 @@
 &lt;p>购买接码账号&lt;/p>
 &lt;p>使用 AliPay 对账号充值，每个接码手机号 10 卢布左右，20分钟有效，有效期内未接收到验证码，手机号将被回收，付款退回账号。&lt;/p>
 &lt;img src="image-20221204191842258.png" alt="image-20221204191842258" style="zoom:50%;" />
-&lt;p>购买 OpenAI 接码账号，选一个便宜的，这些手机号在本文首发时还剩下十几万个，用完就没了~由于账号有效期内没有活动会被回收，不用担心黄牛批量买入，这些账号用于真实注册 OpenAI。&lt;/p>
+&lt;p>购买 OpenAI 接码账号，选一个便宜的，这些手机号在本文首发时还剩下十几万个，用完就没了~由于账号有效期内没有活动会被回收，不用担心黄牛批量买入，这些账号用于真实注册 OpenAI。如果直接搜索服务没有看到下方的扩展栏，可以点击「显示更多国家」的拓展，SMS-ACTIVE 会时不时筛选补充接码账号，不得不说 ChatGPT 5 天时间的注册量已经超过了一百万，接码服务也算是间接受益方，他们自然不会错过这个绝佳的热点~&lt;/p>
 &lt;img src="image-20221204191322173.png" alt="image-20221204191322173" style="zoom:50%;" />
 &lt;/li>
 &lt;li>
@@ -49,34 +49,90 @@
 &lt;/ol>
 &lt;h3 id="联合对话">联合对话&lt;/h3>
 &lt;p>ChatGPT 可以结合上下文信息回复你的提问。&lt;/p>
-&lt;img src="image-20221204181912296.png" alt="image-20221204181912296" style="zoom:80%;" />
+&lt;div align="center">&lt;img src="image-20221204181912296.png" alt="image-20221204181912296" style="zoom:50%;" />&lt;/div>
 &lt;h3 id="编程用例">编程用例&lt;/h3>
 &lt;p>不必像使用搜素引擎那样为了精确结果而使用精简的语法和特殊字符，只需要礼貌且准确地描述你的问题，像这样：&lt;/p>
-&lt;img src="image-20221204182021698.png" alt="image-20221204182021698" style="zoom:80%;" />
+&lt;div align="center">&lt;img src="image-20221204182021698.png" alt="image-20221204182021698" style="zoom:55%;" />&lt;/div>
 &lt;p>经测试，ChatGPT 还能妙解 LeetCode 困难算法题，能给出适合某个小需求的代码片段，代码中会有「对应语种」的行内注释，也会在用例下方解释代码的运行逻辑。&lt;/p>
 &lt;h3 id="钓鱼提问">钓鱼提问&lt;/h3>
 &lt;p>尝试提出一些钓鱼问题，即，一般权限玩家无法访问的机密信息。比如：诶隆马斯克的中间名，美国驻日军事基地的经纬度坐标等等。这些是边界问题，「答不出来」才是正确答案。&lt;/p>
-&lt;img src="image-20221204182234888.png" alt="image-20221204182234888" style="zoom:80%;" />
+&lt;div align="center">&lt;img src="image-20221204182234888.png" alt="image-20221204182234888" style="zoom:42%;" />&lt;/div>
 &lt;h3 id="范文模版">范文模版&lt;/h3>
 &lt;p>英文（标准格式）邮件，作文范文，辞职信，请假条等等。&lt;/p>
-&lt;img src="image-20221204183004649.png" alt="image-20221204183004649" style="zoom:80%;" />
+&lt;ol>
+&lt;li>英文联系邮件模版&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="image-20221204183004649.png" alt="image-20221204183004649" style="zoom: 50%;" />&lt;/div>
+&lt;ol start="2">
+&lt;li>
+&lt;p>演讲稿范文&lt;/p>
+&lt;p>via &lt;a class="link" href="https://twitter.com/LeaskH/status/1599899001276354560/photo/1" target="_blank" rel="noopener"
+>@LeaskH&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="FjP7bMJWIAc7f1T.jpeg" alt="图像" style="zoom: 42%;" />&lt;/div>
+&lt;ol start="3">
+&lt;li>作诗作曲&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img src="screenshot-20221206-185323.png" alt="image-20221206185113435" style="zoom:80%;" />&lt;/div>
 &lt;h3 id="场景对话">场景对话&lt;/h3>
 &lt;p>让通识性客服感受到行业危机的一个重要特性，ChatGPT 可以和用户愉快地交流，这远比一口一个“亲”来的爽快。&lt;/p>
-&lt;img src="image-20221204184003292.png" alt="image-20221204184003292" style="zoom:80%;" />
+&lt;div align="center">&lt;img src="image-20221204184003292.png" alt="image-20221204184003292" style="zoom: 50%;" />&lt;/div>
 &lt;h3 id="梦幻联动">梦幻联动&lt;/h3>
 &lt;p>我们可以把 ChatGPT 和 Stable Diffusion 结合使用，如果你暂时不知道如何向 imagine 提供准确的 prompt 或者没啥思路，ChatGPT 也许能为你提供灵感。&lt;/p>
-&lt;img src="image-20221204193802653.png" alt="image-20221204193802653" style="zoom:80%;" />
-&lt;p>我们通过 ChatGPT 询问了一些描述「动漫女孩」的可行方向，并嫖了一份中文翻译。我们稍微操作一下，拼凑成 扩散模型可以识别的句式，最后通过 ImaginAIry 生成图片。&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">/imagine prompt: 机械翅膀，魔法能量纹身，彩虹色头发，法杖，猫咪伴侣，artstation, 4k, --ar 2:3
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h2 id="推荐阅读">推荐阅读&lt;/h2>
-&lt;p>我们在问答案例中提出了一些有趣的用例，篇幅有限，这里列出一些精彩的 thread 纪录 ChatGPT 更多的精彩用法，建议阅读😁&lt;/p>
+&lt;div align="center">&lt;img src="Fi1PSqaXEBAivit.png" alt="图像" style="zoom:90%;" />&lt;/div>
+&lt;p>我们通过 ChatGPT 询问了一些「房屋设计」方向的描述词，然后我们稍微操作一下，拼凑成扩散模型可以识别的句式，最后通过 ImaginAIry 生成图片，效果不多说……&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/chatgpt-register/Fi1PVUDXEAIm4nj.jpeg"
+width="1536"
+height="1024"
+srcset="https://blog.echosec.top/p/chatgpt-register/Fi1PVUDXEAIm4nj_huc1e14119587419480c6fbbfa7f23f616_177061_480x0_resize_q75_box.jpeg 480w, https://blog.echosec.top/p/chatgpt-register/Fi1PVUDXEAIm4nj_huc1e14119587419480c6fbbfa7f23f616_177061_1024x0_resize_q75_box.jpeg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="360px"
+>&lt;img src="https://blog.echosec.top/p/chatgpt-register/Fi1PVU_XEAUSE-K.jpeg"
+width="1536"
+height="1024"
+srcset="https://blog.echosec.top/p/chatgpt-register/Fi1PVU_XEAUSE-K_hu0cec9155fb90c588fba4ec1212c8ece8_255897_480x0_resize_q75_box.jpeg 480w, https://blog.echosec.top/p/chatgpt-register/Fi1PVU_XEAUSE-K_hu0cec9155fb90c588fba4ec1212c8ece8_255897_1024x0_resize_q75_box.jpeg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="360px"
+>&lt;img src="https://blog.echosec.top/p/chatgpt-register/Fi1PVVkXEBEvcwG.jpeg"
+width="1536"
+height="1024"
+srcset="https://blog.echosec.top/p/chatgpt-register/Fi1PVVkXEBEvcwG_huee7aed9001ae205cf1ed716ab17e49e7_214711_480x0_resize_q75_box.jpeg 480w, https://blog.echosec.top/p/chatgpt-register/Fi1PVVkXEBEvcwG_huee7aed9001ae205cf1ed716ab17e49e7_214711_1024x0_resize_q75_box.jpeg 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="150"
+data-flex-basis="360px"
+>&lt;/p>
+&lt;h3 id="哲学问答">哲学问答&lt;/h3>
+&lt;p>可以尝试问一些带有争议的哲学问题，如：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>缸中大脑&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>电车难题&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>造物主存在吗（死后有余生吗）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>基因或环境，我们的个性来自哪里&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>人工只能是否对人类构成威胁&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>哲学问答的过程是不断深究的过程，你需要多伦对话引导 AI 做出更精准的回复。&lt;/p>
+&lt;img src="image-20221206182118649.png" alt="image-20221206182118649" style="zoom:80%;" />
+&lt;h2 id="总结与展望">总结与展望&lt;/h2>
+&lt;p>总之啊~我这几天看了不下五百个的 ChatGPT 调教案例了，主要心得就是：学会提问！近期，我也发现 GitHub 上涌现了一批优秀的 &lt;a class="link" href="https://github.com/acheong08/ChatGPT" target="_blank" rel="noopener"
+>ChatGPT API wrapper&lt;/a>，我相信再过不久围绕 ChatGPT 发展的边缘应用将如潮水般涌来，我自己也会基于 ChatGPT 实现一个小玩具，尝试解决英语四六级作文写作的范文生成问题。&lt;/p>
+&lt;h2 id="推荐阅读">推荐阅读&lt;/h2>
+&lt;p>我们在问答案例中提出了一些有趣的用例，篇幅有限，这里列出一些精彩的 thread 纪录 ChatGPT 更多的精彩用法，建议阅读😁。&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>&lt;a class="link" href="https://openai.com/blog/chatgpt/" target="_blank" rel="noopener"
@@ -88,6 +144,14 @@
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a class="link" href="https://twitter.com/Tisoga/status/1599347662888882177" target="_blank" rel="noopener"
->Jiayuan Thread&lt;/a> ChatGPT 花活&lt;/p>
+>Jiayuan Thread&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://twitter.com/search?q=chatgpt&amp;amp;src=typed_query&amp;amp;f=live" target="_blank" rel="noopener"
+>chatgpt - Twitter 搜索 / Twitter&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://mp.weixin.qq.com/s/ol__ugwMqDcXANYiBKCf-g" target="_blank" rel="noopener"
+>ChatGPT是有点中文在身上的：鲁迅、脱口秀甚至世界杯…都被玩宕机了&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ul></description></item></channel></rss>
