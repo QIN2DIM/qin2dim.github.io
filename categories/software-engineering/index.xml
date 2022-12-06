@@ -15,28 +15,29 @@
 &lt;p>注册 OpenAI 账号&lt;/p>
 &lt;p>访问 &lt;a class="link" href="https://auth0.openai.com/u/signup/identifier?state=hKFo2SBvWTJjb0dadlhiY3lLT1FOSlMyWkMyY2E5aFZka2FOQqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIDRIQzlsUXJFV2hPUEZIUllxaHR1eW1vVUk0X0d5X3VOo2NpZNkgRFJpdnNubTJNdTQyVDNLT3BxZHR3QjNOWXZpSFl6d0Q" target="_blank" rel="noopener"
 >OpenAI 认证界面&lt;/a>，如果你已有账号，选择 Continue with xxx 或者点击 LogIn 即可，否则填写邮箱走流程，跟着步骤操作走就行。&lt;/p>
-&lt;img src="image-20221204192058339.png" alt="image-20221204192058339" style="zoom:50%;" />
+&lt;div align="center">&lt;img src="image-20221204192058339.png" alt="image-20221204192058339" style="zoom:50%;" />&lt;/div>
 &lt;p>跟着操作直到 Verify Your Phone Number 界面。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>购买接码账号&lt;/p>
 &lt;p>使用 AliPay 对账号充值，每个接码手机号 10 卢布左右，20分钟有效，有效期内未接收到验证码，手机号将被回收，付款退回账号。&lt;/p>
-&lt;img src="image-20221204191842258.png" alt="image-20221204191842258" style="zoom:50%;" />
+&lt;div align="center">&lt;img src="image-20221204191842258.png" alt="image-20221204191842258" style="zoom:50%;" />&lt;/div>
 &lt;p>购买 OpenAI 接码账号，选一个便宜的，这些手机号在本文首发时还剩下十几万个，用完就没了~由于账号有效期内没有活动会被回收，不用担心黄牛批量买入，这些账号用于真实注册 OpenAI。如果直接搜索服务没有看到下方的扩展栏，可以点击「显示更多国家」的拓展，SMS-ACTIVE 会时不时筛选补充接码账号，不得不说 ChatGPT 5 天时间的注册量已经超过了一百万，接码服务也算是间接受益方，他们自然不会错过这个绝佳的热点~&lt;/p>
-&lt;img src="image-20221204191322173.png" alt="image-20221204191322173" style="zoom:50%;" />
+&lt;div align="center">&lt;img src="image-20221204191322173.png" alt="image-20221204191322173" style="zoom:50%;" />&lt;/div>
 &lt;/li>
 &lt;li>
 &lt;p>填写手机号，接受验证码&lt;/p>
 &lt;p>账户余额足够时，点击购物车图表，自动跳转到接码界面，复制手机号填写到 ChatGPT 的验证界面中，地区选择印度，等待验证短信即可。&lt;/p>
-&lt;img src="image-20221204191509831.png" alt="image-20221204191509831" style="zoom:50%;" />
+&lt;div align="center">&lt;img src="image-20221204191509831.png" alt="image-20221204191509831" style="zoom:50%;" />&lt;/div>
 &lt;p>​ 选择个人用途。如果操作流程丢失，访问 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
 >ChatGPT&lt;/a> 回到操作流程中。&lt;/p>
-&lt;img src="image-20221204192255336.png" alt="image-20221204192255336" style="zoom:50%;" />
+&lt;div align="center">&lt;img src="image-20221204192255336.png" alt="image-20221204192255336" style="zoom:50%;" />&lt;/div>
 &lt;/li>
 &lt;/ol>
 &lt;h3 id="首次使用">首次使用&lt;/h3>
 &lt;p>注册完成后，访问 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
->ChatGPT (openai.com)&lt;/a>，点击 LogIN 即可。在下方的搜索框中开始你的奇思妙想。&lt;/p>
+>ChatGPT (openai.com)&lt;/a>，点击 LogIN 即可。在下方的搜索框中开始你的奇思妙想。另外，这个接口网站不太方便进入，你可以收藏这个网址，例如加入浏览器收藏夹。你也可以使用 GitHub 社区维护的 &lt;a class="link" href="https://github.com/acheong08/ChatGPT" target="_blank" rel="noopener"
+>API wrapper&lt;/a> 调用 ChatGPT。&lt;/p>
 &lt;img src="image-20221204180633995.png" alt="image-20221204180633995" style="zoom:80%;" />
 &lt;h2 id="问答案例">问答案例&lt;/h2>
 &lt;p>注意，ChatGPT 不能联网，基础知识构建工作在 2021 年完成，擅长知识型问答，它有一定的接受边界：&lt;/p>
