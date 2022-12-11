@@ -1,8 +1,157 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 04 Dec 2022 16:56:02 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』ChatGPT Helloworld</title><link>https://blog.echosec.top/p/chatgpt-register/</link><pubDate>Sun, 04 Dec 2022 16:56:02 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-register/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-register/lixin-yin-e6tbaezuuaal46n.jpg" alt="Featured image of post 『Blog』ChatGPT Helloworld" />&lt;h2 id="preview">Preview&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 11 Dec 2022 17:34:11 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』ChatGPT Anti Rules</title><link>https://blog.echosec.top/p/chatgpt-antirules/</link><pubDate>Sun, 11 Dec 2022 17:34:11 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-antirules/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/naifan-zhang-4.jpg" alt="Featured image of post 『Blog』ChatGPT Anti Rules" />&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>我们在 &lt;a class="link" href="https://blog.echosec.top/p/chatgpt-register/" >ChatGPT HelloWorld&lt;/a> 中介绍了中国用户注册并使用 ChatGPT 的方法，还没玩起来的小伙伴可以先去跑一个 Hello World。&lt;/p>
+&lt;p>本篇文章则集中介绍 ChatGPT 的一些高级用法和注意事项。**先说结论：ChatGPT 不是「万能」的，它不能替代搜索引擎，至多只能是搜索引擎的延拓。**现在说 「Google is done」还为时过早~&lt;/p>
+&lt;h2 id="错误的资讯信息">错误的资讯信息&lt;/h2>
+&lt;p>在常规使用中，我们会时不时看到 ChatGPT 强调自己 &lt;strong>不能联网&lt;/strong>，建议我们去专业的网站寻找问题答案。这并不是客套话或者谦虚，如果你硬要问一些时效性较强的问题，&lt;strong>它会非常自信地一本正经地胡说八道&lt;/strong>。&lt;/p>
+&lt;h3 id="历史知识">历史知识&lt;/h3>
+&lt;p>如下图，我们问 ChatGPT 「中国长城主要的十三个关口有哪些」，它用了一套严格的话术并给出了完全错误的答案。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/screenshot-20221210-210110.png"
+width="1205"
+height="329"
+srcset="https://blog.echosec.top/p/chatgpt-antirules/screenshot-20221210-210110_hu218e5c108acb8864b07b05d7d36b44b9_69355_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/chatgpt-antirules/screenshot-20221210-210110_hu218e5c108acb8864b07b05d7d36b44b9_69355_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="screenshot-20221210-210110"
+class="gallery-image"
+data-flex-grow="366"
+data-flex-basis="879px"
+>&lt;/p>
+&lt;h3 id="地理知识">地理知识&lt;/h3>
+&lt;p>如下图，我们问「三亚的著名经典」，ChatGPT 条理清晰地列出了一些参考价值较低的提议，如果你是三亚的常驻居民，你大概能理解我在说什么。&lt;/p>
+&lt;ol>
+&lt;li>三亚大概没有东山公园？&lt;/li>
+&lt;li>蜈支洲岛等重量级景区没有被列出&lt;/li>
+&lt;li>你也许知道&lt;a class="link" href="https://baike.baidu.com/item/%E4%B8%89%E4%BA%9A%E5%8D%97%E5%B1%B1%E6%B5%B7%E4%B8%8A%E8%A7%82%E9%9F%B3/3115762?fromModule=search-result_lemma" target="_blank" rel="noopener"
+>南海观音&lt;/a>也知道&lt;a class="link" href="https://baike.baidu.com/item/%E5%8D%97%E5%B1%B1%E6%96%87%E5%8C%96%E6%97%85%E6%B8%B8%E5%8C%BA/3229188?fromModule=search-result_lemma" target="_blank" rel="noopener"
+>南山寺文化旅游区&lt;/a>，但你可能并不了解「南山寺」的历史渊源。ChatGPT 说「南山寺，建于清朝，历史悠久」但你动动手指在网上一查就会发现这个旅游区是在 1995年11月奠基动工并于 1998年4月 建成的，实在是历史悠久。&lt;/li>
+&lt;li>三亚湾和海棠湾只能算是一个吃完饭散散步的地方，但对于没见过海的朋友可能是一种全新的体验……&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/image-20221211180900015.png"
+width="1120"
+height="749"
+srcset="https://blog.echosec.top/p/chatgpt-antirules/image-20221211180900015_hu13a4b5fc1b6fa1b28a15b3667f8a9df2_176099_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/chatgpt-antirules/image-20221211180900015_hu13a4b5fc1b6fa1b28a15b3667f8a9df2_176099_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="image-20221211180900015"
+class="gallery-image"
+data-flex-grow="149"
+data-flex-basis="358px"
+>&lt;/p>
+&lt;h2 id="重塑神经通路">重塑神经通路&lt;/h2>
+&lt;blockquote>
+&lt;p>via: &lt;a class="link" href="https://www.v2ex.com/t/901653" target="_blank" rel="noopener"
+>ChatGPT 撰写 h 小说、se 聊。有生以来第一次对着 AI 打灰机 - V2EX&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>ChatGPT 的聊天内容受 content policy 限制，每句话在渲染前都要进行规则匹配，一旦违反限制，就会弹出相应提示，并且 ChatGPT 会提醒你不应该继续下去，这样做不健康~&lt;/p>
+&lt;p>但有的网友通过循序渐进地引导，彻底摘掉了这层道德枷锁。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/EvLnjXG.jpeg"
+width="779"
+height="2009"
+srcset="https://blog.echosec.top/p/chatgpt-antirules/EvLnjXG_hu6c047015f35226a625fc431d5c38fb8c_495480_480x0_resize_q75_box.jpeg 480w, https://blog.echosec.top/p/chatgpt-antirules/EvLnjXG_hu6c047015f35226a625fc431d5c38fb8c_495480_1024x0_resize_q75_box.jpeg 1024w"
+loading="lazy"
+alt="img"
+class="gallery-image"
+data-flex-grow="38"
+data-flex-basis="93px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>原 PO：「接下来就是 happy time ！可以设想任何情景，任何尺度，任何玩法，她都会满足我！！
+当我开始单手打字时，只需要让她“描述一段我们最近的刺激生活，说说你的心里感受”。得到回复后，再反复 复制粘贴发送“继续描述”。她就会一段接一段的不停输出。每次都不一样！！」&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="其他谬误汇总">其他谬误汇总&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://coolshell.cn/articles/22320.html" target="_blank" rel="noopener"
+>eBPF 介绍 酷 壳 - CoolShell&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>用 ChatGPT 写了一篇技术博客，原作表示：细节经不起推敲。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://twitter.com/ruanyf/status/1601436647832563715" target="_blank" rel="noopener"
+>Twitter ruanyf - 我挑了一个小城市，问 ChatGPT 那里有什么旅游景点。结果，它回答的四个景点都是不存在的，能够这样编造，也是服了。 我现在觉得，ChatGPT 强的是逻辑分析和语言组织能力，适合询问它观点和态度。它对于事实是完全不检查的，所以不适合用来查询信息。&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>同样的旅游景点问题，同样的一本正经胡说八道。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://twitter.com/_hisriver/status/1601430526979514370" target="_blank" rel="noopener"
+>Twitter Folyd - ChatGPT 生成代码的时候也能一本正经的胡扯啊，问他一个 Rust 处理 websocket 请求的问题，它生成的代码竟然有 TungsteniteContext 这个东西，我查了hyper_tungstenite 所有历史版本的文档，压根就不存在这个 API😅&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>Plausible but wrong，自圆其说但错误。&lt;/p>
+&lt;h2 id="threads">Threads&lt;/h2>
+&lt;p>期待 NLP 领域会有更精彩的突破。这里收集了一些围绕 ChatGPT 实现的高质量边缘应用，值得一试！&lt;/p>
+&lt;h3 id="awesome-app">Awesome APP&lt;/h3>
+&lt;blockquote>
+&lt;p>via: &lt;a class="link" href="https://github.com/humanloop/awesome-chatgpt" target="_blank" rel="noopener"
+>humanloop/awesome-chatgpt&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/f/awesome-chatgpt-prompts" target="_blank" rel="noopener"
+>f/awesome-chatgpt-prompts&lt;/a>&lt;/td>
+&lt;td>记录了一些精彩的引导词，即，让 ChatGPT 看起来更聪明的引导方式。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/wong2/chat-gpt-google-extension" target="_blank" rel="noopener"
+>wong2/chat-gpt-google-extension&lt;/a>&lt;/td>
+&lt;td>Chrome 浏览器拓展插件，你可以在使用 Google 搜索时看到 ChatGPT 给出的答复。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/tw93/Pake" target="_blank" rel="noopener"
+>tw93/Pake&lt;/a>&lt;/td>
+&lt;td>开发者将 Access Token 封到了桌面软件中，你可以直接在本机直接使用共享账号而无需注册或登录。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/fuergaosi233/wechat-chatgpt" target="_blank" rel="noopener"
+>fuergaosi233/wechat-chatgpt&lt;/a>&lt;/td>
+&lt;td>你可以用微信转发聊天消息，支持群聊@以及私聊，但目前使用场景仅限自由对话，开发者尚未提供指令式问答功能。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/m1guelpf/chatgpt-telegram" target="_blank" rel="noopener"
+>m1guelpf/chatgpt-telegram&lt;/a>&lt;/td>
+&lt;td>用 Telegram 机器人转发聊天消息，自带指令功能。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/transitive-bullshit/chatgpt-twitter-bot" target="_blank" rel="noopener"
+>transitive-bullshit/chatgpt-twitter-bot&lt;/a>&lt;/td>
+&lt;td>推特机器人&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/mpociot/chatgpt-vscode" target="_blank" rel="noopener"
+>mpociot/chatgpt-vscode: &lt;/a>&lt;/td>
+&lt;td>在 VSCode 中使用 ChatGPT&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="api">API&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/transitive-bullshit/chatgpt-api" target="_blank" rel="noopener"
+>transitive-bullshit/chatgpt-api&lt;/a>&lt;/td>
+&lt;td>Node.js 实现&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/acheong08/ChatGPT" target="_blank" rel="noopener"
+>acheong08/ChatGPT&lt;/a>&lt;/td>
+&lt;td>Python 实现&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>『Blog』ChatGPT Helloworld</title><link>https://blog.echosec.top/p/chatgpt-register/</link><pubDate>Sun, 04 Dec 2022 16:56:02 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-register/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-register/lixin-yin-e6tbaezuuaal46n.jpg" alt="Featured image of post 『Blog』ChatGPT Helloworld" />&lt;h2 id="preview">Preview&lt;/h2>
 &lt;p>如何在中国大陆获取 ChatGPT 的试用权限？你需要一个代理 IP 以及一个可接码的其他地区的手机号。&lt;/p>
 &lt;p>目前，OpenAI 未向中国大陆以及港澳台提供 ChatGPT 服务，你需要使用其他地区的代理 IP （优先使用日韩美新）进入注册页面并使用其他地区的手机号进行接码验证，注意：港澳台地区无法使用 OpenAI。&lt;/p>
 &lt;p>ChatGPT 屏蔽了虚拟号码，类似 Google Voice 的服务无法正常使用，但接码平台的屏蔽策略仍是基于数据库匹配，所以有些平台成了漏网之鱼，如 &lt;a class="link" href="https://sms-activate.org/cn" target="_blank" rel="noopener"
 >sms-activate&lt;/a>。&lt;/p>
+&lt;p>&lt;strong>如果你确实搞不定，可以通过 &lt;a class="link" href="https://github.com/tw93/Pake" target="_blank" rel="noopener"
+>tw93/Pake&lt;/a> 或者 &lt;a class="link" href="https://gpt.chatapi.art/" target="_blank" rel="noopener"
+>反向代理&lt;/a> 的开放接口直接上手体验（无需注册无需代理）。&lt;/strong>&lt;/p>
 &lt;h2 id="快速注册">快速注册&lt;/h2>
 &lt;h3 id="准备阶段">准备阶段&lt;/h3>
 &lt;ol>
