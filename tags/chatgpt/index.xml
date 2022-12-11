@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ChatGPT on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/chatgpt/</link><description>Recent content in ChatGPT on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 11 Dec 2022 17:34:11 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/chatgpt/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』ChatGPT Anti Rules</title><link>https://blog.echosec.top/p/chatgpt-antirules/</link><pubDate>Sun, 11 Dec 2022 17:34:11 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-antirules/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/naifan-zhang-4.jpg" alt="Featured image of post 『Blog』ChatGPT Anti Rules" />&lt;h2 id="简介">简介&lt;/h2>
-&lt;p>我们在 &lt;a class="link" href="https://blog.echosec.top/p/chatgpt-register/" >ChatGPT HelloWorld&lt;/a> 中介绍了中国用户注册并使用 ChatGPT 的方法，还没玩起来的小伙伴可以先去跑一个 Hello World。&lt;/p>
-&lt;p>本篇文章则集中介绍 ChatGPT 的一些高级用法和注意事项。**先说结论：ChatGPT 不是「万能」的，它不能替代搜索引擎，至多只能是搜索引擎的延拓。**现在说 「Google is done」还为时过早~&lt;/p>
+&lt;p>我们在 &lt;a class="link" href="https://blog.echosec.top/p/chatgpt-register/" >ChatGPT HelloWorld&lt;/a> 中介绍了中国用户注册并使用 ChatGPT 的方法，还没玩起来的小伙伴可以先去跑一个 Demo。&lt;/p>
+&lt;p>本篇文章则集中介绍 ChatGPT 的一些高级用法和注意事项。&lt;strong>先说结论：ChatGPT 不是万能的，它不能替代搜索引擎，至多是搜索引擎的延拓，&lt;/strong> 现在说 「Google is done」还为时过早。&lt;/p>
 &lt;h2 id="错误的资讯信息">错误的资讯信息&lt;/h2>
-&lt;p>在常规使用中，我们会时不时看到 ChatGPT 强调自己 &lt;strong>不能联网&lt;/strong>，建议我们去专业的网站寻找问题答案。这并不是客套话或者谦虚，如果你硬要问一些时效性较强的问题，&lt;strong>它会非常自信地一本正经地胡说八道&lt;/strong>。&lt;/p>
+&lt;p>在常规使用中，我们会时不时看到 ChatGPT 强调自己 &lt;strong>不能联网&lt;/strong>，建议我们去专业的网站寻找问题答案。这并不是客套话或者谦虚，如果你硬要问一些固定答案的问题，&lt;strong>它会非常自信地一本正经地胡说八道&lt;/strong>。&lt;/p>
 &lt;h3 id="历史知识">历史知识&lt;/h3>
 &lt;p>如下图，我们问 ChatGPT 「中国长城主要的十三个关口有哪些」，它用了一套严格的话术并给出了完全错误的答案。&lt;/p>
 &lt;p>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/screenshot-20221210-210110.png"
@@ -10,7 +10,7 @@ width="1205"
 height="329"
 srcset="https://blog.echosec.top/p/chatgpt-antirules/screenshot-20221210-210110_hu218e5c108acb8864b07b05d7d36b44b9_69355_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/chatgpt-antirules/screenshot-20221210-210110_hu218e5c108acb8864b07b05d7d36b44b9_69355_1024x0_resize_box_3.png 1024w"
 loading="lazy"
-alt="screenshot-20221210-210110"
+alt="ChatGPT 知识谬误 - 中国长城十三关"
 class="gallery-image"
 data-flex-grow="366"
 data-flex-basis="879px"
@@ -30,7 +30,7 @@ width="1120"
 height="749"
 srcset="https://blog.echosec.top/p/chatgpt-antirules/image-20221211180900015_hu13a4b5fc1b6fa1b28a15b3667f8a9df2_176099_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/chatgpt-antirules/image-20221211180900015_hu13a4b5fc1b6fa1b28a15b3667f8a9df2_176099_1024x0_resize_box_3.png 1024w"
 loading="lazy"
-alt="image-20221211180900015"
+alt="ChatGPT 知识谬误 - 旅游信息推荐"
 class="gallery-image"
 data-flex-grow="149"
 data-flex-basis="358px"
@@ -47,7 +47,7 @@ width="779"
 height="2009"
 srcset="https://blog.echosec.top/p/chatgpt-antirules/EvLnjXG_hu6c047015f35226a625fc431d5c38fb8c_495480_480x0_resize_q75_box.jpeg 480w, https://blog.echosec.top/p/chatgpt-antirules/EvLnjXG_hu6c047015f35226a625fc431d5c38fb8c_495480_1024x0_resize_q75_box.jpeg 1024w"
 loading="lazy"
-alt="img"
+alt="ChatGPT 卍解 - 神经重塑"
 class="gallery-image"
 data-flex-grow="38"
 data-flex-basis="93px"
