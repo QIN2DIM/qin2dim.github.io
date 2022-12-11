@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 11 Dec 2022 17:34:11 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』ChatGPT Anti Rules</title><link>https://blog.echosec.top/p/chatgpt-antirules/</link><pubDate>Sun, 11 Dec 2022 17:34:11 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-antirules/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/naifan-zhang-4.jpg" alt="Featured image of post 『Blog』ChatGPT Anti Rules" />&lt;h2 id="简介">简介&lt;/h2>
 &lt;p>我们在 &lt;a class="link" href="https://blog.echosec.top/p/chatgpt-register/" >ChatGPT HelloWorld&lt;/a> 中介绍了中国用户注册并使用 ChatGPT 的方法，还没玩起来的小伙伴可以先去跑一个 Demo。&lt;/p>
 &lt;p>本篇文章则集中介绍 ChatGPT 的一些高级用法和注意事项。&lt;strong>先说结论：ChatGPT 不是万能的，它不能替代搜索引擎，至多是搜索引擎的延拓，&lt;/strong> 现在说 「Google is done」还为时过早。&lt;/p>
-&lt;h2 id="错误的资讯信息">错误的资讯信息&lt;/h2>
+&lt;h2 id="chatgpt-methods">ChatGPT Methods&lt;/h2>
+&lt;p>近日 OpenAI 将 ChatGPT 向大众免费开放，该模型能够采用传统方法于用户进行交互，例如能够回答连续提问，承认错误、质疑不正确的前提和拒绝不适当的请求。&lt;/p>
+&lt;p>ChatGPT 是由 &lt;a class="link" href="https://beta.openai.com/docs/model-index-for-researchers" target="_blank" rel="noopener"
+>GPT-3.5 系列&lt;/a>中的一个模型微调而成，使用来自人类反馈的强化学习 (RLHF) 来训练，方法与 &lt;a class="link" href="https://openai.com/blog/instruction-following/" target="_blank" rel="noopener"
+>InstructionGPT&lt;/a> 相同，但数据收集设置略有不同。OpenAI 首先使用有监督的微调训练了一个初始模型：人工智能训练师提供对话，他们扮演用户和人工智能助手的双方角色。之后让培训师获得模型所给出的建议，以帮助他们撰写他们自己的回复。为了建立一个强化学习的奖励模型，OpenAI 使用训练师与 ChatGPT 对话，并让训练师对对话评级。之后利用训练得到的奖励模型和 PPO 算法对模型进行微调，并多次迭代执行上述过程。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/ChatGPT_Diagram-16707601980025.svg"
+loading="lazy"
+alt="ChatGPT_Diagram"
+>&lt;/p>
+&lt;h2 id="知识谬误">知识谬误&lt;/h2>
 &lt;p>在常规使用中，我们会时不时看到 ChatGPT 强调自己 &lt;strong>不能联网&lt;/strong>，建议我们去专业的网站寻找问题答案。这并不是客套话或者谦虚，如果你硬要问一些固定答案的问题，&lt;strong>它会非常自信地一本正经地胡说八道&lt;/strong>。&lt;/p>
 &lt;h3 id="历史知识">历史知识&lt;/h3>
 &lt;p>如下图，我们问 ChatGPT 「中国长城主要的十三个关口有哪些」，它用了一套严格的话术并给出了完全错误的答案。&lt;/p>
@@ -47,7 +56,7 @@ width="779"
 height="2009"
 srcset="https://blog.echosec.top/p/chatgpt-antirules/EvLnjXG_hu6c047015f35226a625fc431d5c38fb8c_495480_480x0_resize_q75_box.jpeg 480w, https://blog.echosec.top/p/chatgpt-antirules/EvLnjXG_hu6c047015f35226a625fc431d5c38fb8c_495480_1024x0_resize_q75_box.jpeg 1024w"
 loading="lazy"
-alt="ChatGPT 卍解 - 神经重塑"
+alt="ChatGPT 神经重塑 - 卍解"
 class="gallery-image"
 data-flex-grow="38"
 data-flex-basis="93px"
@@ -74,11 +83,13 @@ data-flex-basis="93px"
 &lt;p>Plausible but wrong，自圆其说但错误。&lt;/p>
 &lt;h2 id="threads">Threads&lt;/h2>
 &lt;p>期待 NLP 领域会有更精彩的突破。这里收集了一些围绕 ChatGPT 实现的高质量边缘应用，值得一试！&lt;/p>
-&lt;h3 id="awesome-app">Awesome APP&lt;/h3>
-&lt;blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>Awesome APP&lt;/p>
 &lt;p>via: &lt;a class="link" href="https://github.com/humanloop/awesome-chatgpt" target="_blank" rel="noopener"
 >humanloop/awesome-chatgpt&lt;/a>&lt;/p>
-&lt;/blockquote>
+&lt;/li>
+&lt;/ol>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -119,12 +130,14 @@ data-flex-basis="93px"
 &lt;/tr>
 &lt;tr>
 &lt;td>&lt;a class="link" href="https://github.com/mpociot/chatgpt-vscode" target="_blank" rel="noopener"
->mpociot/chatgpt-vscode: &lt;/a>&lt;/td>
+>mpociot/chatgpt-vscode &lt;/a>&lt;/td>
 &lt;td>在 VSCode 中使用 ChatGPT&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h3 id="api">API&lt;/h3>
+&lt;ol start="2">
+&lt;li>API&lt;/li>
+&lt;/ol>
 &lt;table>
 &lt;thead>
 &lt;tr>
