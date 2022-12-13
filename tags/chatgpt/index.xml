@@ -134,6 +134,11 @@ data-flex-basis="93px"
 >mpociot/chatgpt-vscode &lt;/a>&lt;/td>
 &lt;td>在 VSCode 中使用 ChatGPT&lt;/td>
 &lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://sharegpt.com/" target="_blank" rel="noopener"
+>ShareGPT&lt;/a>&lt;/td>
+&lt;td>Share your wildest ChatGPT conversations with one click.&lt;/td>
+&lt;/tr>
 &lt;/tbody>
 &lt;/table>
 &lt;ol start="2">
@@ -317,5 +322,9 @@ data-flex-basis="360px"
 &lt;li>
 &lt;p>&lt;a class="link" href="https://mp.weixin.qq.com/s/ol__ugwMqDcXANYiBKCf-g" target="_blank" rel="noopener"
 >ChatGPT是有点中文在身上的：鲁迅、脱口秀甚至世界杯…都被玩宕机了&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://sharegpt.com/" target="_blank" rel="noopener"
+>ShareGPT: Share your wildest ChatGPT conversations with one click.&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ul></description></item></channel></rss>
