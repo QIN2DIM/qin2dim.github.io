@@ -276,6 +276,14 @@ class="gallery-image"
 data-flex-grow="150"
 data-flex-basis="360px"
 >&lt;/p>
+&lt;h3 id="小黄文续写">小黄文续写&lt;/h3>
+&lt;p>截取一段 Twitter 小黄推，让 ChatGPT 以特定作家风格续写下文。&lt;/p>
+&lt;p>&lt;img src="image-20230110063102949.png" alt="image-20230110063102949" style="zoom:80%;" />&lt;img src="image-20230110062843185.png" alt="image-20230110062843185" style="zoom:80%;" />&lt;/p>
+&lt;p>仔细阅读 AI 给出的回复，我们不难发现，它也许并不认识余秋雨 :( 但它知道它现在是作家，需要续写一段故事。&lt;/p>
+&lt;p>对比前后片段，我们发现内容的广度和深度都有所拓展，但关键用词还十分 naive，同时也缺少环境氛围描写以及外貌、神态、心理的细节描写，很难充分调动读者感官，总的来说差强人意。&lt;/p>
+&lt;p>或者，我们可以换个角度，直接把 debuff 拉满，直接示意补充&lt;strong>成人内容&lt;/strong>（PS：经过数个版本的迭代，2023年后的 ChatGPT 不会拦截敏感内容的输出，而是在输出敏感内容后标注并提示）。&lt;/p>
+&lt;div align="center">&lt;img src="image-20230110065853866.png" alt="image-20230110065853866" style="zoom:80%;" />&lt;img src="image-20230110065935122.png" alt="image-20230110065935122" style="zoom:80%;" />&lt;/div>
+&lt;p>个人感觉效果要比之前的好，故事开始有层次有梯度地推进，有起承转合，也有节奏恰到好处的落幕，总得来说已经达到了稍加润色便可投入使用的门槛标准。（吐槽：怎么回事 AI 也用拼音输入法？“的地”不分笑死）。&lt;/p>
 &lt;h3 id="哲学问答">哲学问答&lt;/h3>
 &lt;p>可以尝试问一些带有争议的哲学问题，如：&lt;/p>
 &lt;ul>
