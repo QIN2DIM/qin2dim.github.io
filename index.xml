@@ -1,4 +1,129 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 11 Dec 2022 17:34:11 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』ChatGPT Anti Rules</title><link>https://blog.echosec.top/p/chatgpt-antirules/</link><pubDate>Sun, 11 Dec 2022 17:34:11 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-antirules/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/naifan-zhang-4.jpg" alt="Featured image of post 『Blog』ChatGPT Anti Rules" />&lt;h2 id="简介">简介&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 02 Feb 2023 10:06:17 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』AI 有望成为华语乐坛的下一任周杰伦</title><link>https://blog.echosec.top/p/google-research-seanet-musiclm/</link><pubDate>Thu, 02 Feb 2023 10:06:17 +0800</pubDate><guid>https://blog.echosec.top/p/google-research-seanet-musiclm/</guid><description>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/lixin-yin-after-the-war.jpg" alt="Featured image of post 『Blog』AI 有望成为华语乐坛的下一任周杰伦" />&lt;h2 id="preview">Preview&lt;/h2>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2301.11325" target="_blank" rel="noopener"
+>PDF EN&lt;/a> &lt;strong>|&lt;/strong> &lt;a class="link" href="https://github.com/QIN2DIM/img_pool/releases/download/musiclm-paper/2301.11325.zh.pdf" target="_blank" rel="noopener"
+>PDF ZH&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/google-research/seanet/tree/master/musiclm" target="_blank" rel="noopener"
+>Google SeaNet&lt;/a> 的 &lt;em>Andrea Agostinelli, Timo I. Denk&lt;/em> 等人于 2023年1月26日发布了 &lt;a class="link" href="https://arxiv.org/abs/2301.11325" target="_blank" rel="noopener"
+>《MusicLM: Generating Music From Text》&lt;/a>。在&lt;a class="link" href="https://google-research.github.io/seanet/musiclm/examples/" target="_blank" rel="noopener"
+>项目演示页&lt;/a>中，我们可以看到 MusicLM 惊人的 prompt to music 能力，模型输入不再受限于传统的 TextPrompt，用户可以提供更加丰富的音乐元素让 AI 完成剩余的作曲任务。&lt;/p>
+&lt;h2 id="abstract">Abstract&lt;/h2>
+&lt;p>MusicLM 是一个从文本描述中生成高保真音乐的模型，例如：&lt;em>平静的小提琴旋律伴着扭曲的吉他旋律&lt;/em> 。MusicLM 将有条件的音乐生成过程作为一个层次化的序列到序列的建模任务，它生成的音乐频率为24kHz，并在几分钟内保持一致。实验表明，MusicLM 在音频质量和对文本描述的遵守方面都优于以前的系统。此外，MusicLM 可以以文本和旋律为条件，因为它可以根据文本说明中描述的风格来转换口哨和哼唱的旋律。为了支持未来的研究，Google 公开发布了MusicCaps，这是一个由「5.5K 音乐-文本对」组成的数据集，其中有音乐家提供的丰富的文本描述。&lt;/p>
+&lt;h2 id="demonstration">Demonstration&lt;/h2>
+&lt;h3 id="music-to-music">Music to Music&lt;/h3>
+&lt;p>首先，你可以提供 music 形式的输入，例如：哼唱的旋律录音，或是十几秒的吉他即兴演奏，模型会根据主旋律延拓剩余的部分完成 30s, 60s 甚至&lt;strong>几分钟&lt;/strong>的具有&lt;strong>叙事风格&lt;/strong>的完整曲目。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100158.png"
+width="2108"
+height="1570"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100158_huf331d5e4f3cc8f50f461545d960bb9e2_184846_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100158_huf331d5e4f3cc8f50f461545d960bb9e2_184846_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Text and Melody Conditioning"
+class="gallery-image"
+data-flex-grow="134"
+data-flex-basis="322px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100153.png"
+width="2108"
+height="751"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100153_hu6a11c276bd30b2380d40382b0c75b586_46912_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100153_hu6a11c276bd30b2380d40382b0c75b586_46912_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Long Generation"
+class="gallery-image"
+data-flex-grow="280"
+data-flex-basis="673px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100155.png"
+width="2118"
+height="1527"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100155_hud36785a2a2e28ba8fca8546fb9e68897_168166_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100155_hud36785a2a2e28ba8fca8546fb9e68897_168166_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Story Mode"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="332px"
+>&lt;/p>
+&lt;p>此外，该功能还能将视频创作中的背景音乐拓展成无限循环音乐（再也不用到 AU 中单独调了累），可以以某种流派的风格改编乐曲，在未来有可能演化成一个无情的扒谱机器人。&lt;/p>
+&lt;h3 id="image-to-music">Image to Music&lt;/h3>
+&lt;p>其次，你可以提供 image 形式的输入，可以是生活中抓拍的精彩瞬间，也可以是景区合影，甚至可以是一副抽象派作画。模型首先会「看图说话」概述图像内容并以文本的形式输出，即，image to text，而后模型便可输出一首特定主题风格的「可以描述此情此景的背景音乐」。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100149.png"
+width="2065"
+height="2167"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100149_hua437be955317a4cadd203811a1ea0d66_2274330_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100149_hua437be955317a4cadd203811a1ea0d66_2274330_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Painting Caption Conditioning"
+class="gallery-image"
+data-flex-grow="95"
+data-flex-basis="228px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100135.png"
+width="2065"
+height="2259"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100135_hua257f25f3595f076e0ba567b57947713_2706635_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100135_hua257f25f3595f076e0ba567b57947713_2706635_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Painting Caption Conditioning"
+class="gallery-image"
+data-flex-grow="91"
+data-flex-basis="219px"
+>&lt;/p>
+&lt;p>此外，可以指定 Title/Theme，也可以修改模型的概括内容然后重新生成音乐。&lt;/p>
+&lt;h3 id="text-to-music">Text to Music&lt;/h3>
+&lt;p>接下来是传统内容的横向突破，用户可以在「初始化后」以一种交互的形式不断地给 AI 提供需求，例如，加入爵士乐，合唱介入，弦乐四重奏等等。MusicLM 在 text 形式的输入中提供了更加丰富的关键词参数。你可以在 prompt 中指定音乐家，流派，地点，风格等等。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100151.png"
+width="2127"
+height="1226"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100151_hu7d67da573503e4685a035b3d148a512a_156065_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100151_hu7d67da573503e4685a035b3d148a512a_156065_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Audio Generation From Rich Captions"
+class="gallery-image"
+data-flex-grow="173"
+data-flex-basis="416px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100147.png"
+width="2101"
+height="4926"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100147_hu9690ab278762c51129b98aa76ec5403b_329283_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100147_hu9690ab278762c51129b98aa76ec5403b_329283_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="10s Audio Generation From Text"
+class="gallery-image"
+data-flex-grow="42"
+data-flex-basis="102px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100144.png"
+width="2104"
+height="1547"
+srcset="https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100144_huc56aebcb3a36f8cc541aa046a07bd201_114806_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/google-research-seanet-musiclm/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230202100144_huc56aebcb3a36f8cc541aa046a07bd201_114806_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Generation Diversity"
+class="gallery-image"
+data-flex-grow="136"
+data-flex-basis="326px"
+>&lt;/p>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>总得来说，这些特性是可以排列组合的，可以在一个完整的工程中一并使用，它们可以被用在时间轴上的各个位置，对于专业的作曲家来说，它可能仅是一个灵感来源工具，尚未达到直接参与乐曲创作的水平。&lt;/p>
+&lt;p>对华语乐坛流行音乐来说，在曲目形式以及和弦排列组几乎穷尽的大背景下，把 AI 作为灵感提供工具可能会不错的效果。但目前来看抖音神曲和 AI 完全创作的流行音乐我都欣赏不来，前者属于陈俗烂调，完全不想再听一遍，大都只能用副歌做个十几秒短视频的 BGM。而后者则是物理意义上的难听，音质太差，目前业界最先进的用户接口都有这个瓶颈，必须「人机结合」才能做到可用的程度。&lt;/p>
+&lt;p>最后，SeaNet 强调未来的工作可能会集中在&lt;strong>歌词的生成&lt;/strong>上，同时改进文本调节和声乐质量；另一方面是对高级别歌曲结构的建模，如引子、诗句和合唱；而以&lt;strong>更高的采样率&lt;/strong>对音乐进行建模是更高阶段的目标。&lt;/p>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://arxiv.org/abs/2301.11325" target="_blank" rel="noopener"
+>[2301.11325] MusicLM: Generating Music From Text (arxiv.org)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/MubertAI" target="_blank" rel="noopener"
+>Mubert: music powered by AI &lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/riffusion/riffusion-app" target="_blank" rel="noopener"
+>riffusion/riffusion-app: Stable diffusion for real-time music generation (web app) &lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.kaggle.com/datasets/googleai/musiccaps/code" target="_blank" rel="noopener"
+>MusicCaps | Kaggle&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://research.google.com/audioset/" target="_blank" rel="noopener"
+>AudioSet &lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>『Blog』ChatGPT Anti Rules</title><link>https://blog.echosec.top/p/chatgpt-antirules/</link><pubDate>Sun, 11 Dec 2022 17:34:11 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-antirules/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/naifan-zhang-4.jpg" alt="Featured image of post 『Blog』ChatGPT Anti Rules" />&lt;h2 id="简介">简介&lt;/h2>
 &lt;p>我们在 &lt;a class="link" href="https://blog.echosec.top/p/chatgpt-register/" >ChatGPT HelloWorld&lt;/a> 中介绍了中国用户注册并使用 ChatGPT 的方法，还没玩起来的小伙伴可以先去跑一个 Demo。&lt;/p>
 &lt;p>本篇文章则集中介绍 ChatGPT 的一些高级用法和注意事项。&lt;strong>先说结论：ChatGPT 不是万能的，它不能替代搜索引擎，至多是搜索引擎的延拓，&lt;/strong> 现在说 「Google is done」还为时过早。&lt;/p>
 &lt;h2 id="chatgpt-methods">ChatGPT Methods&lt;/h2>
