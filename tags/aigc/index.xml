@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>AIGC on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/aigc/</link><description>Recent content in AIGC on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 02 Mar 2023 12:58:57 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/aigc/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Stable Diffusion 敏捷部署</title><link>https://blog.echosec.top/p/stable-diffusion-lora-build/</link><pubDate>Thu, 02 Mar 2023 12:58:57 +0800</pubDate><guid>https://blog.echosec.top/p/stable-diffusion-lora-build/</guid><description>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/rashed-alakroka-2b3s.jpg" alt="Featured image of post 『Blog』Stable Diffusion 敏捷部署" />&lt;h2 id="preview">Preview&lt;/h2>
+&lt;p>开始本教程前，请确保你已注册 Google 账号，具备科学上网能力，了解 Colaboraroty 基本功能。&lt;/p>
+&lt;p>本方法适用于从未体验过 Stable Diffusion 想尝鲜的玩家。如果你本地有强劲的 GPU 算力和足够的内存及硬盘空间，可以将 Stable Diffusion 部署到本地，整个生产过程更加安全可靠。&lt;/p>
+&lt;p>这是一盘「虽迟但到」的教程。本篇博客以 ChilloutMix &amp;amp; LoRA 基本模型为切入点，带你领略 AIGC-2023 的曼妙世界。&lt;/p>
+&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>访问 &lt;a class="link" href="https://colab.research.google.com/#scrollTo=htsbKCbpmm-h" target="_blank" rel="noopener"
+>Colaboratory&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>查看资源 → 更改运行时类型 → 硬件加速器，选择 &lt;strong>GPU&lt;/strong>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>等待连接，重新查看资源，看到 &lt;strong>GPU RAM&lt;/strong> 图表出现说明转换成功。&lt;/p>
+&lt;p>免费用户直接打开 Colab 默认使用 CPU 实例，AI 图片生成对算力的需求还蛮大的，只用 CPU 无法运行部署脚本。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302134448398.png"
+width="1148"
+height="773"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302134448398_hu4e412588ffd011e9f50f0db596dcbb8e_96875_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302134448398_hu4e412588ffd011e9f50f0db596dcbb8e_96875_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Colaboratory - Switch to GPU"
+class="gallery-image"
+data-flex-grow="148"
+data-flex-basis="356px"
+>&lt;/p>
+&lt;h3 id="部署脚本">部署脚本&lt;/h3>
+&lt;p>回到 Colaboratory，新建代码块，贴入如下代码安装依赖，预计耗时 3~5 分钟。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">pip&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">upgrade&lt;/span> &lt;span class="n">fastapi&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mf">0.90.1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">git&lt;/span> &lt;span class="n">clone&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">github&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">AUTOMATIC1111&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">git&lt;/span> &lt;span class="n">clone&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">github&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">yfszzx&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">images&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">browser&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">extensions&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">images&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">browser&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">curl&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">Lo&lt;/span> &lt;span class="n">chilloutmixni&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">safetensors&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">huggingface&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">co&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">nolanaatama&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">chomni&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">resolve&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">main&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">chomni&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">safetensors&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">curl&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">Lo&lt;/span> &lt;span class="n">ulzzang&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">6500.&lt;/span>&lt;span class="n">pt&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">huggingface&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">co&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">nolanaatama&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">chomni&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">resolve&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">main&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ulzzang&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">6500.&lt;/span>&lt;span class="n">pt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">mv&lt;/span> &lt;span class="s2">&amp;#34;/content/chilloutmixni.safetensors&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;/content/stable-diffusion-webui/models/Stable-diffusion&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">mv&lt;/span> &lt;span class="s2">&amp;#34;/content/ulzzang-6500.pt&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;/content/stable-diffusion-webui/embeddings&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">%&lt;/span>&lt;span class="n">cd&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">COMMANDLINE_ARGS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--share --disable-safe-unpickle --skip-torch-cuda-test --no-half-vae --xformers --reinstall-xformers --enable-insecure-extension-access&amp;#34;&lt;/span> &lt;span class="n">REQS_FILE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;requirements.txt&amp;#34;&lt;/span> &lt;span class="n">python&lt;/span> &lt;span class="n">launch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安装结束后，控制台将打印部署到 Gradio 的 &lt;a class="link" href="https://github.com/yfszzx/stable-diffusion-webui-images-browser" target="_blank" rel="noopener"
+>stable-diffusion-webui&lt;/a> 的 public 访问链接，72小时内有效。相关输出如下图所示，新建标签页访问链接即可，注意这个 shell 控制台以及这个 Colab 标签页不能关闭，否则 WebUI 服务会直接宕掉。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302131732303.png"
+width="643"
+height="52"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302131732303_hue2706b7474d3d6805e1bdbcf661510cf_13274_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302131732303_hue2706b7474d3d6805e1bdbcf661510cf_13274_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Stable Diffusion WebUI"
+class="gallery-image"
+data-flex-grow="1236"
+data-flex-basis="2967px"
+>&lt;/p>
+&lt;h3 id="输入咒语">输入咒语&lt;/h3>
+&lt;p>访问你的 Gradio 控制台，进入 &lt;code>txt2img&lt;/code> 炼金炉，在上方 &lt;strong>prompt&lt;/strong> 输入如下咒语：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">(8k, RAW photo, best quality, masterpiece:1.2), (realistic, photo-realistic:1.37), ultra-detailed,full body,1 girl, solo,beautiful detailed sky,detailed tokyo street,night,beautiful detailed eyes,beautiful detailed lips,professional lighting, photon mapping, radiosity, physically-based rendering,extremely detailed eyes and face, beautiful detailed eyes,light on face,cinematic lighting, short jacket,hoodie,school uniform,1girl,full body,full-body shot,see-through,looking at viewer,outdoors,((white hair)),
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在下方 &lt;strong>Negative prompt&lt;/strong> 输入如下咒语：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans,extra fingers,fewer fingers,strange fingers,bad hand,signature, watermark, username, blurry, bad feet,bad leg, duplicate, extra limb, ugly, disgusting, poorly drawn hands, missing limb, floating limbs, disconnected limbs, malformed hands, blurry,mutated hands and fingers,, EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans,extra fingers,fewer fingers,strange fingers,bad hand,signature, watermark, username, blurry, bad feet,bad leg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这两块提示语的用途顾名思义，这里提供的咒语仅供参考，你可以在部署之后自己摸索，也可以参照前人留下的开荒攻略。&lt;/p>
+&lt;p>有必要提一下 demo 咒语里提到的关键内容，比如「消极提示」的 &lt;code>bad hand&lt;/code>，&lt;code>fingers&lt;/code>，&lt;code>extra fingers&lt;/code> 等词用于抑制“花手输出”，在「积极提示」中的 &lt;code>8k&lt;/code>，&lt;code>ultra-detailed&lt;/code> 用于获取高复杂度的画面细节。&lt;/p>
+&lt;p>以下是其他参考参数：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">Handler&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Sampling method&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">DPM++ SDE Karr&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Sampling steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">25&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Width&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">512&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Heigh&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">768&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Batch count&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Batch size&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">CFG Scale&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">7.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Seed&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>-&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Script&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">None&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">Checkbox&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Restore faces&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Tiling&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Hire.fix&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>点击「&lt;strong>Generate&lt;/strong>」开始念咒语！！！&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302133131788.png"
+width="1916"
+height="1547"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302133131788_hu11d3c78308a5df04c34a240d84c58365_536344_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302133131788_hu11d3c78308a5df04c34a240d84c58365_536344_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="First Shot"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="297px"
+>&lt;/p>
+&lt;h3 id="预览输出">预览输出&lt;/h3>
+&lt;p>点击图片渲染区的 「Save → Download」将图片缓存到本地目录。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-569298980-16777352810046.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-569298980-16777352810046_hubea55a913f97ac2e0a6542b87260b48f_576684_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00000-569298980-16777352810046_hubea55a913f97ac2e0a6542b87260b48f_576684_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="ChilloutMix &amp; LoRA"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;/p>
+&lt;p>接下来你有其他可玩性更高的选项：&lt;/p>
+&lt;ol>
+&lt;li>如果你输出了组图，可以多选图片后选择 「Zip」打包下载。&lt;/li>
+&lt;li>如果你想针对某一个比较满意的输出进行二次创作，可以选择「Send to img2img」，此时你有了更多选择，比如进入到 ControlNet 的神奇世代，基于人物骨骼做二创。&lt;/li>
+&lt;li>如果你是个专业画手，可以进入到「Send to inpaint」页面，准备将AIGC的产出进行二次编辑。&lt;/li>
+&lt;li>最后，你可以选择「Send to Extras」增强图片的细节，增加像素量或是延续创作风格继续生成新的图片。&lt;/li>
+&lt;/ol>
+&lt;p>Prompt 关键词及各种模型抑制参数的释义不在本篇博客的涉猎范围内，感兴趣的进阶玩家可以 Google 浅搜一下。&lt;/p>
+&lt;h2 id="军火展示">军火展示&lt;/h2>
+&lt;p>使用上文提供的咒语，随机 roll 了8 张图，出图率 100%，效果还不错。&lt;/p>
+&lt;p>值得一提的是，本篇博客中展示的图片均为缩略图，未经 upscale，单张图片大小约 550KB。你可以在控制台中调整 upscale 填充图片像素，若单张图片的输出大小在 2~5 MB 范围内，图片的信息量会上升到第一个甜点区。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00001-3837281495.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00001-3837281495_hu113fde28fe725a41680bbd286205d3d6_601746_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00001-3837281495_hu113fde28fe725a41680bbd286205d3d6_601746_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00005-1671085026.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00005-1671085026_hu4f253d7d2c9c8de0192b71c7e3518e33_547793_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00005-1671085026_hu4f253d7d2c9c8de0192b71c7e3518e33_547793_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00004-255330288.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00004-255330288_huf1d8fbe7e338fa9f431e3c7c20610374_560279_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00004-255330288_huf1d8fbe7e338fa9f431e3c7c20610374_560279_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00002-1493913889.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00002-1493913889_hu81fd1c8e58d28d4c4faa5b20ecf7a1f6_512957_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00002-1493913889_hu81fd1c8e58d28d4c4faa5b20ecf7a1f6_512957_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00006-2614156155.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00006-2614156155_hu910902d592f6cad23be2c1f5125d553b_578806_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00006-2614156155_hu910902d592f6cad23be2c1f5125d553b_578806_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00008-2386616295.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00008-2386616295_hub313c701a68e042ad0fe18c27a3b4b45_550110_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00008-2386616295_hub313c701a68e042ad0fe18c27a3b4b45_550110_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00007-4277602304.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00007-4277602304_hu974f6fb48d9a4548e7d1be893bc84bb5_543887_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00007-4277602304_hu974f6fb48d9a4548e7d1be893bc84bb5_543887_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00009-4003332370.png"
+width="512"
+height="768"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00009-4003332370_hu017ae11bb264072836f716d419762091_573642_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00009-4003332370_hu017ae11bb264072836f716d419762091_573642_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;/p>
+&lt;h2 id="学习资料">学习资料&lt;/h2>
+&lt;p>《葵花宝典》&lt;/p>
+&lt;p>（填坑中……教你玩转AIGC）&lt;/p></description></item></channel></rss>
