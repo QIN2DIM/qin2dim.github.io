@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>chilloutmixni on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/chilloutmixni/</link><description>Recent content in chilloutmixni on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 02 Mar 2023 12:58:57 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/chilloutmixni/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Stable Diffusion 敏捷部署</title><link>https://blog.echosec.top/p/stable-diffusion-lora-build/</link><pubDate>Thu, 02 Mar 2023 12:58:57 +0800</pubDate><guid>https://blog.echosec.top/p/stable-diffusion-lora-build/</guid><description>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/rashed-alakroka-2b3s.jpg" alt="Featured image of post 『Blog』Stable Diffusion 敏捷部署" />&lt;h2 id="preview">Preview&lt;/h2>
-&lt;p>开始本教程前，请确保你已注册 Google 账号，具备科学上网能力，了解 Colaboraroty 基本功能。&lt;/p>
-&lt;p>本方法适用于从未体验过 Stable Diffusion 想尝鲜的玩家。如果你本地有强劲的 GPU 算力和足够的内存及硬盘空间，可以将 Stable Diffusion 部署到本地，整个生产过程更加安全可靠。&lt;/p>
-&lt;p>这是一盘「虽迟但到」的教程。本篇博客以 ChilloutMix &amp;amp; LoRA 基本模型为切入点，带你领略 AIGC-2023 的曼妙世界。&lt;/p>
+&lt;p>在开始本教程之前，请确保你已经注册了谷歌账号，能够科学上网，并且了解 Colaboratory 的基本功能。&lt;/p>
+&lt;p>如果你是从未尝试过 Stable Diffusion 的新手用户，我们提供了本方法，让你轻松上手。如果你拥有足够强大的 GPU 计算能力、内存和硬盘空间，你还可以将 Stable Diffusion 部署到本地，这将使整个生产过程更加安全可靠。&lt;/p>
+&lt;p>本教程会带你领略 AIGC-2023 的曼妙世界，以 ChilloutMix &amp;amp; LoRA 基本模型为切入点，帮助你踏入 AI 应用领域。&lt;/p>
 &lt;h2 id="quick-start">Quick Start&lt;/h2>
 &lt;ol>
 &lt;li>
-&lt;p>访问 &lt;a class="link" href="https://colab.research.google.com/#scrollTo=htsbKCbpmm-h" target="_blank" rel="noopener"
+&lt;p>前往网站 &lt;a class="link" href="https://colab.research.google.com/#scrollTo=htsbKCbpmm-h" target="_blank" rel="noopener"
 >Colaboratory&lt;/a>。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>查看资源 → 更改运行时类型 → 硬件加速器，选择 &lt;strong>GPU&lt;/strong>。&lt;/p>
+&lt;p>点击「查看资源」，进入「更改运行时类型」设置，选择「硬件加速器」，并选用 &lt;strong>GPU&lt;/strong>。&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>等待连接，重新查看资源，看到 &lt;strong>GPU RAM&lt;/strong> 图表出现说明转换成功。&lt;/p>
-&lt;p>免费用户直接打开 Colab 默认使用 CPU 实例，AI 图片生成对算力的需求还蛮大的，只用 CPU 无法运行部署脚本。&lt;/p>
+&lt;p>等待连接成功后，重新查看资源信息。如果发现出现了 &lt;strong>GPU RAM&lt;/strong> 图表，说明成功启用了 GPU 加速器。&lt;/p>
+&lt;p>免费用户默认使用 CPU 实例，但是对于 AI 图片生成等复杂任务，CPU 的算力已无法胜任。也即，必须启用 GPU 才能顺利运行和部署 Cloud-based Stable Diffusion。&lt;/p>
 &lt;/li>
 &lt;/ol>
 &lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302134448398.png"
@@ -52,8 +52,9 @@ data-flex-basis="356px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">COMMANDLINE_ARGS&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;--share --disable-safe-unpickle --skip-torch-cuda-test --no-half-vae --xformers --reinstall-xformers --enable-insecure-extension-access&amp;#34;&lt;/span> &lt;span class="n">REQS_FILE&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;requirements.txt&amp;#34;&lt;/span> &lt;span class="n">python&lt;/span> &lt;span class="n">launch&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">py&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>安装结束后，控制台将打印部署到 Gradio 的 &lt;a class="link" href="https://github.com/yfszzx/stable-diffusion-webui-images-browser" target="_blank" rel="noopener"
->stable-diffusion-webui&lt;/a> 的 public 访问链接，72小时内有效。相关输出如下图所示，新建标签页访问链接即可，注意这个 shell 控制台以及这个 Colab 标签页不能关闭，否则 WebUI 服务会直接宕掉。&lt;/p>
+&lt;/div>&lt;p>安装完成后，控制台会输出部署到 Gradio 的 &lt;a class="link" href="https://github.com/yfszzx/stable-diffusion-webui-images-browser" target="_blank" rel="noopener"
+>stable-diffusion-webui&lt;/a> 的公共访问链接，该链接有效期为72小时，如下图所示。请新建一个标签页访问链接。&lt;/p>
+&lt;p>请注意，不要关闭此 Shell 控制台或 Colab 标签页，否则 WebUI 服务将直接中断。&lt;/p>
 &lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302131732303.png"
 width="643"
 height="52"
@@ -83,8 +84,8 @@ data-flex-basis="2967px"
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans,extra fingers,fewer fingers,strange fingers,bad hand,signature, watermark, username, blurry, bad feet,bad leg, duplicate, extra limb, ugly, disgusting, poorly drawn hands, missing limb, floating limbs, disconnected limbs, malformed hands, blurry,mutated hands and fingers,, EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans,extra fingers,fewer fingers,strange fingers,bad hand,signature, watermark, username, blurry, bad feet,bad leg
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>这两块提示语的用途顾名思义，这里提供的咒语仅供参考，你可以在部署之后自己摸索，也可以参照前人留下的开荒攻略。&lt;/p>
-&lt;p>有必要提一下 demo 咒语里提到的关键内容，比如「消极提示」的 &lt;code>bad hand&lt;/code>，&lt;code>fingers&lt;/code>，&lt;code>extra fingers&lt;/code> 等词用于抑制“花手输出”，在「积极提示」中的 &lt;code>8k&lt;/code>，&lt;code>ultra-detailed&lt;/code> 用于获取高复杂度的画面细节。&lt;/p>
+&lt;/div>&lt;p>以上两个提示语的作用顾名思义。本文提供的内容仅供参考，您也可以在部署后自行探索，或者参考其他人留下的攻略。&lt;/p>
+&lt;p>这里有必要指出的 demo 中提到的关键内容，如「消极提示」中的 &lt;code>bad hand&lt;/code>，&lt;code>fingers&lt;/code>，&lt;code>extra fingers&lt;/code>等词旨在抑制“花式输出”，而「积极提示」中的 &lt;code>8k&lt;/code>，&lt;code>ultra-detailed&lt;/code>则用于获取高度复杂的画面细节。&lt;/p>
 &lt;p>以下是其他参考参数：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -143,17 +144,17 @@ class="gallery-image"
 data-flex-grow="66"
 data-flex-basis="160px"
 >&lt;/p>
-&lt;p>接下来你有其他可玩性更高的选项：&lt;/p>
+&lt;p>下面有更具可玩性的选项供您选择：&lt;/p>
 &lt;ol>
-&lt;li>如果你输出了组图，可以多选图片后选择 「Zip」打包下载。&lt;/li>
-&lt;li>如果你想针对某一个比较满意的输出进行二次创作，可以选择「Send to img2img」，此时你有了更多选择，比如进入到 ControlNet 的神奇世代，基于人物骨骼做二创。&lt;/li>
-&lt;li>如果你是个专业画手，可以进入到「Send to inpaint」页面，准备将AIGC的产出进行二次编辑。&lt;/li>
-&lt;li>最后，你可以选择「Send to Extras」增强图片的细节，增加像素量或是延续创作风格继续生成新的图片。&lt;/li>
+&lt;li>如果您输出了组图，可以勾选多张图片并选择「Zip」来打包下载。&lt;/li>
+&lt;li>如果您对某张输出结果特别满意，可以选择「Send to img2img」，这样您就有了更多选择，例如进入 ControlNet 的神奇世界，基于人物骨骼进行二次创作。&lt;/li>
+&lt;li>如果您是专业画手，可以进入「Send to inpaint」页面，对 AIGC 的产出进行二次编辑。&lt;/li>
+&lt;li>最后，您可以选择「Send to Extras」，增强图片的细节，增加像素量或者延续创作风格，生成新的图片。&lt;/li>
 &lt;/ol>
-&lt;p>Prompt 关键词及各种模型抑制参数的释义不在本篇博客的涉猎范围内，感兴趣的进阶玩家可以 Google 浅搜一下。&lt;/p>
+&lt;p>本篇博客不讨论 Prompt 关键词及各种模型抑制参数的含义，如有兴趣，欢迎在 Google 上深入搜索。&lt;/p>
 &lt;h2 id="军火展示">军火展示&lt;/h2>
-&lt;p>使用上文提供的咒语，随机 roll 了8 张图，出图率 100%，效果还不错。&lt;/p>
-&lt;p>值得一提的是，本篇博客中展示的图片均为缩略图，未经 upscale，单张图片大小约 550KB。你可以在控制台中调整 upscale 填充图片像素，若单张图片的输出大小在 2~5 MB 范围内，图片的信息量会上升到第一个甜点区。&lt;/p>
+&lt;p>我使用了上文提供的咒语输出了8张图片，可用率100%，效果还不错。&lt;/p>
+&lt;p>值得一提的是，本篇博客展示的图片均为缩略图，未经过 upscale 处理，每张图片大小约为550KB。如果您在控制台中进一步调整 upscale 参数，为图片填充像素量，使得单张图片输出大小在 2~5MB 范围内，图片信息量将提高到第一个甜点区。&lt;/p>
 &lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00001-3837281495.png"
 width="512"
 height="768"
@@ -220,6 +221,96 @@ class="gallery-image"
 data-flex-grow="66"
 data-flex-basis="160px"
 >&lt;/p>
-&lt;h2 id="学习资料">学习资料&lt;/h2>
-&lt;p>《葵花宝典》&lt;/p>
-&lt;p>（填坑中……教你玩转AIGC）&lt;/p></description></item></channel></rss>
+&lt;h2 id="飞向宇宙浩瀚无垠">飞向宇宙，浩瀚无垠&lt;/h2>
+&lt;p>这只是一个简单的开端，接下来您可以借助开源社区的力量，深入探索 Stable Diffusion 宇宙的广阔世界，并进一步完善它。&lt;/p>
+&lt;h3 id="lora-咒语最佳实践">LoRA 咒语最佳实践&lt;/h3>
+&lt;blockquote>
+&lt;p>Things to note if you&amp;rsquo;ve used my other LORAs: -&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">Things to note if you&amp;#39;ve used my other LORAs: -
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. It has more variation, and less consistent in making the same types of faces, it is easier to have more facial expressions due to this.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. Different LORA weight control would easily change the face variation.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Explanation:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. This is a LORA trained for sd1.5, the trigger words are &amp;#39;girl&amp;#39; and &amp;#39;woman&amp;#39;, or you could control the weight with LORA taiwanDollLikeness_v10 prompt.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. This LORA works extremely well with ChilloutMix and potentially any other photorealistic models, including nsfw models.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. Works okay when used together with PureErosFace but you must know how to control the weights properly.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">https://civitai.com/models/4514/pure-eros-face
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">5. May also work together with &amp;#39;ulzzang-6500&amp;#39; but weight control is a must.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">https://civitai.com/models/8109/ulzzang-6500-korean-doll-aesthetic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">6. Try to use hires fix with around 10-20 hires steps, latent upscaling (bicubic antialiased), denoising strength between 0,4-0.7, its given the best results by far.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">7. Higher resolution also helps when creating further subjects, hires fix helps greatly with this too.|
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">8. Best samplers are DPM++ SDE Karras, Euler a, DPM2 a Karras and DPM++ SDE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Caution:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. Recommended weights for txt2img - 0.5-0.8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. Recommended weights for img2img - 0.4-0.8
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="索引表">索引表&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">索引&lt;/th>
+&lt;th>备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://civitai.com/" target="_blank" rel="noopener"
+>Civitai&lt;/a>&lt;/td>
+&lt;td>CivitAI 的主要功能包括模型分享和社区交流。用户可以在其他用户分享的模型下方回复自己使用该模型生成的样本、参数以及随机种子，这可以帮助我们快速调试其他人的模型并借鉴他们的输出结果，避免自己在生成过程中的不太理想的表现。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://civitai.com/models/6424/chilloutmix" target="_blank" rel="noopener"
+>ChilloutMix&lt;/a>&lt;/td>
+&lt;td>这个模型擅长于生成亚洲女性特征的图片&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">LoRAs&lt;/td>
+&lt;td>LoRA（Low-Rank Adaptation of Large Language Models）简单来说，就是通过少量的图像来对 AI 进行额外的学习和训练，从而在一定程度上控制结果。当前比较流行的分支有&lt;a class="link" href="https://civitai.com/models/7448/korean-doll-likeness" target="_blank" rel="noopener"
+>LoRA-KoreanDoll&lt;/a>、&lt;a class="link" href="https://civitai.com/models/7716/taiwan-doll-likeness" target="_blank" rel="noopener"
+>LoRA-TaiwanDoll&lt;/a>、&lt;a class="link" href="https://civitai.com/models/10135/japanese-doll-likeness" target="_blank" rel="noopener"
+>LoRA-JapaneseDoll&lt;/a>，它们分别针对韩国女性、台湾女性和日本女性的风格进行输出。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://prompthero.com/stable-diffusion-prompts" target="_blank" rel="noopener"
+>PromptHero&lt;/a>&lt;/td>
+&lt;td>如果您不确定如何描述您的内容主体，可以通过搜索您要描述的对象（如：girl, cat, hero），查看网友提供的展示案例，选择您感兴趣的图片并查看其对应的描述。这是对新手很有帮助的辅助工具。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item></channel></rss>
