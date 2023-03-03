@@ -223,7 +223,9 @@ data-flex-basis="160px"
 >&lt;/p>
 &lt;h2 id="飞向宇宙浩瀚无垠">飞向宇宙，浩瀚无垠&lt;/h2>
 &lt;p>这只是一个简单的开端，接下来您可以借助开源社区的力量，深入探索 Stable Diffusion 宇宙的广阔世界，并进一步完善它。&lt;/p>
-&lt;h3 id="lora-咒语最佳实践">LoRA 咒语最佳实践&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>LoRAs 咒语最佳实践&lt;/strong>&lt;/li>
+&lt;/ol>
 &lt;blockquote>
 &lt;p>Things to note if you&amp;rsquo;ve used my other LORAs: -&lt;/p>
 &lt;/blockquote>
@@ -281,7 +283,9 @@ data-flex-basis="160px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. Recommended weights for img2img - 0.4-0.8
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="索引表">索引表&lt;/h3>
+&lt;/div>&lt;ol start="2">
+&lt;li>&lt;strong>索引表&lt;/strong>&lt;/li>
+&lt;/ol>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -311,6 +315,26 @@ data-flex-basis="160px"
 &lt;td style="text-align:center">&lt;a class="link" href="https://prompthero.com/stable-diffusion-prompts" target="_blank" rel="noopener"
 >PromptHero&lt;/a>&lt;/td>
 &lt;td>如果您不确定如何描述您的内容主体，可以通过搜索您要描述的对象（如：girl, cat, hero），查看网友提供的展示案例，选择您感兴趣的图片并查看其对应的描述。这是对新手很有帮助的辅助工具。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/awesome-stable-diffusion/awesome-stable-diffusion" target="_blank" rel="noopener"
+>awesome-stable-diffusion&lt;/a>&lt;/td>
+&lt;td>任何热门技术都会有一个 Awesome 列表。如果你是新手，这个列表将对你很有帮助，它可以让你拓展知识领域，了解Stable Diffusion 社区中出现频率最高的项目/术语/关键词以及相关描述。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/Stability-AI/stablediffusion" target="_blank" rel="noopener"
+>stablediffusion-v2&lt;/a>&lt;/td>
+&lt;td>High-Resolution Image Synthesis with Latent Diffusion Models&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui" target="_blank" rel="noopener"
+>stable-diffusion-webui&lt;/a>&lt;/td>
+&lt;td>A browser interface based on Gradio library for Stable Diffusion&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a class="link" href="https://github.com/lllyasviel/ControlNet" target="_blank" rel="noopener"
+>ControlNet&lt;/a>&lt;/td>
+&lt;td>ControlNet is a neural network structure to control diffusion models by adding extra conditions.&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table></description></item><item><title>『Blog』Robot Yea</title><link>https://blog.echosec.top/p/robot-yea/</link><pubDate>Fri, 15 Oct 2021 19:40:23 +0800</pubDate><guid>https://blog.echosec.top/p/robot-yea/</guid><description>&lt;img src="https://blog.echosec.top/p/robot-yea/sins.jpg" alt="Featured image of post 『Blog』Robot Yea" />&lt;h2 id="introduction">Introduction&lt;/h2>
