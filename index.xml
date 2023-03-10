@@ -30,20 +30,24 @@ data-flex-basis="356px"
 &lt;p>回到 Colaboratory，新建代码块，贴入如下代码安装依赖，预计耗时 3~5 分钟。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">pip&lt;/span> &lt;span class="n">install&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="n">upgrade&lt;/span> &lt;span class="n">fastapi&lt;/span>&lt;span class="o">==&lt;/span>&lt;span class="mf">0.90.1&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">git&lt;/span> &lt;span class="n">clone&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">github&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">AUTOMATIC1111&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">git&lt;/span> &lt;span class="n">clone&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">github&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">yfszzx&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">images&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">browser&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">extensions&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">images&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">browser&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">git&lt;/span> &lt;span class="n">clone&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">github&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">dtlnor&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">localization&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">zh_CN&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">extensions&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">localization&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">zh_CN&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">git&lt;/span> &lt;span class="n">clone&lt;/span> &lt;span class="s2">&amp;#34;https://github.com/canisminor1990/sd-web-ui-kitchen-theme&amp;#34;&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">content&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">stable&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">diffusion&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">webui&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">extensions&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">kitchen&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">theme&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">curl&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">Lo&lt;/span> &lt;span class="n">chilloutmixni&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">safetensors&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">huggingface&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">co&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">nolanaatama&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">chomni&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">resolve&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">main&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">chomni&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">safetensors&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">curl&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">Lo&lt;/span> &lt;span class="n">ulzzang&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">6500.&lt;/span>&lt;span class="n">pt&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">huggingface&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">co&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">nolanaatama&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">chomni&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">resolve&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">main&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">ulzzang&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mf">6500.&lt;/span>&lt;span class="n">pt&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">!&lt;/span>&lt;span class="n">mv&lt;/span> &lt;span class="s2">&amp;#34;/content/chilloutmixni.safetensors&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;/content/stable-diffusion-webui/models/Stable-diffusion&amp;#34;&lt;/span>
@@ -72,7 +76,7 @@ data-flex-basis="2967px"
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">(8k, RAW photo, best quality, masterpiece:1.2), (realistic, photo-realistic:1.37), ultra-detailed,full body,1 girl, solo,beautiful detailed sky,detailed tokyo street,night,beautiful detailed eyes,beautiful detailed lips,professional lighting, photon mapping, radiosity, physically-based rendering,extremely detailed eyes and face, beautiful detailed eyes,light on face,cinematic lighting, short jacket,hoodie,school uniform,1girl,full body,full-body shot,see-through,looking at viewer,outdoors,((white hair)),
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">(realistic, photo-realistic:1.37), (8k, RAW photo, best quality, masterpiece:1.2), pink eyes, cute, ultra-detailed, heart-shaped pupils, physically-based rendering, ultra high res, front lighting, looking at viewer, photorealistic, realistic, solo, photorealistic, best quality, extremely detailed face, extremely detailed eyes and face, beautiful detailed eyes, absurdres, incredibly absurdres, Messy hair, floating hair, green hair, close-up, portrait,
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>在下方 &lt;strong>Negative prompt&lt;/strong> 输入如下咒语：&lt;/p>
@@ -81,7 +85,7 @@ data-flex-basis="2967px"
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans,extra fingers,fewer fingers,strange fingers,bad hand,signature, watermark, username, blurry, bad feet,bad leg, duplicate, extra limb, ugly, disgusting, poorly drawn hands, missing limb, floating limbs, disconnected limbs, malformed hands, blurry,mutated hands and fingers,, EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans,extra fingers,fewer fingers,strange fingers,bad hand,signature, watermark, username, blurry, bad feet,bad leg
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans,extra fingers,fewer fingers,strange fingers,bad hand,backlight, (worst quality, low quality:1.4), watermark, logo, bad anatomy, nude, topless, fat,EasyNegative,
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>以上两个提示语的作用顾名思义。本文提供的内容仅供参考，您也可以在部署后自行探索，或者参考其他人留下的攻略。&lt;/p>
@@ -103,45 +107,55 @@ data-flex-basis="2967px"
 &lt;/span>&lt;span class="lnt">12
 &lt;/span>&lt;span class="lnt">13
 &lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">Handler&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Sampling method&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">DPM++ SDE Karr&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Sampling steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">25&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Sampling steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">20&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Width&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">512&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Heigh&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">768&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Batch count&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Batch size&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">CFG Scale&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">7.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">CFG Scale&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">7.0&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Seed&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>-&lt;span class="m">1&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Script&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">None&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">Checkbox&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Restore faces&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Tiling&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Hire.fix&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Hire.fix&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">Hires.fix&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Upscaler&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Latent(bicubic antialiased)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">upscale by&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1.05&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Hires steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">15&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 10~20&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Denoising strength&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0.7&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 0.4~0.7&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>点击「&lt;strong>Generate&lt;/strong>」开始念咒语！！！&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302133131788.png"
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310180917831.png"
 width="1916"
-height="1547"
-srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302133131788_hu11d3c78308a5df04c34a240d84c58365_536344_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230302133131788_hu11d3c78308a5df04c34a240d84c58365_536344_1024x0_resize_box_3.png 1024w"
+height="1749"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310180917831_hu27ac24d57a86b6216c7c78a45f58d125_726275_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310180917831_hu27ac24d57a86b6216c7c78a45f58d125_726275_1024x0_resize_box_3.png 1024w"
 loading="lazy"
-alt="First Shot"
+alt="First shot"
 class="gallery-image"
-data-flex-grow="123"
-data-flex-basis="297px"
+data-flex-grow="109"
+data-flex-basis="262px"
 >&lt;/p>
 &lt;h3 id="预览输出">预览输出&lt;/h3>
 &lt;p>点击图片渲染区的 「Save → Download」将图片缓存到本地目录。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-569298980-16777352810046.png"
-width="512"
-height="768"
-srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-569298980-16777352810046_hubea55a913f97ac2e0a6542b87260b48f_576684_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00000-569298980-16777352810046_hubea55a913f97ac2e0a6542b87260b48f_576684_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-1749898430.png"
+width="536"
+height="800"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-1749898430_hu8311890c8f0dc2847cc0fa5809a310bd_630432_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00000-1749898430_hu8311890c8f0dc2847cc0fa5809a310bd_630432_1024x0_resize_box_3.png 1024w"
 loading="lazy"
 alt="ChilloutMix &amp; LoRA"
 class="gallery-image"
-data-flex-grow="66"
+data-flex-grow="67"
 data-flex-basis="160px"
 >&lt;/p>
 &lt;p>下面有更具可玩性的选项供您选择：&lt;/p>
@@ -153,8 +167,8 @@ data-flex-basis="160px"
 &lt;/ol>
 &lt;p>本篇博客不讨论 Prompt 关键词及各种模型抑制参数的含义，如有兴趣，欢迎在 Google 上深入搜索。&lt;/p>
 &lt;h2 id="军火展示">军火展示&lt;/h2>
-&lt;p>我使用了上文提供的咒语输出了8张图片，可用率100%，效果还不错。&lt;/p>
-&lt;p>值得一提的是，本篇博客展示的图片均为缩略图，未经过 upscale 处理，每张图片大小约为550KB。如果您在控制台中进一步调整 upscale 参数，为图片填充像素量，使得单张图片输出大小在 2~5MB 范围内，图片信息量将提高到第一个甜点区。&lt;/p>
+&lt;p>我使用了另外的咒语输出了 8 张图片，可用率100%，效果还不错。&lt;/p>
+&lt;p>值得一提的是，如果您在控制台中进一步调整 upscale 参数，为图片填充像素量，使得单张图片输出大小在 2~5MB 范围内，图片信息量将提高到第一个甜点区。&lt;/p>
 &lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00001-3837281495.png"
 width="512"
 height="768"
@@ -221,11 +235,127 @@ class="gallery-image"
 data-flex-grow="66"
 data-flex-basis="160px"
 >&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Output&lt;/th>
+&lt;th style="text-align:left">Prompt&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-4075440443.png"
+width="536"
+height="800"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00000-4075440443_hu1767dfe74c03f194599f3c5b0cd1f671_675646_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00000-4075440443_hu1767dfe74c03f194599f3c5b0cd1f671_675646_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="67"
+data-flex-basis="160px"
+>&lt;/td>
+&lt;td style="text-align:left">a portrait of an old coal miner in 19th century, beautiful painting with highly detailed face by greg rutkowski and magali villanueve&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/00046-2123152317.png"
+width="768"
+height="1152"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/00046-2123152317_hue572b4be88e3d57828b74afffde64eae_1459199_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/00046-2123152317_hue572b4be88e3d57828b74afffde64eae_1459199_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="66"
+data-flex-basis="160px"
+>&lt;/td>
+&lt;td style="text-align:left">portrait photo of a homeless , color, Martin Schoeller, serious eyes, perfect eyes, cinematic, 80mm portrait photography, dramatic lighting photography, national geographic, portrait, photo, photography, Stoic, cinematic, 4k, epic, detailed photograph, shot on kodak detailed, bokeh, cinematic, hbo, dark moody, volumetric fog, minimal artifacts, inspired art by p. craig russell&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310225342487.png"
+width="536"
+height="800"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310225342487_hu519abd4b61b1e2b2dac5ad3b8ecdd515_586263_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310225342487_hu519abd4b61b1e2b2dac5ad3b8ecdd515_586263_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="67"
+data-flex-basis="160px"
+>&lt;/td>
+&lt;td style="text-align:left">(8k, RAW photo, best quality, masterpiece:1.2), (realistic, photo-realistic:1.37), ultra-detailed,full body,1 girl, solo,beautiful detailed sky,detailed tokyo street,night,beautiful detailed eyes,beautiful detailed lips,professional lighting, photon mapping, radiosity, physically-based rendering,extremely detailed eyes and face, beautiful detailed eyes,light on face,cinematic lighting, short jacket,hoodie,school uniform,1girl,full body,full-body shot,see-through,looking at viewer,outdoors,((white hair)),&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="拓展设置">拓展设置&lt;/h2>
+&lt;p>你应该注意到我们在代码块中导入了中文本地化的 WebUI 拓展，接下来，我们以&lt;a class="link" href="https://github.com/dtlnor/stable-diffusion-webui-localization-zh_CN" target="_blank" rel="noopener"
+>stable-diffusion-webui-localization-zh_CN&lt;/a> 为例展示 Stable Diffusion WebUI 的灵活拓展能力。&lt;/p>
+&lt;p>请注意，我在发布本文后修改了代码块的初始化脚本，并引入了更美观的 UI 主题布局。因此，你看到的界面与下文展示的截图略有不同。&lt;/p>
+&lt;h3 id="下载拓展">下载拓展&lt;/h3>
+&lt;p>进入到 &lt;strong>拓展 Extensions&lt;/strong> 界面，可以看到已经预先安装的中文本地化拓展，如下图所示：&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310165936809.png"
+width="1353"
+height="625"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310165936809_hu9e63b658719a80b07a423a4a71d9b75b_91808_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310165936809_hu9e63b658719a80b07a423a4a71d9b75b_91808_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="UI - Extensions"
+class="gallery-image"
+data-flex-grow="216"
+data-flex-basis="519px"
+>&lt;/p>
+&lt;h3 id="应用拓展">应用拓展&lt;/h3>
+&lt;p>依次进入 &lt;strong>设置 Settings&lt;/strong> → &lt;strong>用户界面 User interface&lt;/strong>，滑倒最下，找到 &lt;strong>Localization&lt;/strong>，选择 &lt;code>zh_CN&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310170511315.png"
+width="367"
+height="160"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310170511315_hu1a315ed692a6e3e7a1b811e089d78b8d_8482_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310170511315_hu1a315ed692a6e3e7a1b811e089d78b8d_8482_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="UI - Localization"
+class="gallery-image"
+data-flex-grow="229"
+data-flex-basis="550px"
+>&lt;/p>
+&lt;p>回到上方点击 &lt;strong>应用设置 Apply settings&lt;/strong>，等待后台脚本运行，出现如下 Debug 信息后，点击 &lt;strong>重载界面 Reload UI&lt;/strong> 即可应用拓展。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310170543492.png"
+width="1597"
+height="123"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310170543492_hu88e883c84ebf2e718e1bbe09bb65f936_13049_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310170543492_hu88e883c84ebf2e718e1bbe09bb65f936_13049_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="UI - Apply settings"
+class="gallery-image"
+data-flex-grow="1298"
+data-flex-basis="3116px"
+>&lt;/p>
+&lt;p>如果出现 &lt;strong>No interface is running right now&lt;/strong> 的提示，说明 Gradio 前端链接已经刷新，回到你的 Colab 控制台获取新的页面链接。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164433976.png"
+width="504"
+height="146"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164433976_hu23bbdc2c08c63d5a500466d1d20b0960_11023_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164433976_hu23bbdc2c08c63d5a500466d1d20b0960_11023_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Gradio Reload"
+class="gallery-image"
+data-flex-grow="345"
+data-flex-basis="828px"
+>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164836401.png"
+width="883"
+height="276"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164836401_hu8f4fc393c94ceeb297a8db1d47342f7e_61666_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164836401_hu8f4fc393c94ceeb297a8db1d47342f7e_61666_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Restarting Gradio interface"
+class="gallery-image"
+data-flex-grow="319"
+data-flex-basis="767px"
+>&lt;/p>
+&lt;h3 id="重启界面">重启界面&lt;/h3>
+&lt;p>进入 Stable Diffusion WebUI 后，可以看到主要按钮的名称已经本地化。之后，可以按照这个方法更新 UI 和中文本地化拓展。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164550345.png"
+width="1916"
+height="1313"
+srcset="https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164550345_hu4ab1a7b42fa5c8e533ffac16668bfb1d_147227_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/stable-diffusion-lora-build/image-20230310164550345_hu4ab1a7b42fa5c8e533ffac16668bfb1d_147227_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Stable Diffusion 中文界面"
+class="gallery-image"
+data-flex-grow="145"
+data-flex-basis="350px"
+>&lt;/p>
 &lt;h2 id="飞向宇宙浩瀚无垠">飞向宇宙，浩瀚无垠&lt;/h2>
+&lt;p>值得注意的是，这个 UI 系统与 Stable Diffusion 社区生态相互连接。通过简单的鼠标操作，您可以轻松地访问 GitHub、CLIP Community 和 Civitai 上的开源内容。此外，在 Panel 面板上还可以方便地整理数据集和进行小型模型训练。&lt;/p>
+&lt;p>更重要的是，AIGC 的社区生态正在蓬勃发展中。Stable Diffusion、UI、Extensions 以及 GAN 和 Upscale 等应用研究领域都在不断更新迭代。&lt;/p>
 &lt;p>这只是一个简单的开端，接下来您可以借助开源社区的力量，深入探索 Stable Diffusion 宇宙的广阔世界，并进一步完善它。&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>LoRAs 咒语最佳实践&lt;/strong>&lt;/li>
-&lt;/ol>
+&lt;h3 id="lora-最佳实践">LoRA 最佳实践&lt;/h3>
 &lt;blockquote>
 &lt;p>Things to note if you&amp;rsquo;ve used my other LORAs: -&lt;/p>
 &lt;/blockquote>
@@ -283,9 +413,129 @@ data-flex-basis="160px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. Recommended weights for img2img - 0.4-0.8
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;ol start="2">
-&lt;li>&lt;strong>索引表&lt;/strong>&lt;/li>
+&lt;/div>&lt;h3 id="upscaler-最佳实践">Upscaler 最佳实践&lt;/h3>
+&lt;p>Upscaler 是一款 AI 驱动的图像缩放器。在 Stable Diffusion 中，它将参与到图像渲染的过程中，并能够填充图像像素，从而提高成片分辨率和清晰度。通过搭配合适的咒语，可以生成更加锐利的图像细节。&lt;/p>
+&lt;p>不同种类的 Upscaler 具备不同方向的强化风格，主要分为以下三类：&lt;/p>
+&lt;ol>
+&lt;li>以摄影照片为主题的写实画风；&lt;/li>
+&lt;li>以动画/动漫为主题的二次元画风；&lt;/li>
+&lt;li>以艺术作品为主题的学派画风。&lt;/li>
 &lt;/ol>
+&lt;p>此外，强化方向相同的 Upscaler 也具有不同的强化粒度。例如，有的渲染速度更快，而有的则更加精细。还有一些可以将主体分割出来进行单独强化，例如实现大光圈下主体锐利的浅景深效果。&lt;/p>
+&lt;p>模型作者认为，LoRA 最佳的 Upscaler 搭档是 Latent（bicubic antialiased），但你可以尝试其他 Upscaler 对小模型输出的影响。以下是社区总结的截至 2023 年 3 月 10 日的 Upscaler 特性表可供参考：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://www.reddit.com/r/StableDiffusion/comments/y2mrc2/the_definitive_comparison_to_upscalers/?sort=new" target="_blank" rel="noopener"
+>The DEFINITIVE Comparison to Upscalers : StableDiffusion&lt;/a>&lt;/p>
+&lt;p>请注意，此表格仅列出在官方社区中出现的 Upscaler。您可以根据需要将任何 Upscaler 模型放置到 UI 目录下，并加载使用。&lt;/p>
+&lt;/blockquote>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Upscaler&lt;/th>
+&lt;th style="text-align:center">Photos&lt;/th>
+&lt;th style="text-align:center">Paintings&lt;/th>
+&lt;th style="text-align:center">Anime/Animation&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>LDSR&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Much slower than anything else, but very good for photos&lt;/td>
+&lt;td style="text-align:center">Too much random noise&lt;/td>
+&lt;td style="text-align:center">Better, but still noisy&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>BSRGAN&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Good, subtly sharp without going too far&lt;/td>
+&lt;td style="text-align:center">Okay, but maybe a bit too smooth&lt;/td>
+&lt;td style="text-align:center">Good, but R-ESRGAN is better&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>ESRGAN_4x&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">&lt;strong>SUPER&lt;/strong> sharp, good here, but might be a tad too unrealistic&lt;/td>
+&lt;td style="text-align:center">Too grainy, but might be good for a textured paint look&lt;/td>
+&lt;td style="text-align:center">Terrible, worse than non-AI methods&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>R-ESRGAN-General-4xV3&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Okay, like BSRGAN, but a bit too much blur&lt;/td>
+&lt;td style="text-align:center">Ditto&lt;/td>
+&lt;td style="text-align:center">Much better here, but not as good as R-ESRGAN-Anime&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>R-ESRGAN-General-WDN-4xV3&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Closer to BSRGAN&lt;/td>
+&lt;td style="text-align:center">Very good, texture and definition without being overbearing&lt;/td>
+&lt;td style="text-align:center">Also good, also not as good as R-ESRGAN-Anime&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>R-ESRGAN-AnimeVideo&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Tends to &amp;ldquo;unphoto&amp;rdquo; a subject&lt;/td>
+&lt;td style="text-align:center">Ditto&lt;/td>
+&lt;td style="text-align:center">2nd best for anime, but Anime6B is better&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>R-ESRGAN-4x+&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Basically BSRGAN&lt;/td>
+&lt;td style="text-align:center">Slightly more texture than BSRGAN&lt;/td>
+&lt;td style="text-align:center">Basically BSRGAN&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>R-ESRGAN-4x+-Anime6B&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Straight-up anime dog&lt;/td>
+&lt;td style="text-align:center">Also anime&lt;/td>
+&lt;td style="text-align:center">The best for anime&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>ScuNET-GAN&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Too blurry&lt;/td>
+&lt;td style="text-align:center">Too blurry&lt;/td>
+&lt;td style="text-align:center">Average&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>ScuNET-PSNR&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Too blurry&lt;/td>
+&lt;td style="text-align:center">Too blurry&lt;/td>
+&lt;td style="text-align:center">Hot garbage&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>SwinIR_4x&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">Yuck, I see tile lines!&lt;/td>
+&lt;td style="text-align:center">Good, but not as textured as General-WDN&lt;/td>
+&lt;td style="text-align:center">Hot garbage&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;strong>TL;DR&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Picture type&lt;/th>
+&lt;th style="text-align:center">Recommendations&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>Photos&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">&lt;strong>LDSR&lt;/strong> (but it&amp;rsquo;s slow), or &lt;strong>ESRGAN_4x&lt;/strong> if you want to super-sharp detail and/or speed, or &lt;strong>BSRGAN&lt;/strong> for subtly&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>Paintings&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">&lt;strong>ESRGAN_4x&lt;/strong> for high paint texture and detail, &lt;strong>General-WDN&lt;/strong> for a better overall look&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;strong>Anime&lt;/strong>&lt;/td>
+&lt;td style="text-align:center">&lt;strong>Anime6B&lt;/strong>, also good for turning something into anime&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="sampler-最佳实践">Sampler 最佳实践&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.artstation.com/blogs/kaddoura/pBPo/stable-diffusion-samplers" target="_blank" rel="noopener"
+>ArtStation - Stable Diffusion - Samplers&lt;/a>&lt;/li>
+&lt;li>待補充&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;h3 id="社区索引表">社区索引表&lt;/h3>
 &lt;table>
 &lt;thead>
 &lt;tr>
