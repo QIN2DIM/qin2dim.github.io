@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>rust on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/rust/</link><description>Recent content in rust on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 15 Jun 2023 10:13:55 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/rust/index.xml" rel="self" type="application/rss+xml"/><item><title>『Rust』Toolchain &amp; Debugger</title><link>https://blog.echosec.top/p/rust-toolchain-debugger/</link><pubDate>Thu, 15 Jun 2023 10:13:55 +0800</pubDate><guid>https://blog.echosec.top/p/rust-toolchain-debugger/</guid><description>&lt;img src="https://blog.echosec.top/p/rust-toolchain-debugger/dominik.jpg" alt="Featured image of post 『Rust』Toolchain &amp; Debugger" />&lt;h2 id="preview">Preview&lt;/h2>
+&lt;p>在运行你的第一个 Rust 程序之前，需要注意一些环境构建的细节问题，特别是在 Windows 上。&lt;/p>
+&lt;p>常见报错如下：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>mingw32 工具链丢失&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">Windows 10 error: linking with &lt;span class="sb">`x86_64-w64-mingw32-gcc`&lt;/span> failed: exit code: 1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>链接工具丢失&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-markdown" data-lang="markdown">&lt;span class="line">&lt;span class="cl">error: linker &lt;span class="sb">`link.exe`&lt;/span> not found
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;p>本文提供了一个开箱机用的方法便于小白开发者处理这些繁琐问题。&lt;/p>
+&lt;h2 id="get-started">Get started&lt;/h2>
+&lt;h3 id="先决条件">先决条件&lt;/h3>
+&lt;p>To download Visual Studio Community, simply visit this link: &lt;a class="link" href="https://visualstudio.microsoft.com/downloads/" target="_blank" rel="noopener"
+>Download Visual Studio Tools&lt;/a>.&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615104622260.png"
+width="1740"
+height="757"
+srcset="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615104622260_hu45036c0f38cf59d5b9223c0bad8cfe31_320308_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615104622260_hu45036c0f38cf59d5b9223c0bad8cfe31_320308_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="安装 Visual Studio Community"
+class="gallery-image"
+data-flex-grow="229"
+data-flex-basis="551px"
+>&lt;/p>
+&lt;p>下载完成后，请启动引导程序，安装 Visual Studio 中的「桌面 C++ 开发套件」。在安装引导界面中，只需勾选【工作负载 - 桌面应用和移动应用程序 - &lt;strong>使用 C++ 的桌面开发&lt;/strong>】，并根据需要合理调整“安装位置”以节省存储空间和安装时间。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615104228776.png"
+width="1081"
+height="440"
+srcset="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615104228776_hua9e9eee047f02166c064b681a79137f0_60675_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615104228776_hua9e9eee047f02166c064b681a79137f0_60675_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="安装 桌面 C&amp;#43;&amp;#43; 开发套件"
+class="gallery-image"
+data-flex-grow="245"
+data-flex-basis="589px"
+>&lt;/p>
+&lt;h3 id="重载-rust-开发环境">重载 Rust 开发环境&lt;/h3>
+&lt;p>&lt;strong>务必完成 &amp;lt;先决条件&amp;gt; 再继续后续步骤&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>卸载 rustup 及相关系统依赖&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rustup self uninstall
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>前往官网下载最新版的 rustup 引导程序&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe" target="_blank" rel="noopener"
+>rustup-init.exe (64-bit) 下载链接&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.rust-lang.org/tools/install" target="_blank" rel="noopener"
+>rust-lang 官网&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>启动引导程序，使用默认配置安装&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>覆盖工具链配置&lt;/p>
+&lt;p>另起一个 shell，安装 &lt;code>stable-x86_64-pc-windows-msvc&lt;/code> 并将其置为默认的工具链：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rustup toolchain install stable-msvc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">rustup default stable-msvc
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>验收&lt;/p>
+&lt;p>原地 &lt;code>cargo new halo&lt;/code> 或以你喜欢的方式测试工具链是否恢复正常（能够正常&lt;code>cargo run &lt;/code>即可）。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="setup-rust-debugger">Setup Rust Debugger&lt;/h2>
+&lt;p>在 &lt;code>JetBrains IDEs + Rust Plugin&lt;/code> 的开发环境中，直接运行默认的调试器可能会遇到一些意想不到的问题。其中最常见的问题是&lt;strong>调试器与工具链不匹配&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615105150976.png"
+width="462"
+height="180"
+srcset="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615105150976_hu0656bdb7ad28e060cc85f137177be176_13664_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615105150976_hu0656bdb7ad28e060cc85f137177be176_13664_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Unable to run debugger"
+class="gallery-image"
+data-flex-grow="256"
+data-flex-basis="616px"
+>&lt;/p>
+&lt;p>&lt;strong>在 Rust 中，工具链和调试器是搭配使用的&lt;/strong>，即，主流的可选方案有：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>msvc toolchain + msvc LLDB&lt;/code>&lt;/li>
+&lt;li>&lt;code>gnu toolchain + MinGW GDB&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;p>也即，此时你有两种选择：&lt;/p>
+&lt;ol>
+&lt;li>依然选择 &lt;code>MSVC Rust toolchain&lt;/code>，进一步调整运行配置，激活并选用 &lt;code>MSVC LLDB&lt;/code> 调试器。&lt;/li>
+&lt;li>另外安装 &lt;code>GNU Rust toolchain&lt;/code>，搭配默认内置的 &lt;code>MinGW GDB&lt;/code> 调试器。&lt;/li>
+&lt;/ol>
+&lt;p>在本文的上下文环境中，我们已经决定使用 &lt;code>MSVC Rust toolchain&lt;/code>，因此我们将选择【方案一】来调整运行配置（以 CLion IDE 为例）。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>依次打开【首选项 &amp;ndash; 设置 &amp;ndash; 构建、执行、部署 &amp;ndash; 工具链】，默认情况下会存在一个 Visual Studio 的配置项，如果没有点击 &lt;code>+&lt;/code> 新建一个。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>打开【工具集目录】选择你刚才 Visual Studio Community 的安装位置，其他的保持默认（程序会自动扫描）。可以发现此时 MSVC 绑定的调试器已经被自动扫描出来了。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615111156739.png"
+width="1229"
+height="911"
+srcset="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615111156739_hu262171492c80839f6d59be61620d2f28_91009_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615111156739_hu262171492c80839f6d59be61620d2f28_91009_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="为 toolchain 选择合适的 debugger"
+class="gallery-image"
+data-flex-grow="134"
+data-flex-basis="323px"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>点击&lt;code>+&lt;/code> 旁边的向上箭头将你添加的配置调到最上方（即视为默认的运行配置）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>运行调试器，可以在控制台看到对应的断点信息。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615111759499.png"
+width="561"
+height="571"
+srcset="https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615111759499_hu8c8cc6ffa647accc8db8eccba1ea1ac3_91568_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/rust-toolchain-debugger/image-20230615111759499_hu8c8cc6ffa647accc8db8eccba1ea1ac3_91568_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="预览调试信息"
+class="gallery-image"
+data-flex-grow="98"
+data-flex-basis="235px"
+>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/10926530836370-Unable-to-run-debugger-GNU-debugger-cannot-be-used-with-MSVC-Rust-toolchain-" target="_blank" rel="noopener"
+>Unable to run debugger: GNU debugger cannot be used with MSVC Rust toolchain. – IDEs Support (IntelliJ Platform) | JetBrains&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
