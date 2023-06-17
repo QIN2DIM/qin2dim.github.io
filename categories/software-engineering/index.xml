@@ -1,4 +1,378 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Engineering on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/software-engineering/</link><description>Recent content in Software Engineering on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 02 Feb 2023 10:06:17 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/software-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』AI 有望成为华语乐坛的下一任周杰伦</title><link>https://blog.echosec.top/p/google-research-seanet-musiclm/</link><pubDate>Thu, 02 Feb 2023 10:06:17 +0800</pubDate><guid>https://blog.echosec.top/p/google-research-seanet-musiclm/</guid><description>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/lixin.jpg" alt="Featured image of post 『Blog』AI 有望成为华语乐坛的下一任周杰伦" />&lt;h2 id="preview">Preview&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Engineering on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/software-engineering/</link><description>Recent content in Software Engineering on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 17 Jun 2023 18:39:06 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/software-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』NeZha Monitoring 从一到无穷大</title><link>https://blog.echosec.top/p/nezha-monitoring/</link><pubDate>Sat, 17 Jun 2023 18:39:06 +0800</pubDate><guid>https://blog.echosec.top/p/nezha-monitoring/</guid><description>&lt;img src="https://blog.echosec.top/p/nezha-monitoring/wanderer4.jpg" alt="Featured image of post 『Blog』NeZha Monitoring 从一到无穷大" />&lt;h2 id="preview">Preview&lt;/h2>
+&lt;p>&lt;img src="https://blog.echosec.top/p/nezha-monitoring/image-20230617192034418.png"
+width="1488"
+height="1123"
+srcset="https://blog.echosec.top/p/nezha-monitoring/image-20230617192034418_hu0ac0ece9aa252182b1b5f623f9ab6e98_118119_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/nezha-monitoring/image-20230617192034418_hu0ac0ece9aa252182b1b5f623f9ab6e98_118119_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="NeZha Monitoring Dashboard - Default Theme"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+>&lt;/p>
+&lt;h3 id="简介">简介&lt;/h3>
+&lt;p>&lt;strong>&lt;a class="link" href="https://nezha.wiki/index.html" target="_blank" rel="noopener"
+>哪吒监控&lt;/a>&lt;/strong> 是一个开源、轻量的服务器和网站监控、运维工具，它具备以下特点：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>实时监控&lt;/strong>：支持同时监控多个服务器的系统状态，监控网页、端口、SSL证书状态等，并可配置故障、流量等状态报警。多种通知方式（Telegram、邮件、微信等）可供选择。&lt;/li>
+&lt;li>&lt;strong>轻量运维&lt;/strong>：支持在线SSH，支持流量循环监控，支持设置定时任务、服务器批量执行任务。&lt;/li>
+&lt;/ol>
+&lt;h3 id="先决条件">先决条件&lt;/h3>
+&lt;p>在下一节的速通攻略中，我们将介绍一种哪吒监控系统敏捷部署方案。面板节点使用 Cloudflare CDN + NGINX 反向代理 + HTTPS 域名架构，实现在线访问功能。开始操作前请确保你已具备如下先决条件：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>准备一台或多台 VPS&lt;/strong>&lt;/p>
+&lt;p>VPS 需要放行 8008 和 5555 端口。其中，8008 是面板端口，5555 用于传输被控节点的资源状态。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>选择一台 VPS 作为面板节点&lt;/strong>&lt;/p>
+&lt;p>在 Cloudflare 中解析两条 A 记录指向这个节点。其中一条用于 CDN 连接。在添加记录时，不要开启“小云朵”。Cloudflare 支持且默认开启 CDN WebSocket。&lt;/p>
+&lt;p>对于面板节点而言，单核 512MB 内存的服务器配置就足以满足大多数使用场景。&lt;/p>
+&lt;p>需要额外注意面板节点 80 和 443 端口的放行和占用情况。我们后续会使用 certbot 申请免费域名证书，请确保端口处于空闲状态。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>一个用于 OAuth2.0 授权的 GitHub 账号&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="get-started">Get started&lt;/h2>
+&lt;h3 id="setup">Setup&lt;/h3>
+&lt;p>在一切开始前，我们假设（定义）如下变量：&lt;/p>
+&lt;ol>
+&lt;li>面板 CDN 域名：如 &lt;code>cdn.happy.live&lt;/code>。一切从外来流量访问这个域名。&lt;/li>
+&lt;li>面板直连域名：如 &lt;code>dash.happy.live&lt;/code>。仅供 NeZha Monitoring 内部节点通信使用。&lt;/li>
+&lt;/ol>
+&lt;p>将你解析的域名同等替换即可。之后的操作以 Ubuntu20.04 为例。&lt;/p>
+&lt;h3 id="github-oauth20-应用申请">GitHub OAuth2.0 应用申请&lt;/h3>
+&lt;p>访问 &lt;a class="link" href="https://github.com/settings/applications/new" target="_blank" rel="noopener"
+>New OAuth Application&lt;/a>，注册一个新的 OAuth 应用：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Item&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Application name&lt;/td>
+&lt;td>随便写，比如 &lt;code>NeZha Monitoring Dashboard&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Homepage URL&lt;/td>
+&lt;td>填 HTTPS 架构域名，比如 &lt;code>https://cdn.happy.live&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Authorization callback URL&lt;/td>
+&lt;td>同上，填写 NeZha 的&lt;code>redirect_uri&lt;/code>，&lt;code>https://cdn.happy.live/oauth2/callback&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>注册完成后，New 一个 &lt;code>Client secrets&lt;/code> ，并记下 &lt;code>Client ID&lt;/code> 和 &lt;code>Client secrets&lt;/code>后面会用到。&lt;/p>
+&lt;h3 id="拉起面板节点">拉起面板节点&lt;/h3>
+&lt;p>SSH 连上面板节点，执行以下命令安装引导脚本&lt;a class="link" href="https://nezha.wiki/guide/dashboard.html#%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%AD%E5%AE%89%E8%A3%85-dashboard" target="_blank" rel="noopener"
+>&amp;lt;documentation&amp;gt;&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -L https://raw.githubusercontent.com/naiba/nezha/master/script/install.sh -o nezha.sh &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> chmod +x nezha.sh &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> sudo ./nezha.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>等待Docker安装完毕后，选择安装监控面板，分别输入以下值：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Item&lt;/th>
+&lt;th>Action&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>OAuth提供商&lt;/td>
+&lt;td>回车选用默认配置，GitHub&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Client ID&lt;/td>
+&lt;td>Client ID of your OAuth APP&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Client Secret&lt;/td>
+&lt;td>Client Secret of your OAuth APP&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>用户名&lt;/td>
+&lt;td>Your GitHub username&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>站点标题&lt;/td>
+&lt;td>随便写&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>访问端口&lt;/td>
+&lt;td>回车选用默认配置，8008&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Agent的通信端口&lt;/td>
+&lt;td>回车选用默认配置，5555&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>输入完成后，等待拉取镜像，安装结束后，如果一切正常，此时你可以访问 &lt;code>IP+端口号&lt;/code>，如:&lt;/p>
+&lt;p>&lt;code>http://your-server-ip:8008&lt;/code>，注意此时只能通过 HTTP 架构访问。&lt;/p>
+&lt;h3 id="配置面板节点">配置面板节点&lt;/h3>
+&lt;h4 id="申请证书">申请证书&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>安装 certbot&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install certbot
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>如果已运行 NGINX 请先停止它再运行脚本。如果其他进程占用了 80/443 端口，也会影响证书申请。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nginx -s stop
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>安装证书&lt;/p>
+&lt;p>&lt;code>-d&lt;/code> 后接证书绑定域名，也即，从 Cloudflare 解析到面板节点的 CDN 域名。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo certbot certonly --standalone --register-unsafely-without-email -d &lt;span class="o">[&lt;/span>你的面板CDN域名&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>检查证书路径&lt;/p>
+&lt;p>在默认情况下，证书文件 .pem 将被发送到以下路径：&lt;code>/etc/letsencrypt/live/[domain]/&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># 证书文件路径&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">ssl_certificate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/etc/letsencrypt/live/[domain]/fullchain.pem &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 私钥文件路径&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">ssl_certificate_key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/etc/letsencrypt/live/[domain]/privkey.pem &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h4 id="配置-nginx-反代">配置 NGINX 反代&lt;/h4>
+&lt;p>开始后续步骤前确保 80,443 端口空闲且 NGINX 服务处于未激活状态&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看 80 端口占用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lsof -i:80
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看 443 端口占用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lsof -i:443
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 关闭 NGINX 服务&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl stop nginx
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 杀死占用 80/443 端口的游离进程&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">kill&lt;/span> -9 &lt;span class="o">[&lt;/span>PID&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>
+&lt;p>编排 NGINX 配置，在 &lt;code>http&lt;/code> 配置组中添加如下 &lt;code>server&lt;/code> 代理规则，修改 &lt;code>server_name&lt;/code>、&lt;code>ssl_certificate&lt;/code> 以及 &lt;code>ssl_certificate_key&lt;/code> 字段，其他配置不动。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span> &lt;span class="s">ssl&lt;/span> &lt;span class="s">http2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:443&lt;/span> &lt;span class="s">ssl&lt;/span> &lt;span class="s">http2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">80&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 修改为你的 CDN 域名
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">DOMAIN&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 修改证书路径
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/etc/letsencrypt/live/DOMAIN/fullchain.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/etc/letsencrypt/live/DOMAIN/privkey.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://127.0.0.1:8008&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$http_host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Upgrade&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">~&lt;/span> &lt;span class="sr">^/(ws|terminal/.+)$&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://127.0.0.1:8008&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_http_version&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="s">.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Upgrade&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Connection&lt;/span> &lt;span class="s">&amp;#34;Upgrade&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$http_host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>检查 NGINX 配置文件是否配置正确&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nginx -t
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>重启 NGINX，读入新的配置&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl start nginx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>检查 NGINX 运行状态&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl status nginx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;p>NGINX 启动后，访问 HTTPS 架构的面板 CDN 域名，如果一切正常，你将会看到和先前步骤中直接访问 &lt;code>http://ip:8008&lt;/code> 一样的面板界面。&lt;/p>
+&lt;p>🐞 注意！我们一直在使用「面板 CDN 域名」作指代，但目前为止，我们仍没有为该条 A 纪录开启 &lt;code>Cloudflare CDN&lt;/code> 。&lt;/p>
+&lt;h4 id="绑定面板服务器域名">绑定面板服务器域名&lt;/h4>
+&lt;p>从浏览器里访问面板 CDN 域名，OAuth 登录验证管理员身份，进入后台。填写【设置 &amp;ndash; 未接入CDN的面板服务器域名/IP】顾名思义，填写解析到面板节点的另一条 A 纪录的域名。&lt;/p>
+&lt;h3 id="添加被控节点">添加被控节点&lt;/h3>
+&lt;p>回到面板的【主机】页面，点击【添加服务器】，根据你的喜好填写名称、服务器分组、排序和备注，这些都是可选项。勾选「对游客隐藏」。&lt;/p>
+&lt;p>添加完毕后，点击服务器组件的编辑按钮，在弹出的窗口里找到【&lt;strong>Linux 一键安装&lt;/strong>】的命令，复制它。&lt;/p>
+&lt;img src="image-20230617233441165.png" alt="NeZha Dashboard" style="zoom:80%;" />
+&lt;div align="center">&lt;img src="image-20230617233735311.png" alt="image-20230617233735311" style="zoom:50%;" />&lt;/div>
+&lt;p>SSH 连上你的被控节点，粘贴并运行一键安装命令。回到 Dashboard 的主页，如果一切正常，你可以看到处于「非离线」状态的被控节点信息。&lt;/p>
+&lt;p>重复这个操作，&lt;strong>面板添加配置 → 复制指令 → 在被控节点中运行指令&lt;/strong> → 添加成功。&lt;/p>
+&lt;h3 id="enable-cdn">Enable CDN&lt;/h3>
+&lt;p>返回 Cloudflare DNS 配置页面，点击面板 CDN 域名的那条记录旁边的“小云朵”图标。等待 CDN 配置生效，时间短则十几秒，时间长则十几分钟。在此期间，您可以通过“隐私模式”标签页访问 CDN 域名，或在本地 ping CDN 域名，总之就是等。&lt;/p>
+&lt;img src="image-20230617234443457.png" alt="image-20230617234443457" style="zoom:80%;" />
+&lt;h2 id="result">Result&lt;/h2>
+&lt;p>有关 Get started 的迷思和执行细节可以参考下文的「Advanced」部分。本文还未提及 NeZha Monitoring 的一些高级特性和服务组件，你可以逐步精进，详见 &lt;strong>&lt;a class="link" href="https://nezha.wiki/guide/services.html" target="_blank" rel="noopener"
+>官方文档&lt;/a>&lt;/strong>。&lt;/p>
+&lt;h2 id="advanced">Advanced&lt;/h2>
+&lt;h3 id="哪吒监控基本概念与叙事结构">哪吒监控基本概念与叙事结构&lt;/h3>
+&lt;p>NeZha Monitoring 主要由两个部分组成：面板节点和被控节点。任何服务器都可以同时作为面板和被控节点，可以在服务器 A 上部署面板，以展示包括节点 A 在内的多个被控节点的资源状态。&lt;/p>
+&lt;p>以下是相关的基础概念：&lt;/p>
+&lt;ol>
+&lt;li>面板节点（Dashboard Node）：用于展示被控节点的资源状态。&lt;/li>
+&lt;li>被控节点（Agent Node）：定期向面板节点传输本机的资源状态。&lt;/li>
+&lt;li>资源状态：包括节点的 CPU、内存、网络 I/O 等常见资源信息。默认情况下，每两秒更新并推送一次。&lt;/li>
+&lt;/ol>
+&lt;p>通常情况下，我们只需要在几台服务器中选择一台用于部署监控面板。同时，我们需要注意以下几点：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>VPS / EC2 实例&lt;/strong>，只有单个 IPv4 的云服务器实例。这些实例由庞大的独立服务器集群虚拟化并分割出来。如果您直接管理多台物理机，那么 NeZha 不适合用作资源探针。&lt;/li>
+&lt;li>&lt;strong>若干台服务器&lt;/strong>，数量 10 或以内的云服务器实例（低配小鸡）。如果您管理的实例超过这个规模且节点之间有非常明显的协同关系，或是管理的实例数量破百甚至达到数万百万的级别，大佬您可以选择一些成熟的 k8s 企业级应用。&lt;/li>
+&lt;/ol>
+&lt;h3 id="访问权限与授权等相关问题">访问权限与授权等相关问题&lt;/h3>
+&lt;p>&lt;strong>NeZha Monitoring 通过 OAuth2.0 识别 admin 并给予其（管理后台）和（所有被控节点）的访问权限。&lt;/strong>&lt;/p>
+&lt;p>在本文速通攻略中我们使用 GitHub 作为授权服务器，此外还可以将 GitLab、JihuLab 以及 Gitee 作为授权方（v0.15.1）。&lt;/p>
+&lt;p>对于首次使用 NeZha Monitoring 且对 OAuth2.0 比较陌生的玩家可能会有以下一系列的迷思：&lt;/p>
+&lt;blockquote>
+&lt;p>Q: 是不是所有人都可以访问我的 NeZha 面板？&lt;/p>
+&lt;/blockquote>
+&lt;p>A: 对，在浏览器输入网址就可以访问前端面板。只要你的域名到 NeZha service 之间的通路正常，任何人访问面板域名都可以看到 Dashboard font-page。&lt;/p>
+&lt;blockquote>
+&lt;p>Q: 那是不是意味着所有人都可以访问后台？&lt;/p>
+&lt;/blockquote>
+&lt;p>A：当然不，只有注册到 NeZha 面板的管理员用户才能访问后台。&lt;/p>
+&lt;blockquote>
+&lt;p>Q: 那么 NeZha 如何区分哪些用户是管理员呢？&lt;/p>
+&lt;/blockquote>
+&lt;p>A: 细说，这个一句话讲不清楚！&lt;/p>
+&lt;p>首先，我们需要定义「游客用户」和「管理员用户」两种角色。&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>游客&lt;/strong>：直接访问面板且还未登录的用户。&lt;/li>
+&lt;li>&lt;strong>管理员&lt;/strong>：已被添加到面板的 Admin List 中的用户。&lt;/li>
+&lt;/ol>
+&lt;p>这里的 OAuth2.0 授权过程可以认为是 NeZha 向 GitHub 要了你的 username ，也即，前文我们所说的“授权”，其实指的是你允许 NeZha 获取你 GitHub 账号的数据。在这里，NeZha 只获取了你的 user-data，这包含了你的 GitHub username。&lt;/p>
+&lt;p>获取到你的 username 之后，NeZha 就可以比对你的 username 和注册到 Admin List 的 username，区分你是「游客」还是「管理员」。 当然，GitHub username 是唯一的，这里不会出现“重名”的情况。&lt;/p>
+&lt;p>值得一提的是，NeZha 没有用户分级机制，也即，你要么是游客要么是管理员，不存在一个“普通用户”的中间态说法。&lt;/p>
+&lt;blockquote>
+&lt;p>Q: 那我明白了，回到最初的那个问题，既然「所有人都可以访问我部署的面板」，那是不是意味着这些「游客」都可以看到我的被控节点状态？&lt;/p>
+&lt;/blockquote>
+&lt;p>A: 你这后半句有歧义啊，&lt;strong>NeZha 没有设计特权机制（Privilege）&lt;/strong>，所以没有“这些游客”或是“部分游客”的说法，也即，&lt;strong>对于某个被控节点来说，要么所有的游客都可以看到它的资源状态，要么所有的游客都不行&lt;/strong>。&lt;/p>
+&lt;p>如果你走过前文的速通攻略，你会发现在添加被控节点的时候有个 「对游客隐藏」的选项，如果勾选了，那么这个节点在我们直接访问站点且还未“以管理员身份登录”的情况下是不可见的。&lt;/p>
+&lt;p>上文说到 NeZha 没有用户分级机制，你要么是游客要么是管理员，&lt;strong>NeZha 会阻止非管理员用户访问「对游客隐藏」的被控节点&lt;/strong>。&lt;/p>
+&lt;p>换句话说，在你授权 NeZha 获取到你的 username 之后，会发生以下两种情况：&lt;/p>
+&lt;ol>
+&lt;li>你是管理员，开放管理后台和所有被控节点的访问权限&lt;/li>
+&lt;li>你是不是管理员，要么看到“空白页”，要么能看到「没有对游客隐藏」的被控节点的资源状态&lt;/li>
+&lt;/ol>
+&lt;p>也即，如果你已经意识到你没有该 NeZha 站点的管理员账号，你可以提前对自己说「我就来看看」。&lt;/p>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://nezha.wiki/index.html" target="_blank" rel="noopener"
+>NeZha Documentation&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/naiba/nezha" target="_blank" rel="noopener"
+>NeZha GitHub repository&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul></description></item><item><title>『Blog』AI 有望成为华语乐坛的下一任周杰伦</title><link>https://blog.echosec.top/p/google-research-seanet-musiclm/</link><pubDate>Thu, 02 Feb 2023 10:06:17 +0800</pubDate><guid>https://blog.echosec.top/p/google-research-seanet-musiclm/</guid><description>&lt;img src="https://blog.echosec.top/p/google-research-seanet-musiclm/lixin.jpg" alt="Featured image of post 『Blog』AI 有望成为华语乐坛的下一任周杰伦" />&lt;h2 id="preview">Preview&lt;/h2>
 &lt;p>&lt;a class="link" href="https://arxiv.org/abs/2301.11325" target="_blank" rel="noopener"
 >PDF EN&lt;/a> &lt;strong>|&lt;/strong> &lt;a class="link" href="https://github.com/QIN2DIM/img_pool/releases/download/musiclm-paper/2301.11325.zh.pdf" target="_blank" rel="noopener"
 >PDF ZH&lt;/a>&lt;/p>
