@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 17 Jun 2023 18:39:06 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』NeZha Monitoring 从一到无穷大</title><link>https://blog.echosec.top/p/nezha-monitoring/</link><pubDate>Sat, 17 Jun 2023 18:39:06 +0800</pubDate><guid>https://blog.echosec.top/p/nezha-monitoring/</guid><description>&lt;img src="https://blog.echosec.top/p/nezha-monitoring/wanderer4.jpg" alt="Featured image of post 『Blog』NeZha Monitoring 从一到无穷大" />&lt;h2 id="preview">Preview&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Echosec @QIN2DIM</title><link>https://blog.echosec.top/</link><description>Recent content on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 19 Jun 2023 16:24:38 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Mounting Alidrive Locally</title><link>https://blog.echosec.top/p/mouting-alidrive-locally/</link><pubDate>Mon, 19 Jun 2023 16:24:38 +0800</pubDate><guid>https://blog.echosec.top/p/mouting-alidrive-locally/</guid><description>&lt;img src="https://blog.echosec.top/p/mouting-alidrive-locally/doharge-08.jpg" alt="Featured image of post 『Blog』Mounting Alidrive Locally" />&lt;h2 id="demo">Demo&lt;/h2>
+&lt;div class="video-wrapper">
+&lt;video
+controls
+src="aDrive-webdav%281%29.mp4"
+>
+&lt;p>
+Your browser doesn't support HTML5 video. Here is a
+&lt;a href="aDrive-webdav%281%29.mp4">link to the video&lt;/a> instead.
+&lt;/p>
+&lt;/video>
+&lt;/div>
+&lt;h2 id="先决条件">先决条件&lt;/h2>
+&lt;ol>
+&lt;li>一个已注册好的阿里云盘账号&lt;/li>
+&lt;li>具备一定的编程基础以及网络调试技巧&lt;/li>
+&lt;/ol>
+&lt;h2 id="配置-alist-client">配置 AList Client&lt;/h2>
+&lt;h3 id="创建影视资源目录">创建影视资源目录&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>访问 &lt;a class="link" href="https://www.aliyundrive.com/drive" target="_blank" rel="noopener"
+>阿里云网页版&lt;/a>，在云盘上创建一个 &lt;strong>影视资源目录&lt;/strong>。这是一个用于统一存放影视资源的文件夹。您可以将您想要映射到本地磁盘的资源集中保存到这个文件夹中。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>复制影视资源目录的 &lt;code>Path&lt;/code>，即网址中 &lt;code>/folder/&lt;/code> 之后的内容&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;figure>&lt;img src="Untitled.png"
+alt="2.1 URI of the cloud storage"/>&lt;figcaption>
+&lt;p>2.1 URI of the cloud storage&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;h3 id="授权访问">授权访问&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Method1：&lt;a class="link" href="https://alist.nn.ci/tool/aliyundrive/request.html" target="_blank" rel="noopener"
+>Get Aliyundrive Refresh Token&lt;/a>，点击【Go to login】利用先前步骤的缓存直接完成 OAuth2.0 授权。如果这个链接失效，你可以从 AList 官方文档进入这个授权页。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Method2：访问 &lt;a class="link" href="https://alist.nn.ci/zh/guide/drivers/" target="_blank" rel="noopener"
+>AList 文档&lt;/a>，选择【存储—阿里云盘Open】，在页面中找到刷新令牌的链接，然后点击【刷新令牌】的链接，即，Mehtod1 中提到的页面。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>授权完毕后，记下页面上的刷新令牌 &lt;code>refresh_token&lt;/code>，后续步骤会用到。&lt;/p>
+&lt;h3 id="添加阿里云盘存储单元">添加阿里云盘存储单元&lt;/h3>
+&lt;p>下载对应系统的 &lt;a class="link" href="https://github.com/alist-org/alist/releases" target="_blank" rel="noopener"
+>AList Client&lt;/a> 最新版客户端（以 Windows 11 为例）&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>解压文件，进入目录，在「&lt;code>alist.exe&lt;/code> 所在目录」启动 Terminal 输入 &lt;code>alist.exe admin&lt;/code> 初始化项目并获取管理员账号&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在命令行中输入 &lt;code>alist.exe server&lt;/code> 启动后端服务&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在浏览器中访问 http://127.0.0.1:5244 进入 AList 控制台&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>由 AList 控制台进入【管理 → 存储】页面 &lt;code>/@manage/storages/add&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>添加存储节点【阿里云盘Open】，配置示例如下，未提及到的配置项保持默认。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;strong>配置项&lt;/strong>&lt;/th>
+&lt;th style="text-align:left">&lt;strong>内容&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">驱动&lt;/td>
+&lt;td style="text-align:left">阿里云盘 Open&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">挂载路径&lt;/td>
+&lt;td style="text-align:left">&lt;code>/&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">根文件夹ID&lt;/td>
+&lt;td style="text-align:left">（上文提到的）&lt;code>Path&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">刷新令牌&lt;/td>
+&lt;td style="text-align:left">（上文提到的）&lt;code>refresh_token&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">OAuth令牌链接&lt;/td>
+&lt;td style="text-align:left">&lt;code>https://api-cf.nn.ci/alist/ali_open/token&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="配置-webdav-client">配置 WebDAV Client&lt;/h2>
+&lt;p>下载 &lt;a class="link" href="https://www.raidrive.com/download" target="_blank" rel="noopener"
+>RaiDrive&lt;/a>，创建 NAS WebDAV 节点，参照下图配置。如果您按照以上步骤配置 AList，仅需要改动账户密码并关闭TLS，也即使用 HTTP 架构访问 localhost 服务。&lt;/p>
+&lt;p>此外，日后因各种原因刷新管理员密码后，请及时更新 WebDAV 的配置项，否则会遇到 401 的错误。&lt;/p>
+&lt;figure>&lt;img src="RaiDrive.png"
+alt="3.1 Sample of RaiDrive WebDav Config"/>&lt;figcaption>
+&lt;p>3.1 Sample of RaiDrive WebDav Config&lt;/p>
+&lt;/figcaption>
+&lt;/figure>
+&lt;h2 id="安装本地播放器">安装本地播放器&lt;/h2>
+&lt;p>推荐使用的本地播放器，&lt;a class="link" href="https://potplayer.daum.net/" target="_blank" rel="noopener"
+>Global Potplayer&lt;/a>&lt;/p>
+&lt;h2 id="阿里云盘影视资源汇总">阿里云盘影视资源汇总&lt;/h2>
+&lt;p>常用的阿里云盘影视资源站点，将其他人分享的影视资源保存到你的「影视资源目录」。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://docs.qq.com/sheet/DQ0d6aUxkcUxoTWN5?tab=BB08J2" target="_blank" rel="noopener"
+>MapoTofu的阿里云盘资源分享文档 &lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.btnull.org/" target="_blank" rel="noopener"
+>BTNull - 无名小站&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="自动化">自动化&lt;/h2>
+&lt;p>AList 的开源客户端只有命令行交互接口，每次要用到它还得找文件夹启动比较麻烦，如果你忘了它放哪了那就更麻烦了。&lt;/p>
+&lt;p>所以，懒人如我，一步到位写了个 &lt;a class="link" href="https://github.com/QIN2DIM/alist-quickcommand" target="_blank" rel="noopener"
+>Python 脚本&lt;/a> ，它可在 Windows 设备上快速启动 &lt;code>AList + WebDAV&lt;/code> 环境。这个脚本搭配 &lt;a class="link" href="https://u.tools/" target="_blank" rel="noopener"
+>uTools QuickCommand&lt;/a> 使用有奇效，大概就是演示视频中啪啪啪一顿自动化控制很多软件的样子。&lt;/p>
+&lt;p>😎 啊什么你还没用过 uTools ？那赶紧玩起来啊！这绝对是一个超给力的生产力工具，是一个通往新世界的大门。&lt;/p></description></item><item><title>『Blog』NeZha Monitoring 从一到无穷大</title><link>https://blog.echosec.top/p/nezha-monitoring/</link><pubDate>Sat, 17 Jun 2023 18:39:06 +0800</pubDate><guid>https://blog.echosec.top/p/nezha-monitoring/</guid><description>&lt;img src="https://blog.echosec.top/p/nezha-monitoring/wanderer4.jpg" alt="Featured image of post 『Blog』NeZha Monitoring 从一到无穷大" />&lt;h2 id="preview">Preview&lt;/h2>
 &lt;p>&lt;img src="https://blog.echosec.top/p/nezha-monitoring/image-20230617192034418.png"
 width="1488"
 height="1123"
