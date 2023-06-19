@@ -108,10 +108,18 @@ alt="3.1 Sample of RaiDrive WebDav Config"/>&lt;figcaption>
 &lt;h2 id="阿里云盘影视资源汇总">阿里云盘影视资源汇总&lt;/h2>
 &lt;p>常用的阿里云盘影视资源站点，将其他人分享的影视资源保存到你的「影视资源目录」。&lt;/p>
 &lt;ul>
-&lt;li>&lt;a class="link" href="https://docs.qq.com/sheet/DQ0d6aUxkcUxoTWN5?tab=BB08J2" target="_blank" rel="noopener"
->MapoTofu的阿里云盘资源分享文档 &lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://www.btnull.org/" target="_blank" rel="noopener"
->BTNull - 无名小站&lt;/a>&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://t.me/Share_4K" target="_blank" rel="noopener"
+>4K影视库&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://docs.qq.com/sheet/DQ0d6aUxkcUxoTWN5?tab=BB08J2" target="_blank" rel="noopener"
+>MapoTofu的阿里云盘资源分享文档 &lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://www.btnull.org/" target="_blank" rel="noopener"
+>BTNull - 无名小站&lt;/a>&lt;/p>
+&lt;/li>
 &lt;/ul>
 &lt;h2 id="自动化">自动化&lt;/h2>
 &lt;p>AList 的开源客户端只有命令行交互接口，每次要用到它还得找文件夹启动比较麻烦，如果你忘了它放哪了那就更麻烦了。&lt;/p>
