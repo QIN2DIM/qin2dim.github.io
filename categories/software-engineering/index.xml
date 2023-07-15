@@ -1,4 +1,1830 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Engineering on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/software-engineering/</link><description>Recent content in Software Engineering on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 19 Jun 2023 16:24:38 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/software-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Mounting Alidrive Locally</title><link>https://blog.echosec.top/p/mouting-alidrive-locally/</link><pubDate>Mon, 19 Jun 2023 16:24:38 +0800</pubDate><guid>https://blog.echosec.top/p/mouting-alidrive-locally/</guid><description>&lt;img src="https://blog.echosec.top/p/mouting-alidrive-locally/doharge-08.jpg" alt="Featured image of post 『Blog』Mounting Alidrive Locally" />&lt;h2 id="demo">Demo&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Engineering on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/software-engineering/</link><description>Recent content in Software Engineering on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 15 Jul 2023 12:17:57 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/software-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Dive into Clash DNS</title><link>https://blog.echosec.top/p/dive-into-clash-dns/</link><pubDate>Sat, 15 Jul 2023 12:17:57 +0800</pubDate><guid>https://blog.echosec.top/p/dive-into-clash-dns/</guid><description>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/dominik-mayer.jpg" alt="Featured image of post 『Blog』Dive into Clash DNS" />&lt;h2 id="简介">简介&lt;/h2>
+&lt;p>逐行阅读源码，超！硬！核！的 Clash DNS 底层原理详解！&lt;/p>
+&lt;p>（incoming&amp;hellip;）&lt;/p>
+&lt;h2 id="实验环境">实验环境&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">操作系统&lt;/th>
+&lt;th style="text-align:left">Windows 11&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">系统DNS&lt;/td>
+&lt;td style="text-align:left">192.168.31.1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">网关IP&lt;/td>
+&lt;td style="text-align:left">192.168.31.1&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">子网IP&lt;/td>
+&lt;td style="text-align:left">192.168.31.178&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">代理核心&lt;/td>
+&lt;td style="text-align:left">&lt;a class="link" href="https://github.com/MetaCubeX/Clash.Meta/releases/tag/v1.15.0" target="_blank" rel="noopener"
+>Clash.Meta v1.15.0&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">引导UI&lt;/td>
+&lt;td style="text-align:left">&lt;a class="link" href="https://github.com/zzzgydi/clash-verge/releases/tag/v1.3.3" target="_blank" rel="noopener"
+>clash-verge v1.3.3&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ol>
+&lt;li>
+&lt;p>Protocol: tuic v5&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">proxies&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;tunic&amp;#34;&lt;/span>&lt;span class="nt">, type: tuic, udp-relay-mode: quic, congestion-controller: bbr, alpn: [&amp;#39;h3&amp;#39;, &amp;#39;spdy/3.1&amp;#39;], reduce-rtt: True, max-udp-relay-packet-size: 1464, server: *, port: *, uuid: *, password: *, ip&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>*&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">proxy-groups&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- {&lt;span class="w"> &lt;/span>&lt;span class="nt">name: PROXY, type: select, proxies&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;tunic&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>RULE-SET 来自规则上游 &lt;em>Loyalsoldier/clash-rules&lt;/em>&lt;/p>
+&lt;p>当正文中没有明确说明 rules 时使用如下配置：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">rule-providers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># -- skip --&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,applications,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOSITE,cn,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOSITE,private,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,clash.razord.top,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,yacd.haishan.me,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,services.googleapis.cn,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,reject,REJECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,direct,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,private,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,proxy,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,icloud,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,apple,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,lancidr,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,cncidr,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">RULE-SET,telegramcidr,PROXY,no-resolve&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,PRIVATE,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="实验方法">实验方法&lt;/h2>
+&lt;blockquote>
+&lt;p>🦉实验可安全复现&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>分别在规则模式，全局模式，直连模式下使用预定义的 &lt;code>dns&lt;/code> 实验配置访问域名：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>api.dida365.com&lt;/code>&lt;/p>
+&lt;p>命中规则 &lt;code>geosite:cn&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>api.dida36768990.com&lt;/code>&lt;/p>
+&lt;p>一个随便敲的域名，假设它不存在。显然，这是个不存在于各个 RULE-SET 中的 target。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>www.google.com&lt;/code>&lt;/p>
+&lt;p>从上至下，命中首条域名代理规则。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>切换到 TUN 模式再测一遍&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Recode DNS configuration, logger, wireshark trace&lt;/p>
+&lt;p>记录请求的触发顺序，阐述 clash DNS 通信的底层逻辑。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>无特殊说明统一使用 clash 代称 Clash 和 Clash.Meta&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>实验在 Win PC 执行，而非软路由等嵌入式设备&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>每轮实验结束后清除所有 clash 连接， &lt;code>ipconfig \flushdns&lt;/code> 清除 DNS 缓存&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>实验中使用 clash-verge 引导 Clash.Meta 代理核心，UI 保持出厂设定&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;blockquote>
+&lt;p>🪖需要注意：Clash DNS Object 有初始值，clash 会用硬编码的初始化参数覆盖我们缺省的字段，具体默认值可看上文的 &lt;a class="link" href="" >DNS 默认配置&lt;/a> 以及 &lt;a class="link" href="" >UnmarshalRawConfig&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>实验按以下模块依次行进：&lt;/p>
+&lt;ol>
+&lt;li>config.yaml 中的 dns 配置字段&lt;/li>
+&lt;li>wireshark 抓包，过滤条件是 &lt;code>dns &amp;amp;&amp;amp; ip.dst==192.168.31.178&lt;/code>&lt;/li>
+&lt;li>连接日志（可省略）&lt;/li>
+&lt;/ol>
+&lt;h2 id="配置篇">配置篇&lt;/h2>
+&lt;h3 id="引入-default-nameserver--nameserver">引入 default-nameserver &amp;amp; nameserver&lt;/h3>
+&lt;blockquote>
+&lt;p>💡前者用于解析后者的域名，后者用于解析我们要访问的域名。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="规则模式---对照组--默认配置">规则模式 - 对照组 | 默认配置&lt;/h4>
+&lt;p>仅设置 &lt;em>enable&lt;/em> 字段，此时采用&lt;a class="link" href="https://www.notion.so/Dive-into-Clash-DNS-a025c9bb5f724972a2ffb7984ae4a6ca?pvs=21" target="_blank" rel="noopener"
+>初始化的 DNS 配置&lt;/a>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以看到，核心先并发请求 default-nameserver 中配置的四条 DNS IP 去解析 &lt;code>doh.pub&lt;/code> （再使用 &lt;code>https://doh.pub/dns-query&lt;/code> 这条 DOH &lt;em>nameserver&lt;/em> 配置去解析 &lt;code>api.dida365.com&lt;/code>）。&lt;/p>
+&lt;p>DOH 行进时，域名查询被封装在 HTTPS 请求中，使其本质上成为了 HTTP 协议类型的加密流量。这种类型的请求无法使用 protocol==dns 进行捕获，如 wireshark 的截图所示，看不到查询 &lt;code>api.dida365.com&lt;/code> 的响应纪录。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192020922.png"
+width="1460"
+height="193"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192020922_hu89b0e13e4d05c57b691796638e3491eb_142888_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192020922_hu89b0e13e4d05c57b691796638e3491eb_142888_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="756"
+data-flex-basis="1815px"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>TCP&lt;span class="o">]&lt;/span> 127.0.0.1:64007&lt;span class="o">(&lt;/span>msedge.exe&lt;span class="o">)&lt;/span> --&amp;gt; api.dida365.com:443 match GeoSite&lt;span class="o">(&lt;/span>cn&lt;span class="o">)&lt;/span> using DIRECT
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以得出如下阶段性结论：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>访问域名时遇到直连域名规则，从本地发起 DNS 请求&lt;/strong>&lt;/p>
+&lt;p>&lt;code>api.dida365.com&lt;/code> 是一个在 &lt;code>geosite:cn&lt;/code> 数据库中的规则，其对应了我们的出站策略 &lt;strong>DIRECT&lt;/strong>（详见上文的 rules），也即，下面这两种情况是等价的。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOSITE,CN,DIRECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># A&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida365.com,DIRECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># B&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&lt;em>default-nameserver&lt;/em> 仅用来解析 &lt;em>nameserver&lt;/em> 字段中配置的域名&lt;/strong>&lt;/p>
+&lt;p>这也说明了 &lt;em>default-nameserver&lt;/em> 为什么只能写 IP 而不能写域名，这会遇到先有鸡还是先有蛋的问题。但值得一提的是，&lt;em>default-nameserver&lt;/em> 支持 HTTPS 写法。&lt;/p>
+&lt;p>这也意味着，如果 &lt;em>nameserver&lt;/em> 中没有配置域名形式的 &lt;em>DOH/DOT/DOQ&lt;/em>，则 &lt;em>default-nameserver&lt;/em> 对应的业务代码不会被触发。（具体情况看下文的测试）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>通过 &lt;em>nameserver&lt;/em> 解析我们要访问的域名&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="规则模式---仅设置-nameserver-为-dns-ip">规则模式 - 仅设置 &lt;em>nameserver&lt;/em> 为 DNS IP&lt;/h4>
+&lt;blockquote>
+&lt;p>从这里开始我们就不贴规则匹配的日志了，结果都和对照组一样。我们在仅修改 DNS 配置的情况下，同一 target 的出站策略不受影响。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>行进步骤如下：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用 &lt;em>nameserver&lt;/em> 解析我们要访问的域名&lt;/p>
+&lt;p>可以看到我们向（人为配置的）223.5.5.5 发起了明文 DNS 请求并收到了查询响应。其中，除了我们访问的 &lt;code>api.dida365.com&lt;/code> ，还能看到其他驻台程序发起的 DNS 请求。&lt;/p>
+&lt;p>显然，这与对照组的结果不一致。&lt;/p>
+&lt;p>具体来说 ，我们在对照组（默认配置）下使用 DOH &lt;a class="link" href="https://doh.pub/dns-query" target="_blank" rel="noopener"
+>https://doh.pub/dns-query&lt;/a> 发送域名解析请求，这个请求是一个封装在 HTTPS 数据包中的加密申请，我们无法在过滤条件为 &lt;code>dns&lt;/code> 的筛选中捕获到这条解析请求。而本组实验设置中使用了未经加密的申请，也即 &lt;strong>udp://223.5.5.5:53&lt;/strong>（行进源码自动补全为 URL），这是一条命中 &lt;code>dns&lt;/code> 过滤规则的请求，我们不仅可以捕获到它，还能看见它的 Message/Information，即，要访问/要解析的站点。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>由于&lt;strong>我们未配置域名形式的 DOH&lt;/strong>，所以 &lt;em>default-nameserver&lt;/em> 相关行进代码未被触发。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192539131.png"
+width="1460"
+height="136"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192539131_hu46dbbc8a5173a5abc7d300ae0aea994b_116519_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192539131_hu46dbbc8a5173a5abc7d300ae0aea994b_116519_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1073"
+data-flex-basis="2576px"
+>&lt;/p>
+&lt;h4 id="规则模式---仅设置-nameserver-为-doh-ip">规则模式 - 仅设置 &lt;em>nameserver&lt;/em> 为 DOH: IP&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://223.5.5.5/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>行进步骤如下：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用 &lt;em>nameserver&lt;/em> 解析我们要访问的域名&lt;/p>
+&lt;p>我们向 IP 形式的 DOH 发起了对 &lt;code>api.dida365.com&lt;/code> 域名解析请求，请求被加密到 HTTPS 数据包中，通过 dns 筛选无法捕获。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>由于&lt;strong>我们未配置域名形式的 DOH&lt;/strong>，所以 &lt;em>default-nameserver&lt;/em> 相关行进代码未被触发。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192605396.png"
+width="1460"
+height="112"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192605396_huc4d0330bb6469d0aba90b1a0f2013393_18988_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192605396_huc4d0330bb6469d0aba90b1a0f2013393_18988_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1303"
+data-flex-basis="3128px"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当我们等待一段时间后，我们可以陆续收到来自系统DNS（网关）返回的 DNS 查询响应。按理说，我们的请求不是被加密了吗？要响应也应该是 HTTPS 类型的协议，再不济也应该是阿里服务器返回的响应啊？（也即 &lt;code>dns &amp;amp;&amp;amp; ip.src==223.5.5.5&lt;/code>）怎么会有来自本地运营商发来的 DNS 查询响应呢？&lt;/p>
+&lt;p>这涉及到 Windows 操作系统级的 DNS 查询组策略，我们后文细说。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192620101.png"
+width="1460"
+height="153"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192620101_hu0f3f6089e9ff7f8c928d1d3e58376b90_177260_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192620101_hu0f3f6089e9ff7f8c928d1d3e58376b90_177260_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="954"
+data-flex-basis="2290px"
+>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="规则模式---仅设置-nameserver-为-doh-domain">规则模式 - 仅设置 &lt;em>nameserver&lt;/em> 为 DOH: domain&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://dns.alidns.com/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>是不是熟悉的感觉又回来了~🐧&lt;/p>
+&lt;p>行进步骤如下：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>使用 &lt;em>nameserver&lt;/em> 解析我们要访问的域名&lt;/p>
+&lt;p>与对照组的情况一直，这是个加密请求，后文不再赘述。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>我们配置了域名形式的 DOH&lt;/strong>，&lt;em>default-nameserver&lt;/em> 相关代码开始执行。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192644224.png"
+width="1460"
+height="195"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192644224_huc93d893886078e68ba7f92e3db185b57_261789_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192644224_huc93d893886078e68ba7f92e3db185b57_261789_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="748"
+data-flex-basis="1796px"
+>&lt;/p>
+&lt;h3 id="引入-namesever-policy">引入 namesever-policy&lt;/h3>
+&lt;blockquote>
+&lt;p>💡优先级高于 &lt;em>nameserver&lt;/em>&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="规则模式---同时设置-nameserver-policy-和-nameserver">规则模式 - 同时设置 &lt;em>nameserver-policy&lt;/em> 和 &lt;em>nameserver&lt;/em>&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">1.0.0.1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>命中规则，使用 &lt;em>nameserver-policy&lt;/em> 解析域名 &lt;code>api.dida365.com&lt;/code>&lt;/p>
+&lt;p>当我们访问 &lt;code>api.dida365.com&lt;/code> 时优先使用 1.0.0.1 进行域名解析。除此之外所有的 DNS 请求都走 223.5.5.5，比如随后响应的&lt;code>cdn.dida365.com&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>由于 &lt;em>nameserver&lt;/em> 和 &lt;em>nameserver-policy&lt;/em> 都不存在域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 相关代码不启动&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192921676.png"
+width="1460"
+height="310"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192921676_hua0bab46442daaaf97a1159327dd136a8_462319_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192921676_hua0bab46442daaaf97a1159327dd136a8_462319_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="470"
+data-flex-basis="1130px"
+>&lt;/p>
+&lt;h4 id="规则模式---混用-doh">规则模式 - 混用 DOH&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">119.29.29.29&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 腾讯 IPv4 DNS&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://dns.alidns.com/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>一路看到这你应该能自己总结行进步骤了~🐧&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>命中规则，使用 &lt;em>nameserver-policy&lt;/em> 解析域名 &lt;code>api.dida365.com&lt;/code>&lt;/p>
+&lt;p>&lt;em>nameserver-policy&lt;/em> 优先生效，里面有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 启动 ；解析 &lt;code>api.dida365.com&lt;/code> 的 DNS 请求被加密成 HTTPS，在 dns 筛选中不显示。&lt;/p>
+&lt;p>除此之外所有的 DNS 请求都走 119.29.29.29，比如随后响应的&lt;code>cdn.dida365.com&lt;/code>。&lt;em>nameserver&lt;/em> 中没有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 不启动。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192944128.png"
+width="1460"
+height="201"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192944128_hue5f237253565dcb1eae698991c88faed_259286_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715192944128_hue5f237253565dcb1eae698991c88faed_259286_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="726"
+data-flex-basis="1743px"
+>&lt;/p>
+&lt;h4 id="规则模式---仅设置-nameserver-policy-为-doh-ip">规则模式 - 仅设置 &lt;em>nameserver-policy&lt;/em> 为 DOH: IP&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://223.5.5.5/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>命中规则，使用 &lt;em>nameserver-policy&lt;/em> 解析域名 &lt;code>api.dida365.com&lt;/code>&lt;/p>
+&lt;p>&lt;em>nameserver-policy&lt;/em> 生效，里面没有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 不启动 ；解析 &lt;code>api.dida365.com&lt;/code> 的 DNS 请求被加密成 HTTPS，在 dns 筛选中不显示。&lt;/p>
+&lt;p>其他的 DNS 请求都走 &lt;em>nameserver&lt;/em> ,也即默认值 &lt;code>https://doh.pub/dns-query&lt;/code> ，这是一条域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 启动。&lt;/p>
+&lt;p>显然，走 DOH 的 DNS 请求被加密，在 wireshark 结果中看不到 target 响应&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193000271.png"
+width="1460"
+height="179"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193000271_hua540d46dbc336b4d471f80e0f323031e_217105_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193000271_hua540d46dbc336b4d471f80e0f323031e_217105_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="815"
+data-flex-basis="1957px"
+>&lt;/p>
+&lt;h4 id="规则模式---仅设置-nameserver-policy-为-doh-domain">规则模式 - 仅设置 &lt;em>nameserver-policy&lt;/em> 为 DOH: domain&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://dns.alidns.com/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>命中规则，使用 &lt;em>nameserver-policy&lt;/em> 解析域名 &lt;code>api.dida365.com&lt;/code>&lt;/p>
+&lt;p>&lt;em>nameserver-policy&lt;/em> 生效，里面有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 启动 ；解析 &lt;code>api.dida365.com&lt;/code> 的 DNS 请求被加密成 HTTPS，在 dns 筛选中不显示。&lt;/p>
+&lt;p>其他的 DNS 请求都走 &lt;em>nameserver&lt;/em> ,结果同上一则实验一致。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193019120.png"
+width="1460"
+height="409"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193019120_huc1e892ccf6da88c04cbcd53b7caa8e67_512936_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193019120_huc1e892ccf6da88c04cbcd53b7caa8e67_512936_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="356"
+data-flex-basis="856px"
+>&lt;/p>
+&lt;h3 id="引入-dns-分流">引入 DNS 分流&lt;/h3>
+&lt;blockquote>
+&lt;p>💡你如果是一个 Clash 骨灰级玩家或是项目的核心贡献者，也许有这样的感悟：DNS 是 clash 类项目设计最为精妙也是最复杂的机制，甚至没有之一。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="规则模式---域名规则的解析">规则模式 - 域名规则的解析&lt;/h4>
+&lt;p>添加出站规则，将 &lt;code>api.dida365.com&lt;/code> 设为 &lt;em>#PROXY&lt;/em> 出站：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 在对照规则之前该条添加规则&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida365.com,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># -- skip --&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>使用 8.8.8.8 标记 &lt;code>api.dida365.com&lt;/code> ，使用 223.5.5.5 标记其他请求：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://dns.alidns.com/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">https://dns.google/dns-query&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">8.8.8.8&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在开始该组实验前，我们可以根据上文实验结果提出如下假设：&lt;/p>
+&lt;p>&lt;strong>&amp;lt;A&amp;gt;&lt;/strong> ✅ 如果浏览器向 &lt;code>api.dida365.com&lt;/code> 发出请求，必然触发 &lt;em>nameserver-policy&lt;/em> 的域名解析任务；&lt;em>nameserver-policy&lt;/em> 内有域名形式的DOH，必然会使用 &lt;em>default-nameserver&lt;/em>（并发）解析 &lt;code>dns.google&lt;/code> ，最后使用解析到的 DOH IP 和 8.8.8.8 （并发）解析 &lt;code>api.dida365.com&lt;/code>。&lt;/p>
+&lt;p>&lt;strong>&amp;lt;B&amp;gt;&lt;/strong> ✅ （假设没有发生 IP 规则匹配）其他的域名直连请求使用 &lt;em>nameserver&lt;/em> 进行解析，显然 &lt;em>nameserver&lt;/em> 组内也有域名形式的 DOH，必然使用 &lt;em>default-nameserver&lt;/em> （并发）解析 &lt;code>dns.alidns.com&lt;/code> ，使用解析到的 DOH IP 和 223.5.5.5 并发查询我们要访问的域名。&lt;/p>
+&lt;p>抓包结果如下图所示（隐去若干条杂质数据）：&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193212997.png"
+width="1460"
+height="387"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193212997_hu5bf5753870fe65ca3599d58c7db4ff4e_489021_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193212997_hu5bf5753870fe65ca3599d58c7db4ff4e_489021_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="377"
+data-flex-basis="905px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>🏴‍☠️ 我们先在这个组实验中抛出 &amp;lt;DNS泄漏&amp;gt; 的概念，具体内容后文细说。&lt;/p>
+&lt;/blockquote>
+&lt;p>可以得出如下观察纪录：&lt;/p>
+&lt;p>首先，我们能观察到 &lt;em>default-nameserver&lt;/em> 开始解析 &lt;code>dns.alidns.com&lt;/code> 域名，说明 &lt;em>nameserver&lt;/em> 被触发，说明有其他&lt;strong>域名直连请求命中了 DIRECT 域名规则&lt;/strong>（假设没有发生 IP 规则匹配）。&lt;/p>
+&lt;p>而当我们不间断地请求 &lt;code>api.dida365.com&lt;/code> 时，我们为其配置的 &lt;em>nameserver-policy&lt;/em> 并未生效，我们在 &lt;strong>&amp;lt;A&amp;gt;&lt;/strong> 中假象的逻辑链没有发生，也即，clash 并未向 &lt;em>default-nameserver&lt;/em> 发起针对 &lt;code>dns.google&lt;/code> 的域名解析请求，或者说，本地没有发起对 &lt;code>api.dida365.com&lt;/code> 的直连访问请求。&lt;/p>
+&lt;p>显然，&lt;strong>我们将 &lt;code>api.dida365.com&lt;/code> 设置为 &lt;em>PROXY&lt;/em> 出站后，访问目标站点的工作交由远程服务器完成，自然地，域名解析的工作也由远程服务器完成&lt;/strong>。本地做的，只是将访问 &lt;code>api.dida365.com&lt;/code> 的代理请求呈送至远程服务器，也即，命中 &lt;em>PROXY&lt;/em> 域名规则后，clash 会直接跳过 DNS 步骤向远程服务器呈送数据包。&lt;/p>
+&lt;h4 id="规则模式---域名规则的解析---验证">规则模式 - 域名规则的解析 - 验证&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>验证 &amp;lt;1&amp;gt;&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida36768990.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">8.8.8.8&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida36768990.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># -- skip --&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida36768990.com&lt;/code>，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>命中规则，使用 &lt;em>nameserver-policy&lt;/em> 解析域名 &lt;code>api.dida365.com&lt;/code>&lt;/p>
+&lt;p>&lt;em>nameserver-policy&lt;/em> 生效，里面没有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 不启动，直接使用 8.8.8.8 解析 &lt;code>api.dida36768990.com&lt;/code>。&lt;/p>
+&lt;p>显然，这是一个不存在的域名，DNS 响应出现 no such name 错误。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193406460.png"
+width="1460"
+height="236"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193406460_hua2a577e573b6e2308569eba0d075462a_349695_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193406460_hua2a577e573b6e2308569eba0d075462a_349695_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="618"
+data-flex-basis="1484px"
+>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>验证 &amp;lt;2&amp;gt;&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida36768990.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">8.8.8.8&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 在对照组之前添加规则&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida36768990.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida365.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># -- skip --&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>情况1&lt;/strong>：浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;p>未命中 &lt;em>nameserver-policy&lt;/em>，切换至 &lt;em>nameserver&lt;/em> ，组内没有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 不启动，直接向 223.5.5.5 发起域名解析请求（绿色记录）。&lt;/p>
+&lt;p>其他命中&lt;strong>域名直连规则&lt;/strong>的请求也是用 nameserver 进行域名解析（橙色记录）。&lt;/p>
+&lt;p>相关 DNS 请求均未被加密，可以看到抓包记录。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>情况2&lt;/strong>：浏览器访问 &lt;code>api.dida36768990.com&lt;/code>，请求通过系统代理进入 clash&lt;/p>
+&lt;p>命中 &lt;em>nameserver-policy&lt;/em>，组内没有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 不启动，直接向 8.8.8.8 发起域名解析请求。显然，这是一个不存在的域名，DNS 响应出现 no such name 错误（黄色记录）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193441482.png"
+width="1460"
+height="317"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193441482_hu08f23afb31c4c6256fbfcb60c2b38ac3_437478_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193441482_hu08f23afb31c4c6256fbfcb60c2b38ac3_437478_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="460"
+data-flex-basis="1105px"
+>&lt;/p>
+&lt;h4 id="规则模式---ip-规则的解析">规则模式 - IP 规则的解析&lt;/h4>
+&lt;p>首先修改出站规则，分别使用 223.5.5.5 和 180.76.76.76 标记 &lt;code>api.dida365.com&lt;/code> 和 &lt;code>api.dida36768990.com&lt;/code> 其余直连请求使用 119.29.29.29。这里为了 trace 纪录干净整洁便于原理分析，就不使用域名 DOH 了。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">119.29.29.29&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida36768990.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">180.76.76.76&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida36768990.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida365.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida365.com&lt;/code> ，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>遇到&lt;/strong> &lt;strong>GEOIP 代理规则，发起本地 DNS 查询&lt;/strong>&lt;/p>
+&lt;p>很多小伙们困惑的点就在这了！根据我们上文提到的结论，访问域名时遇到 IP 规则会进行DNS 解析，遇到代理规则会将请求呈送至远程服务器。那这种特殊情况到底是先进行 DNS 解析还是直接将数据包呈送到远程服务器跳过DNS解析呢？&lt;/p>
+&lt;p>&lt;strong>访问域名时遇到 IP 规则，先进行本地 DNS 解析，将要请求的域名解析成 IP，再与 IP 规则集中的 IP 进行匹配，如果命中，出站规则生效，否则进入下一个规则集。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>访问域名时遇到域名规则，如果是直连出站，则由本地发起 DNS 查询；如果是代理出站，则跳过 DNS 查询并将代理请求呈送至远程服务器。&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>命中规则，使用 &lt;em>namesever-policy&lt;/em> 解析域名 &lt;code>api.dida365.com&lt;/code>&lt;/p>
+&lt;p>如下图所示，本地向 233.5.5.5 发起了针对 &lt;code>api.dida365.com&lt;/code> 的 DNS 请求，这验证了我们前文说的内容。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193528765.png"
+width="1460"
+height="169"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193528765_hudfd0dc39c88ff2f81e7f1d77ea97ec90_216141_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193528765_hudfd0dc39c88ff2f81e7f1d77ea97ec90_216141_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="863"
+data-flex-basis="2073px"
+>&lt;/p>
+&lt;h4 id="规则模式---ip-规则的解析---原理剖析">规则模式 - IP 规则的解析 - 原理剖析🏴‍☠️&lt;/h4>
+&lt;p>先阅读上一节，否则你可能看不懂这里写的东西。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">119.29.29.29&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida36768990.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">180.76.76.76&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida36768990.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida365.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>
+&lt;p>浏览器访问 &lt;code>api.dida36768990.com&lt;/code>，请求通过系统代理进入 clash&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>遇到&lt;/strong> &lt;strong>GEOIP 代理规则，发起本地 DNS 查询&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>命中规则，使用 &lt;em>namesever-policy&lt;/em> 解析域名 &lt;code>api.dida36768990.com&lt;/code>&lt;/p>
+&lt;p>组内没有域名形式的 DOH，&lt;em>default-nameserver&lt;/em> 不启动，直接使用 180.76.76.76 进行域名解析。显然，我们要访问的是一个不存在的域名，自然无法得到对应的 IP（如下图绿标的 no such name信息），也即，这条通路报错了。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193548913.png"
+width="1460"
+height="417"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193548913_hudb0998eb8594acbbb17fa82290a0d41f_620412_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193548913_hudb0998eb8594acbbb17fa82290a0d41f_620412_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="350"
+data-flex-basis="840px"
+>&lt;/p>
+&lt;p>那么 clash 会如何处理这个请求呢？&lt;/p>
+&lt;p>clash ParseRule 的行进策略是 &lt;code>for-loop with switch-case&lt;/code>，节取代码如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 节取
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">for&lt;/span> &lt;span class="nx">idx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">line&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">rulesConfig&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">parsed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parseErr&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">ParseRule&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ruleName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">payload&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">params&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">subRules&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">parseErr&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%s[%d] [%s] error: %s&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">format&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">idx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">line&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parseErr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Error&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 节取
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">ParseRule&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ruleName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">payload&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">target&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">params&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">subRules&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">][]&lt;/span>&lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Rule&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">parsed&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Rule&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parseErr&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">switch&lt;/span> &lt;span class="nx">ruleName&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="s">&amp;#34;DOMAIN&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">parsed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">RC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewDomain&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">payload&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="s">&amp;#34;GEOSITE&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">parsed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parseErr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">RC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewGEOSITE&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">payload&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="s">&amp;#34;GEOIP&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">noResolve&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">RC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">HasNoResolve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">params&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">parsed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parseErr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">RC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewGEOIP&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">payload&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">target&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">noResolve&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="s">&amp;#34;MATCH&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">parsed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">RC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewMatch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">parseErr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">default&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">parseErr&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;unsupported rule type %s&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">tp&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">parseErr&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parseErr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>clash 从上至下逐行读取 rules，每个规则集都会进入到一个 case 子业务链路，我们这里进入的是 &lt;strong>GEOIP&lt;/strong> 的 case，它首先会识别是否存在 &lt;em>&lt;strong>no-resolve&lt;/strong>&lt;/em> 标识，再以此决定 NewGEOIP 的具体行为。GEOIP 的规则匹配流程此处不过多赘述，感兴趣的小伙伴可以自行翻阅源码。&lt;/p>
+&lt;p>那么，根据我们先前的讨论，这里的 parseErr 必然是“有内容的”，也即&lt;strong>这个错误传递到上层的 for 循环后会中断循环，使得程序不会行进到下一条 rule&lt;/strong>，也即 &lt;code>DOMAIN,api.dida36768990.com,DIRECT&lt;/code> 。&lt;/p>
+&lt;p>换句话说，当我们试图将 &lt;code>api.dida36768990.com&lt;/code>所对应的 IP 与规则集 &lt;code>GEOIP,CN,PROXY&lt;/code> 进行配对时遇到了错误，这个错误首先中断匹配行进，打印错误日志，随后向上一直传导至 main 接口，沿途触发所有的 warning + 级别的日志警告。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193605977.png"
+width="1460"
+height="206"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193605977_huf2ed1aa4b0b2d2c5b2dace11891aaf99_131361_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193605977_huf2ed1aa4b0b2d2c5b2dace11891aaf99_131361_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="708"
+data-flex-basis="1700px"
+>&lt;/p>
+&lt;h4 id="规则模式---ip-规则的解析---验证">规则模式 - IP 规则的解析 - 验证&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;p>GEOIP &lt;em>no-resolve&lt;/em> only, REQUEST GET &lt;code>api.dida365.com&lt;/code> + &lt;code>api.dida36768990.com&lt;/code>&lt;/p>
+&lt;p>跳过 GEOIP 的本地域名解析，直接进入下一个规则集的匹配&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">119.29.29.29&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida36768990.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">180.76.76.76&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,DIRECT,no-resolve&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193635868.png"
+width="1460"
+height="108"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193635868_hu29dbd62f1b5cb17ba426b12dee120033_18562_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193635868_hu29dbd62f1b5cb17ba426b12dee120033_18562_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1351"
+data-flex-basis="3244px"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GEOIP &lt;em>no-resolve &amp;amp;&amp;amp; DOMAIN,&lt;/em> REQUEST GET &lt;code>api.dida365.com&lt;/code> + &lt;code>api.dida36768990.com&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">119.29.29.29&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida365.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;api.dida36768990.com&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">180.76.76.76&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,DIRECT,no-resolve&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida36768990.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN,api.dida365.com,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>跳过「访问域名遇到 GEOIP 规则本该进行的本地 DNS 解析」直接进入下一个规则集的匹配，接下来的两条&lt;strong>直连域名规则&lt;/strong>的情况属于已讨论过的正常情况，也即，发起本地 DNS 请求。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193647978.png"
+width="1460"
+height="407"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193647978_hu67870031026e59b44c3eba42446defdc_575102_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193647978_hu67870031026e59b44c3eba42446defdc_575102_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="358"
+data-flex-basis="860px"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>规则模式 - 向全局过渡&lt;/p>
+&lt;p>修改 rules&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193704407.png"
+width="1460"
+height="96"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193704407_hub76f8e495285eacea77f5471c597eac7_17848_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193704407_hub76f8e495285eacea77f5471c597eac7_17848_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1520"
+data-flex-basis="3650px"
+>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193711612.png"
+width="1460"
+height="490"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193711612_hu3f820a12da0ac190aa52f04559d24a69_91050_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193711612_hu3f820a12da0ac190aa52f04559d24a69_91050_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="297"
+data-flex-basis="715px"
+>&lt;/p>
+&lt;p>这近似于全局（代理）模式，所有经由 clash 的请求都被呈递到远程服务器，DNS解析由远程服务器完成，本地扫不到经由 clash DNS 的请求纪录。&lt;/p>
+&lt;h4 id="全局模式---全局代理全局直连与全局拒绝">全局模式 - 全局代理，全局直连与全局拒绝&lt;/h4>
+&lt;p>该模式下，我们可以指定所有请求都 代理/DIRECT/REJECT。其中，代理可以细分为某个代理组或某个代理节点。&lt;/p>
+&lt;p>&lt;em>&lt;strong>代理&lt;/strong>&lt;/em>：所有经由 clash 的请求都被呈递到远程服务器，DNS解析由远程服务器完成，本地扫不到 DNS 请求纪录。具体由哪个服务器处理请求取决于你的配置。&lt;/p>
+&lt;p>&lt;em>&lt;strong>DIRECT&lt;/strong>&lt;/em>：所有经由 clash 的请求都从本地发出，DNS解析行为由 dns 字段定义的策略决定，本地可以扫到未加密的纪录。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193735385.png"
+width="1460"
+height="193"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193735385_hua739caf696c3c3288b1a1e9964c5668e_261736_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715193735385_hua739caf696c3c3288b1a1e9964c5668e_261736_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="756"
+data-flex-basis="1815px"
+>&lt;/p>
+&lt;p>&lt;em>&lt;strong>REJECT&lt;/strong>&lt;/em>: 所有经由 clash 的请求都被甩入黑洞，此时你访问任何网站都会显示 &lt;em>ERR_CONNECTION_CLOSED&lt;/em> 的警告，虽然这并不意味着你没法上网，但至少你浏览器是没法用了。🥹同全局代理，此时 DNS 配置不起作用。&lt;/p>
+&lt;p>如果与上一节内容作比较，你可以这样理解：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 全局代理（使用名为 PROXY 的代理组）&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,DIRECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 全局直连&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,REJECT&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># 全局拒绝&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Best Practices - DNS 分流配置&lt;/p>
+&lt;p>想啥呢🎃才开始进阶怎么会有最佳实践配置&lt;/p>
+&lt;p>想啥呢🐧我们还没开始 &lt;strong>&amp;lt;困难&amp;gt;&lt;/strong> 和 &lt;strong>&lt;?>&lt;/strong> 章节内容的介绍~&lt;/p>
+&lt;p>不过，我们是时候来个阶段性的最佳实践总结了，后续介绍的内容也不会和如下结论冲突。&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>编排 rules 规则时，先写域名匹配再写 IP 匹配，最后 &lt;code>MATCH&lt;/code> 兜底。&lt;/p>
+&lt;p>默认出站选择 PROXY 还是 DIRECT 取决于你的性癖上网习惯，进而决定选择 白名单 还是 黑名单 的编排方案。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>MATCH,PROXY&lt;/code> 兜底，建议遵从如上 rules 最佳实践的前提下，先编排 PROXY 出站规则再编排 DIRECT 出站规则&lt;/li>
+&lt;li>&lt;code>MATCH,DIRECT&lt;/code> 兜底，反之。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>优先使用 RULE-SET，只需添加未在上游规则集中出现的规则。&lt;/p>
+&lt;p>尽管目前这些规则集至少有几十万条数据，但在精心设计的 Mapping 策略下，规则匹配的耗时是忽略不计的。&lt;/p>
+&lt;p>此外，你可能需要将这条规则 &lt;code>RULE-SET,applications,DIRECT&lt;/code> 添加到你的 rules 首行。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当访问域名遇到 &lt;strong>IP 规则&lt;/strong> 或 &lt;strong>域名直连规则&lt;/strong>时，本地发起 DNS 请求。&lt;/p>
+&lt;p>需要注意的是，你添加的 classical RULE-SET 可能也包含域名直连规则以及 IP 规则&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>clash DNS Mapping&lt;/p>
+&lt;ul>
+&lt;li>使用 &lt;em>nameserver-policy&lt;/em> 和 &lt;em>nameserver&lt;/em> 解析我们即将访问的域名，前者优先启动。&lt;/li>
+&lt;li>需要使用 &lt;em>default-nameserver&lt;/em> 解析上述两个策略组中的域名，也即，&lt;em>default-nameserver&lt;/em> 需要使用 IP 写法（可以是 IP 形式的 DOH），避免出现鸡蛋问题。&lt;/li>
+&lt;li>这三个策略组的网络请求是并发行进的。如果存在多个并发查询，clash 优先采用最速响应的 IP 作为域名的查询结果。&lt;/li>
+&lt;li>不必修改（覆盖）默认的 &lt;em>default-nameserver&lt;/em>，而 &lt;em>nameserver-policy&lt;/em> 和 &lt;em>nameserver&lt;/em> 尽可能使用 IP 形式的 DOH，省去这个间接的解析步骤。&lt;/li>
+&lt;li>在设置 &lt;em>nameserver-policy&lt;/em> 和 &lt;em>nameserver&lt;/em> 时使用 DOH，而非 DOT/DOQ。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>我们可以凭借上述特性组合出「国外DNS」和「直连DNS」的概念，你可以说这是一个精妙的巧合，但也可以说这是社区智慧的结晶。&lt;/p>
+&lt;h4 id="public-dns---已知的-dns-提供商">Public DNS - 已知的 DNS 提供商&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://github.com/QIN2DIM/tuic-installer/wiki/%e5%85%ac%e6%9c%89-DNS-%e6%b1%87%e6%80%bb-DOT-DOH-DOQ" target="_blank" rel="noopener"
+>公有 DNS 汇总 DOT DOH DOQ · QIN2DIM/tuic-installer&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://adguard-dns.io/kb/zh-CN/general/dns-providers/#default" target="_blank" rel="noopener"
+>已知的 DNS 提供商 | AdGuard DNS Knowledge Base &lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="原理篇">原理篇&lt;/h2>
+&lt;blockquote>
+&lt;p>💡Let&amp;rsquo;s analyze this systematically.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="clash-flow---dns">Clash flow - DNS&lt;/h3>
+&lt;p>流程图&lt;/p>
+&lt;h3 id="clash-flow---proxy">Clash flow - Proxy&lt;/h3>
+&lt;p>流程图&lt;/p>
+&lt;h2 id="泄漏篇">泄漏篇&lt;/h2>
+&lt;h3 id="dns-泄漏---概念界定">DNS 泄漏 - 概念界定&lt;/h3>
+&lt;ol>
+&lt;li>用户开启 VPN 后，正常网上冲浪产生的 DNS 请求被 &lt;strong>本地&lt;/strong> 上游 ISP 捕获。&lt;/li>
+&lt;li>因此，本地上游 ISP 知道 &lt;strong>&amp;lt;某人&amp;gt;&lt;/strong> 要解析的 &lt;strong>&amp;lt;某域名&amp;gt;&lt;/strong> 。&lt;/li>
+&lt;/ol>
+&lt;h3 id="dns-泄漏---争议点">DNS 泄漏 - 争议点&lt;/h3>
+&lt;h4 id="vpn-的-dns-泄漏">VPN 的 DNS 泄漏&lt;/h4>
+&lt;p>在正常情况下，开启 VPN 后，VPN 软件将用户的「访问请求」呈送至远程服务器，访问网站的工作由远程服务器完成，也即，DNS 请求由远程服务器发出。&lt;/p>
+&lt;p>此时出现了一些不可抗力因素，用户向目标网站发起了直连请求，或者说，本地发起了向「系统网关 → 上游 ISP」的 DNS 查询。有可能是 VPN 软件没有劫持到这个请求，也有可能是用户配置出了问题，总之就是 DNS 请求不仅发往了 VPN 提供的 DNS ，也发往了本地 ISP。&lt;/p>
+&lt;p>In the case，尽管你配置了 DOH，但作为解析 DNS 请求的上游 ISP 它必然是能看到你要访问的 网址（域名），不然它没法给你查询域名对应的 IP（DNS基本原理不过多赘述）。&lt;/p>
+&lt;h4 id="proxy-的-dns-泄漏">Proxy 的 DNS 泄漏&lt;/h4>
+&lt;p>clash 等代理核心出现了规则模式的设定，在合理的配置下：&lt;/p>
+&lt;ol>
+&lt;li>访问国内站点（如 &lt;code>geosite:cn&lt;/code>），直接从本机发起请求。&lt;/li>
+&lt;li>访问我们标记的站点（如 youtube），则将请求呈送至远程服务器，代理访问。&lt;/li>
+&lt;/ol>
+&lt;p>绝大多数玩家使用的都是规则模式下的系统代理，例如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">DOMAIN-SUFFIX,youtube.com,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOSITE,CN,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;geosite:cn&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;https://223.5.5.5/dns-query&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在这种常见配置下，我们直连访问国内站点（如 bilibili）所产生的 DNS 请求，必然被&lt;strong>国内DNS&lt;/strong> 提供商捕获。这种算 &lt;strong>DNS 泄漏&lt;/strong> 吗？我觉得不算。&lt;/p>
+&lt;p>根据我们上文提到的定义，&lt;strong>DNS泄漏指的是我们使用代理访问 &lt;code>www.youtube.com&lt;/code> ，却从本地发送 DNS 请求到国内 ISP 查询 &lt;code>www.youtube.com&lt;/code> 对应的 IP ，因此上游知道了你曾访问油管。&lt;/strong>&lt;/p>
+&lt;p>显然，在配置正确的情况下不可能出现这种事故 根据我们上文的实验结论，域名请求遇到域名规则，命中规则后，如果是代理出站，我们会将访问请求呈送至远程服务器，DNS 查询由远程服务器完成。&lt;/p>
+&lt;p>也即，当你配置了 &lt;code>DOMAIN-SUFFIX,youtube.com,PROXY&lt;/code> 这条规则时，本地不会发起对 &lt;code>+.youtube.com&lt;/code> 的域名解析。（假设已禁用DNS策略组）&lt;/p>
+&lt;p>这与我们先前提到的 VPN 行为模式不同。我们的意图在于：&lt;/p>
+&lt;ol>
+&lt;li>我们启用了规则模式，旨在避免远程服务器处理我们对国内网站的访问请求。我们希望访问国内网站而从本地发起的 「DNS 请求」经过本地运营商，以此获得更低的网络延迟。&lt;/li>
+&lt;li>不希望本地运营商捕获到我们对标记网点（如 &lt;code>www.youtube.com&lt;/code>）的访问请求。&lt;/li>
+&lt;/ol>
+&lt;p>换句话说，一个 DNS 请求过来，运营商必然知道有人正在访问 &lt;code>www.youtube.com&lt;/code>，而代理访问的本质在于不让运营商知道访客的真实身份。&lt;/p>
+&lt;h3 id="dns-泄漏---检测工具">DNS 泄漏 - 检测工具&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://browserleaks.com/ip" target="_blank" rel="noopener"
+>My IP Address - BrowserLeaks&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://ipleak.net/" target="_blank" rel="noopener"
+>IP/DNS Detect - What is your IP, what is your DNS, what informations you send to websites. (ipleak.net)&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="dns-泄漏---检测原理">DNS 泄漏 - 检测原理&lt;/h3>
+&lt;p>如果你还不知道什么是 DNS 泄漏可以从前文看起，泄漏的定义大致如下图所示：&lt;/p>
+&lt;ol>
+&lt;li>✅直连访问 &lt;a class="link" href="http://bilibili.com" target="_blank" rel="noopener"
+>bilibili.com&lt;/a> ，由本地 PC 向上游 DNS 发送查询&lt;/li>
+&lt;li>✅代理访问 &lt;a class="link" href="http://google.com" target="_blank" rel="noopener"
+>google.com&lt;/a>，由远程服务器向国外 DNS 发送查询&lt;/li>
+&lt;li>❌代理访问 &lt;a class="link" href="http://google.com" target="_blank" rel="noopener"
+>google.com&lt;/a>，由本地 PC 向上游 DNS 发送查询&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195243552.png"
+width="1460"
+height="772"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195243552_hu966c9fbc6ce7f3424ae165e5d9422d58_436671_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195243552_hu966c9fbc6ce7f3424ae165e5d9422d58_436671_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="189"
+data-flex-basis="453px"
+>&lt;/p>
+&lt;p>实验开始前，编排如下规则：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">dns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">enable&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">223.5.5.5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nameserver-policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;ipleak.net&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">1.0.0.1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOSITE,CN,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MATCH,PROXY&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以 &lt;a class="link" href="https://ipleak.net" target="_blank" rel="noopener"
+>ipleak.net&lt;/a> 爲例说明 DNS 泄漏检测的工作原理。&lt;/p>
+&lt;p>当你访问 DNS 泄漏检测的站点后，发生了如下事件：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;code>ipleak.net&lt;/code> 后端服务器向前端页面不断推送新的数据包，这些数据包的 Request URL 都是 &lt;code>+.ipleak.net&lt;/code> 形式，例如：&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195310133.png"
+width="1460"
+height="346"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195310133_hu289f06ccb641c26a062a4aa1c2061a82_159612_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195310133_hu289f06ccb641c26a062a4aa1c2061a82_159612_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="421"
+data-flex-basis="1012px"
+>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>浏览器发起 Request并构造 DNS 请求查询这些域名对应的 IP&lt;/p>
+&lt;p>虽然这些域名是随机生成的，但它们都被正确解析到有效的后端端点，我们可以通过 DNS 查询到 Request Domain 对应的（CDN）IP。&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195319858.png"
+width="1460"
+height="417"
+srcset="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195319858_hu12ef14c98df114824b87e431a300c211_616831_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195319858_hu12ef14c98df114824b87e431a300c211_616831_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="350"
+data-flex-basis="840px"
+>&lt;/p>
+&lt;p>显然，这些随机生成的域名不可能存在于任何 GEOSITE，RULE-SET 数据库中（项目维护者也不会添加这些特殊的域名）也就是说，这些访问请求进入 clash 后，走的一定是兜底的 &lt;code>MATCH,PROXY&lt;/code> 规则（除非你把 &lt;code>ipleak.net&lt;/code> 这个域名配置到规则里了🥹）。&lt;/p>
+&lt;p>我们通常会把兜底规则写在最后一行，意味着每个访问请求都会把你的 &lt;em>rules&lt;/em> 扫一遍。在这个过程中，沿途遇到的首条 IP 规则（例如我们配置的 &lt;code>GEOIP&lt;/code>）会触发本地 DNS 解析，「你配置的 DNS 的上游DNS」以及最终流向的「权威域名服务器」的 Server IP 会被域名检测网站记录下来，最终打印到前端页面上。&lt;/p>
+&lt;p>访问请求最后命中 &lt;code>MATCH,PROXY&lt;/code> 代理出站规则，所以远程服务器必然发起 DNS 查询请求，也即，在开启代理的情况下，前端页面会打印出落地机所在区域的国旗以及落地机上游 ISP DNS 信息 。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>直连访问 - 正常情况&lt;/p>
+&lt;p>如果你没理解我刚说的东西，你可以尝试不使用代理直接访问 &lt;code>ipleak.net&lt;/code>，你可以看到页面被国旗刷屏了。这些 IP 来自你选用的 DNS 以及你上游的 ISP DNS。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>代理访问 - 正常情况&lt;/p>
+&lt;p>DNS 请求由远程服务器发起，远程服务器也会有自己的系统 DNS 和上游 ISP，在没有特殊设计网关的情况下，你能看到 &lt;code>ipleak.net&lt;/code> 页面上不断刷出远程服务器所在地区的国旗以及由远程服务器发起的 DNS 请求经过的 server IP。&lt;/p>
+&lt;p>如果你的远程服务器网络环境比较特殊，你会看到来自多个国家和地区的 server IP。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>代理访问 - 异常情况&lt;/p>
+&lt;p>如果检测站点能够通过记录 DNS server IP 的方式返回发送端 PC 的真实所在地，说明发生了 DNS 泄漏。&lt;/p>
+&lt;p>&lt;strong>这里加了超长的定语：&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>✅本地没有发起 DNS 查询，不可能存在泄漏&lt;/li>
+&lt;li>🚫本地发起 DNS 查询，使用系统 DNS 或国内 DNS，能够通过三要素定位还原出 zero 发送端的大致位置。例如 &lt;code>ipleak.net&lt;/code> 等公有服务提供的粗糙定位能够显示国旗，但显然有更精密的技术能够做到经纬度级别的定位。&lt;/li>
+&lt;li>👁️‍🗨️本地发起 DNS 查询，但使用的是经过特殊设计的 DNS 或其他地区的 DNS，不能或几乎不可能通过三要素定位还原出 zero 发送端的大致位置。&lt;/li>
+&lt;/ul>
+&lt;p>🌀&lt;strong>迷思与争议：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>&lt;code>ipleak.net&lt;/code>出现了国旗，我的配置出现致命错误了吗？&lt;/strong>&lt;/p>
+&lt;p>&lt;code>ipleak.net&lt;/code> 出现了你所在地的国旗，并不代表你访问 youtube google 的请求会被本地运营商截获。我们上文提到过（如果你使用的是本文提到的配置或是 &lt;a class="link" href="https://wiki.metacubex.one/example/#_2" target="_blank" rel="noopener"
+>meta 懒人配置&lt;/a>），类似访问 youtube 的请求在 IP 规则之前必然命中 &lt;em>PROXY&lt;/em> 出站规则， 本地不会产生对 &lt;code>youtube.com&lt;/code> 的 DNS 解析请求，也就不会有被本地运营商截获这一说。&lt;/p>
+&lt;p>如果你只关注访问 youtube google 等网站的意图数据漏没漏，那你被 &lt;code>ipleak.net&lt;/code> 等一众检测站点爆菊了也无伤大雅。&lt;/p>
+&lt;p>但必须说明的是，出现了国旗，说明你向上游 ISP 发起了针对「意外站点」的 DNS 请求，ipleak 能够还原你的所在地，这属于 DNS 泄漏的范畴。 如果有某个网站借助 ipleak 等检测服务追溯发送端的大致服务区，你大概率会被精确到市区级运营商。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&lt;code>ipleak.net&lt;/code>没有出现国旗，我的配置正常吗？&lt;/strong>&lt;/p>
+&lt;p>如果你用的是 VPN，你的配置正常。但你用的是 clash，这个问题存在争议。&lt;/p>
+&lt;p>例如，访问 &lt;code>youtube.com&lt;/code> 但 &lt;em>rules&lt;/em> 里出现了 &lt;code>DOMAIN-SUFFIX,youtube.com,DIRECT&lt;/code> 这种奇怪的东西，或者提前遇到了 IP 规则，那么，本地会发起 DNS 请求。但是，如果你在 &lt;em>nameserver&lt;/em> 中配置了 &lt;code>https://security.cloudflare-dns.com/dns-query&lt;/code> 这样的国外（或其他地区）的 DOH，泄漏检测站点是无法记录到你的真实所在地的。&lt;/p>
+&lt;p>显然，这种情况与我们界定的 DNS 泄漏有所冲突。&lt;/p>
+&lt;p>广义上讲，访问应该被代理的网站的 DNS 请求必须由落地代理产生，而真正的发送端被隐藏起来。如果你认为只要访问被代理的网站时，本地发起了 DNS 请求就算泄漏的话，这种情况属于 DNS 泄漏，你的配置不正常。&lt;/p>
+&lt;p>狭义上讲，如果你觉得尽管本地发起了 DNS 请求，但只要不被正确溯源就可以接受。那么在兼顾延迟和安全的前提下，选择经过特殊设计的境外 DOH / DOQ 是个不错的选择&lt;a class="link" href="https://www.notion.so/Dive-into-Clash-DNS-a025c9bb5f724972a2ffb7984ae4a6ca?pvs=21" target="_blank" rel="noopener"
+>查看已知的免审查公有 DNS&lt;/a>。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="如何避免-dns-泄漏">如何避免 DNS 泄漏&lt;/h3>
+&lt;h2 id="触类旁通">触类旁通&lt;/h2>
+&lt;h3 id="tunnel-mode">TUNNEL Mode&lt;/h3>
+&lt;h3 id="enhanced-mode">Enhanced Mode&lt;/h3>
+&lt;h4 id="dnsmaping">DNSMaping&lt;/h4>
+&lt;h4 id="fakeip-clash--meta">FakeIP: Clash &amp;amp; Meta&lt;/h4>
+&lt;h4 id="fakedns-v2ray--sing-box">FakeDNS: v2ray &amp;amp; sing-box&lt;/h4>
+&lt;h4 id="l3-loss-but-deepin-magic">L3: Loss but deepin magic&lt;/h4>
+&lt;h3 id="软路由---物理超度">软路由 - 物理超度&lt;/h3>
+&lt;h2 id="一叶知秋">一叶知秋&lt;/h2>
+&lt;h3 id="处理-squad-eac-反外挂验证">处理 Squad EAC 反外挂验证&lt;/h3>
+&lt;h3 id="解锁流媒体">解锁流媒体&lt;/h3>
+&lt;h3 id="绕过-chatgpt-网络审查">绕过 ChatGPT 网络审查&lt;/h3>
+&lt;h2 id="天外飞仙">天外飞仙&lt;/h2>
+&lt;h3 id="基于-rust-实现-pbq-quic-based-拥塞控制算法">基于 Rust 实现 PBQ QUIC-based 拥塞控制算法&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>Paper: &lt;a class="link" href="https://www.mdpi.com/1099-4300/25/2/294" target="_blank" rel="noopener"
+>《PBQ-Enhanced QUIC: QUIC with Deep Reinforcement Learning Congestion Control Mechanism》&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PDF: &lt;a class="link" href="entropy-25-00294-v2.pdf" >entropy-25-00294-v2.pdf&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="clashmeta-参考配置">Clash.Meta 参考配置&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://wiki.metacubex.one/example/#_2" target="_blank" rel="noopener"
+>Meta 官方提供的懒人配置&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/QIN2DIM/tuic-installer/wiki/Clash.Meta-configuration" target="_blank" rel="noopener"
+>本篇博客的附件&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="whats-more">What&amp;rsquo;s more&lt;/h2>
+&lt;h3 id="术语表">术语表&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>clash rules 直连，代理，拒绝&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>v2fly / sing-box rules 直连（绕过），代理，阻止&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>DNS&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Clash DNS&lt;/p>
+&lt;ol>
+&lt;li>nameserver-policy&lt;/li>
+&lt;li>default-nameserver&lt;/li>
+&lt;li>nameserver&lt;/li>
+&lt;li>proxy-server-nameserver&lt;/li>
+&lt;li>fake-ip enhancer
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.hostinger.com/tutorials/fqdn#What_is_FQDN" target="_blank" rel="noopener"
+>FQDN&lt;/a>&lt;/li>
+&lt;li>FakeIP Pool&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>DNS leak&lt;/p>
+&lt;p>概念界定：广义、狭义&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="http://ipleak.net/" target="_blank" rel="noopener"
+>http://ipleak.net/&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://browserleaks.com/ip" target="_blank" rel="noopener"
+>https://browserleaks.com/ip&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>DOH / DOT / DOQ / ODOH&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://adguard-dns.io/en/blog/dns-over-quic.html" target="_blank" rel="noopener"
+>https://adguard-dns.io/en/blog/dns-over-quic.html&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="源码阅读">源码阅读&lt;/h3>
+&lt;h4 id="初始化配置">初始化配置&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="nf">UnmarshalRawConfig&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">buf&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">byte&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">RawConfig&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// config with default value
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">rawCfg&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">RawConfig&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">AllowLan&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">BindAddress&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPv6&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Mode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">T&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Rule&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeodataMode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">GeodataMode&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeodataLoader&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;memconservative&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">UnifiedDelay&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Authentication&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">LogLevel&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">INFO&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Hosts&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="nx">any&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Rule&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Proxy&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="nx">any&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ProxyGroup&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="nx">any&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">TCPConcurrent&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FindProcessMode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">P&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">FindProcessStrict&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Tun&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawTun&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Enable&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Device&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Stack&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TunGvisor&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">DNSHijack&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;0.0.0.0:53&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="c1">// default hijack all dns query
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">AutoRoute&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">AutoDetectInterface&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Inet6Address&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">LC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ListenPrefix&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">LC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ListenPrefix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">netip&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">MustParsePrefix&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;fdfe:dcba:9876::1/126&amp;#34;&lt;/span>&lt;span class="p">))},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">TuicServer&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawTuicServer&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Enable&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Token&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Users&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Certificate&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">PrivateKey&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Listen&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">CongestionController&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">MaxIdleTime&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">15000&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">AuthenticationTimeout&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ALPN&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="s">&amp;#34;h3&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">MaxUdpRelayPacketSize&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1500&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">EBpf&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">EBpf&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">RedirectToTun&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">AutoRedir&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPTables&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">IPTables&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Enable&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">InboundInterface&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;lo&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Bypass&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">DNS&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawDNS&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Enable&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPv6&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">UseHosts&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPv6Timeout&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">EnhancedMode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DNSMapping&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FakeIPRange&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;198.18.0.1/16&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FallbackFilter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawFallbackFilter&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoIP&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoIPCode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;CN&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPCIDR&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoSite&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">DefaultNameserver&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;114.114.114.114&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;223.5.5.5&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;8.8.8.8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;1.0.0.1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">NameServer&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;&amp;lt;https://doh.pub/dns-query&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;tls://223.5.5.5:853&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FakeIPFilter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;dns.msftnsci.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;www.msftnsci.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;www.msftconnecttest.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Sniffer&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawSniffer&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Enable&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Sniffing&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ForceDomain&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">SkipDomain&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Ports&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ForceDnsMapping&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ParsePureIp&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">OverrideDest&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Profile&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">Profile&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">StoreSelected&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoXUrl&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawGeoXUrl&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Mmdb&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoIp&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoSite&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;&amp;lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">yaml&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Unmarshal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">buf&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rawCfg&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">rawCfg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="dnsmode-alias">DNSMode Alias&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span> &lt;span class="nx">DNSMode&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">String&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">switch&lt;/span> &lt;span class="nx">e&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="nx">DNSNormal&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;normal&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="nx">DNSFakeIP&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;fake-ip&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="nx">DNSMapping&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;redir-host&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">case&lt;/span> &lt;span class="nx">DNSHosts&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;hosts&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">default&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;unknown&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="type-rawdns-struct">type RawDNS struct&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">type&lt;/span> &lt;span class="nx">RawDNS&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Enable&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="s">`yaml:&amp;#34;enable&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">PreferH3&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="s">`yaml:&amp;#34;prefer-h3&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPv6&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="s">`yaml:&amp;#34;ipv6&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPv6Timeout&lt;/span> &lt;span class="kt">uint&lt;/span> &lt;span class="s">`yaml:&amp;#34;ipv6-timeout&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">UseHosts&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="s">`yaml:&amp;#34;use-hosts&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">NameServer&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span> &lt;span class="s">`yaml:&amp;#34;nameserver&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Fallback&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span> &lt;span class="s">`yaml:&amp;#34;fallback&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FallbackFilter&lt;/span> &lt;span class="nx">RawFallbackFilter&lt;/span> &lt;span class="s">`yaml:&amp;#34;fallback-filter&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Listen&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`yaml:&amp;#34;listen&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">EnhancedMode&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DNSMode&lt;/span> &lt;span class="s">`yaml:&amp;#34;enhanced-mode&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FakeIPRange&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`yaml:&amp;#34;fake-ip-range&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FakeIPFilter&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span> &lt;span class="s">`yaml:&amp;#34;fake-ip-filter&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">DefaultNameserver&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span> &lt;span class="s">`yaml:&amp;#34;default-nameserver&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">NameServerPolicy&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="nx">any&lt;/span> &lt;span class="s">`yaml:&amp;#34;nameserver-policy&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ProxyServerNameserver&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span> &lt;span class="s">`yaml:&amp;#34;proxy-server-nameserver&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="dns-默认配置">DNS 默认配置&lt;/h4>
+&lt;p>&lt;a class="link" href="https://github.com/MetaCubeX/Clash.Meta/blob/8d1251f1287846daf42db4151b707d9f677be5a1/config/config.go#L377" target="_blank" rel="noopener"
+>Clash.Meta/config/config.go MetaCubeX/Clash.Meta&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">DNS&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawDNS&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Enable&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPv6&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">UseHosts&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPv6Timeout&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">EnhancedMode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DNSMapping&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FakeIPRange&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;198.18.0.1/16&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FallbackFilter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">RawFallbackFilter&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoIP&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoIPCode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;CN&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">IPCIDR&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GeoSite&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">DefaultNameserver&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;114.114.114.114&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;223.5.5.5&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;8.8.8.8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;1.0.0.1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">NameServer&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;&amp;lt;https://doh.pub/dns-query&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;tls://223.5.5.5:853&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">FakeIPFilter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;dns.msftnsci.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;www.msftnsci.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;www.msftconnecttest.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="type-pool-struct">type Pool struct&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Pool is an implementation about fake ip generator without storage
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">Pool&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">gateway&lt;/span> &lt;span class="nx">netip&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Addr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">first&lt;/span> &lt;span class="nx">netip&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Addr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">last&lt;/span> &lt;span class="nx">netip&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Addr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">offset&lt;/span> &lt;span class="nx">netip&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Addr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">cycle&lt;/span> &lt;span class="kt">bool&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mux&lt;/span> &lt;span class="nx">sync&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Mutex&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">host&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">trie&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DomainTrie&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kd">struct&lt;/span>&lt;span class="p">{}]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ipnet&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">netip&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Prefix&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">store&lt;/span> &lt;span class="nx">store&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="geositegeoip-大小写不敏感">GEOSITE，GEOIP 大小写不敏感&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 将国家代码转成小写后再匹配
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">LoadGeoSiteMatcher&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">countryCode&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span> &lt;span class="nx">skip&lt;/span> &lt;span class="o">--&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">countryCode&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">strings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ToLower&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">countryCode&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span> &lt;span class="nx">skip&lt;/span> &lt;span class="o">--&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// LAN 特例，必须大写才能匹配规则
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">LoadGeoIPMatcher&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">country&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span> &lt;span class="nx">skip&lt;/span> &lt;span class="o">--&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">country&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">strings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ToLower&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">country&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">--&lt;/span> &lt;span class="nx">skip&lt;/span> &lt;span class="o">--&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ---
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">countryCode&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">strings&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ToLower&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">countryCode&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>换句话说，以下写法是等价的：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOSITE,PRIVATE,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOSITE,private,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,cn,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">GEOIP,CN,DIRECT&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 以此类推&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="new-tuic">new tuic&lt;/h4>
+&lt;p>&lt;a class="link" href="https://github.com/MetaCubeX/Clash.Meta/blob/0b1aff575990ea5816cd24b64757b75dc7368db1/adapter/outbound/tuic.go#L120" target="_blank" rel="noopener"
+>NewTuic MetaCubeX/Clash.Meta &lt;/a>&lt;/p>
+&lt;h3 id="常见问题汇总">常见问题汇总&lt;/h3>
+&lt;ol>
+&lt;li>Windows DNS 策略组问题&lt;/li>
+&lt;li>使用 clash 一顿操作连不上公司内网&lt;/li>
+&lt;/ol>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/Loyalsoldier/clash-rules#rule-providers-%e9%85%8d%e7%bd%ae%e6%96%b9%e5%bc%8f" target="_blank" rel="noopener"
+>规则上游&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://wiki.metacubex.one/config/rules/rule-provider/#rule-set" target="_blank" rel="noopener"
+>语法规则&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://wiki.metacubex.one/config/dns/diagram/" target="_blank" rel="noopener"
+>Clash.Meta 的 DNS 工作流程&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://wiki.metacubex.one/config/dns/#nameserver-policy" target="_blank" rel="noopener"
+>域名服务器查询策略&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.dnsperf.com/" target="_blank" rel="noopener"
+>全球公有DNS服务器性能测试&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>『Blog』Mounting Alidrive Locally</title><link>https://blog.echosec.top/p/mouting-alidrive-locally/</link><pubDate>Mon, 19 Jun 2023 16:24:38 +0800</pubDate><guid>https://blog.echosec.top/p/mouting-alidrive-locally/</guid><description>&lt;img src="https://blog.echosec.top/p/mouting-alidrive-locally/doharge-08.jpg" alt="Featured image of post 『Blog』Mounting Alidrive Locally" />&lt;h2 id="demo">Demo&lt;/h2>
 &lt;div class="video-wrapper">
 &lt;video
 controls
