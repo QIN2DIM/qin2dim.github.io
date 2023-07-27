@@ -24,15 +24,39 @@
 &lt;/div>
 &lt;/a>
 &lt;h2 id="gurus-">Gurus 🧙‍♂️&lt;/h2>
-&lt;a href="http://louiszhai.github.io/" title="Louis blog" class="friend-link" target="_blank" rel="friend">
+&lt;a href="https://space.bilibili.com/1567748478/" title="Mu Li" class="friend-link" target="_blank" rel="friend">
 &lt;div class="friend-link-div">
 &lt;div class="friend-link-avatar">
-&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/8412301.png class="friend-avatar" loading="lazy" alt="Avatar">
+&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.1/avatars/421857.jpg class="friend-avatar" loading="lazy" alt="Avatar">
 &lt;/div>
 &lt;div class="friend-link-info">
 &lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
-&lt;i class="friend-name">Louis blog&lt;/i>
-&lt;p class="friend-bio">坚持原著, 深度思考, 力求简单通俗叙事&lt;/p>
+&lt;i class="friend-name">Mu Li&lt;/i>
+&lt;p class="friend-bio">跟李沐学AI&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;/a>
+&lt;a href="https://space.bilibili.com/518029478" title="ArchBobo" class="friend-link" target="_blank" rel="friend">
+&lt;div class="friend-link-div">
+&lt;div class="friend-link-avatar">
+&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.3.b/avatars/10219428.jpg class="friend-avatar" loading="lazy" alt="Avatar">
+&lt;/div>
+&lt;div class="friend-link-info">
+&lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
+&lt;i class="friend-name">ArchBobo&lt;/i>
+&lt;p class="friend-bio">微服务技术专家&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;/a>
+&lt;a href="https://github.com/mckaywrigley" title="Mckay Wrigley" class="friend-link" target="_blank" rel="friend">
+&lt;div class="friend-link-div">
+&lt;div class="friend-link-avatar">
+&lt;img src=https://cdn.jsdelivr.net/gh/QIN2DIM/cdn-relay@0.1.3.a/avatars/29221284.jpg class="friend-avatar" loading="lazy" alt="Avatar">
+&lt;/div>
+&lt;div class="friend-link-info">
+&lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
+&lt;i class="friend-name">Mckay Wrigley&lt;/i>
+&lt;p class="friend-bio">Takeoff AI&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;/a>
@@ -48,19 +72,6 @@
 &lt;/div>
 &lt;/div>
 &lt;/a>
-&lt;h2 id="following-">Following 👏&lt;/h2>
-&lt;a href="https://nan.ge/" title="PeinanXu" class="friend-link" target="_blank" rel="friend">
-&lt;div class="friend-link-div">
-&lt;div class="friend-link-avatar">
-&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/22255253.jpg class="friend-avatar" loading="lazy" alt="Avatar">
-&lt;/div>
-&lt;div class="friend-link-info">
-&lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
-&lt;i class="friend-name">PeinanXu&lt;/i>
-&lt;p class="friend-bio">这个人很懒，什么也没留下&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;/a>
 &lt;a href="https://librian.net/" title="RimoChan" class="friend-link" target="_blank" rel="friend">
 &lt;div class="friend-link-div">
 &lt;div class="friend-link-avatar">
@@ -70,18 +81,6 @@
 &lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
 &lt;i class="friend-name">RimoChan&lt;/i>
 &lt;p class="friend-bio">字节跳动首席吃点心员&lt;/p>
-&lt;/div>
-&lt;/div>
-&lt;/a>
-&lt;a href="https://studygolang.com/" title="polarisxu" class="friend-link" target="_blank" rel="friend">
-&lt;div class="friend-link-div">
-&lt;div class="friend-link-avatar">
-&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/899673.png class="friend-avatar" loading="lazy" alt="Avatar">
-&lt;/div>
-&lt;div class="friend-link-info">
-&lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
-&lt;i class="friend-name">polarisxu&lt;/i>
-&lt;p class="friend-bio">Go语言中文网站长&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;/a>
@@ -97,15 +96,40 @@
 &lt;/div>
 &lt;/div>
 &lt;/a>
-&lt;a href="https://jimmycai.com/" title="Jimmy Cai" class="friend-link" target="_blank" rel="friend">
+&lt;h2 id="following-">Following 👏&lt;/h2>
+&lt;a href="https://github.com/rustlang-cn" title="RustCn" class="friend-link" target="_blank" rel="friend">
 &lt;div class="friend-link-div">
 &lt;div class="friend-link-avatar">
-&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/avatar.webp class="friend-avatar" loading="lazy" alt="Avatar">
+&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.2/avatars/98200559.png class="friend-avatar" loading="lazy" alt="Avatar">
 &lt;/div>
 &lt;div class="friend-link-info">
 &lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
-&lt;i class="friend-name">Jimmy Cai&lt;/i>
-&lt;p class="friend-bio">Creator of the Hugo Theme Stack&lt;/p>
+&lt;i class="friend-name">RustCn&lt;/i>
+&lt;p class="friend-bio">Rust 语言学习和实战&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;/a>
+&lt;a href="https://roadmap.sh/" title="Roadmaps" class="friend-link" target="_blank" rel="friend">
+&lt;div class="friend-link-div">
+&lt;div class="friend-link-avatar">
+&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay/avatars/brand-square.png class="friend-avatar" loading="lazy" alt="Avatar">
+&lt;/div>
+&lt;div class="friend-link-info">
+&lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
+&lt;i class="friend-name">Roadmaps&lt;/i>
+&lt;p class="friend-bio">开发者路径&lt;/p>
+&lt;/div>
+&lt;/div>
+&lt;/a>
+&lt;a href="https://about.nange.cn/" title="PeinanXu" class="friend-link" target="_blank" rel="friend">
+&lt;div class="friend-link-div">
+&lt;div class="friend-link-avatar">
+&lt;img src=https://cdn.jsdelivr.net/gh/qin2dim/cdn-relay@0.1.0/avatars/22255253.jpg class="friend-avatar" loading="lazy" alt="Avatar">
+&lt;/div>
+&lt;div class="friend-link-info">
+&lt;i class="fa fa-link" aria-hidden="true">&lt;/i>
+&lt;i class="friend-name">PeinanXu&lt;/i>
+&lt;p class="friend-bio">这个人很懒，什么也没留下&lt;/p>
 &lt;/div>
 &lt;/div>
 &lt;/a>
