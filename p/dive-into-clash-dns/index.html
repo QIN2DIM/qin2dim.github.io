@@ -26,31 +26,23 @@
 </span><span class=lnt>15
 </span><span class=lnt>16
 </span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>rule-providers</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># -- skip --</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>rules</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,applications,DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-scholar-!cn,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-ads-all,REJECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,youtube,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,google,PROXY</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,cn,DIRECT</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,private,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>DOMAIN,clash.razord.top,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>DOMAIN,yacd.haishan.me,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>DOMAIN,services.googleapis.cn,PROXY</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,reject,REJECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,direct,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,private,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,proxy,PROXY</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,icloud,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,apple,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,lancidr,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,cncidr,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>RULE-SET,telegramcidr,PROXY,no-resolve</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,PRIVATE,DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,steam@cn,DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,category-games@cn,DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,geolocation-!cn,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,private,DIRECT,no-resolve</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,telegram,PROXY</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,CN,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>DST-PORT,80/8080/443/8443,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,DIRECT</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div></li></ol><h2 id=实验方法>实验方法</h2><blockquote><p>🦉实验可安全复现</p></blockquote><ol><li><p>分别在规则模式，全局模式，直连模式下使用预定义的 <code>dns</code> 实验配置访问域名：</p><ul><li><p><code>api.dida365.com</code></p><p>命中规则 <code>geosite:cn</code></p></li><li><p><code>api.dida36768990.com</code></p><p>一个随便敲的域名，假设它不存在。显然，这是个不存在于各个 RULE-SET 中的 target。</p></li><li><p><code>www.google.com</code></p><p>从上至下，命中首条域名代理规则。</p></li></ul></li><li><p>切换到 TUN 模式再测一遍</p></li><li><p>Recode DNS configuration, logger, wireshark trace</p><p>记录请求的触发顺序，阐述 clash DNS 通信的底层逻辑。</p></li><li><p>无特殊说明统一使用 clash 代称 Clash 和 Clash.Meta</p></li><li><p>实验在 Win PC 执行，而非软路由等嵌入式设备</p></li><li><p>每轮实验结束后清除所有 clash 连接， <code>ipconfig \flushdns</code> 清除 DNS 缓存</p></li><li><p>实验中使用 clash-verge 引导 Clash.Meta 代理核心，UI 保持出厂设定</p></li></ol><hr><blockquote><p>🪖需要注意：Clash DNS Object 有初始值，clash 会用硬编码的初始化参数覆盖我们缺省的字段，具体默认值可看上文的 <a class=link href>DNS 默认配置</a> 以及 <a class=link href>UnmarshalRawConfig</a>。</p></blockquote><p>实验按以下模块依次行进：</p><ol><li>config.yaml 中的 dns 配置字段</li><li>wireshark 抓包，过滤条件是 <code>dns && ip.dst==192.168.31.178</code></li><li>连接日志（可省略）</li></ol><h2 id=配置篇>配置篇</h2><h3 id=引入-default-nameserver--nameserver>引入 default-nameserver & nameserver</h3><blockquote><p>💡前者用于解析后者的域名，后者用于解析我们要访问的域名。</p></blockquote><h4 id=规则模式---对照组--默认配置>规则模式 - 对照组 | 默认配置</h4><p>仅设置 <em>enable</em> 字段，此时采用<a class=link href="https://www.notion.so/Dive-into-Clash-DNS-a025c9bb5f724972a2ffb7984ae4a6ca?pvs=21" target=_blank rel=noopener>初始化的 DNS 配置</a>。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>dns</span><span class=p>:</span><span class=w>
@@ -141,10 +133,10 @@
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>rules</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># 在对照规则之前该条添加规则</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>DOMAIN,api.dida365.com,PROXY</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># -- skip  --</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>MATCH,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 在对照规则之前该条添加规则</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>DOMAIN,api.dida365.com,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># -- skip  --</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,PROXY</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><p>使用 8.8.8.8 标记 <code>api.dida365.com</code> ，使用 223.5.5.5 标记其他请求：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
@@ -206,11 +198,11 @@
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s2>&#34;api.dida36768990.com&#34;</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=m>8.8.8.8</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>rules</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># 在对照组之前添加规则</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>DOMAIN,api.dida36768990.com,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>DOMAIN,api.dida365.com,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c># -- skip --</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>MATCH,PROXY</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># 在对照组之前添加规则</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>DOMAIN,api.dida36768990.com,DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>DOMAIN,api.dida365.com,DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=c># -- skip --</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,PROXY</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><ul><li><p><strong>情况1</strong>：浏览器访问 <code>api.dida365.com</code> ，请求通过系统代理进入 clash</p><p>未命中 <em>nameserver-policy</em>，切换至 <em>nameserver</em> ，组内没有域名形式的 DOH，<em>default-nameserver</em> 不启动，直接向 223.5.5.5 发起域名解析请求（绿色记录）。</p><p>其他命中<strong>域名直连规则</strong>的请求也是用 nameserver 进行域名解析（橙色记录）。</p><p>相关 DNS 请求均未被加密，可以看到抓包记录。</p></li><li><p><strong>情况2</strong>：浏览器访问 <code>api.dida36768990.com</code>，请求通过系统代理进入 clash</p><p>命中 <em>nameserver-policy</em>，组内没有域名形式的 DOH，<em>default-nameserver</em> 不启动，直接向 8.8.8.8 发起域名解析请求。显然，这是一个不存在的域名，DNS 响应出现 no such name 错误（黄色记录）。</p></li></ul><p><img src=/p/dive-into-clash-dns/image-20230715193441482.png width=1460 height=317 srcset="/p/dive-into-clash-dns/image-20230715193441482_hu08f23afb31c4c6256fbfcb60c2b38ac3_437478_480x0_resize_box_3.png 480w, /p/dive-into-clash-dns/image-20230715193441482_hu08f23afb31c4c6256fbfcb60c2b38ac3_437478_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=460 data-flex-basis=1105px></p><h4 id=规则模式---ip-规则的解析>规则模式 - IP 规则的解析</h4><p>首先修改出站规则，分别使用 223.5.5.5 和 180.76.76.76 标记 <code>api.dida365.com</code> 和 <code>api.dida36768990.com</code> 其余直连请求使用 119.29.29.29。这里为了 trace 纪录干净整洁便于原理分析，就不使用域名 DOH 了。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
@@ -276,10 +268,10 @@
 </span><span class=lnt>7
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 节取
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>for</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>line</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>rulesConfig</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>parsed</span><span class=p>,</span> <span class=nx>parseErr</span> <span class=o>:=</span> <span class=nf>ParseRule</span><span class=p>(</span><span class=nx>ruleName</span><span class=p>,</span> <span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>,</span> <span class=nx>params</span><span class=p>,</span> <span class=nx>subRules</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>parseErr</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;%s[%d] [%s] error: %s&#34;</span><span class=p>,</span> <span class=nx>format</span><span class=p>,</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>line</span><span class=p>,</span> <span class=nx>parseErr</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
-</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=nx>parsed</span><span class=p>,</span> <span class=nx>parseErr</span> <span class=o>:=</span> <span class=nf>ParseRule</span><span class=p>(</span><span class=nx>ruleName</span><span class=p>,</span> <span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>,</span> <span class=nx>params</span><span class=p>,</span> <span class=nx>subRules</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>parseErr</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;%s[%d] [%s] error: %s&#34;</span><span class=p>,</span> <span class=nx>format</span><span class=p>,</span> <span class=nx>idx</span><span class=p>,</span> <span class=nx>line</span><span class=p>,</span> <span class=nx>parseErr</span><span class=p>.</span><span class=nf>Error</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -304,24 +296,24 @@
 </span><span class=lnt>21
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 节取
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>ParseRule</span><span class=p>(</span><span class=nx>ruleName</span><span class=p>,</span> <span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>params</span> <span class=p>[]</span><span class=kt>string</span><span class=p>,</span> <span class=nx>subRules</span> <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>][]</span><span class=nx>C</span><span class=p>.</span><span class=nx>Rule</span><span class=p>)</span> <span class=p>(</span><span class=nx>parsed</span> <span class=nx>C</span><span class=p>.</span><span class=nx>Rule</span><span class=p>,</span> <span class=nx>parseErr</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>switch</span> <span class=nx>ruleName</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=s>&#34;DOMAIN&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=nx>parsed</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewDomain</span><span class=p>(</span><span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=s>&#34;GEOSITE&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=nx>parsed</span><span class=p>,</span> <span class=nx>parseErr</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewGEOSITE</span><span class=p>(</span><span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=s>&#34;GEOIP&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=nx>noResolve</span> <span class=o>:=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>HasNoResolve</span><span class=p>(</span><span class=nx>params</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=nx>parsed</span><span class=p>,</span> <span class=nx>parseErr</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewGEOIP</span><span class=p>(</span><span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>,</span> <span class=nx>noResolve</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=s>&#34;MATCH&#34;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=nx>parsed</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewMatch</span><span class=p>(</span><span class=nx>target</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=nx>parseErr</span> <span class=p>=</span> <span class=kc>nil</span>
-</span></span><span class=line><span class=cl>	<span class=k>default</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=nx>parseErr</span> <span class=p>=</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;unsupported rule type %s&#34;</span><span class=p>,</span> <span class=nx>tp</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>parseErr</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>parseErr</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>	<span class=k>return</span>
+</span></span><span class=line><span class=cl>    <span class=k>switch</span> <span class=nx>ruleName</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=s>&#34;DOMAIN&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nx>parsed</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewDomain</span><span class=p>(</span><span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=s>&#34;GEOSITE&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nx>parsed</span><span class=p>,</span> <span class=nx>parseErr</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewGEOSITE</span><span class=p>(</span><span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=s>&#34;GEOIP&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nx>noResolve</span> <span class=o>:=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>HasNoResolve</span><span class=p>(</span><span class=nx>params</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=nx>parsed</span><span class=p>,</span> <span class=nx>parseErr</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewGEOIP</span><span class=p>(</span><span class=nx>payload</span><span class=p>,</span> <span class=nx>target</span><span class=p>,</span> <span class=nx>noResolve</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=s>&#34;MATCH&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nx>parsed</span> <span class=p>=</span> <span class=nx>RC</span><span class=p>.</span><span class=nf>NewMatch</span><span class=p>(</span><span class=nx>target</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=nx>parseErr</span> <span class=p>=</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>        <span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nx>parseErr</span> <span class=p>=</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Errorf</span><span class=p>(</span><span class=s>&#34;unsupported rule type %s&#34;</span><span class=p>,</span> <span class=nx>tp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>parseErr</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>parseErr</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><p>clash 从上至下逐行读取 rules，每个规则集都会进入到一个 case 子业务链路，我们这里进入的是 <strong>GEOIP</strong> 的 case，它首先会识别是否存在 <em><strong>no-resolve</strong></em> 标识，再以此决定 NewGEOIP 的具体行为。GEOIP 的规则匹配流程此处不过多赘述，感兴趣的小伙伴可以自行翻阅源码。</p><p>那么，根据我们先前的讨论，这里的 parseErr 必然是“有内容的”，也即<strong>这个错误传递到上层的 for 循环后会中断循环，使得程序不会行进到下一条 rule</strong>，也即 <code>DOMAIN,api.dida36768990.com,DIRECT</code> 。</p><p>换句话说，当我们试图将 <code>api.dida36768990.com</code>所对应的 IP 与规则集 <code>GEOIP,CN,PROXY</code> 进行配对时遇到了错误，这个错误首先中断匹配行进，打印错误日志，随后向上一直传导至 main 接口，沿途触发所有的 warning + 级别的日志警告。</p><p><img src=/p/dive-into-clash-dns/image-20230715193605977.png width=1460 height=206 srcset="/p/dive-into-clash-dns/image-20230715193605977_huf2ed1aa4b0b2d2c5b2dace11891aaf99_131361_480x0_resize_box_3.png 480w, /p/dive-into-clash-dns/image-20230715193605977_huf2ed1aa4b0b2d2c5b2dace11891aaf99_131361_1024x0_resize_box_3.png 1024w" loading=lazy class=gallery-image data-flex-grow=708 data-flex-basis=1700px></p><h4 id=规则模式---ip-规则的解析---验证>规则模式 - IP 规则的解析 - 验证</h4><ul><li><p>GEOIP <em>no-resolve</em> only, REQUEST GET <code>api.dida365.com</code> + <code>api.dida36768990.com</code></p><p>跳过 GEOIP 的本地域名解析，直接进入下一个规则集的匹配</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -384,9 +376,9 @@
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>rules</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>MATCH,PROXY </span><span class=w> </span><span class=c># 全局代理（使用名为 PROXY 的代理组）</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>MATCH,DIRECT</span><span class=w> </span><span class=c># 全局直连</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>MATCH,REJECT</span><span class=w> </span><span class=c># 全局拒绝</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,PROXY </span><span class=w> </span><span class=c># 全局代理（使用名为 PROXY 的代理组）</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,DIRECT</span><span class=w> </span><span class=c># 全局直连</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>MATCH,REJECT</span><span class=w> </span><span class=c># 全局拒绝</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div></li><li><p>Best Practices - DNS 分流配置</p><p>想啥呢🎃才开始进阶怎么会有最佳实践配置</p><p>想啥呢🐧我们还没开始 <strong>&lt;困难></strong> 和 <strong></strong>章节内容的介绍~</p><p>不过，我们是时候来个阶段性的最佳实践总结了，后续介绍的内容也不会和如下结论冲突。</p><ol><li><p>编排 rules 规则时，先写域名匹配再写 IP 匹配，最后 <code>MATCH</code> 兜底。</p><p>默认出站选择 PROXY 还是 DIRECT 取决于你的性癖上网习惯，进而决定选择 白名单 还是 黑名单 的编排方案。</p><ul><li><code>MATCH,PROXY</code> 兜底，建议遵从如上 rules 最佳实践的前提下，先编排 PROXY 出站规则再编排 DIRECT 出站规则</li><li><code>MATCH,DIRECT</code> 兜底，反之。</li></ul></li><li><p>优先使用 RULE-SET，只需添加未在上游规则集中出现的规则。</p><p>尽管目前这些规则集至少有几十万条数据，但在精心设计的 Mapping 策略下，规则匹配的耗时是忽略不计的。</p><p>此外，你可能需要将这条规则 <code>RULE-SET,applications,DIRECT</code> 添加到你的 rules 首行。</p></li><li><p>当访问域名遇到 <strong>IP 规则</strong> 或 <strong>域名直连规则</strong>时，本地发起 DNS 请求。</p><p>需要注意的是，你添加的 classical RULE-SET 可能也包含域名直连规则以及 IP 规则</p></li><li><p>clash DNS Mapping</p><ul><li>使用 <em>nameserver-policy</em> 和 <em>nameserver</em> 解析我们即将访问的域名，前者优先启动。</li><li>需要使用 <em>default-nameserver</em> 解析上述两个策略组中的域名，也即，<em>default-nameserver</em> 需要使用 IP 写法（可以是 IP 形式的 DOH），避免出现鸡蛋问题。</li><li>这三个策略组的网络请求是并发行进的。如果存在多个并发查询，clash 优先采用最速响应的 IP 作为域名的查询结果。</li><li>不必修改（覆盖）默认的 <em>default-nameserver</em>，而 <em>nameserver-policy</em> 和 <em>nameserver</em> 尽可能使用 IP 形式的 DOH，省去这个间接的解析步骤。</li><li>在设置 <em>nameserver-policy</em> 和 <em>nameserver</em> 时使用 DOH，而非 DOT/DOQ。</li></ul></li></ol><p>我们可以凭借上述特性组合出「国外DNS」和「直连DNS」的概念，你可以说这是一个精妙的巧合，但也可以说这是社区智慧的结晶。</p><h4 id=public-dns---已知的-dns-提供商>Public DNS - 已知的 DNS 提供商</h4><ul><li><p><a class=link href=https://github.com/QIN2DIM/tuic-installer/wiki/%e5%85%ac%e6%9c%89-DNS-%e6%b1%87%e6%80%bb-DOT-DOH-DOQ target=_blank rel=noopener>公有 DNS 汇总 DOT DOH DOQ · QIN2DIM/tuic-installer</a></p></li><li><p><a class=link href=https://adguard-dns.io/kb/zh-CN/general/dns-providers/#default target=_blank rel=noopener>已知的 DNS 提供商 | AdGuard DNS Knowledge Base</a></p></li></ul></li></ul><h2 id=原理篇>原理篇</h2><blockquote><p>💡Let&rsquo;s analyze this systematically.</p></blockquote><h3 id=clash-flow---dns>Clash flow - DNS</h3><p>流程图</p><h3 id=clash-flow---proxy>Clash flow - Proxy</h3><p>流程图</p><h2 id=泄漏篇>泄漏篇</h2><h3 id=dns-泄漏---概念界定>DNS 泄漏 - 概念界定</h3><ol><li>用户开启 VPN 后，正常网上冲浪产生的 DNS 请求被 <strong>本地</strong> 上游 ISP 捕获。</li><li>因此，本地上游 ISP 知道 <strong>&lt;某人></strong> 要解析的 <strong>&lt;某域名></strong> 。</li></ol><h3 id=dns-泄漏---争议点>DNS 泄漏 - 争议点</h3><h4 id=vpn-的-dns-泄漏>VPN 的 DNS 泄漏</h4><p>在正常情况下，开启 VPN 后，VPN 软件将用户的「访问请求」呈送至远程服务器，访问网站的工作由远程服务器完成，也即，DNS 请求由远程服务器发出。</p><p>此时出现了一些不可抗力因素，用户向目标网站发起了直连请求，或者说，本地发起了向「系统网关 → 上游 ISP」的 DNS 查询。有可能是 VPN 软件没有劫持到这个请求，也有可能是用户配置出了问题，总之就是 DNS 请求不仅发往了 VPN 提供的 DNS ，也发往了本地 ISP。</p><p>In the case，尽管你配置了 DOH，但作为解析 DNS 请求的上游 ISP 它必然是能看到你要访问的 网址（域名），不然它没法给你查询域名对应的 IP（DNS基本原理不过多赘述）。</p><h4 id=proxy-的-dns-泄漏>Proxy 的 DNS 泄漏</h4><p>clash 等代理核心出现了规则模式的设定，在合理的配置下：</p><ol><li>访问国内站点（如 <code>geosite:cn</code>），直接从本机发起请求。</li><li>访问我们标记的站点（如 youtube），则将请求呈送至远程服务器，代理访问。</li></ol><p>绝大多数玩家使用的都是规则模式下的系统代理，例如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
@@ -530,108 +522,108 @@
 </span><span class=lnt>103
 </span><span class=lnt>104
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=nf>UnmarshalRawConfig</span><span class=p>(</span><span class=nx>buf</span> <span class=p>[]</span><span class=kt>byte</span><span class=p>)</span> <span class=p>(</span><span class=o>*</span><span class=nx>RawConfig</span><span class=p>,</span> <span class=kt>error</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=c1>// config with default value
-</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>rawCfg</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>RawConfig</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>AllowLan</span><span class=p>:</span>        <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>BindAddress</span><span class=p>:</span>     <span class=s>&#34;*&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>IPv6</span><span class=p>:</span>            <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Mode</span><span class=p>:</span>            <span class=nx>T</span><span class=p>.</span><span class=nx>Rule</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>GeodataMode</span><span class=p>:</span>     <span class=nx>C</span><span class=p>.</span><span class=nx>GeodataMode</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>GeodataLoader</span><span class=p>:</span>   <span class=s>&#34;memconservative&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>UnifiedDelay</span><span class=p>:</span>    <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Authentication</span><span class=p>:</span>  <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>LogLevel</span><span class=p>:</span>        <span class=nx>log</span><span class=p>.</span><span class=nx>INFO</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Hosts</span><span class=p>:</span>           <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Rule</span><span class=p>:</span>            <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Proxy</span><span class=p>:</span>           <span class=p>[]</span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>ProxyGroup</span><span class=p>:</span>      <span class=p>[]</span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>TCPConcurrent</span><span class=p>:</span>   <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>FindProcessMode</span><span class=p>:</span> <span class=nx>P</span><span class=p>.</span><span class=nx>FindProcessStrict</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Tun</span><span class=p>:</span> <span class=nx>RawTun</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Enable</span><span class=p>:</span>              <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Device</span><span class=p>:</span>              <span class=s>&#34;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Stack</span><span class=p>:</span>               <span class=nx>C</span><span class=p>.</span><span class=nx>TunGvisor</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>DNSHijack</span><span class=p>:</span>           <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;0.0.0.0:53&#34;</span><span class=p>},</span> <span class=c1>// default hijack all dns query
-</span></span></span><span class=line><span class=cl><span class=c1></span>			<span class=nx>AutoRoute</span><span class=p>:</span>           <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>AutoDetectInterface</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Inet6Address</span><span class=p>:</span>        <span class=p>[]</span><span class=nx>LC</span><span class=p>.</span><span class=nx>ListenPrefix</span><span class=p>{</span><span class=nx>LC</span><span class=p>.</span><span class=nf>ListenPrefix</span><span class=p>(</span><span class=nx>netip</span><span class=p>.</span><span class=nf>MustParsePrefix</span><span class=p>(</span><span class=s>&#34;fdfe:dcba:9876::1/126&#34;</span><span class=p>))},</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>TuicServer</span><span class=p>:</span> <span class=nx>RawTuicServer</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Enable</span><span class=p>:</span>                <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Token</span><span class=p>:</span>                 <span class=kc>nil</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Users</span><span class=p>:</span>                 <span class=kc>nil</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Certificate</span><span class=p>:</span>           <span class=s>&#34;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>PrivateKey</span><span class=p>:</span>            <span class=s>&#34;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Listen</span><span class=p>:</span>                <span class=s>&#34;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>CongestionController</span><span class=p>:</span>  <span class=s>&#34;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>MaxIdleTime</span><span class=p>:</span>           <span class=mi>15000</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>AuthenticationTimeout</span><span class=p>:</span> <span class=mi>1000</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>ALPN</span><span class=p>:</span>                  <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;h3&#34;</span><span class=p>},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>MaxUdpRelayPacketSize</span><span class=p>:</span> <span class=mi>1500</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>EBpf</span><span class=p>:</span> <span class=nx>EBpf</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>RedirectToTun</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>AutoRedir</span><span class=p>:</span>     <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>IPTables</span><span class=p>:</span> <span class=nx>IPTables</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Enable</span><span class=p>:</span>           <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>InboundInterface</span><span class=p>:</span> <span class=s>&#34;lo&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Bypass</span><span class=p>:</span>           <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>DNS</span><span class=p>:</span> <span class=nx>RawDNS</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Enable</span><span class=p>:</span>       <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>IPv6</span><span class=p>:</span>         <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>UseHosts</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>IPv6Timeout</span><span class=p>:</span>  <span class=mi>100</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>EnhancedMode</span><span class=p>:</span> <span class=nx>C</span><span class=p>.</span><span class=nx>DNSMapping</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>FakeIPRange</span><span class=p>:</span>  <span class=s>&#34;198.18.0.1/16&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>FallbackFilter</span><span class=p>:</span> <span class=nx>RawFallbackFilter</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=nx>GeoIP</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=nx>GeoIPCode</span><span class=p>:</span> <span class=s>&#34;CN&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=nx>IPCIDR</span><span class=p>:</span>    <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>				<span class=nx>GeoSite</span><span class=p>:</span>   <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>DefaultNameserver</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;114.114.114.114&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;223.5.5.5&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;8.8.8.8&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;1.0.0.1&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>NameServer</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;&lt;https://doh.pub/dns-query&gt;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;tls://223.5.5.5:853&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>FakeIPFilter</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;dns.msftnsci.com&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;www.msftnsci.com&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;www.msftconnecttest.com&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Sniffer</span><span class=p>:</span> <span class=nx>RawSniffer</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Enable</span><span class=p>:</span>          <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Sniffing</span><span class=p>:</span>        <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>ForceDomain</span><span class=p>:</span>     <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>SkipDomain</span><span class=p>:</span>      <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Ports</span><span class=p>:</span>           <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>ForceDnsMapping</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>ParsePureIp</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>OverrideDest</span><span class=p>:</span>    <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Profile</span><span class=p>:</span> <span class=nx>Profile</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>StoreSelected</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=nx>GeoXUrl</span><span class=p>:</span> <span class=nx>RawGeoXUrl</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Mmdb</span><span class=p>:</span>    <span class=s>&#34;&lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb&gt;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>GeoIp</span><span class=p>:</span>   <span class=s>&#34;&lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat&gt;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>GeoSite</span><span class=p>:</span> <span class=s>&#34;&lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat&gt;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>yaml</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>buf</span><span class=p>,</span> <span class=nx>rawCfg</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>rawCfg</span><span class=p>,</span> <span class=kc>nil</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// config with default value
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>rawCfg</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>RawConfig</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>AllowLan</span><span class=p>:</span>        <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>BindAddress</span><span class=p>:</span>     <span class=s>&#34;*&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>IPv6</span><span class=p>:</span>            <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Mode</span><span class=p>:</span>            <span class=nx>T</span><span class=p>.</span><span class=nx>Rule</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>GeodataMode</span><span class=p>:</span>     <span class=nx>C</span><span class=p>.</span><span class=nx>GeodataMode</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>GeodataLoader</span><span class=p>:</span>   <span class=s>&#34;memconservative&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>UnifiedDelay</span><span class=p>:</span>    <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Authentication</span><span class=p>:</span>  <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>LogLevel</span><span class=p>:</span>        <span class=nx>log</span><span class=p>.</span><span class=nx>INFO</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Hosts</span><span class=p>:</span>           <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Rule</span><span class=p>:</span>            <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Proxy</span><span class=p>:</span>           <span class=p>[]</span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>ProxyGroup</span><span class=p>:</span>      <span class=p>[]</span><span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>TCPConcurrent</span><span class=p>:</span>   <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>FindProcessMode</span><span class=p>:</span> <span class=nx>P</span><span class=p>.</span><span class=nx>FindProcessStrict</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Tun</span><span class=p>:</span> <span class=nx>RawTun</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Enable</span><span class=p>:</span>              <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Device</span><span class=p>:</span>              <span class=s>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Stack</span><span class=p>:</span>               <span class=nx>C</span><span class=p>.</span><span class=nx>TunGvisor</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>DNSHijack</span><span class=p>:</span>           <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;0.0.0.0:53&#34;</span><span class=p>},</span> <span class=c1>// default hijack all dns query
+</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=nx>AutoRoute</span><span class=p>:</span>           <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>AutoDetectInterface</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Inet6Address</span><span class=p>:</span>        <span class=p>[]</span><span class=nx>LC</span><span class=p>.</span><span class=nx>ListenPrefix</span><span class=p>{</span><span class=nx>LC</span><span class=p>.</span><span class=nf>ListenPrefix</span><span class=p>(</span><span class=nx>netip</span><span class=p>.</span><span class=nf>MustParsePrefix</span><span class=p>(</span><span class=s>&#34;fdfe:dcba:9876::1/126&#34;</span><span class=p>))},</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>TuicServer</span><span class=p>:</span> <span class=nx>RawTuicServer</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Enable</span><span class=p>:</span>                <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Token</span><span class=p>:</span>                 <span class=kc>nil</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Users</span><span class=p>:</span>                 <span class=kc>nil</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Certificate</span><span class=p>:</span>           <span class=s>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>PrivateKey</span><span class=p>:</span>            <span class=s>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Listen</span><span class=p>:</span>                <span class=s>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>CongestionController</span><span class=p>:</span>  <span class=s>&#34;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>MaxIdleTime</span><span class=p>:</span>           <span class=mi>15000</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>AuthenticationTimeout</span><span class=p>:</span> <span class=mi>1000</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>ALPN</span><span class=p>:</span>                  <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;h3&#34;</span><span class=p>},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>MaxUdpRelayPacketSize</span><span class=p>:</span> <span class=mi>1500</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>EBpf</span><span class=p>:</span> <span class=nx>EBpf</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>RedirectToTun</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>AutoRedir</span><span class=p>:</span>     <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>IPTables</span><span class=p>:</span> <span class=nx>IPTables</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Enable</span><span class=p>:</span>           <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>InboundInterface</span><span class=p>:</span> <span class=s>&#34;lo&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Bypass</span><span class=p>:</span>           <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>DNS</span><span class=p>:</span> <span class=nx>RawDNS</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Enable</span><span class=p>:</span>       <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>IPv6</span><span class=p>:</span>         <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>UseHosts</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>IPv6Timeout</span><span class=p>:</span>  <span class=mi>100</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>EnhancedMode</span><span class=p>:</span> <span class=nx>C</span><span class=p>.</span><span class=nx>DNSMapping</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>FakeIPRange</span><span class=p>:</span>  <span class=s>&#34;198.18.0.1/16&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>FallbackFilter</span><span class=p>:</span> <span class=nx>RawFallbackFilter</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=nx>GeoIP</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=nx>GeoIPCode</span><span class=p>:</span> <span class=s>&#34;CN&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=nx>IPCIDR</span><span class=p>:</span>    <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>                <span class=nx>GeoSite</span><span class=p>:</span>   <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>            <span class=p>},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>DefaultNameserver</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;114.114.114.114&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;223.5.5.5&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;8.8.8.8&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;1.0.0.1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=p>},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>NameServer</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;&lt;https://doh.pub/dns-query&gt;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;tls://223.5.5.5:853&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=p>},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>FakeIPFilter</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;dns.msftnsci.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;www.msftnsci.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                <span class=s>&#34;www.msftconnecttest.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Sniffer</span><span class=p>:</span> <span class=nx>RawSniffer</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Enable</span><span class=p>:</span>          <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Sniffing</span><span class=p>:</span>        <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>ForceDomain</span><span class=p>:</span>     <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>SkipDomain</span><span class=p>:</span>      <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Ports</span><span class=p>:</span>           <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>            <span class=nx>ForceDnsMapping</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>ParsePureIp</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>OverrideDest</span><span class=p>:</span>    <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>Profile</span><span class=p>:</span> <span class=nx>Profile</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>StoreSelected</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>GeoXUrl</span><span class=p>:</span> <span class=nx>RawGeoXUrl</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>            <span class=nx>Mmdb</span><span class=p>:</span>    <span class=s>&#34;&lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb&gt;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>GeoIp</span><span class=p>:</span>   <span class=s>&#34;&lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat&gt;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>            <span class=nx>GeoSite</span><span class=p>:</span> <span class=s>&#34;&lt;https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat&gt;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>yaml</span><span class=p>.</span><span class=nf>Unmarshal</span><span class=p>(</span><span class=nx>buf</span><span class=p>,</span> <span class=nx>rawCfg</span><span class=p>);</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>nil</span><span class=p>,</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nx>rawCfg</span><span class=p>,</span> <span class=kc>nil</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><h4 id=dnsmode-alias>DNSMode Alias</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -648,18 +640,18 @@
 </span><span class=lnt>13
 </span><span class=lnt>14
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span> <span class=p>(</span><span class=nx>e</span> <span class=nx>DNSMode</span><span class=p>)</span> <span class=nf>String</span><span class=p>()</span> <span class=kt>string</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>switch</span> <span class=nx>e</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>DNSNormal</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;normal&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>DNSFakeIP</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;fake-ip&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>DNSMapping</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;redir-host&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=k>case</span> <span class=nx>DNSHosts</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;hosts&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=k>default</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;unknown&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>switch</span> <span class=nx>e</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=nx>DNSNormal</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=s>&#34;normal&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=nx>DNSFakeIP</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=s>&#34;fake-ip&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=nx>DNSMapping</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=s>&#34;redir-host&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>case</span> <span class=nx>DNSHosts</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=s>&#34;hosts&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=k>default</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=s>&#34;unknown&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><h4 id=type-rawdns-struct>type RawDNS struct</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -679,21 +671,21 @@
 </span><span class=lnt>16
 </span><span class=lnt>17
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span> <span class=nx>RawDNS</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Enable</span>                <span class=kt>bool</span>              <span class=s>`yaml:&#34;enable&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>PreferH3</span>              <span class=kt>bool</span>              <span class=s>`yaml:&#34;prefer-h3&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>IPv6</span>                  <span class=kt>bool</span>              <span class=s>`yaml:&#34;ipv6&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>IPv6Timeout</span>           <span class=kt>uint</span>              <span class=s>`yaml:&#34;ipv6-timeout&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>UseHosts</span>              <span class=kt>bool</span>              <span class=s>`yaml:&#34;use-hosts&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>NameServer</span>            <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;nameserver&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Fallback</span>              <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;fallback&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>FallbackFilter</span>        <span class=nx>RawFallbackFilter</span> <span class=s>`yaml:&#34;fallback-filter&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>Listen</span>                <span class=kt>string</span>            <span class=s>`yaml:&#34;listen&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>EnhancedMode</span>          <span class=nx>C</span><span class=p>.</span><span class=nx>DNSMode</span>         <span class=s>`yaml:&#34;enhanced-mode&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>FakeIPRange</span>           <span class=kt>string</span>            <span class=s>`yaml:&#34;fake-ip-range&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>FakeIPFilter</span>          <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;fake-ip-filter&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>DefaultNameserver</span>     <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;default-nameserver&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>NameServerPolicy</span>      <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span>    <span class=s>`yaml:&#34;nameserver-policy&#34;`</span>
-</span></span><span class=line><span class=cl>	<span class=nx>ProxyServerNameserver</span> <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;proxy-server-nameserver&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Enable</span>                <span class=kt>bool</span>              <span class=s>`yaml:&#34;enable&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>PreferH3</span>              <span class=kt>bool</span>              <span class=s>`yaml:&#34;prefer-h3&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>IPv6</span>                  <span class=kt>bool</span>              <span class=s>`yaml:&#34;ipv6&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>IPv6Timeout</span>           <span class=kt>uint</span>              <span class=s>`yaml:&#34;ipv6-timeout&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>UseHosts</span>              <span class=kt>bool</span>              <span class=s>`yaml:&#34;use-hosts&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>NameServer</span>            <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;nameserver&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Fallback</span>              <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;fallback&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FallbackFilter</span>        <span class=nx>RawFallbackFilter</span> <span class=s>`yaml:&#34;fallback-filter&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Listen</span>                <span class=kt>string</span>            <span class=s>`yaml:&#34;listen&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>EnhancedMode</span>          <span class=nx>C</span><span class=p>.</span><span class=nx>DNSMode</span>         <span class=s>`yaml:&#34;enhanced-mode&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FakeIPRange</span>           <span class=kt>string</span>            <span class=s>`yaml:&#34;fake-ip-range&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FakeIPFilter</span>          <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;fake-ip-filter&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>DefaultNameserver</span>     <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;default-nameserver&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>NameServerPolicy</span>      <span class=kd>map</span><span class=p>[</span><span class=kt>string</span><span class=p>]</span><span class=nx>any</span>    <span class=s>`yaml:&#34;nameserver-policy&#34;`</span>
+</span></span><span class=line><span class=cl>    <span class=nx>ProxyServerNameserver</span> <span class=p>[]</span><span class=kt>string</span>          <span class=s>`yaml:&#34;proxy-server-nameserver&#34;`</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><h4 id=dns-默认配置>DNS 默认配置</h4><p><a class=link href=https://github.com/MetaCubeX/Clash.Meta/blob/8d1251f1287846daf42db4151b707d9f677be5a1/config/config.go#L377 target=_blank rel=noopener>Clash.Meta/config/config.go MetaCubeX/Clash.Meta</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -725,34 +717,34 @@
 </span><span class=lnt>28
 </span><span class=lnt>29
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=nx>DNS</span><span class=p>:</span> <span class=nx>RawDNS</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>			<span class=nx>Enable</span><span class=p>:</span>       <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>IPv6</span><span class=p>:</span>         <span class=kc>false</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>UseHosts</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>IPv6Timeout</span><span class=p>:</span>  <span class=mi>100</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>EnhancedMode</span><span class=p>:</span> <span class=nx>C</span><span class=p>.</span><span class=nx>DNSMapping</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>FakeIPRange</span><span class=p>:</span>  <span class=s>&#34;198.18.0.1/16&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=nx>FallbackFilter</span><span class=p>:</span> <span class=nx>RawFallbackFilter</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=nx>GeoIP</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=nx>GeoIPCode</span><span class=p>:</span> <span class=s>&#34;CN&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=nx>IPCIDR</span><span class=p>:</span>    <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>				<span class=nx>GeoSite</span><span class=p>:</span>   <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>DefaultNameserver</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;114.114.114.114&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;223.5.5.5&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;8.8.8.8&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;1.0.0.1&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>NameServer</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;&lt;https://doh.pub/dns-query&gt;&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;tls://223.5.5.5:853&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>			<span class=nx>FakeIPFilter</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;dns.msftnsci.com&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;www.msftnsci.com&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>				<span class=s>&#34;www.msftconnecttest.com&#34;</span><span class=p>,</span>
-</span></span><span class=line><span class=cl>			<span class=p>},</span>
-</span></span><span class=line><span class=cl>		<span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>Enable</span><span class=p>:</span>       <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>IPv6</span><span class=p>:</span>         <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>UseHosts</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>IPv6Timeout</span><span class=p>:</span>  <span class=mi>100</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>EnhancedMode</span><span class=p>:</span> <span class=nx>C</span><span class=p>.</span><span class=nx>DNSMapping</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FakeIPRange</span><span class=p>:</span>  <span class=s>&#34;198.18.0.1/16&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FallbackFilter</span><span class=p>:</span> <span class=nx>RawFallbackFilter</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>GeoIP</span><span class=p>:</span>     <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>GeoIPCode</span><span class=p>:</span> <span class=s>&#34;CN&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=nx>IPCIDR</span><span class=p>:</span>    <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>        <span class=nx>GeoSite</span><span class=p>:</span>   <span class=p>[]</span><span class=kt>string</span><span class=p>{},</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>DefaultNameserver</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;114.114.114.114&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;223.5.5.5&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;8.8.8.8&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;1.0.0.1&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>NameServer</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;&lt;https://doh.pub/dns-query&gt;&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;tls://223.5.5.5:853&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=nx>FakeIPFilter</span><span class=p>:</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;dns.msftnsci.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;www.msftnsci.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>        <span class=s>&#34;www.msftconnecttest.com&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><h4 id=type-pool-struct>type Pool struct</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
@@ -767,15 +759,15 @@
 </span><span class=lnt>12
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// Pool is an implementation about fake ip generator without storage
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>type</span> <span class=nx>Pool</span> <span class=kd>struct</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>gateway</span> <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
-</span></span><span class=line><span class=cl>	<span class=nx>first</span>   <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
-</span></span><span class=line><span class=cl>	<span class=nx>last</span>    <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
-</span></span><span class=line><span class=cl>	<span class=nx>offset</span>  <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
-</span></span><span class=line><span class=cl>	<span class=nx>cycle</span>   <span class=kt>bool</span>
-</span></span><span class=line><span class=cl>	<span class=nx>mux</span>     <span class=nx>sync</span><span class=p>.</span><span class=nx>Mutex</span>
-</span></span><span class=line><span class=cl>	<span class=nx>host</span>    <span class=o>*</span><span class=nx>trie</span><span class=p>.</span><span class=nx>DomainTrie</span><span class=p>[</span><span class=kd>struct</span><span class=p>{}]</span>
-</span></span><span class=line><span class=cl>	<span class=nx>ipnet</span>   <span class=o>*</span><span class=nx>netip</span><span class=p>.</span><span class=nx>Prefix</span>
-</span></span><span class=line><span class=cl>	<span class=nx>store</span>   <span class=nx>store</span>
+</span></span><span class=line><span class=cl>    <span class=nx>gateway</span> <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>first</span>   <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>last</span>    <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>offset</span>  <span class=nx>netip</span><span class=p>.</span><span class=nx>Addr</span>
+</span></span><span class=line><span class=cl>    <span class=nx>cycle</span>   <span class=kt>bool</span>
+</span></span><span class=line><span class=cl>    <span class=nx>mux</span>     <span class=nx>sync</span><span class=p>.</span><span class=nx>Mutex</span>
+</span></span><span class=line><span class=cl>    <span class=nx>host</span>    <span class=o>*</span><span class=nx>trie</span><span class=p>.</span><span class=nx>DomainTrie</span><span class=p>[</span><span class=kd>struct</span><span class=p>{}]</span>
+</span></span><span class=line><span class=cl>    <span class=nx>ipnet</span>   <span class=o>*</span><span class=nx>netip</span><span class=p>.</span><span class=nx>Prefix</span>
+</span></span><span class=line><span class=cl>    <span class=nx>store</span>   <span class=nx>store</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span></code></pre></td></tr></table></div></div><h4 id=geositegeoip-大小写不敏感>GEOSITE，GEOIP 大小写不敏感</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
@@ -794,16 +786,16 @@
 </span><span class=lnt>15
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 将国家代码转成小写后再匹配
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>LoadGeoSiteMatcher</span><span class=p>(</span><span class=nx>countryCode</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=o>--</span> <span class=nx>skip</span> <span class=o>--</span>
-</span></span><span class=line><span class=cl>	<span class=nx>countryCode</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>ToLower</span><span class=p>(</span><span class=nx>countryCode</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=o>--</span> <span class=nx>skip</span> <span class=o>--</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// -- skip --
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>countryCode</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>ToLower</span><span class=p>(</span><span class=nx>countryCode</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// -- skip --
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=c1>// LAN 特例，必须大写才能匹配规则
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>func</span> <span class=nf>LoadGeoIPMatcher</span><span class=p>(</span><span class=nx>country</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=o>--</span> <span class=nx>skip</span> <span class=o>--</span>
-</span></span><span class=line><span class=cl>	<span class=nx>country</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>ToLower</span><span class=p>(</span><span class=nx>country</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=o>--</span> <span class=nx>skip</span> <span class=o>--</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// -- skip --
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>country</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>ToLower</span><span class=p>(</span><span class=nx>country</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=c1>// -- skip --
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=c1>// ---
 </span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>countryCode</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>ToLower</span><span class=p>(</span><span class=nx>countryCode</span><span class=p>)</span> 
@@ -813,18 +805,12 @@
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span><span class=lnt>9
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>rules</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,PRIVATE,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>GEOSITE,private,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nn>---</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOSITE,private,DIRECT</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>rules</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>GEOIP,cn,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>	</span>- <span class=l>GEOIP,CN,DIRECT</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nn>---</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=c># 以此类推</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,cn,DIRECT</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span>- <span class=l>GEOIP,CN,DIRECT</span><span class=w>
 </span></span></span></code></pre></td></tr></table></div></div><h4 id=new-tuic>new tuic</h4><p><a class=link href=https://github.com/MetaCubeX/Clash.Meta/blob/0b1aff575990ea5816cd24b64757b75dc7368db1/adapter/outbound/tuic.go#L120 target=_blank rel=noopener>NewTuic MetaCubeX/Clash.Meta</a></p><h3 id=常见问题汇总>常见问题汇总</h3><ol><li>Windows DNS 策略组问题</li><li>使用 clash 一顿操作连不上公司内网</li></ol><h2 id=reference>Reference</h2><ul><li><a class=link href=https://github.com/Loyalsoldier/clash-rules#rule-providers-%e9%85%8d%e7%bd%ae%e6%96%b9%e5%bc%8f target=_blank rel=noopener>规则上游</a></li><li><a class=link href=https://wiki.metacubex.one/config/rules/rule-provider/#rule-set target=_blank rel=noopener>语法规则</a></li><li><a class=link href=https://wiki.metacubex.one/config/dns/diagram/ target=_blank rel=noopener>Clash.Meta 的 DNS 工作流程</a></li><li><a class=link href=https://wiki.metacubex.one/config/dns/#nameserver-policy target=_blank rel=noopener>域名服务器查询策略</a></li><li><a class=link href=https://www.dnsperf.com/ target=_blank rel=noopener>全球公有DNS服务器性能测试</a></li></ul></section><footer class=article-footer><section class=article-tags><a href=/tags/clash/>Clash</a>
 <a href=/tags/clash-meta/>clash-meta</a>
 <a href=/tags/clash-verge/>clash-verge</a>
