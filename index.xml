@@ -1155,7 +1155,7 @@ data-flex-basis="1815px"
 >bilibili.com&lt;/a> ，由本地 PC 向上游 DNS 发送查询&lt;/li>
 &lt;li>✅代理访问 &lt;a class="link" href="http://google.com" target="_blank" rel="noopener"
 >google.com&lt;/a>，由远程服务器向国外 DNS 发送查询&lt;/li>
-&lt;li>❌代理访问 &lt;a class="link" href="http://google.com" target="_blank" rel="noopener"
+&lt;li>❌直连访问 &lt;a class="link" href="http://google.com" target="_blank" rel="noopener"
 >google.com&lt;/a>，由本地 PC 向上游 DNS 发送查询&lt;/li>
 &lt;/ol>
 &lt;p>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/image-20230715195243552.png"
