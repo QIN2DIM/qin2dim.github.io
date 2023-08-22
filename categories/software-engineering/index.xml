@@ -1,4 +1,67 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Engineering on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/software-engineering/</link><description>Recent content in Software Engineering on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 15 Jul 2023 12:17:57 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/software-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Dive into Clash DNS</title><link>https://blog.echosec.top/p/dive-into-clash-dns/</link><pubDate>Sat, 15 Jul 2023 12:17:57 +0800</pubDate><guid>https://blog.echosec.top/p/dive-into-clash-dns/</guid><description>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/dominik-mayer.jpg" alt="Featured image of post 『Blog』Dive into Clash DNS" />&lt;h2 id="简介">简介&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Engineering on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/software-engineering/</link><description>Recent content in Software Engineering on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 15 Jul 2023 12:17:57 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/software-engineering/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』爬虫之巅，畅想「矛」与「盾」的未来</title><link>https://blog.echosec.top/p/awesome_spider/</link><pubDate>Thu, 07 Jul 2022 02:22:14 +0800</pubDate><guid>https://blog.echosec.top/p/awesome_spider/</guid><description>&lt;img src="https://blog.echosec.top/p/awesome_spider/wookun.jpg" alt="Featured image of post 『Blog』爬虫之巅，畅想「矛」与「盾」的未来" />&lt;p>(填坑中&amp;hellip;)&lt;/p>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>矛与盾的界定，双向时间线，停一下，畅想未来。&lt;/p>
+&lt;h2 id="captcha的前世今生">CAPTCHA的前世今生&lt;/h2>
+&lt;h3 id="字符验证码">字符验证码&lt;/h3>
+&lt;p>以 text-to-image 为例，这是验证码技术的起源阶段。&lt;/p>
+&lt;h3 id="行为验证码">行为验证码&lt;/h3>
+&lt;p>以国内的极验、网易易盾、阿里安全、京东安全为例，涉及高强度的逆向防护，滑动拼图，文字点选，推理拼图，轨迹涂抹，语音验证等丰富的行为验证方案，相关技术步入「&lt;strong>感官挑战&lt;/strong>」阶段。&lt;/p>
+&lt;p>曾被信息技术从业人员戏称为 HelloWorld 的 request-based Spider 早已成为村头树下的豚骨拉面。能否处理行为验证，成为爬虫开发者的分水岭。&lt;/p>
+&lt;h3 id="问答式验证码">问答式验证码&lt;/h3>
+&lt;p>以国外的 hCAPTCHA，reCAPTCHA v2，等前沿服务为例，涉及认知问答、AI对抗、行为检测多点防御。相关技术上升到全新的「&lt;strong>人机挑战&lt;/strong>」阶段。此阶段给出的挑战难题足以放倒人类。&lt;/p>
+&lt;h3 id="我不是人类">我，不是人类&lt;/h3>
+&lt;p>以国外的 hCAPTCHA，reCAPTCHA v3，Epic Talon service，Cloudflare Turnstile 等前沿服务为例，涉及浏览器指纹特征检测，运动数据检测，威胁等级计算，访客信用水平统计等技术，此处涉及的多种检测策略在国内多以「&lt;strong>无感验证&lt;/strong>」统称。&lt;/p>
+&lt;h2 id="无畏的挑战者">无畏的挑战者&lt;/h2>
+&lt;p>领域技术迭代太快，自学爬虫的玩家、驾校网培生以及跨行业的零基础开发者,抱着刚学会就被淘汰的《Python 爬虫错题本》只能欲哭无泪。这类开发者在这场博弈中，连「小镇做题家」都算不上，充其量只能是「乡村错题本」。&lt;/p>
+&lt;p>各位读者可以脑补以下颇有戏剧性的演化场景：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>刚学会网络请求以及基础的伪装，发现获取不到数据&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>刚学会如何逆向前端代码，发现实战中的出题人是行业中最聪明的一批算法工程师&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>发现无法绕过，需要额外学习使用 DevTool / WebDriver 发起&lt;strong>模拟请求&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>发现即使是模拟请求，也“不得不”处理行为验证。于是，开发者开始像机器一样思考，制作能够识别图像，识别语音，理解语义的AI，让网络驱动携带着这些模块上前线答题&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一段时间后，开发者逐渐发现即使 AI 能够答对题目，验证仍无法通过，折腾一阵子后发现需要像人类一样思考，制作符合人类上网习惯的鼠标轨迹&lt;strong>行为链&lt;/strong>，然后呢，学都学了，顺带把键盘输入的模仿也专精了吧！&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>过了不久，开发者发现一切都回到了原点，但凡是 Selenium 启动的网页，即使是自己手动答题也无法通过验证。折腾一阵子后发现需要让机器人认为「我」是人，开始研究 Chrome 开发者工具以及 BiDi 通信，隐藏浏览器的各项异常特征，尽可能地让 Selenium 启动的网页与手动打开的&lt;strong>指纹特征&lt;/strong>一致，甚至不惜自行编译浏览器客户端。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>到此，开发者回顾往昔，发现路上已有绝大多数的同道之人倒下了。但秉持“不忘初心”的信念，开发者仍需在「自证为人」的道路上继续前行。再过不久，开发者已能熟练使用与网页驱动相关的工具技术，随时都能制作深度学习赋能的高性能机器人，秒解所有行为验证难题。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>某一天，「问答式验证」出现了，在这场以「常识对决」为游戏规则的博弈中，开发者受到了来自「彼岸」的满满恶意，如果自己不知道这些生而为人就该知道的「常识」，自然也无法培养出优秀的小镇做题家。&lt;/p>
+&lt;p>至此，作为防守方的「挨打人」开始主动出击，在世界各地崭露头角，&lt;strong>人机挑战&lt;/strong>时代拉开序幕。&lt;/p>
+&lt;p>回望往昔，这是一场尚无硝烟的战争，本是机器人之间的对抗，上升为「挑战者」与「彼岸玩家」之间的对决；本是脑力劳动主导的工作，逐渐演化成了纯粹的体力劳动。无畏的挑战者与彼岸的玩家们凭借着自己对工作负责的态度以及对行业的热爱，在场无限轮回的游戏中，推动着人机验证领域高速发展。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>时至今日，「挑战者」与「彼岸玩家」共同开辟了计算机网络空间安全的一个全新分支。在这场对决中，它们分别饰演着「矛」与「盾」的角色，在对立统一中，它们互相吸取和利用有利于自己的因素而得到发展，在矛盾斗争中，它们相互排斥不断变化最终破坏自身统一，在这场形式多样性的对抗中，矛盾双方协同运动，融合成一个新事物。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>从上帝视角来看，这是一场颇具戏剧性的博弈。如果没有「搅局者」的加入，「反爬虫工程师」至今仍会是地球上的一小股极客团体，但我也无法想象没有人机验证的互联网该如何良性发展。&lt;/p>
+&lt;p>当下，对抗恶意流量的安全团队仍是所有技术岗位中最神秘的一批人，有时他们化身白客，守护资本家和客户仅有的数字资产；但有时他们化身黑客，能够组织规模庞大的流量淹没仍处于萌芽阶段的潜在竞争对手。&lt;/p>
+&lt;p>这群秉持着技术中立精神却向网络空间安全不断发起挑战的神秘人到底什么来头？风云激荡的二十年里，网络爬虫的形式经历了怎样的升级迭代？本章节以顺向时间线的形式，浅聊一下作为「矛」的网络机器人技术及其相关的行业盛况。&lt;/p>
+&lt;p>&lt;em>待序&amp;hellip;&lt;/em>&lt;/p>
+&lt;h3 id="追赶时代的乡村错题本">追赶时代的乡村错题本&lt;/h3>
+&lt;h3 id="来自网络驱动的虚假流量">来自网络驱动的虚假流量&lt;/h3>
+&lt;h3 id="像人类一样思考">像人类一样思考&lt;/h3>
+&lt;h3 id="我不是机器人">我，不是机器人&lt;/h3>
+&lt;h2 id="既见未来为何不拜">既见未来，为何不拜？&lt;/h2>
+&lt;h3 id="灰度空间的失衡与洗牌">灰度空间的失衡与洗牌&lt;/h3>
+&lt;h3 id="防火长城与大航海时代">防火长城与大航海时代&lt;/h3>
+&lt;h2 id="畅想矛与盾的未来">畅想「矛」与「盾」的未来&lt;/h2>
+&lt;h3 id="年轻人的游戏但是适老化">年轻人的游戏，但是适老化&lt;/h3>
+&lt;h3 id="熊掌与鱼兼收并蓄的农场主">熊掌与鱼，兼收并蓄的农场主&lt;/h3>
+&lt;h3 id="搅局者web30的韭菜收割机">搅局者，Web3.0的韭菜收割机&lt;/h3>
+&lt;h3 id="挣脱形态桎梏奔向虚拟现实社会">挣脱形态桎梏，奔向虚拟现实社会&lt;/h3>
+&lt;h3 id="图灵测试20意识与人格的考验">图灵测试2.0，意识与人格的考验&lt;/h3></description></item><item><title>『Blog』Dive into Clash DNS</title><link>https://blog.echosec.top/p/dive-into-clash-dns/</link><pubDate>Sat, 15 Jul 2023 12:17:57 +0800</pubDate><guid>https://blog.echosec.top/p/dive-into-clash-dns/</guid><description>&lt;img src="https://blog.echosec.top/p/dive-into-clash-dns/dominik-mayer.jpg" alt="Featured image of post 『Blog』Dive into Clash DNS" />&lt;h2 id="简介">简介&lt;/h2>
 &lt;p>逐行阅读源码，超！硬！核！的 Clash DNS 底层原理详解！&lt;/p>
 &lt;p>（incoming&amp;hellip;）&lt;/p>
 &lt;h2 id="实验环境">实验环境&lt;/h2>
@@ -2835,70 +2898,7 @@ I don’t know why my account has been flagged.&lt;/p>
 &lt;p>此外，我们还需注意 GitHub 是一家美国公司，其运营活动受美国法律限制，其品牌形象受美国利益影响。早在俄乌冲突早期，GitHub 就站队乌方，将一大批俄罗斯组织账号及少量的俄罗斯个人开发者账号标记；同样的操作在中东地区开发者账号上也发生过（这也是我支持实名制的国产 Gitee 的主要原因之一，尽管现在仍有许多进步空间）。事出有因，我们不能脱离上下文去批判 GitHub 的这些「制裁措施」，但我想 GitHub 对于大多数中国程序员来说，其存在意义等同于 QQ空间与朋友圈，有太多的大牛在这片交界之地见证自己逐渐成长的过程。&lt;/p>
 &lt;p>无论如何，我不希望这份仅属于开发者自己的珍贵回忆最终仅会流向互联网历史归档馆。你也许需要更可靠的 Git 系统， 也许你需要养成良好的备份习惯避免某些珍贵的东西悄然流失，也许你需要一个可靠的备案来保证某些流行项目的可用性。&lt;/p>
 &lt;p>回到文章标题「&lt;strong>Git Myself&lt;/strong>」，如何理解它呢？你可以说「守住我的饭碗」也可以是「留住我的影响力」或是「自建 Git Service」。如果你之前没有做过与「舆情」相关的工作，你也许很难作为当事人去想像：朋友圈/QQ空间被永久封禁，百万微博粉丝账号被限流或是呕心沥血数年构建的社区被恶意攻击淹没。这对他们来说，意味着青春记忆的停顿，他们在这里分享自己的小学中学大学，分享生活槽点与职场高光时刻；这对他们来说，是一个打造人设的绝佳平台，是供粉丝亲近自己的机会，是一个见证自己从草根进军娱乐圈的重要盈利工具；这对他们来说，是N多个熬夜通宵敲代码，投入巨额时间成本的满意作品。作为一个遵守 WEB2.0 游戏规则的人，你可能很难想象自己视为珍宝的东西其实是可以被其他人轻易夺走的。&lt;/p>
-&lt;p>当然，本文不会去深究这些话题，这些领域知识过于错综复杂（水太深），但无论如何，我希望本文读者都能重视起自己的网络数据，在符合游戏规则的前提下，将属于自己的东西牢牢抓住。&lt;/p></description></item><item><title>『Blog』爬虫之巅，畅想「矛」与「盾」的未来</title><link>https://blog.echosec.top/p/spider_performance/</link><pubDate>Thu, 07 Jul 2022 02:22:14 +0800</pubDate><guid>https://blog.echosec.top/p/spider_performance/</guid><description>&lt;img src="https://blog.echosec.top/p/spider_performance/pexels-geometric-photography-13271914.jpg" alt="Featured image of post 『Blog』爬虫之巅，畅想「矛」与「盾」的未来" />&lt;p>(填坑中&amp;hellip;)&lt;/p>
-&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>矛与盾的界定，双向时间线，停一下，畅想未来。&lt;/p>
-&lt;h2 id="captcha的前世今生">CAPTCHA的前世今生&lt;/h2>
-&lt;h3 id="字符验证码">字符验证码&lt;/h3>
-&lt;p>以 text-to-image 为例&lt;/p>
-&lt;h3 id="行为验证码">行为验证码&lt;/h3>
-&lt;p>以国内的极验、网易易盾、阿里安全、京东安全为例，涉及高强度的逆向防护，滑动拼图，文字点选，推理拼图，轨迹涂抹，语音验证等丰富的行为验证方案，相关技术步入「&lt;strong>感官挑战&lt;/strong>」阶段。&lt;/p>
-&lt;p>曾被信息技术从业人员戏称为 HelloWorld 的 request-based Spider 早已成为村头树下的豚骨拉面。能否处理行为验证，成为爬虫开发者的分水岭。&lt;/p>
-&lt;h3 id="问答式验证码">问答式验证码&lt;/h3>
-&lt;p>以国外的 hCAPTCHA，reCAPTCHA v2，等前沿服务为例，涉及认知问答、AI对抗、行为检测多点防御。相关技术上升到全新的「&lt;strong>人机挑战&lt;/strong>」阶段。此阶段给出的挑战难题足以放倒人类。&lt;/p>
-&lt;h3 id="我不是人类">我，不是人类&lt;/h3>
-&lt;p>以国外的 hCAPTCHA，reCAPTCHA v3，Talon service of Epic 等前沿服务为例，涉及驱动特征检测，运动数据检测，威胁等级计算，访客信用水平统计等技术，此处涉及的多种检测策略在国内多以「无感验证」统称。&lt;/p>
-&lt;h2 id="无畏的挑战者">无畏的挑战者&lt;/h2>
-&lt;p>领域技术迭代过快，乃至自学爬虫的玩家，驾校网培生以及跨行业的零基础开发者，抱着刚学会即淘汰的《Python爬虫错题本》欲哭无泪。这类开发者在这场逐渐内卷的博弈中连「小镇做题家」都算不上，充其量只能是「乡村错题本」。&lt;/p>
-&lt;p>各位读者可以脑补以下颇有戏剧性的演化场景：&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>刚学会网络请求以及基础的伪装，发现获取不到数据&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>刚学会如何逆向前端代码，发现实战中的出题人是行业中最聪明的一批算法工程师&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>发现无法绕过，需要额外学习使用 &lt;strong>Selenium&lt;/strong>/WebDriver 发起&lt;strong>模拟请求&lt;/strong>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>发现即使是模拟请求，也“不得不”处理行为验证。于是，开发者开始像机器一样思考，制作能够识别图像，识别语音，理解语义的AI，让网络驱动携带着这些模块上前线答题&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>一段时间后，开发者逐渐发现即使 AI 能够答对题目，验证仍无法通过，折腾一阵子后发现需要像人类一样思考，制作符合人类上网习惯的鼠标轨迹&lt;strong>行为&lt;/strong>链，然后呢，学都学了，顺带把键盘输入的模仿也专精了吧！&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>过了不久，开发者发现一切都回到了原点，但凡是 Selenium 启动的网页，即使是自己手动答题也无法通过验证。折腾一阵子后发现需要让机器人认为「我」是人，开始研究 Chrome 开发者工具以及 BiDi 通信，隐藏浏览器的各项异常特征，尽可能地让 Selenium 启动的网页与手动打开的&lt;strong>网页特征&lt;/strong>一致，甚至不惜自行编译浏览器客户端。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>到此，开发者回顾往昔，发现路上已有绝大多数的同道之人倒下了。但秉持“不忘初心”的信念，开发者仍需在「自证为人」的道路上继续前行。再过不久，开发者已能熟练使用与网页驱动相关的工具技术，随时都能制作深度学习赋能的高性能机器人，秒解所有行为验证难题。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>某一天，「问答式验证」出现了，在这场以「常识对决」为游戏规则的博弈中，开发者受到了来自「彼岸」的满满恶意，如果自己不知道这些生而为人就该知道的「常识」，自然也无法培养出优秀的小镇做题家。&lt;/p>
-&lt;p>至此，作为防守方的「挨打人」开始主动出击，在世界各地崭露头角，&lt;strong>人机挑战&lt;/strong>时代拉开序幕。&lt;/p>
-&lt;p>回望往昔，这是一场尚无硝烟的战争，本是机器人之间的对抗，上升为「挑战者」与「彼岸玩家」之间的对决；本是脑力劳动主导的工作，逐渐演化成了纯粹的体力劳动。无畏的挑战者与彼岸的玩家们凭借着自己对工作负责的态度以及对行业的热爱，在场无限轮回的游戏中，推动着人机验证领域高速发展。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>时至今日，「挑战者」与「彼岸玩家」共同开辟了计算机网络空间安全的一个全新分支。在这场对决中，它们分别饰演着「矛」与「盾」的角色，在对立统一中，它们互相吸取和利用有利于自己的因素而得到发展，在矛盾斗争中，它们相互排斥不断变化最终破坏自身统一，在这场形式多样性的对抗中，矛盾双方协同运动，融合成一个新事物。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>从上帝视角来看，这是一场颇具戏剧性的博弈。如果没有「搅局者」的加入，「反爬虫工程师」至今仍会是地球上的一小股极客团体，但我也无法想象没有人机验证的互联网该如何良性发展。&lt;/p>
-&lt;p>当下，对抗恶意流量的安全团队仍是所有技术岗位中最神秘的一批人，有时他们化身白客，守护资本家和客户仅有的数字资产；但有时他们化身黑客，能够组织规模庞大的流量淹没仍处于萌芽阶段的潜在竞争对手。&lt;/p>
-&lt;p>这群秉持着技术中立精神却向网络空间安全不断发起挑战的神秘人到底什么来头？风云激荡的二十年里，网络爬虫的形式经历了怎样的升级迭代？本章节以顺向时间线的形式，浅聊一下作为「矛」的网络机器人技术及其相关的行业领军人物。&lt;/p>
-&lt;p>&lt;em>待序&amp;hellip;&lt;/em>&lt;/p>
-&lt;h3 id="追赶时代的乡村错题本">追赶时代的乡村错题本&lt;/h3>
-&lt;h3 id="来自网络驱动的虚假流量">来自网络驱动的虚假流量&lt;/h3>
-&lt;h3 id="像人类一样思考">像人类一样思考&lt;/h3>
-&lt;h3 id="我不是机器人">我，不是机器人&lt;/h3>
-&lt;h2 id="既见未来为何不拜">既见未来，为何不拜？&lt;/h2>
-&lt;h3 id="灰度空间的失衡与洗牌">灰度空间的失衡与洗牌&lt;/h3>
-&lt;h3 id="防火长城与大航海时代">防火长城与大航海时代&lt;/h3>
-&lt;h2 id="畅想矛与盾的未来">畅想「矛」与「盾」的未来&lt;/h2>
-&lt;h3 id="年轻人的游戏但是适老化">年轻人的游戏，但是适老化&lt;/h3>
-&lt;h3 id="熊掌与鱼兼收并蓄的农场主">熊掌与鱼，兼收并蓄的农场主&lt;/h3>
-&lt;h3 id="搅局者web30的韭菜收割机">搅局者，Web3.0的韭菜收割机&lt;/h3>
-&lt;h3 id="挣脱形态桎梏奔向虚拟现实社会">挣脱形态桎梏，奔向虚拟现实社会&lt;/h3>
-&lt;h3 id="图灵测试20意识与人格的考验">图灵测试2.0，意识与人格的考验&lt;/h3></description></item><item><title>『Blog』VMware 虚拟机流量代理</title><link>https://blog.echosec.top/p/vmware-proxy/</link><pubDate>Sat, 07 May 2022 13:15:46 +0800</pubDate><guid>https://blog.echosec.top/p/vmware-proxy/</guid><description>&lt;img src="https://blog.echosec.top/p/vmware-proxy/unsplash.jpg" alt="Featured image of post 『Blog』VMware 虚拟机流量代理" />&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>当然，本文不会去深究这些话题，这些领域知识过于错综复杂（水太深），但无论如何，我希望本文读者都能重视起自己的网络数据，在符合游戏规则的前提下，将属于自己的东西牢牢抓住。&lt;/p></description></item><item><title>『Blog』VMware 虚拟机流量代理</title><link>https://blog.echosec.top/p/vmware-proxy/</link><pubDate>Sat, 07 May 2022 13:15:46 +0800</pubDate><guid>https://blog.echosec.top/p/vmware-proxy/</guid><description>&lt;img src="https://blog.echosec.top/p/vmware-proxy/unsplash.jpg" alt="Featured image of post 『Blog』VMware 虚拟机流量代理" />&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>本系列博客以 VMware Workstation 16 pro 为例，分享在 Windows11 上启动 Ubuntu 20.04 LTS 虚拟机进行 Python3 项目开发的最佳实践。本章节内容涉及网络连接中较为关键的环节 —— 流量代理。&lt;/p>
 &lt;p>推荐阅读：&lt;/p>
 &lt;p>&lt;a class="link" href="http://localhost:11014/p/python-best-practices-ide/" target="_blank" rel="noopener"

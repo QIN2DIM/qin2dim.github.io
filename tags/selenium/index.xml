@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Selenium on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/selenium/</link><description>Recent content in Selenium on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 07 Jul 2022 02:22:14 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/selenium/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』爬虫之巅，畅想「矛」与「盾」的未来</title><link>https://blog.echosec.top/p/spider_performance/</link><pubDate>Thu, 07 Jul 2022 02:22:14 +0800</pubDate><guid>https://blog.echosec.top/p/spider_performance/</guid><description>&lt;img src="https://blog.echosec.top/p/spider_performance/pexels-geometric-photography-13271914.jpg" alt="Featured image of post 『Blog』爬虫之巅，畅想「矛」与「盾」的未来" />&lt;p>(填坑中&amp;hellip;)&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Selenium on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/selenium/</link><description>Recent content in Selenium on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 07 Jul 2022 02:22:14 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/selenium/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』爬虫之巅，畅想「矛」与「盾」的未来</title><link>https://blog.echosec.top/p/awesome_spider/</link><pubDate>Thu, 07 Jul 2022 02:22:14 +0800</pubDate><guid>https://blog.echosec.top/p/awesome_spider/</guid><description>&lt;img src="https://blog.echosec.top/p/awesome_spider/wookun.jpg" alt="Featured image of post 『Blog』爬虫之巅，畅想「矛」与「盾」的未来" />&lt;p>(填坑中&amp;hellip;)&lt;/p>
 &lt;h2 id="前言">前言&lt;/h2>
 &lt;p>矛与盾的界定，双向时间线，停一下，畅想未来。&lt;/p>
 &lt;h2 id="captcha的前世今生">CAPTCHA的前世今生&lt;/h2>
 &lt;h3 id="字符验证码">字符验证码&lt;/h3>
-&lt;p>以 text-to-image 为例&lt;/p>
+&lt;p>以 text-to-image 为例，这是验证码技术的起源阶段。&lt;/p>
 &lt;h3 id="行为验证码">行为验证码&lt;/h3>
 &lt;p>以国内的极验、网易易盾、阿里安全、京东安全为例，涉及高强度的逆向防护，滑动拼图，文字点选，推理拼图，轨迹涂抹，语音验证等丰富的行为验证方案，相关技术步入「&lt;strong>感官挑战&lt;/strong>」阶段。&lt;/p>
 &lt;p>曾被信息技术从业人员戏称为 HelloWorld 的 request-based Spider 早已成为村头树下的豚骨拉面。能否处理行为验证，成为爬虫开发者的分水岭。&lt;/p>
 &lt;h3 id="问答式验证码">问答式验证码&lt;/h3>
 &lt;p>以国外的 hCAPTCHA，reCAPTCHA v2，等前沿服务为例，涉及认知问答、AI对抗、行为检测多点防御。相关技术上升到全新的「&lt;strong>人机挑战&lt;/strong>」阶段。此阶段给出的挑战难题足以放倒人类。&lt;/p>
 &lt;h3 id="我不是人类">我，不是人类&lt;/h3>
-&lt;p>以国外的 hCAPTCHA，reCAPTCHA v3，Talon service of Epic 等前沿服务为例，涉及驱动特征检测，运动数据检测，威胁等级计算，访客信用水平统计等技术，此处涉及的多种检测策略在国内多以「无感验证」统称。&lt;/p>
+&lt;p>以国外的 hCAPTCHA，reCAPTCHA v3，Epic Talon service，Cloudflare Turnstile 等前沿服务为例，涉及浏览器指纹特征检测，运动数据检测，威胁等级计算，访客信用水平统计等技术，此处涉及的多种检测策略在国内多以「&lt;strong>无感验证&lt;/strong>」统称。&lt;/p>
 &lt;h2 id="无畏的挑战者">无畏的挑战者&lt;/h2>
-&lt;p>领域技术迭代过快，乃至自学爬虫的玩家，驾校网培生以及跨行业的零基础开发者，抱着刚学会即淘汰的《Python爬虫错题本》欲哭无泪。这类开发者在这场逐渐内卷的博弈中连「小镇做题家」都算不上，充其量只能是「乡村错题本」。&lt;/p>
+&lt;p>领域技术迭代太快，自学爬虫的玩家、驾校网培生以及跨行业的零基础开发者,抱着刚学会就被淘汰的《Python 爬虫错题本》只能欲哭无泪。这类开发者在这场博弈中，连「小镇做题家」都算不上，充其量只能是「乡村错题本」。&lt;/p>
 &lt;p>各位读者可以脑补以下颇有戏剧性的演化场景：&lt;/p>
 &lt;ol>
 &lt;li>
@@ -22,16 +22,16 @@
 &lt;p>刚学会如何逆向前端代码，发现实战中的出题人是行业中最聪明的一批算法工程师&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>发现无法绕过，需要额外学习使用 &lt;strong>Selenium&lt;/strong>/WebDriver 发起&lt;strong>模拟请求&lt;/strong>&lt;/p>
+&lt;p>发现无法绕过，需要额外学习使用 DevTool / WebDriver 发起&lt;strong>模拟请求&lt;/strong>&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>发现即使是模拟请求，也“不得不”处理行为验证。于是，开发者开始像机器一样思考，制作能够识别图像，识别语音，理解语义的AI，让网络驱动携带着这些模块上前线答题&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>一段时间后，开发者逐渐发现即使 AI 能够答对题目，验证仍无法通过，折腾一阵子后发现需要像人类一样思考，制作符合人类上网习惯的鼠标轨迹&lt;strong>行为&lt;/strong>链，然后呢，学都学了，顺带把键盘输入的模仿也专精了吧！&lt;/p>
+&lt;p>一段时间后，开发者逐渐发现即使 AI 能够答对题目，验证仍无法通过，折腾一阵子后发现需要像人类一样思考，制作符合人类上网习惯的鼠标轨迹&lt;strong>行为链&lt;/strong>，然后呢，学都学了，顺带把键盘输入的模仿也专精了吧！&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>过了不久，开发者发现一切都回到了原点，但凡是 Selenium 启动的网页，即使是自己手动答题也无法通过验证。折腾一阵子后发现需要让机器人认为「我」是人，开始研究 Chrome 开发者工具以及 BiDi 通信，隐藏浏览器的各项异常特征，尽可能地让 Selenium 启动的网页与手动打开的&lt;strong>网页特征&lt;/strong>一致，甚至不惜自行编译浏览器客户端。&lt;/p>
+&lt;p>过了不久，开发者发现一切都回到了原点，但凡是 Selenium 启动的网页，即使是自己手动答题也无法通过验证。折腾一阵子后发现需要让机器人认为「我」是人，开始研究 Chrome 开发者工具以及 BiDi 通信，隐藏浏览器的各项异常特征，尽可能地让 Selenium 启动的网页与手动打开的&lt;strong>指纹特征&lt;/strong>一致，甚至不惜自行编译浏览器客户端。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>到此，开发者回顾往昔，发现路上已有绝大多数的同道之人倒下了。但秉持“不忘初心”的信念，开发者仍需在「自证为人」的道路上继续前行。再过不久，开发者已能熟练使用与网页驱动相关的工具技术，随时都能制作深度学习赋能的高性能机器人，秒解所有行为验证难题。&lt;/p>
@@ -47,7 +47,7 @@
 &lt;/ol>
 &lt;p>从上帝视角来看，这是一场颇具戏剧性的博弈。如果没有「搅局者」的加入，「反爬虫工程师」至今仍会是地球上的一小股极客团体，但我也无法想象没有人机验证的互联网该如何良性发展。&lt;/p>
 &lt;p>当下，对抗恶意流量的安全团队仍是所有技术岗位中最神秘的一批人，有时他们化身白客，守护资本家和客户仅有的数字资产；但有时他们化身黑客，能够组织规模庞大的流量淹没仍处于萌芽阶段的潜在竞争对手。&lt;/p>
-&lt;p>这群秉持着技术中立精神却向网络空间安全不断发起挑战的神秘人到底什么来头？风云激荡的二十年里，网络爬虫的形式经历了怎样的升级迭代？本章节以顺向时间线的形式，浅聊一下作为「矛」的网络机器人技术及其相关的行业领军人物。&lt;/p>
+&lt;p>这群秉持着技术中立精神却向网络空间安全不断发起挑战的神秘人到底什么来头？风云激荡的二十年里，网络爬虫的形式经历了怎样的升级迭代？本章节以顺向时间线的形式，浅聊一下作为「矛」的网络机器人技术及其相关的行业盛况。&lt;/p>
 &lt;p>&lt;em>待序&amp;hellip;&lt;/em>&lt;/p>
 &lt;h3 id="追赶时代的乡村错题本">追赶时代的乡村错题本&lt;/h3>
 &lt;h3 id="来自网络驱动的虚假流量">来自网络驱动的虚假流量&lt;/h3>
