@@ -1,4 +1,178 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hysteria on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/hysteria/</link><description>Recent content in Hysteria on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 10 Nov 2022 07:23:04 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/hysteria/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』TUIC 敏捷部署</title><link>https://blog.echosec.top/p/tuic/</link><pubDate>Thu, 10 Nov 2022 07:23:04 +0800</pubDate><guid>https://blog.echosec.top/p/tuic/</guid><description>&lt;img src="https://blog.echosec.top/p/tuic/alexander.jpg" alt="Featured image of post 『Blog』TUIC 敏捷部署" />&lt;h2 id="摘要">摘要&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hysteria on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/hysteria/</link><description>Recent content in Hysteria on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 02 Sep 2023 22:47:34 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/hysteria/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』Hysteria2 Get Started</title><link>https://blog.echosec.top/p/hysteria2-tutorial/</link><pubDate>Sat, 02 Sep 2023 22:47:34 +0800</pubDate><guid>https://blog.echosec.top/p/hysteria2-tutorial/</guid><description>&lt;img src="https://blog.echosec.top/p/hysteria2-tutorial/abrar-.jpg" alt="Featured image of post 『Blog』Hysteria2 Get Started" />&lt;h2 id="preview">Preview&lt;/h2>
+&lt;p>最速传说！挑战 5 分钟部署 Hysteria v2！不含一句废话的 quick start 教程！&lt;/p>
+&lt;p>&lt;strong>准备&lt;/strong>：Python3.7+（近几年发行的主流 Linux 镜像都预装了 Python3）；在管理员权限下运行；提前为你的服务器解析一个域名 A 纪录。&lt;/p>
+&lt;p>&lt;strong>忠告&lt;/strong>：在你开始吸收包括本文在内的各种来路不明的教程之前，运行刚发布的「一键安装脚本」之前，翻看所谓油管大神的讲解视频之前，一定先把 &lt;a class="link" href="https://hysteria.network/zh/" target="_blank" rel="noopener"
+>Hysteria 官方文档&lt;/a> 多翻几遍！&lt;/p>
+&lt;h2 id="quick-start">Quick start&lt;/h2>
+&lt;h3 id="服务端配置">服务端配置&lt;/h3>
+&lt;p>运行脚本，填写 IPv4 的域名：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python3 &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL https://raw.githubusercontent.com/QIN2DIM/hy2/main/heyhy.py&lt;span class="o">)&lt;/span> install
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>首次安装完成后可通过 &lt;code>heyhy&lt;/code> 别名指令调度脚本。&lt;/p>
+&lt;h3 id="客户端配置">客户端配置&lt;/h3>
+&lt;h4 id="初始化">初始化&lt;/h4>
+&lt;p>（如果首次使用）请下载最新版 &lt;a class="link" href="https://github.com/MatsuriDayo/nekoray/releases/tag/3.19" target="_blank" rel="noopener"
+>NekoRay&lt;/a>，支持 Win 和 Linux&lt;/p>
+&lt;p>&lt;strong>「首选项 / 基本设置 / 通用」&lt;/strong>&lt;code>启用&lt;/code> HTTP 监听端口&lt;/p>
+&lt;div align="center">&lt;img src="e279eeca-8a19-4fec-9d53-8e06b3264fe4.png" style="zoom:67%;" >&lt;/div>
+&lt;h4 id="添加自定义核心">添加自定义核心&lt;/h4>
+&lt;blockquote>
+&lt;p>如果你不知道如何选择，请看&lt;a class="link" href="https://hysteria.network/zh/docs/getting-started/Installation/" target="_blank" rel="noopener"
+>官方文档&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>
+&lt;p>下载与操作系统适配的 &lt;a class="link" href="https://github.com/apernet/hysteria/releases" target="_blank" rel="noopener"
+>hysteria app/v2.0.0&lt;/a>&lt;/p>
+&lt;p>&lt;strong>「 首选项 / 打开配置目录」&lt;/strong> 将下载好的可执行文件拖进配置目录。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>添加 Hysteria2 自定义核心&lt;/p>
+&lt;p>&lt;strong>「首选项 / 基本设置 / 其他核心」&lt;/strong> 点击 &lt;code>添加&lt;/code> 并 &lt;code>选择&lt;/code>刚拖进来的核心文件，命名为 &lt;em>hysteria2&lt;/em>。命名随意，但你需要知道自己写了什么，接下来会用到。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div align="center">&lt;img width="60%" src = "2ae66bfe-bb75-4e2a-a128-6ee0aca97183.png" style="zoom:;" />&lt;/div>
+&lt;h4 id="添加自定义配置">添加自定义配置&lt;/h4>
+&lt;p>查看脚本运行完毕后打印的 &lt;code>NekoRay 自定义核心配置&lt;/code>。可以运行 &lt;code>heyhy check&lt;/code> 重新输出。&lt;/p>
+&lt;p>&lt;strong>「服务器 / 手动输入配置 / 编辑」&lt;/strong> &lt;code>通用 → 类型&lt;/code> 选择 &lt;code>自定义（其他核心）&lt;/code>。 其中需要填写的字段与脚本输出的内容一一对应，复制并填写，保存配置。&lt;/p>
+&lt;div align="center">&lt;img width="75%" src="d086d0ac-0514-4b17-8627-504743880e8e.png"/>&lt;/div>
+&lt;h4 id="启动系统代理">启动系统代理&lt;/h4>
+&lt;p>选中刚添加的 item，打开系统代理。检查网络状态，开始排查错误。&lt;/p>
+&lt;h3 id="whats-more">What&amp;rsquo;s more&lt;/h3>
+&lt;h4 id="uninstall">Uninstall&lt;/h4>
+&lt;p>卸载服务器上与 &lt;code>Hysteria2&lt;/code> 有关的一切依赖。你必须指明安装 &lt;code>Hysteria2&lt;/code> 时绑定的域名才能安全卸载证书。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">python3 &amp;lt;&lt;span class="o">(&lt;/span>curl -fsSL https://raw.githubusercontent.com/QIN2DIM/hy2/main/heyhy.py&lt;span class="o">)&lt;/span> remove
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>你可以通过 &lt;code>heyhy check&lt;/code> 从输出配置中查询域名。&lt;/p>
+&lt;h4 id="heyhy">Heyhy&lt;/h4>
+&lt;p>你可以通过 &lt;a class="link" href="https://github.com/QIN2DIM/hy2" target="_blank" rel="noopener"
+>heyhy&lt;/a> 脚本灵活管理 &lt;a class="link" href="https://github.com/apernet/hysteria" target="_blank" rel="noopener"
+>Hysteria2&lt;/a> 系统服务。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$heyhy&lt;/span> -h
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">usage: heyhy &lt;span class="o">[&lt;/span>-h&lt;span class="o">]&lt;/span> &lt;span class="o">{&lt;/span>install,remove,check,status,log,start,stop,restart&lt;span class="o">}&lt;/span> ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Hysteria-v2 Scaffold &lt;span class="o">(&lt;/span>Python3.7+&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">positional arguments:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>install,remove,check,status,log,start,stop,restart&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> install Automatically install and run
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> remove Uninstall services and associated caches
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> check Print client configuration
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> status Check hysteria2 service status
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> log Check hysteria2 service syslog
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> start Start hysteria2 service
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> stop Stop hysteria2 service
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> restart restart hysteria2 service
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">optional arguments:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -h, --help show this &lt;span class="nb">help&lt;/span> message and &lt;span class="nb">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="其他出站配置">其他出站配置&lt;/h4>
+&lt;blockquote>
+&lt;p>🚧2023.09.03 预发行特性&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://github.com/QIN2DIM/hy2" target="_blank" rel="noopener"
+>heyhy&lt;/a> 支持输出 &lt;a class="link" href="https://sing-box.sagernet.org/zh/configuration/outbound/hysteria2/#server" target="_blank" rel="noopener"
+>sing-box&lt;/a> 的 Hysteria2 出站代理配置。&lt;/li>
+&lt;li>目前 clash-meta 暂未集成 Hysteria2。&lt;/li>
+&lt;li>在 PC 端，你还可以通过原理相似的软件（如：v2rayN）引导 Hysteria2 代理核心。&lt;/li>
+&lt;li>在 Android / iOS 移动端，你可以使用一切内置 sing-box 内核的软件尝鲜 Hysteria2&lt;/li>
+&lt;/ol>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;p>开源项目：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>项目名&lt;/th>
+&lt;th>发行版本号&lt;/th>
+&lt;th>用途&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/QIN2DIM/hy2" target="_blank" rel="noopener"
+>QIN2DIM/hy2&lt;/a>&lt;/td>
+&lt;td>&lt;code>latest&lt;/code>&lt;/td>
+&lt;td>服务端一键部署&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/apernet/hysteria" target="_blank" rel="noopener"
+>apernet/hysteria&lt;/a>&lt;/td>
+&lt;td>&lt;code>v2.0.0&lt;/code>&lt;/td>
+&lt;td>代理服务端&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://github.com/MatsuriDayo/nekoray" target="_blank" rel="noopener"
+>MatsuriDayo/nekoray&lt;/a>&lt;/td>
+&lt;td>&lt;code>v3.19&lt;/code>&lt;/td>
+&lt;td>Win / Linux PC 图形客户端&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>相关文档：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>索引&lt;/th>
+&lt;th>简介&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://hysteria.network/zh/" target="_blank" rel="noopener"
+>Home - Hysteria 2&lt;/a>&lt;/td>
+&lt;td>Hysteria v2 官方文档&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://matsuridayo.github.io/n-extra_core/" target="_blank" rel="noopener"
+>extra core - Nekoray&lt;/a>&lt;/td>
+&lt;td>为 NekoRay 添加自定义核心&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;a class="link" href="https://sing-box.sagernet.org/zh/configuration/outbound/hysteria2/#server" target="_blank" rel="noopener"
+>Hysteria2 - sing-box&lt;/a>&lt;/td>
+&lt;td>为 sing-box 添加 Hysteria2 出站代理&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table></description></item><item><title>『Blog』TUIC 敏捷部署</title><link>https://blog.echosec.top/p/tuic/</link><pubDate>Thu, 10 Nov 2022 07:23:04 +0800</pubDate><guid>https://blog.echosec.top/p/tuic/</guid><description>&lt;img src="https://blog.echosec.top/p/tuic/alexander.jpg" alt="Featured image of post 『Blog』TUIC 敏捷部署" />&lt;h2 id="摘要">摘要&lt;/h2>
 &lt;p>本文先介绍基于 TUIC 实现的双端代理敏捷部署方案，以 Ubuntu20.04 为例介绍服务端代理架设的步骤，再分别介绍在 Windows（V2RayN/NekoRay），Android（SagerNet/Matsuri） 以及 iOS（Shadowrocket） 启动客户端代理的方案。最后介绍 TUIC 协议的特性、适用场景以及与 Hysteria 协议的区别。&lt;/p>
 &lt;p>本文涉及的开源项目如下：&lt;/p>
 &lt;table>
