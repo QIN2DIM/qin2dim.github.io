@@ -10,7 +10,7 @@ Your browser doesn't support HTML5 video. Here is a
 &lt;/p>
 &lt;/video>
 &lt;/div>
-&lt;h2 id="颠覆的开始">颠覆的开始&lt;/h2>
+&lt;h2 id="颠覆之始">颠覆之始&lt;/h2>
 &lt;p>2023.09.27，hCaptcha 更新了他们的基准服务，有一类新推送的人机挑战类型是选择「仅出现一次」或「不重复」的目标。&lt;/p>
 &lt;p>大致情况如下图所示：&lt;/p>
 &lt;p>&lt;img width="307" src="https://github.com/QIN2DIM/hcaptcha-challenger/assets/62018067/1634bc03-8721-4422-95c2-3237b26e4f4b"> &lt;img width="307" src="5638dcf3-ff40-49da-851c-19ba7c37c6d7.png">&lt;/p>
@@ -36,12 +36,15 @@ data-flex-basis="1440px"
 &lt;ol>
 &lt;li>
 &lt;p>&lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
->ChatGPT 3.5&lt;/a> 仍会给出「正确话」，一再调优之后仍然没法使用。因为 opencv-python 版本变动后 API 接口参数变动非常大，版本差了两年，拷贝来的代码大概率是没法直接用的。GPT4 我还没进行实际测试，但我估计也会出现同样的问题，但区别在于，你可以向 GPT4 投喂你所使用的 opencv-python 对应版本的接口文档，这样也许会有用。&lt;/p>
+>ChatGPT 3.5&lt;/a>仍会给出「正确话」，一再调优之后仍然没法使用。因为 opencv-python 版本变动后 API 接口参数变动非常大，版本差了两年，拷贝来的代码大概率是没法直接用的。GPT4 我还没进行实际测试，但效果应与 Claude2.0 十分相近。&lt;/p>
+&lt;p>2023年9月27日，&lt;a class="link" href="https://twitter.com/OpenAI/status/1707077710047216095" target="_blank" rel="noopener"
+>OpenAI 宣布&lt;/a>「ChatGPT Plus和Enterprise(企业版)用户现在可以使用浏览功能,这项功能很快会扩展到所有用户。要启用该功能,请在 GPT-4下拉菜单中选择“使用必应浏览”(Browse with Bing)。」如果这一限制被突破，GPT-4 的各项能力又将一骑绝尘。&lt;/p>
+&lt;p>2022年12月4日，我发表了第一篇&lt;a class="link" href="https://blog.echosec.top/p/chatgpt-register/" >关于 ChatGPT 的博文&lt;/a>，距今已近一年。这段时间的发展令人振奋，发生了许多颠覆性的变化，许多新的商业模式也正在萌芽。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a class="link" href="https://yiyan.baidu.com/" target="_blank" rel="noopener"
 >文心&lt;/a>和&lt;a class="link" href="https://xinghuo.xfyun.cn/desk" target="_blank" rel="noopener"
->星火&lt;/a>的问题相对来说比较明显，它们似乎并不能理解我在说什么，我也从未感觉到描述自己的想法竟然如此费劲。&lt;/p>
+>星火&lt;/a>的问题相对来说比较明显，它们似乎并不能理解我在说什么，我也从未感觉描述自己的想法如此费劲。显然，文心和星火都是将具备多种能力的基准模型缝到了一起，这没什么不好，只是在解决垂域问题时缺乏足够的深度。&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a class="link" href="https://bard.google.com/" target="_blank" rel="noopener"
@@ -77,7 +80,7 @@ width="1030"
 height="13810"
 srcset="https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_1024x0_resize_box_3.png 1024w"
 loading="lazy"
-alt="screenshot-20230930-232302"
+alt="20230930-232302"
 class="gallery-image"
 data-flex-grow="7"
 data-flex-basis="17px"
