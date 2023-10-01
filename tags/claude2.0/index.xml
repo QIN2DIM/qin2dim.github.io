@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Claude2.0 on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/claude2.0/</link><description>Recent content in Claude2.0 on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 01 Oct 2023 12:17:13 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/claude2.0/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』疯狂的 Claude：大航海时代的传奇</title><link>https://blog.echosec.top/p/crazy-claude/</link><pubDate>Sun, 01 Oct 2023 12:17:13 +0800</pubDate><guid>https://blog.echosec.top/p/crazy-claude/</guid><description>&lt;img src="https://blog.echosec.top/p/crazy-claude/abrar-khan.jpg" alt="Featured image of post 『Blog』疯狂的 Claude：大航海时代的传奇" />&lt;h2 id="颠覆的开始">颠覆的开始&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Claude2.0 on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/claude2.0/</link><description>Recent content in Claude2.0 on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 01 Oct 2023 12:17:13 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/claude2.0/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』疯狂的 Claude：大航海时代的传奇</title><link>https://blog.echosec.top/p/crazy-claude/</link><pubDate>Sun, 01 Oct 2023 12:17:13 +0800</pubDate><guid>https://blog.echosec.top/p/crazy-claude/</guid><description>&lt;img src="https://blog.echosec.top/p/crazy-claude/abrar-khan.jpg" alt="Featured image of post 『Blog』疯狂的 Claude：大航海时代的传奇" />&lt;h2 id="demo">Demo&lt;/h2>
+&lt;div class="video-wrapper">
+&lt;video
+controls
+src="CAPTCHA-2.mp4"
+>
+&lt;p>
+Your browser doesn't support HTML5 video. Here is a
+&lt;a href="CAPTCHA-2.mp4">link to the video&lt;/a> instead.
+&lt;/p>
+&lt;/video>
+&lt;/div>
+&lt;h2 id="颠覆的开始">颠覆的开始&lt;/h2>
 &lt;p>2023.09.27，hCaptcha 更新了他们的基准服务，有一类新推送的人机挑战类型是选择「仅出现一次」或「不重复」的目标。&lt;/p>
 &lt;p>大致情况如下图所示：&lt;/p>
 &lt;p>&lt;img width="307" src="https://github.com/QIN2DIM/hcaptcha-challenger/assets/62018067/1634bc03-8721-4422-95c2-3237b26e4f4b"> &lt;img width="307" src="5638dcf3-ff40-49da-851c-19ba7c37c6d7.png">&lt;/p>
@@ -46,18 +58,17 @@ data-flex-basis="1440px"
 &lt;p>&lt;a class="link" href="https://github.com/QIN2DIM/hcaptcha-challenger/pull/764" target="_blank" rel="noopener"
 >🔀 Feat(cv-component): 761 OpenCV toolkit #764&lt;/a>&lt;/p>
 &lt;h2 id="用例演示">用例演示&lt;/h2>
-&lt;div>
-&lt;video src="D:/_FlowStore/《captcha》/CAPTCHA-2/CAPTCHA-2.mp4">&lt;/video>
+&lt;div class="video-wrapper">
+&lt;video
+controls
+src="record-video.webm"
+>
+&lt;p>
+Your browser doesn't support HTML5 video. Here is a
+&lt;a href="record-video.webm">link to the video&lt;/a> instead.
+&lt;/p>
+&lt;/video>
 &lt;/div>
-&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/handle.png"
-width="2560"
-height="1920"
-srcset="https://blog.echosec.top/p/crazy-claude/handle_hu5be5ef015a52113c08c35a47d21ba3f8_880259_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/handle_hu5be5ef015a52113c08c35a47d21ba3f8_880259_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-class="gallery-image"
-data-flex-grow="133"
-data-flex-basis="320px"
->&lt;/p>
 &lt;span id='screenshot'>
 &lt;h2 id="聊天截图">聊天截图&lt;/h2>
 &lt;p>&lt;a class="link" href="#back1" >← back&lt;/a>&lt;/p>
