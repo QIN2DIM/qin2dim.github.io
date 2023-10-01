@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>星火 on Echosec @QIN2DIM</title><link>https://blog.echosec.top/tags/%E6%98%9F%E7%81%AB/</link><description>Recent content in 星火 on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 01 Oct 2023 12:17:13 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/tags/%E6%98%9F%E7%81%AB/index.xml" rel="self" type="application/rss+xml"/><item><title>『Blog』疯狂的 Claude：大航海时代的传奇</title><link>https://blog.echosec.top/p/crazy-claude/</link><pubDate>Sun, 01 Oct 2023 12:17:13 +0800</pubDate><guid>https://blog.echosec.top/p/crazy-claude/</guid><description>&lt;img src="https://blog.echosec.top/p/crazy-claude/abrar-khan.jpg" alt="Featured image of post 『Blog』疯狂的 Claude：大航海时代的传奇" />&lt;h2 id="颠覆的开始">颠覆的开始&lt;/h2>
+&lt;p>2023.09.27，hCaptcha 更新了他们的基准服务，有一类新推送的人机挑战类型是选择「仅出现一次」或「不重复」的目标。&lt;/p>
+&lt;p>大致情况如下图所示：&lt;/p>
+&lt;p>&lt;img width="307" src="https://github.com/QIN2DIM/hcaptcha-challenger/assets/62018067/1634bc03-8721-4422-95c2-3237b26e4f4b"> &lt;img width="307" src="5638dcf3-ff40-49da-851c-19ba7c37c6d7.png">&lt;/p>
+&lt;p>在我看来，这是一个十分常规的实例分割任务，我第一时间想到了延续之前的工作流，使用基于深度学习的方法处理这类任务。但在观察 CI 推送的测试图片之后，我反而觉得“深度学习”的实现会非常复杂，而使用传统机器学习的方法可以做到像素级的识别，且响应速度更快。&lt;/p>
+&lt;p>样例图片如下所示：&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8.png"
+width="1536"
+height="256"
+srcset="https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8_hu4118de97ce1188f3c880215d6e35b451_709312_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8_hu4118de97ce1188f3c880215d6e35b451_709312_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="600"
+data-flex-basis="1440px"
+>&lt;/p>
+&lt;p>从样例中不难发现：要识别的目标都被裁成圆形子图。这是一个非常好的信号，机器学习的方法很适合处理这种特征明显的分割任务。&lt;/p>
+&lt;p>很快，我们可以得到一个大致的行进流程：从生成图中识别出若干个圆形子图（也即前景/实例），使用一种方法去横比这些子图的特征，最后筛选出「与众不同」的实例。&lt;/p>
+&lt;span id='back1'>
+&lt;p>当然，这套流程有很明显的缺点，例如圆形子图边缘被羽化，背景出现大量的等半径的外接圆，子图蒙版变成多边形或三角形，这套流程都有可能出现很大的问题。但相比于加几十行代码就能实现的功能，要投入大量时间精力筛选数据集并训练模型的深度学习路线来说还是要方便不少。&lt;/p>
+&lt;p>那么这篇博客的趣味性在哪呢？那便是我通过 Chat with LLM 的方式实现了这个解决方案。大致流程可看「&lt;a class="link" href="#screenshot" >聊天截图&lt;/a>」以及「&lt;a class="link" href="#links" >相关分支&lt;/a>」仅用80行代码就实现了一个查找「不重复目标」的需求。&lt;/p>
+&lt;p>如果你已经大致瞄了一眼截图开头的部分，也许你会有所惊讶，LLM 给出的内容不再是大而空的屁话，也不再一本正经地列出一些相关但没用的信息，而是针对需求给出确切有效的解决方案。这是一个非常乐观的优化信号。显然，Claude 也仅仅是文本模态的语言模型，很好奇未来跨模态模型大规模使用之后，Captcha service 这个行业会和 LLM 碰撞出怎样的火花。&lt;/p>
+&lt;h2 id="题外话">题外话&lt;/h2>
+&lt;p>也许你用同样的 prompt 问 Bard，ChatGPT-35，文心或是星火，得到的答复可能还是比较糟糕的。至少从我的实践来看：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT 3.5&lt;/a> 仍会给出「正确话」，一再调优之后仍然没法使用。因为 opencv-python 版本变动后 API 接口参数变动非常大，版本差了两年，拷贝来的代码大概率是没法直接用的。GPT4 我还没进行实际测试，但我估计也会出现同样的问题，但区别在于，你可以向 GPT4 投喂你所使用的 opencv-python 对应版本的接口文档，这样也许会有用。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://yiyan.baidu.com/" target="_blank" rel="noopener"
+>文心&lt;/a>和&lt;a class="link" href="https://xinghuo.xfyun.cn/desk" target="_blank" rel="noopener"
+>星火&lt;/a>的问题相对来说比较明显，它们似乎并不能理解我在说什么，我也从未感觉到描述自己的想法竟然如此费劲。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://bard.google.com/" target="_blank" rel="noopener"
+>Bard&lt;/a> 是首个免费开玩且能图文交互的大模型产品，在 Bard 上我测试了分类任务，效果非常棒，但看起来检测和分割任务还不能直接触发。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;span id='links'>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;p>&lt;a class="link" href="#back1" >← back&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/QIN2DIM/hcaptcha-challenger/issues/752" target="_blank" rel="noopener"
+>⤴️ [*Challenge] default @ please click on the object that appears only once #752&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/QIN2DIM/hcaptcha-challenger/issues/756" target="_blank" rel="noopener"
+>⤴️ [Challenge] default @ please click the center of the object that is never repeated #756&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://github.com/QIN2DIM/hcaptcha-challenger/pull/764" target="_blank" rel="noopener"
+>🔀 Feat(cv-component): 761 OpenCV toolkit #764&lt;/a>&lt;/p>
+&lt;h2 id="用例演示">用例演示&lt;/h2>
+&lt;div>
+&lt;video src="D:/_FlowStore/《captcha》/CAPTCHA-2/CAPTCHA-2.mp4">&lt;/video>
+&lt;/div>
+&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/handle.png"
+width="2560"
+height="1920"
+srcset="https://blog.echosec.top/p/crazy-claude/handle_hu5be5ef015a52113c08c35a47d21ba3f8_880259_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/handle_hu5be5ef015a52113c08c35a47d21ba3f8_880259_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="133"
+data-flex-basis="320px"
+>&lt;/p>
+&lt;span id='screenshot'>
+&lt;h2 id="聊天截图">聊天截图&lt;/h2>
+&lt;p>&lt;a class="link" href="#back1" >← back&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302.png"
+width="1030"
+height="13810"
+srcset="https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="screenshot-20230930-232302"
+class="gallery-image"
+data-flex-grow="7"
+data-flex-basis="17px"
+>&lt;/p></description></item></channel></rss>
