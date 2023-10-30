@@ -1814,11 +1814,11 @@ data-flex-basis="840px"
 &lt;div class="video-wrapper">
 &lt;video
 controls
-src="aDrive-webdav%281%29.mp4"
+src="https://pub-d2fac70bca43439aa08958d61149bdc3.r2.dev/blog-obs/2023/10/23ace7fa97d8cc7cbe6cd5afdba7673b.mp4"
 >
 &lt;p>
 Your browser doesn't support HTML5 video. Here is a
-&lt;a href="aDrive-webdav%281%29.mp4">link to the video&lt;/a> instead.
+&lt;a href="https://pub-d2fac70bca43439aa08958d61149bdc3.r2.dev/blog-obs/2023/10/23ace7fa97d8cc7cbe6cd5afdba7673b.mp4">link to the video&lt;/a> instead.
 &lt;/p>
 &lt;/video>
 &lt;/div>
