@@ -1252,7 +1252,7 @@ data-flex-basis="346px"
 &lt;p>使用系统自带的 Firefox 浏览器访问 Youtube 的结果如下图所示：&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;div align="center">&lt;img src="image-20220507123156186.png" alt="image-20220507123156186" style="zoom:20%;" />&lt;/div>
+&lt;div align="center">&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/6daa791aab981720b494509e3345a7f5.jpg" alt="image-20220507123156186" style="zoom:20%;" />&lt;/div>
 &lt;h3 id="clash-for-windows">Clash for Windows&lt;/h3>
 &lt;p>介绍使用 &lt;a class="link" href="https://github.com/Fndroid/clash_for_windows_pkg/releases" target="_blank" rel="noopener"
 >Clash for Windows&lt;/a> 接管虚拟机全局流量的方法，其他「类 Clash」产品均可举一反三。操作前请确保虚拟机网络已被设为「桥接模式」。&lt;/p>

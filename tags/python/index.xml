@@ -51,7 +51,7 @@
 &lt;p>使用系统自带的 Firefox 浏览器访问 Youtube 的结果如下图所示：&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;div align="center">&lt;img src="image-20220507123156186.png" alt="image-20220507123156186" style="zoom:20%;" />&lt;/div>
+&lt;div align="center">&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/6daa791aab981720b494509e3345a7f5.jpg" alt="image-20220507123156186" style="zoom:20%;" />&lt;/div>
 &lt;h3 id="clash-for-windows">Clash for Windows&lt;/h3>
 &lt;p>介绍使用 &lt;a class="link" href="https://github.com/Fndroid/clash_for_windows_pkg/releases" target="_blank" rel="noopener"
 >Clash for Windows&lt;/a> 接管虚拟机全局流量的方法，其他「类 Clash」产品均可举一反三。操作前请确保虚拟机网络已被设为「桥接模式」。&lt;/p>
@@ -2066,7 +2066,10 @@ data-flex-basis="445px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run_crawl_to_capture_workData&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">id_list&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">id_list&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__len&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="n">__&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;img src="xjLGXY32JEmWvIb.png" style="zoom:80%;" />
+&lt;/div>&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/b119b7a73a0b60d9a657f35eeeec10f7.png"
+loading="lazy"
+alt="xjLGXY32JEmWvIb"
+>&lt;/p>
 &lt;h3 id="拷贝作品信息">拷贝作品信息&lt;/h3>
 &lt;ul>
 &lt;li>
@@ -2105,15 +2108,12 @@ data-flex-basis="445px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run_crawl_to_backup_data&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;72862&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">power&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;div align="center">&lt;img src="3nIbWH5cEiuDVs9.png" style="zoom: 67%;" />&lt;/div>
-&lt;p>&lt;img src="https://blog.echosec.top/p/python-4c-excellentproject/MmYqsBRbPEZglv2.gif"
-width="672"
-height="378"
-srcset="https://blog.echosec.top/p/python-4c-excellentproject/MmYqsBRbPEZglv2_hu59e7919f71bfe8e4776583e924d2a075_2001734_480x0_resize_box_1.gif 480w, https://blog.echosec.top/p/python-4c-excellentproject/MmYqsBRbPEZglv2_hu59e7919f71bfe8e4776583e924d2a075_2001734_1024x0_resize_box_1.gif 1024w"
+&lt;/div>&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/aa68b10aed32301231a18b0f87094338.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="177"
-data-flex-basis="426px"
+alt="3nIbWH5cEiuDVs9"
+>&lt;/p>
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/69d67a1e9993622c21f76c62bd6b49e2.gif"
+loading="lazy"
 >&lt;/p>
 &lt;h2 id="api">API&lt;/h2>
 &lt;p>在从 &lt;code>MiddleWare&lt;/code> 中导入 &lt;code>app&lt;/code>，即可调用脚本功能，别忘了调用 &lt;code>config&lt;/code> 配置文件设置全局变量~&lt;/p>
@@ -2301,28 +2301,16 @@ data-flex-basis="426px"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">find_works_by_level&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">level&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;一等奖&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">class_&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>&lt;img src="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203151766.png"
-width="1562"
-height="389"
-srcset="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203151766_hu6333a1f9b6ad0ce5cbbaf9ff77717174_157030_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203151766_hu6333a1f9b6ad0ce5cbbaf9ff77717174_157030_1024x0_resize_box_3.png 1024w"
+&lt;/div>&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/db2d7700df1442d7074caf723e7eb4d6.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="401"
-data-flex-basis="963px"
 >&lt;/p>
 &lt;h3 id="作品查询比赛摘要">作品查询~比赛摘要&lt;/h3>
 &lt;ul>
 &lt;li>&lt;code>app.get_summary()&lt;/code> 打印决赛成绩概况&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203209320.png"
-width="1232"
-height="359"
-srcset="https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203209320_hu142866d07b802d697d5d6e7cd105ce57_81589_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/python-4c-excellentproject/image-20211002203209320_hu142866d07b802d697d5d6e7cd105ce57_81589_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/9cc8d4488bac0e824ceb7573c1018657.png"
 loading="lazy"
 alt="image-20211002203209320"
-class="gallery-image"
-data-flex-grow="343"
-data-flex-basis="823px"
 >&lt;/p>
 &lt;h3 id="作品查询链接直达">作品查询~链接直达&lt;/h3>
 &lt;ul>
