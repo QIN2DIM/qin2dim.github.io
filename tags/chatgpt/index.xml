@@ -2,28 +2,22 @@
 &lt;div class="video-wrapper">
 &lt;video
 controls
-src="CAPTCHA-2.mp4"
+src="https://r2-datalake.echosec.top/blog-obs/2023/10/5aa34a6e07c346af7bf4dd5a102c410e.mp4"
 >
 &lt;p>
 Your browser doesn't support HTML5 video. Here is a
-&lt;a href="CAPTCHA-2.mp4">link to the video&lt;/a> instead.
+&lt;a href="https://r2-datalake.echosec.top/blog-obs/2023/10/5aa34a6e07c346af7bf4dd5a102c410e.mp4">link to the video&lt;/a> instead.
 &lt;/p>
 &lt;/video>
 &lt;/div>
 &lt;h2 id="颠覆之始">颠覆之始&lt;/h2>
 &lt;p>2023.09.27，hCaptcha 更新了他们的基准服务，有一类新推送的人机挑战类型是选择「仅出现一次」或「不重复」的目标。&lt;/p>
 &lt;p>大致情况如下图所示：&lt;/p>
-&lt;p>&lt;img width="307" src="https://github.com/QIN2DIM/hcaptcha-challenger/assets/62018067/1634bc03-8721-4422-95c2-3237b26e4f4b"> &lt;img width="307" src="5638dcf3-ff40-49da-851c-19ba7c37c6d7.png">&lt;/p>
+&lt;p>&lt;img width="307" src="https://r2-datalake.echosec.top/blog-obs/2023/10/5baaf71126fce72c38079414377d1c70.png"> &lt;img width="307" src="https://r2-datalake.echosec.top/blog-obs/2023/10/797a833b00a1786df8daedfe1bbad375.png">&lt;/p>
 &lt;p>在我看来，这是一个十分常规的实例分割任务，我第一时间想到了延续之前的工作流，使用基于深度学习的方法处理这类任务。但在观察 CI 推送的测试图片之后，我反而觉得“深度学习”的实现会非常复杂，而使用传统机器学习的方法可以做到像素级的识别，且响应速度更快。&lt;/p>
 &lt;p>样例图片如下所示：&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8.png"
-width="1536"
-height="256"
-srcset="https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8_hu4118de97ce1188f3c880215d6e35b451_709312_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8_hu4118de97ce1188f3c880215d6e35b451_709312_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/16ce7797f5813fd57da4fc5358261ffd.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="600"
-data-flex-basis="1440px"
 >&lt;/p>
 &lt;p>从样例中不难发现：要识别的目标都被裁成圆形子图。这是一个非常好的信号，机器学习的方法很适合处理这种特征明显的分割任务。&lt;/p>
 &lt;p>很快，我们可以得到一个大致的行进流程：从生成图中识别出若干个圆形子图（也即前景/实例），使用一种方法去横比这些子图的特征，最后筛选出「与众不同」的实例。&lt;/p>
@@ -64,26 +58,20 @@ data-flex-basis="1440px"
 &lt;div class="video-wrapper">
 &lt;video
 controls
-src="record-video.webm"
+src="https://r2-datalake.echosec.top/blog-obs/2023/10/43ff9132c02e95fbf0ea1ab4884bb3a6.webm"
 >
 &lt;p>
 Your browser doesn't support HTML5 video. Here is a
-&lt;a href="record-video.webm">link to the video&lt;/a> instead.
+&lt;a href="https://r2-datalake.echosec.top/blog-obs/2023/10/43ff9132c02e95fbf0ea1ab4884bb3a6.webm">link to the video&lt;/a> instead.
 &lt;/p>
 &lt;/video>
 &lt;/div>
 &lt;span id='screenshot'>
 &lt;h2 id="聊天截图">聊天截图&lt;/h2>
 &lt;p>&lt;a class="link" href="#back1" >← back&lt;/a>&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302.png"
-width="1030"
-height="13810"
-srcset="https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/fd24422f12fdaa51010babbb01b2bdc4.png"
 loading="lazy"
 alt="20230930-232302"
-class="gallery-image"
-data-flex-grow="7"
-data-flex-basis="17px"
 >&lt;/p></description></item><item><title>『Blog』ChatGPT Anti Rules</title><link>https://blog.echosec.top/p/chatgpt-antirules/</link><pubDate>Sun, 11 Dec 2022 17:34:11 +0800</pubDate><guid>https://blog.echosec.top/p/chatgpt-antirules/</guid><description>&lt;img src="https://blog.echosec.top/p/chatgpt-antirules/naifan-zhang-4.jpg" alt="Featured image of post 『Blog』ChatGPT Anti Rules" />&lt;h2 id="简介">简介&lt;/h2>
 &lt;p>我们在 &lt;a class="link" href="https://blog.echosec.top/p/chatgpt-register/" >ChatGPT HelloWorld&lt;/a> 中介绍了中国用户注册并使用 ChatGPT 的方法，还没玩起来的小伙伴可以先去跑一个 Demo。&lt;/p>
 &lt;p>本篇文章则集中介绍 ChatGPT 的一些高级用法和注意事项。&lt;strong>先说结论：ChatGPT 不是万能的，它不能替代搜索引擎，至多是搜索引擎的延拓，&lt;/strong> 现在说 「Google is done」还为时过早。&lt;/p>

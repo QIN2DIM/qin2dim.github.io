@@ -2,28 +2,22 @@
 &lt;div class="video-wrapper">
 &lt;video
 controls
-src="CAPTCHA-2.mp4"
+src="https://r2-datalake.echosec.top/blog-obs/2023/10/5aa34a6e07c346af7bf4dd5a102c410e.mp4"
 >
 &lt;p>
 Your browser doesn't support HTML5 video. Here is a
-&lt;a href="CAPTCHA-2.mp4">link to the video&lt;/a> instead.
+&lt;a href="https://r2-datalake.echosec.top/blog-obs/2023/10/5aa34a6e07c346af7bf4dd5a102c410e.mp4">link to the video&lt;/a> instead.
 &lt;/p>
 &lt;/video>
 &lt;/div>
 &lt;h2 id="颠覆之始">颠覆之始&lt;/h2>
 &lt;p>2023.09.27，hCaptcha 更新了他们的基准服务，有一类新推送的人机挑战类型是选择「仅出现一次」或「不重复」的目标。&lt;/p>
 &lt;p>大致情况如下图所示：&lt;/p>
-&lt;p>&lt;img width="307" src="https://github.com/QIN2DIM/hcaptcha-challenger/assets/62018067/1634bc03-8721-4422-95c2-3237b26e4f4b"> &lt;img width="307" src="5638dcf3-ff40-49da-851c-19ba7c37c6d7.png">&lt;/p>
+&lt;p>&lt;img width="307" src="https://r2-datalake.echosec.top/blog-obs/2023/10/5baaf71126fce72c38079414377d1c70.png"> &lt;img width="307" src="https://r2-datalake.echosec.top/blog-obs/2023/10/797a833b00a1786df8daedfe1bbad375.png">&lt;/p>
 &lt;p>在我看来，这是一个十分常规的实例分割任务，我第一时间想到了延续之前的工作流，使用基于深度学习的方法处理这类任务。但在观察 CI 推送的测试图片之后，我反而觉得“深度学习”的实现会非常复杂，而使用传统机器学习的方法可以做到像素级的识别，且响应速度更快。&lt;/p>
 &lt;p>样例图片如下所示：&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8.png"
-width="1536"
-height="256"
-srcset="https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8_hu4118de97ce1188f3c880215d6e35b451_709312_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/e3b97dd8-a4e1-4be2-b4b8-cf3124cef4e8_hu4118de97ce1188f3c880215d6e35b451_709312_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/16ce7797f5813fd57da4fc5358261ffd.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="600"
-data-flex-basis="1440px"
 >&lt;/p>
 &lt;p>从样例中不难发现：要识别的目标都被裁成圆形子图。这是一个非常好的信号，机器学习的方法很适合处理这种特征明显的分割任务。&lt;/p>
 &lt;p>很快，我们可以得到一个大致的行进流程：从生成图中识别出若干个圆形子图（也即前景/实例），使用一种方法去横比这些子图的特征，最后筛选出「与众不同」的实例。&lt;/p>
@@ -64,27 +58,21 @@ data-flex-basis="1440px"
 &lt;div class="video-wrapper">
 &lt;video
 controls
-src="record-video.webm"
+src="https://r2-datalake.echosec.top/blog-obs/2023/10/43ff9132c02e95fbf0ea1ab4884bb3a6.webm"
 >
 &lt;p>
 Your browser doesn't support HTML5 video. Here is a
-&lt;a href="record-video.webm">link to the video&lt;/a> instead.
+&lt;a href="https://r2-datalake.echosec.top/blog-obs/2023/10/43ff9132c02e95fbf0ea1ab4884bb3a6.webm">link to the video&lt;/a> instead.
 &lt;/p>
 &lt;/video>
 &lt;/div>
 &lt;span id='screenshot'>
 &lt;h2 id="聊天截图">聊天截图&lt;/h2>
 &lt;p>&lt;a class="link" href="#back1" >← back&lt;/a>&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302.png"
-width="1030"
-height="13810"
-srcset="https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/crazy-claude/screenshot-20230930-232302_hudd902563ff5e097e45ff891f6c134c7e_1991431_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/fd24422f12fdaa51010babbb01b2bdc4.png"
 loading="lazy"
 alt="20230930-232302"
-class="gallery-image"
-data-flex-grow="7"
-data-flex-basis="17px"
->&lt;/p></description></item><item><title>『Blog』Hysteria2 Get Started</title><link>https://blog.echosec.top/p/hysteria2-tutorial/</link><pubDate>Sat, 02 Sep 2023 22:47:34 +0800</pubDate><guid>https://blog.echosec.top/p/hysteria2-tutorial/</guid><description>&lt;img src="https://blog.echosec.top/p/hysteria2-tutorial/abrar-.jpg" alt="Featured image of post 『Blog』Hysteria2 Get Started" />&lt;h2 id="preview">Preview&lt;/h2>
+>&lt;/p></description></item><item><title>『Blog』Hysteria2 Get Started</title><link>https://blog.echosec.top/p/hysteria2-tutorial/</link><pubDate>Sat, 02 Sep 2023 22:47:34 +0800</pubDate><guid>https://blog.echosec.top/p/hysteria2-tutorial/</guid><description>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/96617d1cbde816df14ea79926457dec3.jpg" alt="Featured image of post 『Blog』Hysteria2 Get Started" />&lt;h2 id="preview">Preview&lt;/h2>
 &lt;p>最速传说！挑战 5 分钟部署 Hysteria v2！不含一句废话的 quick start 教程！&lt;/p>
 &lt;p>&lt;strong>准备&lt;/strong>：Python3.7+（近几年发行的主流 Linux 镜像都预装了 Python3）；在管理员权限下运行；提前为你的服务器解析一个域名 A 纪录。&lt;/p>
 &lt;p>&lt;strong>忠告&lt;/strong>：在你开始吸收包括本文在内的各种来路不明的教程之前，运行刚发布的「一键安装脚本」之前，翻看所谓油管大神的讲解视频之前，一定先把 &lt;a class="link" href="https://hysteria.network/zh/" target="_blank" rel="noopener"
@@ -10713,7 +10701,7 @@ data-flex-basis="360px"
 >&lt;img src="https://blog.echosec.top/p/typlog-atlas/IMG_4893.jpg"
 width="3903"
 height="5854"
-srcset="https://blog.echosec.top/p/typlog-atlas/IMG_4893_hue25010fc06f7240390c3c616179f3151_16863397_480x0_resize_q75_box.jpg 480w, https://blog.echosec.top/p/typlog-atlas/IMG_4893_hue25010fc06f7240390c3c616179f3151_16863397_1024x0_resize_q75_box.jpg 1024w"
+srcset="https://blog.echosec.top/p/typlog-atlas/IMG_4893_hu87ea4551a0b3ab1694586d54802d75f1_3595673_480x0_resize_q75_box.jpg 480w, https://blog.echosec.top/p/typlog-atlas/IMG_4893_hu87ea4551a0b3ab1694586d54802d75f1_3595673_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="66"
@@ -10721,7 +10709,7 @@ data-flex-basis="160px"
 >&lt;img src="https://blog.echosec.top/p/typlog-atlas/IMG_5674.jpg"
 width="4000"
 height="6000"
-srcset="https://blog.echosec.top/p/typlog-atlas/IMG_5674_hu8c01a0eb20a3cf32220a6562416c4b71_16880583_480x0_resize_q75_box.jpg 480w, https://blog.echosec.top/p/typlog-atlas/IMG_5674_hu8c01a0eb20a3cf32220a6562416c4b71_16880583_1024x0_resize_q75_box.jpg 1024w"
+srcset="https://blog.echosec.top/p/typlog-atlas/IMG_5674_hu323691e1a2f39f437847f78c9f151a42_1138384_480x0_resize_q75_box.jpg 480w, https://blog.echosec.top/p/typlog-atlas/IMG_5674_hu323691e1a2f39f437847f78c9f151a42_1138384_1024x0_resize_q75_box.jpg 1024w"
 loading="lazy"
 class="gallery-image"
 data-flex-grow="66"
@@ -12188,48 +12176,25 @@ data-flex-basis="606px"
 &lt;p>相比于其他工具，make-sense 的上手难度非常低，仅需数分钟，玩家便能熟练掌握工作台中的功能选项，快速地进入工作状态；此外，由于 make-sense 是一款 web 应用，各个操作系统的玩家可打破次元壁实现工作协同。&lt;/p>
 &lt;h2 id="快速上手">快速上手&lt;/h2>
 &lt;h3 id="sneak-peek-流程预览">Sneak Peek 流程预览&lt;/h3>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/08f77172e306461e92b0cb75bd1e929d.gif"
-width="1754"
-height="891"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/08f77172e306461e92b0cb75bd1e929d_hu5e8c533ededd7ddfd9def97f149d6b1c_4814462_480x0_resize_box_1.gif 480w, https://blog.echosec.top/p/yolov5-make-sense/08f77172e306461e92b0cb75bd1e929d_hu5e8c533ededd7ddfd9def97f149d6b1c_4814462_1024x0_resize_box_1.gif 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/d6fd2db555717ab7639e214a77887047.gif"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="196"
-data-flex-basis="472px"
 >&lt;/p>
 &lt;h3 id="drop-images-缓存需要标注的图像数据集">Drop Images 缓存需要标注的图像数据集&lt;/h3>
 &lt;p>进入 &lt;a class="link" href="https://www.makesense.ai/" target="_blank" rel="noopener"
 >make sense&lt;/a> 站点主页，点击右下角 &lt;code>Get Started&lt;/code> 进入任务。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1RvX0NoYVJpdmVy,size_16,color_FFFFFF,t_70.png"
-width="1342"
-height="790"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/_hu9b50f8f8c9a09018e35f83b943878765_693622_7737bebfb8700f3918bfbf13e583e090.png 480w, https://blog.echosec.top/p/yolov5-make-sense/_hu9b50f8f8c9a09018e35f83b943878765_693622_d323be20d7b38dc389fcd4a5fd844295.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/3494f6813c93df0bf11e10b8d518e3ac.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="169"
-data-flex-basis="407px"
+alt="2"
 >&lt;/p>
 &lt;p>拖入或上传需要标注的图像数据集。此处不支持文件夹套娃，请将所有需要标注的图像放在同一文件夹下，需要做避免重名的处理；或者您也可以多次上传位于不同文件夹下的图像。&lt;/p>
 &lt;p>值得一提的是，标注任务开时候您也可以再补充缓存需要标注的图像，但没有可靠的方式“删除”已缓存的图像。若您在标注过程中发现上传了脏数据，只需不对此图片进行任何标注，导出时就不会生成对该图像的标注数据（文件）。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/a059d15d9eb8dee3bfdc1d96cf686aa6-16331692661806.png"
-width="651"
-height="470"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/a059d15d9eb8dee3bfdc1d96cf686aa6-16331692661806_hu8da9d8fde3a89ae6c0556d8da4f79a2e_111058_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/a059d15d9eb8dee3bfdc1d96cf686aa6-16331692661806_hu8da9d8fde3a89ae6c0556d8da4f79a2e_111058_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/41c127ff8e18f9a18192d04ed3ac452b.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="138"
-data-flex-basis="332px"
 >&lt;/p>
 &lt;h3 id="object-detection-进入目标检测标注模式">Object Detection 进入目标检测标注模式&lt;/h3>
 &lt;p>上传图像后，选择进入目标检测的标注模式。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/617764cd22629333edd999abb6ecf1e5.png"
-width="622"
-height="464"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/617764cd22629333edd999abb6ecf1e5_hu8c6aeedf516d7601a72e8fe040048ab2_103691_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/617764cd22629333edd999abb6ecf1e5_hu8c6aeedf516d7601a72e8fe040048ab2_103691_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/90158a05cab741f65b4e7419dab2fdd4.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="134"
-data-flex-basis="321px"
 >&lt;/p>
 &lt;h3 id="create-labels-创建标签">Create Labels 创建标签&lt;/h3>
 &lt;ul>
@@ -12241,27 +12206,13 @@ data-flex-basis="321px"
 &lt;/li>
 &lt;/ul>
 &lt;p>创建成功后点击 [Start project] 开始标注。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/R4QFCh7qcN2V3Et.png"
-width="1877"
-height="1287"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/R4QFCh7qcN2V3Et_hubbf57ae39ed7b77f5cba1bb001c3a824_133405_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/R4QFCh7qcN2V3Et_hubbf57ae39ed7b77f5cba1bb001c3a824_133405_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/232b3d4d8b921e57f35a09b5eb693abc.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="145"
-data-flex-basis="350px"
 >&lt;/p>
 &lt;p>此处为了方便演示，我们选择手动创建标签。&lt;/p>
-&lt;div align="center">&lt;img src="EAeOYndMx4o1Nvy.png" alt="image-20210811220853094" style="zoom: 50%;" />&lt;/div>
+&lt;div align="center">&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/8f5f8c8f08882d0ed28de8a98f7dffdf.png" alt="image-20210811220853094" style="zoom: 50%;" />&lt;/div>
 &lt;p>同样，我们仍可在工作过程中随时调整（&lt;kbd>Actions&lt;/kbd> | &lt;kbd>Edit Labels&lt;/kbd>）标签的&lt;code>规模&lt;/code>及&lt;code>顺序&lt;/code>。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/9789a712bcb28ad3d50375d10ecb6afb.png"
-width="387"
-height="366"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/9789a712bcb28ad3d50375d10ecb6afb_hu4e8b75c35f39e24f2d9d3c8a44dfa048_23921_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/9789a712bcb28ad3d50375d10ecb6afb_hu4e8b75c35f39e24f2d9d3c8a44dfa048_23921_1024x0_resize_box_3.png 1024w"
-loading="lazy"
-class="gallery-image"
-data-flex-grow="105"
-data-flex-basis="253px"
->&lt;/p>
+&lt;div align="center">&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/ff816696857eb0a9d70469ee28bbfe48.png" alt="image-20210811220853094" />&lt;/div>
 &lt;h3 id="work-开始标注">Work 开始标注&lt;/h3>
 &lt;p>Make Sense 支持矩形 (Rect)、点 (Point)、线 (Line)、多边形 (Polyygon) 多种标注模式，点选相应的模式开始“抠图”既可。&lt;/p>
 &lt;p>工作台上有放大、缩小、还原比例、拖动、删除标签等操作工具，不过多介绍，玩几下就懂了。&lt;/p>
@@ -12276,16 +12227,10 @@ data-flex-basis="349px"
 >&lt;/p>
 &lt;h3 id="export-导出标注">Export 导出标注&lt;/h3>
 &lt;p>点选 &lt;kbd>Actions&lt;/kbd> | &lt;kbd>Export Annotations&lt;/kbd> 导出标注。&lt;/p>
-&lt;div align="center">&lt;img src="SIsn8miqA7zXbZW.png" alt="image-20210811222025070" style="zoom:50%;" />&lt;/div>
+&lt;div align="center">&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/e1b37d955e8bea3e212a5566842874e9.png" alt="image-20210811222025070" style="zoom:50%;" />&lt;/div>
 &lt;p>Export后会自动下载生成的压缩包文件。压缩包内是一一对应的标注集文件，与标注数据文件名与其对应的图像文件名一致。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/379019ee57844820a72bc2970b2736ed.png"
-width="1456"
-height="329"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/379019ee57844820a72bc2970b2736ed_hu1eb0ae680a9665f223504e18f0f00572_79024_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/379019ee57844820a72bc2970b2736ed_hu1eb0ae680a9665f223504e18f0f00572_79024_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/f8682d4eae974e15e2d381c8c8c078c1.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="442"
-data-flex-basis="1062px"
 >&lt;/p>
 &lt;h3 id="review-审查标注数据">Review 审查标注数据&lt;/h3>
 &lt;p>由 &lt;a class="link" href="https://github.com/ultralytics/yolov5/wiki/Train-Custom-Data" target="_blank" rel="noopener"
@@ -12294,14 +12239,8 @@ data-flex-basis="1062px"
 &lt;li>目标类型：第1列成分，以数字序号区分的标签；&lt;/li>
 &lt;li>目标标识区域（以&lt;code>2D Object &lt;/code>为例）：4列连续的成分，依次为目标实体的中点 x 坐标（class x_center），中点 y 坐标（class x_center），宽度（width）以及高度 （height）；&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/7862b814c7eb88586c58cc415aac0ee0.png"
-width="1480"
-height="920"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/7862b814c7eb88586c58cc415aac0ee0_huf929e521836f485071e453974af6cb89_248810_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/7862b814c7eb88586c58cc415aac0ee0_huf929e521836f485071e453974af6cb89_248810_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/d295b826fda927c143419ba5691547a9.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="160"
-data-flex-basis="386px"
 >&lt;/p>
 &lt;p>再来看看刚才标注的&lt;code>宵宫&lt;/code>目标数据。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -12313,14 +12252,8 @@ data-flex-basis="386px"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>如上所示，&lt;strong>第一列&lt;/strong>是标签&lt;code>宵宫&lt;/code>所在标签集合的序号，由于我们仅有一个标签，此处自然为0。值得一提的是，此处的序号是按照Make Sense中的标签&amp;quot;顺序&amp;quot;排列的，与 &lt;code>YOLOv5&lt;/code> train 数据集索引配置文件 (&lt;code>.yaml&lt;/code>) 中的 &lt;code>names&lt;/code> 变量的分类名 &lt;code>class names&lt;/code> 顺序无关，建议两者顺序保持一致。&lt;strong>后四列&lt;/strong>为作者框选的目标边界数据，我们可以大概这么理解，根据下图我们可知人物主体居中构图，2，3 列体现的趋于 0.5 的数据符合主观预估值；人物宽度约占画幅 X 区间的一半 (0.454707)，而高度却几乎占满整个画幅Y区间 (0.969410)。&lt;/p>
-&lt;p>&lt;img src="https://blog.echosec.top/p/yolov5-make-sense/4ef6638.png"
-width="1342"
-height="790"
-srcset="https://blog.echosec.top/p/yolov5-make-sense/4ef6638_hu9b50f8f8c9a09018e35f83b943878765_693622_480x0_resize_box_3.png 480w, https://blog.echosec.top/p/yolov5-make-sense/4ef6638_hu9b50f8f8c9a09018e35f83b943878765_693622_1024x0_resize_box_3.png 1024w"
+&lt;p>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2023/10/3494f6813c93df0bf11e10b8d518e3ac.png"
 loading="lazy"
-class="gallery-image"
-data-flex-grow="169"
-data-flex-basis="407px"
 >&lt;/p>
 &lt;h2 id="高级操作">高级操作&lt;/h2>
 &lt;p>原本至此完整的标注集导出流程已完全结束，但是作者发现本项目竟然是开源的&amp;hellip;意味着感兴趣的同学可以通过 &lt;a class="link" href="https://github.com/SkalskiP/make-sense" target="_blank" rel="noopener"
