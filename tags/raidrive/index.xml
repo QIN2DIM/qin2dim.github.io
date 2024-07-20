@@ -26,8 +26,8 @@ Your browser doesn't support HTML5 video. Here is a
 &lt;p>复制影视资源目录的 &lt;code>Path&lt;/code>，即网址中 &lt;code>/folder/&lt;/code> 之后的内容&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;figure>&lt;img src="Untitled.png"
-alt="2.1 URI of the cloud storage"/>&lt;figcaption>
+&lt;figure>&lt;img src="https://blog.echosec.top/p/mouting-alidrive-locally/Untitled.png"
+alt="2.1 URI of the cloud storage">&lt;figcaption>
 &lt;p>2.1 URI of the cloud storage&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
@@ -97,8 +97,8 @@ alt="2.1 URI of the cloud storage"/>&lt;figcaption>
 &lt;p>下载 &lt;a class="link" href="https://www.raidrive.com/download" target="_blank" rel="noopener"
 >RaiDrive&lt;/a>，创建 NAS WebDAV 节点，参照下图配置。如果您按照以上步骤配置 AList，仅需要改动账户密码并关闭TLS，也即使用 HTTP 架构访问 localhost 服务。&lt;/p>
 &lt;p>此外，日后因各种原因刷新管理员密码后，请及时更新 WebDAV 的配置项，否则会遇到 401 的错误。&lt;/p>
-&lt;figure>&lt;img src="RaiDrive.png"
-alt="3.1 Sample of RaiDrive WebDav Config"/>&lt;figcaption>
+&lt;figure>&lt;img src="https://blog.echosec.top/p/mouting-alidrive-locally/RaiDrive.png"
+alt="3.1 Sample of RaiDrive WebDav Config">&lt;figcaption>
 &lt;p>3.1 Sample of RaiDrive WebDav Config&lt;/p>
 &lt;/figcaption>
 &lt;/figure>

@@ -1838,8 +1838,8 @@ Your browser doesn't support HTML5 video. Here is a
 &lt;p>复制影视资源目录的 &lt;code>Path&lt;/code>，即网址中 &lt;code>/folder/&lt;/code> 之后的内容&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;figure>&lt;img src="Untitled.png"
-alt="2.1 URI of the cloud storage"/>&lt;figcaption>
+&lt;figure>&lt;img src="https://blog.echosec.top/p/mouting-alidrive-locally/Untitled.png"
+alt="2.1 URI of the cloud storage">&lt;figcaption>
 &lt;p>2.1 URI of the cloud storage&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
@@ -1909,8 +1909,8 @@ alt="2.1 URI of the cloud storage"/>&lt;figcaption>
 &lt;p>下载 &lt;a class="link" href="https://www.raidrive.com/download" target="_blank" rel="noopener"
 >RaiDrive&lt;/a>，创建 NAS WebDAV 节点，参照下图配置。如果您按照以上步骤配置 AList，仅需要改动账户密码并关闭TLS，也即使用 HTTP 架构访问 localhost 服务。&lt;/p>
 &lt;p>此外，日后因各种原因刷新管理员密码后，请及时更新 WebDAV 的配置项，否则会遇到 401 的错误。&lt;/p>
-&lt;figure>&lt;img src="RaiDrive.png"
-alt="3.1 Sample of RaiDrive WebDav Config"/>&lt;figcaption>
+&lt;figure>&lt;img src="https://blog.echosec.top/p/mouting-alidrive-locally/RaiDrive.png"
+alt="3.1 Sample of RaiDrive WebDav Config">&lt;figcaption>
 &lt;p>3.1 Sample of RaiDrive WebDav Config&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
@@ -2629,7 +2629,7 @@ data-flex-basis="93px"
 &lt;p>购买接码账号&lt;/p>
 &lt;p>使用 AliPay 对账号充值，每个接码手机号 10 卢布左右，20分钟有效，有效期内未接收到验证码，手机号将被回收，付款退回账号。&lt;/p>
 &lt;div align="center">&lt;img src="image-20221204191842258.png" alt="image-20221204191842258" style="zoom:50%;" />&lt;/div>
-&lt;p>购买 OpenAI 接码账号，选一个便宜的，这些手机号在本文首发时还剩下十几万个，用完就没了~由于账号有效期内没有活动会被回收，不用担心黄牛批量买入，这些账号用于真实注册 OpenAI。如果直接搜索服务没有看到下方的扩展栏，可以点击「显示更多国家」的拓展，SMS-ACTIVE 会时不时筛选补充接码账号，不得不说 ChatGPT 5 天时间的注册量已经超过了一百万，接码服务也算是间接受益方，他们自然不会错过这个绝佳的热点~&lt;/p>
+&lt;p>购买 OpenAI 接码账号，选一个便宜的，这些手机号在本文首发时还剩下十几万个，用完就没了&lt;del>由于账号有效期内没有活动会被回收，不用担心黄牛批量买入，这些账号用于真实注册 OpenAI。如果直接搜索服务没有看到下方的扩展栏，可以点击「显示更多国家」的拓展，SMS-ACTIVE 会时不时筛选补充接码账号，不得不说 ChatGPT 5 天时间的注册量已经超过了一百万，接码服务也算是间接受益方，他们自然不会错过这个绝佳的热点&lt;/del>&lt;/p>
 &lt;div align="center">&lt;img src="image-20221204191322173.png" alt="image-20221204191322173" style="zoom:50%;" />&lt;/div>
 &lt;/li>
 &lt;li>
@@ -3991,17 +3991,17 @@ data-flex-basis="240px"
 &lt;/span>&lt;span class="lnt">10
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// This &amp;#34;HasAuthentication&amp;#34; interface is the key!
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">HasAuthentication&lt;/span> &lt;span class="nf">authentication&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="n">HasAuthentication&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// You can either register something for all sites
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">authentication&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">register&lt;/span>&lt;span class="o">(()&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">UsernameAndPassword&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;admin&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;admin&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Or use something different for specific sites
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="n">authentication&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">register&lt;/span>&lt;span class="o">(&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">uri&lt;/span> &lt;span class="o">-&amp;gt;&lt;/span> &lt;span class="n">uri&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">getHost&lt;/span>&lt;span class="o">().&lt;/span>&lt;span class="na">contains&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;mysite.com&amp;#34;&lt;/span>&lt;span class="o">),&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">new&lt;/span> &lt;span class="n">UsernameAndPassword&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;AzureDiamond&amp;#34;&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="s">&amp;#34;hunter2&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// This &amp;#34;HasAuthentication&amp;#34; interface is the key!&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">HasAuthentication&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nf">authentication&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">HasAuthentication&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">// You can either register something for all sites&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">authentication&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">register&lt;/span>&lt;span class="p">(()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">UsernameAndPassword&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;admin&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;admin&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c1">// Or use something different for specific sites&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">authentication&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">register&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="n">uri&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">-&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">uri&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">getHost&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="na">contains&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;mysite.com&amp;#34;&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="k">new&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">UsernameAndPassword&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;AzureDiamond&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;hunter2&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ul>
 &lt;li>Ruby&lt;/li>
@@ -4057,10 +4057,10 @@ data-flex-basis="240px"
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span> &lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="o">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">password&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;password&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">email&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;input&amp;#34;&lt;/span>&lt;span class="o">)).&lt;/span>&lt;span class="na">above&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">passwordField&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">password&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;password&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">email&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;input&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">above&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">passwordField&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="below">Below&lt;/h3>
 &lt;p>反过来，让我们定位密码字段，它位于电子邮件地址字段下方。&lt;/p>
@@ -4092,11 +4092,11 @@ data-flex-basis="240px"
 &lt;/span>&lt;span class="lnt">4
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span> &lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="o">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">emailAddressField&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;email&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">passwordField&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;input&amp;#34;&lt;/span>&lt;span class="o">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">.&lt;/span>&lt;span class="na">below&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">emailAddressField&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">emailAddressField&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;email&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">passwordField&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;input&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">below&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">emailAddressField&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="to-the-left-of">To the left Of&lt;/h3>
 &lt;p>让我们考虑一下我们想要在「提交」按钮左侧找到元素的情况。&lt;/p>
@@ -4130,11 +4130,11 @@ data-flex-basis="240px"
 &lt;/span>&lt;span class="lnt">4
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span> &lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="o">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">submitButton&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;submit&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">cancelButton&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span>&lt;span class="o">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">.&lt;/span>&lt;span class="na">toLeftOf&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">submitButton&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">submitButton&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;submit&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cancelButton&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">toLeftOf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">submitButton&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="to-the-right-of">To the Right Of&lt;/h3>
 &lt;p>现在我们将考虑相反的情况，我们希望找到「取消」按钮右侧的元素。&lt;/p>
@@ -4167,10 +4167,10 @@ data-flex-basis="240px"
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span> &lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="o">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">cancelButton&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;cancel&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">submitButton&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span>&lt;span class="o">)).&lt;/span>&lt;span class="na">toRightOf&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">cancelButton&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cancelButton&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;cancel&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">submitButton&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;button&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">toRightOf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cancelButton&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="near">Near&lt;/h3>
 &lt;p>上文「适应 DOM 的变化」从何而来？我觉得 &lt;code>near&lt;/code> function 是个非常重要的体现，它允许我们通过一定的规则指定所选取的元素周围 &lt;code>50px&lt;/code> 以内的其他元素。小伙伴们首先想到什么？欸嘿我不说。官方文档中这一句不起眼的描述，可能在未来，成为万千依靠 Selenium 工作的工程师们实现财富自由的垫脚石。&lt;/p>
@@ -4206,10 +4206,10 @@ data-flex-basis="240px"
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span> &lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="o">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">emailAddressLabel&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;lbl-email&amp;#34;&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">WebElement&lt;/span> &lt;span class="n">emailAddressField&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">driver&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="s">&amp;#34;input&amp;#34;&lt;/span>&lt;span class="o">)).&lt;/span>&lt;span class="na">near&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="n">emailAddressLabel&lt;/span>&lt;span class="o">));&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-java" data-lang="java">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import static&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nn">org.openqa.selenium.support.locators.RelativeLocator.with&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">emailAddressLabel&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;lbl-email&amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="n">WebElement&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">emailAddressField&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">driver&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">findElement&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">with&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">By&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="na">tagName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;input&amp;#34;&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="na">near&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">emailAddressLabel&lt;/span>&lt;span class="p">));&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h2 id="enhancement">Enhancement&lt;/h2>
 &lt;p>如果你使用 &lt;a class="link" href="https://www.mozilla.org/en-GB/firefox/new/" target="_blank" rel="noopener"
@@ -4482,8 +4482,8 @@ data-flex-basis="240px"
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="l">https://github.com/QIN2DIM/V2RayCloudSpider/releases/download/v4.5.4/v2rss_4.5.4_Windows-64bit.zip&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;figure>&lt;img src="image-20211007151926050.png"
-alt="无代理直连下载"/>&lt;figcaption>
+&lt;/div>&lt;figure>&lt;img src="https://blog.echosec.top/p/resources-transfer/image-20211007151926050.png"
+alt="无代理直连下载">&lt;figcaption>
 &lt;p>无代理直连下载&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
@@ -4496,8 +4496,8 @@ alt="无代理直连下载"/>&lt;figcaption>
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="l">https://curly-shape-d178.qinse.workers.dev/https://github.com/QIN2DIM/V2RayCloudSpider/releases/download/v4.5.4/v2rss_4.5.4_Windows-64bit.zip&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;figure>&lt;img src="image-20211007152042536.png"
-alt="反向代理加速下载"/>&lt;figcaption>
+&lt;/div>&lt;figure>&lt;img src="https://blog.echosec.top/p/resources-transfer/image-20211007152042536.png"
+alt="反向代理加速下载">&lt;figcaption>
 &lt;p>反向代理加速下载&lt;/p>
 &lt;/figcaption>
 &lt;/figure>
