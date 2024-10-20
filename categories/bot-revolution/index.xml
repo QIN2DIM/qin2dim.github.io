@@ -1,4 +1,190 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bot Revolution on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/bot-revolution/</link><description>Recent content in Bot Revolution on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 01 Oct 2023 12:17:13 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/bot-revolution/index.xml" rel="self" type="application/rss+xml"/><item><title>Crazy Claude: Legends of the Nautical Age</title><link>https://blog.echosec.top/p/crazy-claude/</link><pubDate>Sun, 01 Oct 2023 12:17:13 +0800</pubDate><guid>https://blog.echosec.top/p/crazy-claude/</guid><description>&lt;img src="https://blog.echosec.top/p/crazy-claude/abrar-khan.jpg" alt="Featured image of post Crazy Claude: Legends of the Nautical Age" />&lt;h2 id="demo">Demo&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bot Revolution on Echosec @QIN2DIM</title><link>https://blog.echosec.top/categories/bot-revolution/</link><description>Recent content in Bot Revolution on Echosec @QIN2DIM</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 21 Oct 2024 02:19:17 +0800</lastBuildDate><atom:link href="https://blog.echosec.top/categories/bot-revolution/index.xml" rel="self" type="application/rss+xml"/><item><title>选择大于努力？从社会学视角聊一聊决策因子模型</title><link>https://blog.echosec.top/p/%E9%80%89%E6%8B%A9%E5%A4%A7%E4%BA%8E%E5%8A%AA%E5%8A%9B%E4%BB%8E%E7%A4%BE%E4%BC%9A%E5%AD%A6%E8%A7%86%E8%A7%92%E8%81%8A%E4%B8%80%E8%81%8A%E5%86%B3%E7%AD%96%E5%9B%A0%E5%AD%90%E6%A8%A1%E5%9E%8B/</link><pubDate>Mon, 21 Oct 2024 02:19:17 +0800</pubDate><guid>https://blog.echosec.top/p/%E9%80%89%E6%8B%A9%E5%A4%A7%E4%BA%8E%E5%8A%AA%E5%8A%9B%E4%BB%8E%E7%A4%BE%E4%BC%9A%E5%AD%A6%E8%A7%86%E8%A7%92%E8%81%8A%E4%B8%80%E8%81%8A%E5%86%B3%E7%AD%96%E5%9B%A0%E5%AD%90%E6%A8%A1%E5%9E%8B/</guid><description>&lt;img src="https://r2-datalake.echosec.top/blog-obs/2024/10/ef965488cee6b2c7a0d02ecd9b2d77c8.jpg" alt="Featured image of post 选择大于努力？从社会学视角聊一聊决策因子模型" />&lt;h2 id="preview">Preview&lt;/h2>
+&lt;p>根据以及2024年当代中国的社会环境和未来趋势，我们将为模型中的各个变量赋予不同的权重，并通过更复杂的表达式来体现这些因素之间的复杂关系。&lt;/p>
+&lt;p>首先，标记各个变量，以便于公式表达：&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>认知（C）&lt;/strong>：对自身能力、兴趣、价值观的了解，以及对不同教育和职业路径的认知水平。&lt;/li>
+&lt;li>&lt;strong>个人兴趣（I）&lt;/strong>：个人对某些学科、行业或职业的兴趣和热情。&lt;/li>
+&lt;li>&lt;strong>家庭影响（F）&lt;/strong>：父母和家庭成员的期望、建议和价值观。&lt;/li>
+&lt;li>&lt;strong>同辈影响（P）&lt;/strong>：朋友、同学和同龄人的选择和意见。&lt;/li>
+&lt;li>&lt;strong>社会期望（S）&lt;/strong>：社会和文化对某些职业或教育路径的认可程度，以及由此产生的社会压力。&lt;/li>
+&lt;li>&lt;strong>经济因素（E）&lt;/strong>：个人和家庭的经济状况，包括学费、生活成本和未来薪资预期。&lt;/li>
+&lt;li>&lt;strong>个性特质（T）&lt;/strong>：风险偏好、开放性、自主性等性格特征。&lt;/li>
+&lt;li>&lt;strong>职业目标（G）&lt;/strong>：个人对未来职业发展的规划和目标。&lt;/li>
+&lt;li>&lt;strong>信息获取（M）&lt;/strong>：个人获取和处理有关教育、职业和市场信息的能力。&lt;/li>
+&lt;li>&lt;strong>环境因素（W）&lt;/strong>：宏观经济形势、就业市场趋势、政策变化等外部因素。&lt;/li>
+&lt;/ol>
+&lt;h2 id="2024年中国社会背景的考虑">2024年中国社会背景的考虑&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>经济形势&lt;/strong>：随着全球经济的不确定性增加，就业市场竞争激烈，稳定的工作更加受到青睐。&lt;/li>
+&lt;li>&lt;strong>科技发展&lt;/strong>：人工智能、大数据等新兴技术领域发展迅速，对相关专业人才的需求增加。&lt;/li>
+&lt;li>&lt;strong>政策导向&lt;/strong>：国家对某些行业（如科技创新、环保、教育）的支持力度加大。&lt;/li>
+&lt;li>&lt;strong>社会价值观&lt;/strong>：对“成功”的定义多元化，但传统观念仍占主导，如追求稳定、体面的工作。&lt;/li>
+&lt;/ul>
+&lt;h2 id="公式的改进">公式的改进&lt;/h2>
+&lt;p>为了体现各个因素的不同重要性和它们之间的复杂关系，我们可以使用加权的多元非线性模型。例如：&lt;/p>
+&lt;p>&lt;strong>决策指数（D） = f(C, I, F, P, S, E, T, G, M, W)&lt;/strong>&lt;/p>
+&lt;p>将函数 &lt;strong>f&lt;/strong> 定义为：&lt;/p>
+$$
+A = (\alpha_1C^{\beta_1} + \alpha_2I^{\beta_2} + \alpha_3F^{\beta_3} + \alpha_4P^{\beta_4} + \alpha_5S^{\beta_5})
+$$
+$$
+B = (\alpha_6E^{\beta_6} + \alpha_7T^{\beta_7} + \alpha_8G^{\beta_8} + \alpha_9M^{\beta_9} + \alpha_{10}W^{\beta_{10}})
+$$
+$$
+D = A \times B
+$$
+&lt;p>该模型分为两个部分，分别代表个人内在因素和外在因素的综合影响，两部分相乘以体现内外因素的交互作用。&lt;/p>
+&lt;h2 id="赋予权重和指数">赋予权重和指数&lt;/h2>
+&lt;p>根据2024年的社会背景，我们可以为各个变量赋予以下权重（α）和指数（β）：&lt;/p>
+&lt;h3 id="内在因素部分inherent-factors">内在因素部分（Inherent Factors）&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>认知（C）&lt;/strong>：α₁ = 0.18，β₁ = 1.2&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：在复杂的环境中，认知能力尤为重要，能更好地应对变化。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>个人兴趣（I）&lt;/strong>：α₂ = 0.12，β₂ = 1.0&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：兴趣仍是动力源，但可能受到现实因素的制约。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>家庭影响（F）&lt;/strong>：α₃ = 0.25，β₃ = 1.5&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：家庭在决策中具有重大影响，特别是在中国文化中。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>同辈影响（P）&lt;/strong>：α₄ = 0.10，β₄ = 0.8&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：同辈影响存在，但相对其它因素影响略小。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>社会期望（S）&lt;/strong>：α₅ = 0.20，β₅ = 1.3&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：社会对成功的定义影响个体选择，如追求稳定工作。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="外在因素部分external-factors">外在因素部分（External Factors）&lt;/h3>
+&lt;ol start="6">
+&lt;li>
+&lt;p>&lt;strong>经济因素（E）&lt;/strong>：α₆ = 0.30，β₆ = 1.4&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：经济状况对决策有直接且强烈的影响。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>个性特质（T）&lt;/strong>：α₇ = 0.08，β₇ = 0.9&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：个性特质影响决策，但可能被外部因素压制。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>职业目标（G）&lt;/strong>：α₈ = 0.15，β₈ = 1.1&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：明确的职业目标有助于决策，但需结合现实考虑。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>信息获取（M）&lt;/strong>：α₉ = 0.20，β₉ = 1.2&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：获取有效信息的能力在复杂环境中至关重要。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>环境因素（W）&lt;/strong>：α₁₀ = 0.25，β₁₀ = 1.5&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>理由&lt;/strong>：宏观环境的变化对个人决策有深远影响。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="公式的完整表达">公式的完整表达&lt;/h2>
+$$
+A = (0.18C^{1.2} + 0.12I + 0.25F^{1.5} + 0.10P^{0.8} + 0.20S^{1.3})
+$$
+$$
+B = (0.30E^{1.4} + 0.08T^{0.9} + 0.15G^{1.1} + 0.20M^{1.2} + 0.25W^{1.5})
+$$
+$$
+D = A \times B
+$$
+&lt;h3 id="解释">解释&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>指数（β）&lt;/strong>：反映了每个因素对决策的敏感度。指数大于1表示该因素的影响是加速的，变化带来的影响更大；指数小于1表示影响相对平缓。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>权重（α）&lt;/strong>：表示了各因素的重要性，权重越大，影响越显著。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>内在因素与外在因素相乘&lt;/strong>：体现了个人因素与环境因素的交互作用。例如，即使个人能力和兴趣很高，如果外部经济环境不佳，决策也会受到影响。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="模型的解读">模型的解读&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>家庭影响（F）和环境因素（W）具有最高的指数和较大的权重&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>家庭影响（F）&lt;/strong>：强调了家庭在职业生涯决策中的主导作用，尤其在中国社会，家庭期望可能对个人选择产生决定性影响。&lt;/li>
+&lt;li>&lt;strong>环境因素（W）&lt;/strong>：宏观环境，如政策变化、行业趋势，对个人的机会和选择空间有重大影响。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>经济因素（E）和社会期望（S）影响显著&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>经济因素（E）&lt;/strong>：经济状况可能限制或扩大可选项，例如是否能承担留学费用，是否需要尽快就业。&lt;/li>
+&lt;li>&lt;strong>社会期望（S）&lt;/strong>：社会对某些职业的认可度可能影响个人对职业的偏好。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>认知（C）和信息获取（M）是关键能力&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>认知（C）&lt;/strong>：在复杂的环境中，理解自身和外部世界的能力有助于做出理性的决策。&lt;/li>
+&lt;li>&lt;strong>信息获取（M）&lt;/strong>：获取并处理有效信息的能力可以帮助个人抓住机遇，避开风险。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>个人兴趣（I）和个性特质（T）有一定影响，但可能受到其他因素的制约&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>在现实压力和外部环境下，个人兴趣和性格可能不得不让位于更实际的考量。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>同辈影响（P）影响相对较小&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>尽管朋友和同学的意见重要，但在重大决策时，家庭和社会的影响更为显著。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="实际应用">实际应用&lt;/h3>
+&lt;p>这个模型可以用于分析27岁以下的中国年轻人在职业生涯规划中的决策过程。通过调整各个变量的数值，可以模拟不同情况下的决策倾向。例如：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>如果家庭强烈建议考公务员&lt;/strong>，那么F的值会很高，导致整个决策指数偏向于稳定工作的选择。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>如果个人对新兴科技行业有浓厚兴趣且信息获取能力强&lt;/strong>，I和M的值高，会提高选择相关领域的可能性。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>在经济下行的情况下&lt;/strong>，E和W的值可能会降低，影响到总体决策指数，导致更多人选择继续深造或寻找稳定工作。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="注意事项">注意事项&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>模型的参数需要根据实际数据进行校准&lt;/strong>：上述权重和指数是基于一般性的推断，实际应用中应结合调查和统计数据进行调整。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>模型的预测性有限&lt;/strong>：人的决策受到诸多不可预测的因素影响，模型只能提供一种框架，不能完全准确地预测个人行为。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>以上内容由 &lt;code>o1-preview&lt;/code> 模型在简单引导下全篇生成。&lt;/p>
+&lt;/blockquote></description></item><item><title>Crazy Claude: Legends of the Nautical Age</title><link>https://blog.echosec.top/p/crazy-claude/</link><pubDate>Sun, 01 Oct 2023 12:17:13 +0800</pubDate><guid>https://blog.echosec.top/p/crazy-claude/</guid><description>&lt;img src="https://blog.echosec.top/p/crazy-claude/abrar-khan.jpg" alt="Featured image of post Crazy Claude: Legends of the Nautical Age" />&lt;h2 id="demo">Demo&lt;/h2>
 &lt;div class="video-wrapper">
 &lt;video
 controls
