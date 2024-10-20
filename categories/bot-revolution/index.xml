@@ -182,9 +182,10 @@ $$
 &lt;p>&lt;strong>模型的预测性有限&lt;/strong>：人的决策受到诸多不可预测的因素影响，模型只能提供一种框架，不能完全准确地预测个人行为。&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;blockquote>
-&lt;p>以上内容由 &lt;code>o1-preview&lt;/code> 模型在简单引导下全篇生成。&lt;/p>
-&lt;/blockquote></description></item><item><title>Crazy Claude: Legends of the Nautical Age</title><link>https://blog.echosec.top/p/crazy-claude/</link><pubDate>Sun, 01 Oct 2023 12:17:13 +0800</pubDate><guid>https://blog.echosec.top/p/crazy-claude/</guid><description>&lt;img src="https://blog.echosec.top/p/crazy-claude/abrar-khan.jpg" alt="Featured image of post Crazy Claude: Legends of the Nautical Age" />&lt;h2 id="demo">Demo&lt;/h2>
+&lt;hr>
+$$
+以上内容由 \textit{OpenAI o1-preview} 全篇生成
+$$</description></item><item><title>Crazy Claude: Legends of the Nautical Age</title><link>https://blog.echosec.top/p/crazy-claude/</link><pubDate>Sun, 01 Oct 2023 12:17:13 +0800</pubDate><guid>https://blog.echosec.top/p/crazy-claude/</guid><description>&lt;img src="https://blog.echosec.top/p/crazy-claude/abrar-khan.jpg" alt="Featured image of post Crazy Claude: Legends of the Nautical Age" />&lt;h2 id="demo">Demo&lt;/h2>
 &lt;div class="video-wrapper">
 &lt;video
 controls
